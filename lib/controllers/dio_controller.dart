@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'alice_controller.dart';
 import 'logger_controller.dart';
 
-class NetworkController extends GetxController {
+class DioController extends GetxController {
   /// ------------------------
   /// DEPENDENCIES
   /// ------------------------
@@ -42,9 +42,4 @@ class NetworkController extends GetxController {
       Get.find<AliceController>().alice.getDioInterceptor(),
     );
   }
-
-  /// ------------------------
-  /// METHODS
-  /// ------------------------
-
 }
