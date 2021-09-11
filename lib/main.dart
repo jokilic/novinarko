@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'bindings/global_binding.dart';
@@ -17,12 +18,14 @@ void main() {
 
 class NovinarkoApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => GetMaterialApp(
-        title: 'Novinarko',
-        navigatorKey: Get.find<AliceController>().alice.getNavigatorKey(),
-        theme: theme,
-        initialBinding: GlobalBinding(),
-        initialRoute: HomeScreen.routeName,
-        getPages: pages,
+  Widget build(BuildContext context) => ScreenUtilInit(
+        builder: () => GetMaterialApp(
+          title: 'Novinarko',
+          navigatorKey: Get.find<AliceController>().alice.getNavigatorKey(),
+          theme: theme,
+          initialBinding: GlobalBinding(),
+          initialRoute: HomeScreen.routeName,
+          getPages: pages,
+        ),
       );
 }
