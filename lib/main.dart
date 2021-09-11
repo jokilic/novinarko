@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-void main() => runApp(NovinarkoApp());
+import 'bindings/global_binding.dart';
+import 'controllers/alice_controller.dart';
+import 'controllers/logger_controller.dart';
+import 'pages.dart';
+import 'screens/home/home_screen.dart';
+import 'theme.dart';
+
+void main() {
+  Get
+    ..put(AliceController())
+    ..put(LoggerController());
+  runApp(NovinarkoApp());
+}
 
 class NovinarkoApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) => GetMaterialApp(
         title: 'Novinarko',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
-        home: HomeScreen(),
-      );
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => const Center(
-        child: Text('Hello there'),
+        navigatorKey: Get.find<AliceController>().alice.getNavigatorKey(),
+        theme: theme,
+        initialBinding: GlobalBinding(),
+        initialRoute: HomeScreen.routeName,
+        getPages: pages,
       );
 }
