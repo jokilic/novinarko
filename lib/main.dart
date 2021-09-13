@@ -7,6 +7,7 @@ import 'controllers/alice_controller.dart';
 import 'controllers/logger_controller.dart';
 import 'pages.dart';
 import 'screens/home/home_screen.dart';
+import 'strings.dart';
 import 'theme.dart';
 
 void main() {
@@ -25,6 +26,9 @@ class NovinarkoApp extends StatelessWidget {
           theme: theme,
           initialBinding: GlobalBinding(),
           initialRoute: HomeScreen.routeName,
+          translations: Strings(),
+          locale: Get.deviceLocale,
+          fallbackLocale: const Locale('en_US'),
           getPages: pages,
         ),
       );

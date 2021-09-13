@@ -16,7 +16,8 @@ class Responsive extends StatelessWidget {
   static const int desktopBreakpoint = 1100;
 
   static final bool isMobile = Get.width < mobileBreakpoint;
-  static final bool isTablet = Get.width < desktopBreakpoint && Get.width >= mobileBreakpoint;
+  static final bool isTablet =
+      Get.width < desktopBreakpoint && Get.width >= mobileBreakpoint;
   static final bool isDesktop = Get.width >= desktopBreakpoint;
 
   @override

@@ -42,4 +42,21 @@ class DioController extends GetxController {
       Get.find<AliceController>().alice.getDioInterceptor(),
     );
   }
+
+  /// ------------------------
+  /// METHODS
+  /// ------------------------
+
+  Future<dynamic> getURL(String url) async {
+    try {
+      final response = await dio.get(url);
+      final data = response.data;
+
+      loggerController.logger.i(data);
+      return data;
+    } catch (e) {
+      loggerController.logger.e('$url\nGET\n$e');
+      return null;
+    }
+  }
 }
