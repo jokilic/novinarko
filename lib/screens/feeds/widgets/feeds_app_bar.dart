@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
@@ -10,6 +11,15 @@ import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 
 class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
+  /// Plays the `boom-baby` sound when long pressing the [Novinarko] icon
+  Future<void> playSound() async {
+    final player = AudioPlayer();
+    await player.setAsset(
+      'assets/audio/boom.wav',
+    );
+    await player.play();
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = watchIt<ThemeService>().value == NovinarkoTheme.dark;
@@ -39,7 +49,7 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
               ),
               const Spacer(),
               FeedsAppBarTextIcon(
-                onPressed: () {},
+                onLongPress: playSound,
               ),
             ],
           ),
@@ -97,10 +107,10 @@ class FeedsAppBarBack extends StatelessWidget {
 }
 
 class FeedsAppBarTextIcon extends StatelessWidget {
-  final Function() onPressed;
+  final Function() onLongPress;
 
   const FeedsAppBarTextIcon({
-    required this.onPressed,
+    required this.onLongPress,
   });
 
   @override
@@ -111,24 +121,23 @@ class FeedsAppBarTextIcon extends StatelessWidget {
             style: context.textStyles.feedsNovinarko,
           ),
           const SizedBox(width: 12),
-          IconButton(
-            onPressed: onPressed,
-            style: IconButton.styleFrom(
-              padding: EdgeInsets.zero,
-              highlightColor: context.colors.primary.withOpacity(0.6),
-              fixedSize: const Size(48, 48),
-              shape: const CircleBorder(),
-              side: BorderSide(
-                color: context.colors.background,
-              ),
-            ),
-            icon: Center(
-              child: ClipOval(
-                child: Image.asset(
-                  NovinarkoIcons.icon,
-                  fit: BoxFit.cover,
-                  height: 48,
-                  width: 48,
+          GestureDetector(
+            onLongPress: onLongPress,
+            child: Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.red,
+                  ),
+                ),
+                child: ClipOval(
+                  child: Image.asset(
+                    NovinarkoIcons.icon,
+                    fit: BoxFit.cover,
+                    height: 48,
+                    width: 48,
+                  ),
                 ),
               ),
             ),
