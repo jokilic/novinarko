@@ -1,6 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_browser/flutter_web_browser.dart';
 
+import '../models/novinarko_rss_item.dart';
+import '../theme/theme.dart';
 import 'circular_transition_clipper.dart';
+
+void openRssInBrowser({
+  required BuildContext context,
+  required NovinarkoRssItem item,
+}) {
+  final url = item.link ?? item.guid;
+
+  if (url != null) {
+    FlutterWebBrowser.openWebPage(
+      url: url,
+      customTabsOptions: CustomTabsOptions(
+        defaultColorSchemeParams: CustomTabsColorSchemeParams(
+          toolbarColor: context.colors.background,
+          navigationBarColor: context.colors.background,
+          secondaryToolbarColor: context.colors.background,
+          navigationBarDividerColor: context.colors.background,
+        ),
+        showTitle: true,
+        urlBarHidingEnabled: true,
+      ),
+      safariVCOptions: SafariViewControllerOptions(
+        barCollapsingEnabled: true,
+        preferredBarTintColor: context.colors.background,
+        preferredControlTintColor: context.colors.text,
+        dismissButtonStyle: SafariViewControllerDismissButtonStyle.close,
+        modalPresentationCapturesStatusBarAppearance: true,
+      ),
+    );
+  }
+}
 
 Future<T?> pushScreen<T>(
   Widget screen, {

@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_web_browser/flutter_web_browser.dart';
 
 import '../../../constants.dart';
 import '../../../models/novinarko_rss_feed.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
+import '../../../util/navigation.dart';
 import '../../../util/parsing.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../news_controller.dart';
@@ -86,32 +86,10 @@ class NewsResult extends StatelessWidget {
                       ),
                     ],
                     child: NewsListTile(
-                      onPressed: () {
-                        final url = item.link ?? item.guid;
-
-                        if (url != null) {
-                          FlutterWebBrowser.openWebPage(
-                            url: url,
-                            customTabsOptions: CustomTabsOptions(
-                              defaultColorSchemeParams: CustomTabsColorSchemeParams(
-                                toolbarColor: context.colors.background,
-                                navigationBarColor: context.colors.background,
-                                secondaryToolbarColor: context.colors.background,
-                                navigationBarDividerColor: context.colors.background,
-                              ),
-                              showTitle: true,
-                              urlBarHidingEnabled: true,
-                            ),
-                            safariVCOptions: SafariViewControllerOptions(
-                              barCollapsingEnabled: true,
-                              preferredBarTintColor: context.colors.background,
-                              preferredControlTintColor: context.colors.text,
-                              dismissButtonStyle: SafariViewControllerDismissButtonStyle.close,
-                              modalPresentationCapturesStatusBarAppearance: true,
-                            ),
-                          );
-                        }
-                      },
+                      onPressed: () => openRssInBrowser(
+                        context: context,
+                        item: item,
+                      ),
                       title: item.title ?? '',
                       favicon: item.favicon,
                       feedTitle: item.feedTitle,

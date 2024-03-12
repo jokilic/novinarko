@@ -7,6 +7,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
+import '../../../routing.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 
@@ -48,9 +49,12 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
                 onPressed: Navigator.of(context).pop,
               ),
               const Spacer(),
-              FeedsAppBarTextIcon(
-                onLongPress: playSound,
+              FeedsAppBarSettings(
+                onPressed: () => openSettings(context),
               ),
+              // FeedsAppBarTextIcon(
+              //   onLongPress: playSound,
+              // ),
             ],
           ),
         ),
@@ -97,6 +101,36 @@ class FeedsAppBarBack extends StatelessWidget {
         icon: Center(
           child: Image.asset(
             NovinarkoIcons.back,
+            fit: BoxFit.cover,
+            color: context.colors.background,
+            height: 20,
+            width: 20,
+          ),
+        ),
+      );
+}
+
+class FeedsAppBarSettings extends StatelessWidget {
+  final Function() onPressed;
+
+  const FeedsAppBarSettings({
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) => IconButton(
+        onPressed: onPressed,
+        style: IconButton.styleFrom(
+          highlightColor: context.colors.primary.withOpacity(0.6),
+          fixedSize: const Size(48, 48),
+          shape: const CircleBorder(),
+          side: BorderSide(
+            color: context.colors.background,
+          ),
+        ),
+        icon: Center(
+          child: Image.asset(
+            NovinarkoIcons.settings,
             fit: BoxFit.cover,
             color: context.colors.background,
             height: 20,

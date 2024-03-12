@@ -11,7 +11,6 @@ import '../../../services/active_feed_service.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
-import '../../../util/dependencies.dart';
 import '../../../util/parsing.dart';
 import '../../../util/snackbars.dart';
 import '../../../widgets/novinarko_network_image.dart';
@@ -64,7 +63,7 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
                 favicon: getFeedIcon(activeFeed.value),
                 feedTitle: getFeedTitle(activeFeed.value).substring(0, 2),
                 hasActiveFeed: activeFeed.value != null,
-                onPressed: getIt.get<ThemeService>().updateTheme,
+                onPressed: () {},
               ),
               const SizedBox(width: 40),
               Expanded(

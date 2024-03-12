@@ -26,23 +26,15 @@ class ThemeService extends ValueNotifier<ThemeData> {
         NovinarkoThemeEnum.sepia => NovinarkoTheme.sepia,
       };
 
-  Future<void> updateTheme() async {
-    /// Theme is `light`, switch to `dark`
-    if (value == NovinarkoTheme.light) {
-      value = NovinarkoTheme.dark;
-      await hive.storeThemeEnum(NovinarkoThemeEnum.dark);
-    }
+  Future<void> updateTheme(ThemeData newTheme) async {
+    value = newTheme;
 
-    /// Theme is `dark`, switch to `sepia`
-    else if (value == NovinarkoTheme.dark) {
-      value = NovinarkoTheme.sepia;
-      await hive.storeThemeEnum(NovinarkoThemeEnum.sepia);
-    }
-
-    /// Theme is `sepia`, switch to `light`
-    else if (value == NovinarkoTheme.sepia) {
-      value = NovinarkoTheme.light;
+    if (newTheme == NovinarkoTheme.light) {
       await hive.storeThemeEnum(NovinarkoThemeEnum.light);
+    } else if (newTheme == NovinarkoTheme.dark) {
+      await hive.storeThemeEnum(NovinarkoThemeEnum.dark);
+    } else if (newTheme == NovinarkoTheme.sepia) {
+      await hive.storeThemeEnum(NovinarkoThemeEnum.sepia);
     }
   }
 }
