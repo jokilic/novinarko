@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'screens/feeds/feeds_screen.dart';
+import 'screens/info/info_screen.dart';
 import 'screens/search/search_screen.dart';
 import 'screens/settings/settings_screen.dart';
 import 'util/navigation.dart';
@@ -21,5 +22,11 @@ void openSearch(BuildContext context) => pushScreen(
 /// Opens [SettingsScreen]
 void openSettings(BuildContext context) => pushScreen(
       SettingsScreen(),
+      context: context,
+    );
+
+/// Opens [InfoScreen]
+void openInfo(BuildContext context) => pushScreen(
+      InfoScreen(),
       context: context,
     );

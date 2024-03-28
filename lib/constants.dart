@@ -39,5 +39,6 @@ class NovinarkoIcons {
   static const noSearch = 'assets/icons/no_search.png';
   static const search = 'assets/icons/search.png';
   static const settings = 'assets/icons/settings.png';
+  static const info = 'assets/icons/info.png';
   static const icon = 'assets/icon.png';
 }

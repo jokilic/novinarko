@@ -8,7 +8,7 @@ import '../../../constants.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 
-class SettingsAppBar extends WatchingWidget implements PreferredSizeWidget {
+class InfoAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = watchIt<ThemeService>().value == NovinarkoTheme.dark;
@@ -32,12 +32,12 @@ class SettingsAppBar extends WatchingWidget implements PreferredSizeWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SettingsAppBarBack(
+              InfoAppBarBack(
                 onPressed: Navigator.of(context).pop,
               ),
-              const SettingsTitle(
+              const InfoTitle(
                 // TODO: Localize
-                title: 'Settings',
+                title: 'Info',
               ),
               const SizedBox(width: 48),
             ],
@@ -65,10 +65,10 @@ class SettingsAppBar extends WatchingWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 32);
 }
 
-class SettingsAppBarBack extends StatelessWidget {
+class InfoAppBarBack extends StatelessWidget {
   final Function() onPressed;
 
-  const SettingsAppBarBack({
+  const InfoAppBarBack({
     required this.onPressed,
   });
 
@@ -95,10 +95,10 @@ class SettingsAppBarBack extends StatelessWidget {
       );
 }
 
-class SettingsTitle extends StatelessWidget {
+class InfoTitle extends StatelessWidget {
   final String title;
 
-  const SettingsTitle({
+  const InfoTitle({
     required this.title,
   });
 

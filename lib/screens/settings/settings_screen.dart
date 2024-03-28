@@ -12,6 +12,7 @@ import 'widgets/settings_app_bar.dart';
 import 'widgets/settings_list_tile.dart';
 import 'widgets/settings_theme_widget.dart';
 
+// TODO: Localize
 class SettingsScreen extends StatefulWidget {
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
