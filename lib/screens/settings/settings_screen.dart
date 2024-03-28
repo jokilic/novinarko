@@ -6,6 +6,7 @@ import '../../services/theme_service.dart';
 import '../../theme/colors/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
+import '../../widgets/novinarko_checkbox.dart';
 import 'settings_controller.dart';
 import 'widgets/settings_app_bar.dart';
 import 'widgets/settings_list_tile.dart';
@@ -100,9 +101,8 @@ class SettingsWidget extends WatchingWidget {
                 onPressed: getIt.get<SettingsController>().inAppBrowserPressed,
                 title: 'In-app browser',
                 description: 'When opening feeds, open them with an internal browser',
-                rightWidget: Checkbox.adaptive(
+                rightWidget: NovinarkoCheckbox(
                   value: settings.useInAppBrowser,
-                  onChanged: (_) => getIt.get<SettingsController>().inAppBrowserPressed(),
                 ),
               ),
 
@@ -120,9 +120,8 @@ class SettingsWidget extends WatchingWidget {
                 onPressed: getIt.get<SettingsController>().imagesInArticlesPressed,
                 title: 'Images in articles',
                 description: "Show images above article text (some articles don't have images)",
-                rightWidget: Checkbox.adaptive(
+                rightWidget: NovinarkoCheckbox(
                   value: settings.useImagesInArticles,
-                  onChanged: (_) => getIt.get<SettingsController>().imagesInArticlesPressed(),
                 ),
               ),
             ],

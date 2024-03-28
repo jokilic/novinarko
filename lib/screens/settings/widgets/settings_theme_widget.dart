@@ -21,6 +21,7 @@ class SettingsThemeWidget extends StatelessWidget {
           backgroundColor: color,
           side: BorderSide(
             color: context.colors.text,
+            width: 1.5,
           ),
         ),
         icon: const SizedBox.shrink(),

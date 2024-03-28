@@ -41,7 +41,7 @@ class SettingsListTile extends StatelessWidget {
                       style: context.textStyles.newsTitle,
                     ),
 
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 8),
 
                     /// Description
                     if (description != null)
