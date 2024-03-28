@@ -5,21 +5,25 @@ import '../../../widgets/novinarko_network_image.dart';
 
 class NewsListTile extends StatelessWidget {
   final Function() onPressed;
+  final String? imageUrl;
   final String title;
   final String? favicon;
   final String? feedTitle;
   final String? cleanDescription;
   final String? cleanDate;
   final bool showTrailingIcon;
+  final bool showImages;
 
   const NewsListTile({
     required this.onPressed,
+    required this.imageUrl,
     required this.title,
     required this.favicon,
     required this.feedTitle,
     required this.cleanDescription,
     required this.cleanDate,
     required this.showTrailingIcon,
+    required this.showImages,
   });
 
   @override
@@ -33,6 +37,31 @@ class NewsListTile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ///
+              /// Image
+              ///
+              if (imageUrl != null && showImages) ...[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: NovinarkoNetworkImage(
+                    imageUrl: imageUrl!,
+                    height: 120,
+                    width: double.infinity,
+                    placeholderWidget: Container(
+                      height: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: context.colors.text,
+                        ),
+                      ),
+                    ),
+                    errorWidget: const SizedBox.shrink(),
+                  ),
+                ),
+                const SizedBox(height: 8),
+              ],
+
               ///
               /// Title, date & time
               ///

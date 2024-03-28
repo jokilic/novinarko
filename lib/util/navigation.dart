@@ -5,7 +5,7 @@ import '../models/novinarko_rss_item.dart';
 import '../theme/theme.dart';
 import 'circular_transition_clipper.dart';
 
-void openRssInBrowser({
+void openRssExternalBrowser({
   required BuildContext context,
   required NovinarkoRssItem item,
 }) {

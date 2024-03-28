@@ -16,10 +16,12 @@ import 'news_list_tile.dart';
 class NewsResult extends StatelessWidget {
   final ({NovinarkoRssFeed? rssFeed, String? error}) result;
   final bool showTrailingIcon;
+  final bool showImages;
 
   const NewsResult({
     required this.result,
     required this.showTrailingIcon,
+    required this.showImages,
   });
 
   @override
@@ -86,16 +88,18 @@ class NewsResult extends StatelessWidget {
                       ),
                     ],
                     child: NewsListTile(
-                      onPressed: () => openRssInBrowser(
+                      onPressed: () => openRssExternalBrowser(
                         context: context,
                         item: item,
                       ),
+                      imageUrl: item.imageUrl,
                       title: item.title ?? '',
                       favicon: item.favicon,
                       feedTitle: item.feedTitle,
                       cleanDescription: cleanDescription,
                       cleanDate: cleanDate,
                       showTrailingIcon: showTrailingIcon,
+                      showImages: showImages,
                     ),
                   );
                 },

@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import '../models/feed_search_model.dart';
+import '../models/novinarko_settings.dart';
 import '../models/novinarko_theme_enum.dart';
 import 'logger_service.dart';
 
@@ -19,7 +20,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
 
   late final Box<FeedSearchModel> feedBox;
   late final Box<FeedSearchModel> activeFeedBox;
-  late final Box<NovinarkoThemeEnum> themeBox;
+  late final Box<NovinarkoSettings> settingsBox;
 
   ///
   /// INIT
@@ -30,11 +31,12 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
 
     Hive
       ..registerAdapter(FeedSearchModelAdapter())
-      ..registerAdapter(NovinarkoThemeEnumAdapter());
+      ..registerAdapter(NovinarkoThemeEnumAdapter())
+      ..registerAdapter(NovinarkoSettingsAdapter());
 
     feedBox = await Hive.openBox<FeedSearchModel>('feedBox');
     activeFeedBox = await Hive.openBox<FeedSearchModel>('activeFeedBox');
-    themeBox = await Hive.openBox<NovinarkoThemeEnum>('themeBox');
+    settingsBox = await Hive.openBox<NovinarkoSettings>('settingsBox');
 
     value = getFeeds();
   }
@@ -47,7 +49,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   Future<void> onDispose() async {
     await feedBox.close();
     await activeFeedBox.close();
-    await themeBox.close();
+    await settingsBox.close();
     await Hive.close();
   }
 
@@ -86,12 +88,18 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   Future<void> deleteActiveFeed() async => activeFeedBox.clear();
 
   ///
-  /// THEME
+  /// SETTINGS
   ///
 
-  /// Gets `theme` value from [Hive]
-  NovinarkoThemeEnum getThemeEnum() => themeBox.get(0) ?? NovinarkoThemeEnum.light;
+  /// Gets `settings` value from [Hive]
+  NovinarkoSettings getSettings() =>
+      settingsBox.get(0) ??
+      NovinarkoSettings(
+        novinarkoThemeEnum: NovinarkoThemeEnum.light,
+        useInAppBrowser: true,
+        useImagesInArticles: false,
+      );
 
-  /// Stores a new `theme` value in [Hive]
-  Future<void> storeThemeEnum(NovinarkoThemeEnum novinarkoThemeEnum) async => themeBox.put(0, novinarkoThemeEnum);
+  /// Stores a new `settings` value in [Hive]
+  Future<void> storeSettings(NovinarkoSettings novinarkoSettings) async => settingsBox.put(0, novinarkoSettings);
 }

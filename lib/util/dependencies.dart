@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 
 import '../screens/news/news_controller.dart';
 import '../screens/search/search_controller.dart';
+import '../screens/settings/settings_controller.dart';
 import '../services/active_feed_service.dart';
 import '../services/api_service.dart';
 import '../services/dio_service.dart';
@@ -66,4 +67,10 @@ void initializeControllers() => getIt
       hive: getIt.get<HiveService>(),
       activeFeedService: getIt.get<ActiveFeedService>(),
     )..init(),
+  )
+  ..registerLazySingleton(
+    () => SettingsController(
+      logger: getIt.get<LoggerService>(),
+      hive: getIt.get<HiveService>(),
+    ),
   );

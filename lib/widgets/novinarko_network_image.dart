@@ -7,9 +7,11 @@ class NovinarkoNetworkImage extends StatelessWidget {
   final Widget? errorWidget;
   final double? height;
   final double? width;
+  final BoxFit? boxFit;
 
   const NovinarkoNetworkImage({
     required this.imageUrl,
+    this.boxFit,
     this.placeholderWidget,
     this.errorWidget,
     this.height,
@@ -23,6 +25,6 @@ class NovinarkoNetworkImage extends StatelessWidget {
         errorWidget: errorWidget != null ? (_, __, ___) => errorWidget! : null,
         height: height,
         width: width,
-        fit: BoxFit.cover,
+        fit: boxFit ?? BoxFit.cover,
       );
 }

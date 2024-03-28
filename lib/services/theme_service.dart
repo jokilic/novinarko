@@ -20,7 +20,7 @@ class ThemeService extends ValueNotifier<ThemeData> {
   /// METHODS
   ///
 
-  ThemeData getThemeData() => switch (hive.getThemeEnum()) {
+  ThemeData getThemeData() => switch (hive.getSettings().novinarkoThemeEnum) {
         NovinarkoThemeEnum.light => NovinarkoTheme.light,
         NovinarkoThemeEnum.dark => NovinarkoTheme.dark,
         NovinarkoThemeEnum.sepia => NovinarkoTheme.sepia,
@@ -29,12 +29,20 @@ class ThemeService extends ValueNotifier<ThemeData> {
   Future<void> updateTheme(ThemeData newTheme) async {
     value = newTheme;
 
+    final settings = hive.getSettings();
+
     if (newTheme == NovinarkoTheme.light) {
-      await hive.storeThemeEnum(NovinarkoThemeEnum.light);
+      await hive.storeSettings(
+        settings.copyWith(novinarkoThemeEnum: NovinarkoThemeEnum.light),
+      );
     } else if (newTheme == NovinarkoTheme.dark) {
-      await hive.storeThemeEnum(NovinarkoThemeEnum.dark);
+      await hive.storeSettings(
+        settings.copyWith(novinarkoThemeEnum: NovinarkoThemeEnum.dark),
+      );
     } else if (newTheme == NovinarkoTheme.sepia) {
-      await hive.storeThemeEnum(NovinarkoThemeEnum.sepia);
+      await hive.storeSettings(
+        settings.copyWith(novinarkoThemeEnum: NovinarkoThemeEnum.sepia),
+      );
     }
   }
 }

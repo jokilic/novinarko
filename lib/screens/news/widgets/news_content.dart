@@ -9,9 +9,11 @@ import 'news_result.dart';
 
 class NewsContent extends StatelessWidget {
   final NewsState newsState;
+  final bool showImages;
 
   const NewsContent({
     required this.newsState,
+    required this.showImages,
   });
 
   @override
@@ -33,10 +35,12 @@ class NewsContent extends StatelessWidget {
         NewsStateSingleSuccess() => NewsResult(
             result: (newsState as NewsStateSingleSuccess).result,
             showTrailingIcon: false,
+            showImages: showImages,
           ),
         NewsStateAllSuccess() => NewsResult(
             result: (newsState as NewsStateAllSuccess).result,
             showTrailingIcon: true,
+            showImages: showImages,
           ),
       };
 }

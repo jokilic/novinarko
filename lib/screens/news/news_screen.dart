@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../services/hive_service.dart';
 import '../../util/dependencies.dart';
 import 'news_controller.dart';
 import 'widgets/news_app_bar.dart';
@@ -27,6 +28,7 @@ class NewsWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final newsState = watchIt<NewsController>().value;
+    final showImages = watchIt<HiveService>().getSettings().useImagesInArticles;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -41,6 +43,7 @@ class NewsWidget extends WatchingWidget {
         ],
         child: NewsContent(
           newsState: newsState,
+          showImages: showImages,
         ),
       ),
     );
