@@ -33,5 +33,4 @@ If you're not sure about it, typing simple words will first trigger a search for
 ## To-do
 
 - [ ] Add app browser & `ReaderScreen`
-- [ ] Remove titles and `shrinkWrap: true`
 - [ ] Finish `InfoScreen`
