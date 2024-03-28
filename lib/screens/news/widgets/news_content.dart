@@ -23,6 +23,7 @@ class NewsContent extends StatelessWidget {
             text: (newsState as NewsStateLoading).loadingStatus,
           ),
         NewsStateEmpty() => NovinarkoIconTextWidget(
+            arrowAlignment: Alignment.centerRight,
             icon: NovinarkoIcons.noNews,
             title: 'newsStateEmptyTitle'.tr(),
             subtitle: 'newsStateEmptySubtitle'.tr(),

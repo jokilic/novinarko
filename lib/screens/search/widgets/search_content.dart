@@ -20,6 +20,7 @@ class SearchContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) => switch (searchState) {
         SearchStateInitial() => NovinarkoIconTextWidget(
+            arrowAlignment: Alignment.center,
             icon: NovinarkoIcons.search,
             title: 'searchStateInitialTitle'.tr(),
             subtitle: 'searchStateInitialSubtitle'.tr(),
