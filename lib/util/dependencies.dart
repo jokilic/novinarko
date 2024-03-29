@@ -2,12 +2,12 @@ import 'package:get_it/get_it.dart';
 
 import '../screens/news/news_controller.dart';
 import '../screens/search/search_controller.dart';
-import '../screens/settings/settings_controller.dart';
 import '../services/active_feed_service.dart';
 import '../services/api_service.dart';
 import '../services/dio_service.dart';
 import '../services/hive_service.dart';
 import '../services/logger_service.dart';
+import '../services/settings_service.dart';
 import '../services/theme_service.dart';
 
 final getIt = GetIt.instance;
@@ -29,6 +29,7 @@ void initializeServices() => getIt
       await hive.init();
       return hive;
     },
+    dependsOn: [LoggerService],
   )
   ..registerSingleton(
     APIService(
@@ -37,18 +38,26 @@ void initializeServices() => getIt
     ),
   )
   ..registerSingletonAsync(
-    () async => ThemeService(
+    () async => SettingsService(
       logger: getIt.get<LoggerService>(),
       hive: getIt.get<HiveService>(),
     ),
-    dependsOn: [HiveService],
+    dependsOn: [LoggerService, HiveService],
+  )
+  ..registerSingletonAsync(
+    () async => ThemeService(
+      logger: getIt.get<LoggerService>(),
+      hive: getIt.get<HiveService>(),
+      settings: getIt.get<SettingsService>(),
+    ),
+    dependsOn: [LoggerService, HiveService, SettingsService],
   )
   ..registerSingletonAsync(
     () async => ActiveFeedService(
       logger: getIt.get<LoggerService>(),
       hive: getIt.get<HiveService>(),
     ),
-    dependsOn: [HiveService],
+    dependsOn: [LoggerService, HiveService],
   );
 
 void initializeControllers() => getIt
@@ -67,10 +76,4 @@ void initializeControllers() => getIt
       hive: getIt.get<HiveService>(),
       activeFeedService: getIt.get<ActiveFeedService>(),
     )..init(),
-  )
-  ..registerLazySingleton(
-    () => SettingsController(
-      logger: getIt.get<LoggerService>(),
-      hive: getIt.get<HiveService>(),
-    ),
   );

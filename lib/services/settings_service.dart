@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../models/novinarko_settings.dart';
-import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
+import '../models/novinarko_settings.dart';
+import 'hive_service.dart';
+import 'logger_service.dart';
 
-class SettingsController extends ValueNotifier<NovinarkoSettings> {
+class SettingsService extends ValueNotifier<NovinarkoSettings> {
   final LoggerService logger;
   final HiveService hive;
 
-  SettingsController({
+  SettingsService({
     required this.logger,
     required this.hive,
   }) : super(hive.getSettings());
@@ -21,13 +21,13 @@ class SettingsController extends ValueNotifier<NovinarkoSettings> {
     value = value.copyWith(
       useInAppBrowser: !value.useInAppBrowser,
     );
-    return hive.storeSettings(value);
+    await hive.storeSettings(value);
   }
 
   Future<void> imagesInArticlesPressed() async {
     value = value.copyWith(
       useImagesInArticles: !value.useImagesInArticles,
     );
-    return hive.storeSettings(value);
+    await hive.storeSettings(value);
   }
 }

@@ -126,4 +126,18 @@ abstract class NovinarkoTextStyles {
     fontFamily: 'EncodeSans',
     height: 1.6,
   );
+
+  static const appBarTitle = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'SongMyung',
+    height: 1.2,
+  );
+
+  static const floatingActionButtonTitle = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'EncodeSans',
+    height: 1.2,
+  );
 }

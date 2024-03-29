@@ -2,37 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../services/settings_service.dart';
 import '../../services/theme_service.dart';
 import '../../theme/colors/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
 import '../../widgets/novinarko_checkbox.dart';
-import 'settings_controller.dart';
 import 'widgets/settings_app_bar.dart';
 import 'widgets/settings_list_tile.dart';
 import 'widgets/settings_theme_widget.dart';
 
 // TODO: Localize
-class SettingsScreen extends StatefulWidget {
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
 
-class _SettingsScreenState extends State<SettingsScreen> {
-  @override
-  void dispose() {
-    getIt.resetLazySingleton<SettingsController>();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => SettingsWidget();
-}
-
-class SettingsWidget extends WatchingWidget {
+class SettingsScreen extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
-    final settings = watchIt<SettingsController>().value;
+    final settings = watchIt<SettingsService>().value;
 
     return Scaffold(
       backgroundColor: context.colors.background,
@@ -99,7 +84,7 @@ class SettingsWidget extends WatchingWidget {
 
               /// In-app browser
               SettingsListTile(
-                onPressed: getIt.get<SettingsController>().inAppBrowserPressed,
+                onPressed: getIt.get<SettingsService>().inAppBrowserPressed,
                 title: 'In-app browser',
                 description: 'When opening feeds, open them with an internal browser',
                 rightWidget: NovinarkoCheckbox(
@@ -118,7 +103,7 @@ class SettingsWidget extends WatchingWidget {
 
               /// In-app browser
               SettingsListTile(
-                onPressed: getIt.get<SettingsController>().imagesInArticlesPressed,
+                onPressed: getIt.get<SettingsService>().imagesInArticlesPressed,
                 title: 'Images in articles',
                 description: "Show images above article text (some articles don't have images)",
                 rightWidget: NovinarkoCheckbox(

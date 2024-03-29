@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
-import '../../services/hive_service.dart';
+import '../../services/settings_service.dart';
 import '../../util/dependencies.dart';
 import 'news_controller.dart';
+import 'news_state.dart';
 import 'widgets/news_app_bar.dart';
 import 'widgets/news_content.dart';
+import 'widgets/news_floating_action_button.dart';
 
 class NewsScreen extends StatefulWidget {
   @override
@@ -28,11 +30,19 @@ class NewsWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final newsState = watchIt<NewsController>().value;
-    final showImages = watchIt<HiveService>().getSettings().useImagesInArticles;
+    final settings = watchIt<SettingsService>().value;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: NewsAppBar(),
+      floatingActionButton: settings.useInAppBrowser
+          ? switch (newsState) {
+              NewsStateSingleSuccess() || NewsStateAllSuccess() => NewsFloatingActionButton(
+                  onPressed: () {},
+                ),
+              _ => null,
+            }
+          : null,
       body: Animate(
         key: ValueKey(newsState),
         effects: const [
@@ -43,7 +53,7 @@ class NewsWidget extends WatchingWidget {
         ],
         child: NewsContent(
           newsState: newsState,
-          showImages: showImages,
+          showImages: settings.useImagesInArticles,
         ),
       ),
     );

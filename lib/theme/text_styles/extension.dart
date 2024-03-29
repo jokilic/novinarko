@@ -19,6 +19,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
   final TextStyle twoLetters;
   final TextStyle loading;
   final TextStyle snackbar;
+  final TextStyle appBarTitle;
+  final TextStyle floatingActionButtonTitle;
 
   const NovinarkoTextThemesExtension({
     required this.newsTitle,
@@ -39,6 +41,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     required this.twoLetters,
     required this.loading,
     required this.snackbar,
+    required this.appBarTitle,
+    required this.floatingActionButtonTitle,
   });
 
   @override
@@ -61,6 +65,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     TextStyle? twoLetters,
     TextStyle? loading,
     TextStyle? snackbar,
+    TextStyle? appBarTitle,
+    TextStyle? floatingActionButtonTitle,
   }) =>
       NovinarkoTextThemesExtension(
         newsTitle: newsTitle ?? this.newsTitle,
@@ -81,6 +87,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
         twoLetters: twoLetters ?? this.twoLetters,
         loading: loading ?? this.loading,
         snackbar: snackbar ?? this.snackbar,
+        appBarTitle: appBarTitle ?? this.appBarTitle,
+        floatingActionButtonTitle: floatingActionButtonTitle ?? this.floatingActionButtonTitle,
       );
 
   @override
@@ -111,6 +119,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
       twoLetters: TextStyle.lerp(twoLetters, other.twoLetters, t)!,
       loading: TextStyle.lerp(loading, other.loading, t)!,
       snackbar: TextStyle.lerp(snackbar, other.snackbar, t)!,
+      appBarTitle: TextStyle.lerp(appBarTitle, other.appBarTitle, t)!,
+      floatingActionButtonTitle: TextStyle.lerp(floatingActionButtonTitle, other.floatingActionButtonTitle, t)!,
     );
   }
 }

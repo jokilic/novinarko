@@ -29,6 +29,7 @@ dependencies:
   timeago: 3.6.1
   url_launcher: 6.2.5
   watch_it: 1.4.0
+  webview_flutter: 4.7.0
 
 dev_dependencies:
   build_runner: 2.4.8
