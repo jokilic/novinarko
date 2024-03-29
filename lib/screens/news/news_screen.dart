@@ -54,6 +54,7 @@ class NewsWidget extends WatchingWidget {
         child: NewsContent(
           newsState: newsState,
           showImages: settings.useImagesInArticles,
+          inAppBrowser: settings.useInAppBrowser,
         ),
       ),
     );

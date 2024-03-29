@@ -11,7 +11,7 @@ class NewsListTile extends StatelessWidget {
   final String? feedTitle;
   final String? cleanDescription;
   final String? cleanDate;
-  final bool showTrailingIcon;
+  final bool showFavicon;
   final bool showImages;
 
   const NewsListTile({
@@ -22,7 +22,7 @@ class NewsListTile extends StatelessWidget {
     required this.feedTitle,
     required this.cleanDescription,
     required this.cleanDate,
-    required this.showTrailingIcon,
+    required this.showFavicon,
     required this.showImages,
   });
 
@@ -99,7 +99,7 @@ class NewsListTile extends StatelessWidget {
                         ),
 
                       /// Favicon
-                      if (showTrailingIcon) ...[
+                      if (showFavicon) ...[
                         const SizedBox(height: 8),
                         IconButton(
                           onPressed: onPressed,

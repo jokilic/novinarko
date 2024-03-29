@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -15,13 +17,15 @@ import 'news_list_tile.dart';
 
 class NewsResult extends StatelessWidget {
   final ({NovinarkoRssFeed? rssFeed, String? error}) result;
-  final bool showTrailingIcon;
+  final bool showFavicon;
   final bool showImages;
+  final bool inAppBrowser;
 
   const NewsResult({
     required this.result,
-    required this.showTrailingIcon,
+    required this.showFavicon,
     required this.showImages,
+    required this.inAppBrowser,
   });
 
   @override
@@ -61,17 +65,19 @@ class NewsResult extends StatelessWidget {
                           ),
                         ],
                         child: NewsListTile(
-                          onPressed: () => openRssExternalBrowser(
-                            context: context,
-                            item: item,
-                          ),
+                          onPressed: inAppBrowser
+                              ? () => log('Yoyo')
+                              : () => openRssExternalBrowser(
+                                    context: context,
+                                    item: item,
+                                  ),
                           imageUrl: item.imageUrl,
                           title: item.title ?? '',
                           favicon: item.favicon,
                           feedTitle: item.feedTitle,
                           cleanDescription: cleanDescription,
                           cleanDate: cleanDate,
-                          showTrailingIcon: showTrailingIcon,
+                          showFavicon: showFavicon,
                           showImages: showImages,
                         ),
                       );

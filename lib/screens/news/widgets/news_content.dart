@@ -10,10 +10,12 @@ import 'news_result.dart';
 class NewsContent extends StatelessWidget {
   final NewsState newsState;
   final bool showImages;
+  final bool inAppBrowser;
 
   const NewsContent({
     required this.newsState,
     required this.showImages,
+    required this.inAppBrowser,
   });
 
   @override
@@ -35,13 +37,15 @@ class NewsContent extends StatelessWidget {
           ),
         NewsStateSingleSuccess() => NewsResult(
             result: (newsState as NewsStateSingleSuccess).result,
-            showTrailingIcon: false,
+            showFavicon: false,
             showImages: showImages,
+            inAppBrowser: inAppBrowser,
           ),
         NewsStateAllSuccess() => NewsResult(
             result: (newsState as NewsStateAllSuccess).result,
-            showTrailingIcon: true,
+            showFavicon: true,
             showImages: showImages,
+            inAppBrowser: inAppBrowser,
           ),
       };
 }
