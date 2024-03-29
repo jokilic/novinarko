@@ -14,7 +14,7 @@ class NewsFloatingActionButton extends StatelessWidget {
         onPressed: onPressed,
         label: Text(
           // TODO: Localize
-          'Read (1)'.toUpperCase(),
+          'Read'.toUpperCase(),
           style: context.textStyles.floatingActionButtonTitle,
         ),
         icon: Icon(

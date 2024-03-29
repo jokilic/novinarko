@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 
-import '../models/novinarko_rss_item.dart';
 import '../theme/theme.dart';
 import 'circular_transition_clipper.dart';
 
-void openRssExternalBrowser({
-  required BuildContext context,
-  required NovinarkoRssItem item,
+void openRssExternalBrowser(
+  BuildContext context, {
+  required String? url,
 }) {
-  final url = item.link ?? item.guid;
-
   if (url != null) {
     FlutterWebBrowser.openWebPage(
       url: url,

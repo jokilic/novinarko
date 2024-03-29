@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../constants.dart';
 import '../../../models/novinarko_rss_feed.dart';
+import '../../../routing.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
@@ -66,10 +65,14 @@ class NewsResult extends StatelessWidget {
                         ],
                         child: NewsListTile(
                           onPressed: inAppBrowser
-                              ? () => log('Yoyo')
+                              ? () => openRead(
+                                    context,
+                                    url: item.link ?? item.guid,
+                                    backgroundColor: context.colors.background,
+                                  )
                               : () => openRssExternalBrowser(
-                                    context: context,
-                                    item: item,
+                                    context,
+                                    url: item.link ?? item.guid,
                                   ),
                           imageUrl: item.imageUrl,
                           title: item.title ?? '',

@@ -105,6 +105,6 @@ class InfoTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         title,
-        style: context.textStyles.iconTextTitle,
+        style: context.textStyles.appBarTitle,
       );
 }
