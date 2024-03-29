@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -47,6 +49,8 @@ class _ReadScreenState extends State<ReadScreen> {
       ),
     );
     await controller?.loadRequest(uri);
+
+    log('Loaded');
 
     setState(() {});
   }
