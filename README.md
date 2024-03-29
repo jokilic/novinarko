@@ -34,3 +34,4 @@ If you're not sure about it, typing simple words will first trigger a search for
 
 - [ ] Add app browser & `ReaderScreen`
 - [ ] Finish `InfoScreen`
+- [ ] Tapping `NewsAppBarAvatar` opens dialog showing info about feed

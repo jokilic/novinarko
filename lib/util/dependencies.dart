@@ -13,13 +13,14 @@ import '../services/theme_service.dart';
 final getIt = GetIt.instance;
 
 void initializeServices() => getIt
-  ..registerSingleton(
-    LoggerService(),
+  ..registerSingletonAsync(
+    () async => LoggerService(),
   )
-  ..registerSingleton(
-    DioService(
+  ..registerSingletonAsync(
+    () async => DioService(
       getIt.get<LoggerService>(),
     ),
+    dependsOn: [LoggerService],
   )
   ..registerSingletonAsync(
     () async {
@@ -31,11 +32,12 @@ void initializeServices() => getIt
     },
     dependsOn: [LoggerService],
   )
-  ..registerSingleton(
-    APIService(
+  ..registerSingletonAsync(
+    () async => APIService(
       logger: getIt.get<LoggerService>(),
       dio: getIt.get<DioService>().dio,
     ),
+    dependsOn: [LoggerService, DioService],
   )
   ..registerSingletonAsync(
     () async => SettingsService(
