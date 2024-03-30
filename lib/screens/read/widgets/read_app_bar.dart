@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
@@ -44,20 +42,20 @@ class ReadAppBar extends WatchingWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      flexibleSpace: ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-          bottom: Radius.circular(16),
-        ),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 16,
-            sigmaY: 16,
-          ),
-          child: Container(
-            color: Colors.transparent,
-          ),
-        ),
-      ),
+      // flexibleSpace: ClipRRect(
+      //   borderRadius: const BorderRadius.vertical(
+      //     bottom: Radius.circular(16),
+      //   ),
+      //   child: BackdropFilter(
+      //     filter: ImageFilter.blur(
+      //       sigmaX: 16,
+      //       sigmaY: 16,
+      //     ),
+      //     child: Container(
+      //       color: Colors.transparent,
+      //     ),
+      //   ),
+      // ),
     );
   }
 

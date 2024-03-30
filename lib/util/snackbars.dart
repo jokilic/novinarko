@@ -12,7 +12,6 @@ void showRemoveSomeFeedsSnackbar(BuildContext context, {required Function() onPr
         'newsRemoveSnackbarText'.tr(),
         style: context.textStyles.snackbar,
       ),
-      backgroundColor: context.colors.background,
       behavior: SnackBarBehavior.floating,
       elevation: 0,
       shape: RoundedRectangleBorder(

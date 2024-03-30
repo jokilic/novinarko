@@ -65,11 +65,7 @@ class NewsResult extends StatelessWidget {
                         ],
                         child: NewsListTile(
                           onPressed: inAppBrowser
-                              ? () => openRead(
-                                    context,
-                                    url: item.link ?? item.guid,
-                                    backgroundColor: context.colors.background,
-                                  )
+                              ? () => openRead(context)
                               : () => openRssExternalBrowser(
                                     context,
                                     url: item.link ?? item.guid,

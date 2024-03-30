@@ -13,14 +13,12 @@ import 'widgets/settings_list_tile.dart';
 import 'widgets/settings_theme_widget.dart';
 
 // TODO: Localize
-
 class SettingsScreen extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final settings = watchIt<SettingsService>().value;
 
     return Scaffold(
-      backgroundColor: context.colors.background,
       extendBodyBehindAppBar: true,
       appBar: SettingsAppBar(),
       body: Animate(

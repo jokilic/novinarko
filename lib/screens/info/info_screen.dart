@@ -4,10 +4,10 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../theme/theme.dart';
 import 'widgets/info_app_bar.dart';
 
+// TODO: Localize
 class InfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: context.colors.background,
         extendBodyBehindAppBar: true,
         appBar: InfoAppBar(),
         body: Animate(

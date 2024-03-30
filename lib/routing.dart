@@ -14,17 +14,9 @@ void openFeeds(BuildContext context) => pushScreen(
       isCircularTransition: true,
     );
 
-/// Opens [ReadScreen]
-void openRead(
-  BuildContext context, {
-  required String? url,
-  required Color backgroundColor,
-}) =>
-    pushScreen(
-      ReadScreen(
-        url: url,
-        backgroundColor: backgroundColor,
-      ),
+/// Opens [ReadWebView]
+void openRead(BuildContext context) => pushScreen(
+      ReadScreen(),
       context: context,
     );
 
