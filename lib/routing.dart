@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'models/novinarko_rss_item.dart';
 import 'screens/feeds/feeds_screen.dart';
 import 'screens/info/info_screen.dart';
 import 'screens/read/read_screen.dart';
@@ -15,8 +16,12 @@ void openFeeds(BuildContext context) => pushScreen(
     );
 
 /// Opens [ReadWebView]
-void openRead(BuildContext context) => pushScreen(
-      ReadScreen(),
+void openRead(
+  BuildContext context, {
+  required List<NovinarkoRssItem> items,
+}) =>
+    pushScreen(
+      ReadScreen(items),
       context: context,
     );
 

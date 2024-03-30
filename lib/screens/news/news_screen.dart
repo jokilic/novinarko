@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../routing.dart';
 import '../../services/settings_service.dart';
 import '../../util/dependencies.dart';
+import '../read/read_controller.dart';
 import 'news_controller.dart';
-import 'news_state.dart';
 import 'widgets/news_app_bar.dart';
 import 'widgets/news_content.dart';
 import 'widgets/news_floating_action_button.dart';
@@ -18,7 +19,10 @@ class NewsScreen extends StatefulWidget {
 class _NewsScreenState extends State<NewsScreen> {
   @override
   void dispose() {
-    getIt.resetLazySingleton<NewsController>();
+    getIt
+      ..resetLazySingleton<NewsController>()
+      ..resetLazySingleton<ReadController>();
+
     super.dispose();
   }
 
@@ -31,17 +35,37 @@ class NewsWidget extends WatchingWidget {
   Widget build(BuildContext context) {
     final newsState = watchIt<NewsController>().value;
     final settings = watchIt<SettingsService>().value;
+    final readItems = watchIt<ReadController>().value;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: NewsAppBar(),
       floatingActionButton: settings.useInAppBrowser
-          ? switch (newsState) {
-              NewsStateSingleSuccess() || NewsStateAllSuccess() => NewsFloatingActionButton(
-                  onPressed: () {},
+          ? Animate(
+              autoPlay: false,
+              onInit: (controller) => getIt.get<ReadController>().shakeFabController = controller,
+              effects: const [
+                ShakeEffect(
+                  curve: Curves.easeIn,
+                  duration: Duration(milliseconds: 450),
                 ),
-              _ => null,
-            }
+              ],
+              child: IgnorePointer(
+                ignoring: readItems.isEmpty,
+                child: AnimatedOpacity(
+                  opacity: readItems.isNotEmpty ? 1 : 0,
+                  duration: const Duration(milliseconds: 150),
+                  curve: Curves.easeIn,
+                  child: NewsFloatingActionButton(
+                    onPressed: () => openRead(
+                      context,
+                      items: readItems,
+                    ),
+                    readNumber: readItems.length,
+                  ),
+                ),
+              ),
+            )
           : null,
       body: Animate(
         key: ValueKey(newsState),
@@ -53,6 +77,7 @@ class NewsWidget extends WatchingWidget {
         ],
         child: NewsContent(
           newsState: newsState,
+          readItems: readItems,
           showImages: settings.useImagesInArticles,
           inAppBrowser: settings.useInAppBrowser,
         ),

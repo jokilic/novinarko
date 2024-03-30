@@ -38,7 +38,7 @@ abstract class NovinarkoTextStyles {
 
   static const feedsNovinarko = TextStyle(
     fontSize: 34,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w400,
     fontFamily: 'SongMyung',
     height: 1.6,
   );
@@ -137,6 +137,13 @@ abstract class NovinarkoTextStyles {
   static const floatingActionButtonTitle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
+    fontFamily: 'EncodeSans',
+    height: 1.2,
+  );
+
+  static const floatingActionButtonNumber = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
     fontFamily: 'EncodeSans',
     height: 1.2,
   );

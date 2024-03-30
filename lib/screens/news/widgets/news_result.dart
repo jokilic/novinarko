@@ -4,24 +4,27 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../constants.dart';
 import '../../../models/novinarko_rss_feed.dart';
-import '../../../routing.dart';
+import '../../../models/novinarko_rss_item.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../util/navigation.dart';
 import '../../../util/parsing.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
+import '../../read/read_controller.dart';
 import '../news_controller.dart';
 import 'news_list_tile.dart';
 
 class NewsResult extends StatelessWidget {
   final ({NovinarkoRssFeed? rssFeed, String? error}) result;
+  final List<NovinarkoRssItem> readItems;
   final bool showFavicon;
   final bool showImages;
   final bool inAppBrowser;
 
   const NewsResult({
     required this.result,
+    required this.readItems,
     required this.showFavicon,
     required this.showImages,
     required this.inAppBrowser,
@@ -56,16 +59,16 @@ class NewsResult extends StatelessWidget {
 
                       return Animate(
                         key: ValueKey(item),
-                        delay: (const Duration(milliseconds: 150).inMilliseconds * index).milliseconds,
+                        delay: (const Duration(milliseconds: 50).inMilliseconds * index).milliseconds,
                         effects: const [
                           FadeEffect(
                             curve: Curves.easeIn,
-                            duration: Duration(milliseconds: 450),
+                            duration: Duration(milliseconds: 300),
                           ),
                         ],
                         child: NewsListTile(
                           onPressed: inAppBrowser
-                              ? () => openRead(context)
+                              ? () => getIt.get<ReadController>().addItemForReading(item)
                               : () => openRssExternalBrowser(
                                     context,
                                     url: item.link ?? item.guid,
@@ -78,6 +81,7 @@ class NewsResult extends StatelessWidget {
                           cleanDate: cleanDate,
                           showFavicon: showFavicon,
                           showImages: showImages,
+                          isItemForReading: readItems.contains(item),
                         ),
                       );
                     },

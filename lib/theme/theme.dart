@@ -89,6 +89,9 @@ class NovinarkoTheme {
     floatingActionButtonTitle: NovinarkoTextStyles.floatingActionButtonTitle.copyWith(
       color: lightAppColors.text,
     ),
+    floatingActionButtonNumber: NovinarkoTextStyles.floatingActionButtonNumber.copyWith(
+      color: lightAppColors.text,
+    ),
   );
 
   ///
@@ -174,6 +177,9 @@ class NovinarkoTheme {
     floatingActionButtonTitle: NovinarkoTextStyles.floatingActionButtonTitle.copyWith(
       color: darkAppColors.text,
     ),
+    floatingActionButtonNumber: NovinarkoTextStyles.floatingActionButtonNumber.copyWith(
+      color: darkAppColors.text,
+    ),
   );
 
   ///
@@ -257,6 +263,9 @@ class NovinarkoTheme {
       color: sepiaAppColors.text,
     ),
     floatingActionButtonTitle: NovinarkoTextStyles.floatingActionButtonTitle.copyWith(
+      color: sepiaAppColors.text,
+    ),
+    floatingActionButtonNumber: NovinarkoTextStyles.floatingActionButtonNumber.copyWith(
       color: sepiaAppColors.text,
     ),
   );

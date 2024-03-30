@@ -4,9 +4,11 @@ import '../../../theme/theme.dart';
 
 class NewsFloatingActionButton extends StatelessWidget {
   final Function() onPressed;
+  final int readNumber;
 
   const NewsFloatingActionButton({
     required this.onPressed,
+    required this.readNumber,
   });
 
   @override
@@ -17,9 +19,25 @@ class NewsFloatingActionButton extends StatelessWidget {
           'Read'.toUpperCase(),
           style: context.textStyles.floatingActionButtonTitle,
         ),
-        icon: Icon(
-          Icons.public_rounded,
-          color: context.colors.text,
+        icon: Container(
+          height: 28,
+          width: 28,
+          margin: const EdgeInsets.only(right: 2),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: context.colors.text,
+              width: 1.5,
+            ),
+          ),
+          child: Center(
+            child: Text(
+              '$readNumber',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: context.textStyles.floatingActionButtonNumber,
+            ),
+          ),
         ),
         backgroundColor: context.colors.background,
         focusColor: context.colors.primary.withOpacity(0.6),

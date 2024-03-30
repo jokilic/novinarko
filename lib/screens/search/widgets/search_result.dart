@@ -25,11 +25,11 @@ class SearchResult extends StatelessWidget {
 
           return Animate(
             key: ValueKey(result),
-            delay: (const Duration(milliseconds: 150).inMilliseconds * index).milliseconds,
+            delay: (const Duration(milliseconds: 50).inMilliseconds * index).milliseconds,
             effects: const [
               FadeEffect(
                 curve: Curves.easeIn,
-                duration: Duration(milliseconds: 450),
+                duration: Duration(milliseconds: 300),
               ),
             ],
             child: SearchListTile(

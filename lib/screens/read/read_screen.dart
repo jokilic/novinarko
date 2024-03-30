@@ -1,25 +1,31 @@
-// ignore_for_file: avoid_types_on_closure_parameters
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
+import '../../models/novinarko_rss_item.dart';
 import '../../theme/theme.dart';
+import '../../util/dependencies.dart';
+import 'read_controller.dart';
 import 'widgets/read_floating_action_button.dart';
 import 'widgets/read_widget.dart';
 
 class ReadScreen extends StatelessWidget {
-  final websites = [
-    'https://www.google.com',
-    'https://www.24sata.hr',
-    'https://www.index.hr',
-  ];
+  final List<NovinarkoRssItem> items;
+
+  const ReadScreen(
+    this.items,
+  );
 
   @override
   Widget build(BuildContext context) => Scaffold(
         extendBodyBehindAppBar: true,
         floatingActionButton: ReadFloatingActionButton(
-          onPressed: Navigator.of(context).pop,
+          onPressed: () {
+            getIt.get<ReadController>().clearItemsForReading();
+            WidgetsBinding.instance.addPostFrameCallback(
+              (_) => Navigator.of(context).pop(),
+            );
+          },
         ),
         body: Animate(
           effects: const [
@@ -35,12 +41,16 @@ class ReadScreen extends StatelessWidget {
               ),
               Expanded(
                 child: PreloadPageView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: websites.length,
-                  itemBuilder: (_, index) => ReadWidget(
-                    url: websites[index],
-                    backgroundColor: context.colors.background,
-                  ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: items.length,
+                  itemBuilder: (_, index) {
+                    final item = items[index];
+
+                    return ReadWidget(
+                      url: item.link ?? item.guid,
+                      backgroundColor: context.colors.background,
+                    );
+                  },
                 ),
               ),
               SizedBox(
