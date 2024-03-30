@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:preload_page_view/preload_page_view.dart';
 
 import '../../theme/theme.dart';
 import 'widgets/read_app_bar.dart';
@@ -23,15 +24,13 @@ class ReadScreen extends StatelessWidget {
               duration: Duration(milliseconds: 450),
             ),
           ],
-          child: SafeArea(
-            child: PageView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: websites.length,
-              itemBuilder: (_, index) => ReadWidget(
-                url: websites[index],
-                backgroundColor: context.colors.background,
-                index: index,
-              ),
+          child: PreloadPageView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: websites.length,
+            itemBuilder: (_, index) => ReadWidget(
+              url: websites[index],
+              backgroundColor: context.colors.background,
+              index: index,
             ),
           ),
         ),

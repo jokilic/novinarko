@@ -25,6 +25,7 @@ dependencies:
   just_audio: 0.9.36
   loading_animation_widget: 1.2.0+4
   logger: 2.1.0
+  preload_page_view: 0.2.0
   rss_dart: 1.0.6
   timeago: 3.6.1
   url_launcher: 6.2.5

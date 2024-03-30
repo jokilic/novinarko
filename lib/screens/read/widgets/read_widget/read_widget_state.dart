@@ -1,29 +1,21 @@
 import 'package:webview_flutter/webview_flutter.dart';
 
-sealed class ReadState {}
+sealed class ReadWidgetState {}
 
-class ReadStateInitial extends ReadState {}
+final class ReadWidgetStateInitial extends ReadWidgetState {}
 
-class ReadStateLoading extends ReadState {
-  final int progress;
-
-  ReadStateLoading({
-    required this.progress,
-  });
-}
-
-class ReadStateError extends ReadState {
+final class ReadWidgetStateError extends ReadWidgetState {
   final String error;
 
-  ReadStateError({
+  ReadWidgetStateError({
     required this.error,
   });
 }
 
-class ReadStateSuccess extends ReadState {
+final class ReadWidgetStateSuccess extends ReadWidgetState {
   final WebViewController controller;
 
-  ReadStateSuccess({
+  ReadWidgetStateSuccess({
     required this.controller,
   });
 }

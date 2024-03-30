@@ -5,7 +5,6 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../constants.dart';
 import '../../../../widgets/novinarko_icon_text_widget.dart';
-import '../../../../widgets/novinarko_loader.dart';
 import 'read_widget_state.dart';
 
 // TODO: Localize
@@ -25,21 +24,29 @@ class ReadWidget extends StatefulWidget {
 }
 
 class _ReadWidgetState extends State<ReadWidget> {
-  final readState = ValueNotifier<ReadState>(ReadStateInitial());
+  ReadWidgetState readWidgetState = ReadWidgetStateInitial();
 
   @override
   void initState() {
     super.initState();
 
-    log('Hello -> ${widget.index}');
+    log('Hey -> ${widget.index}');
 
     final uri = Uri.tryParse(widget.url ?? '');
 
     if (uri != null) {
       initializeWebView(uri);
     } else {
-      readState.value = ReadStateError(error: 'Uri is null');
+      setState(
+        () => readWidgetState = ReadWidgetStateError(error: 'Uri is null'),
+      );
     }
+  }
+
+  @override
+  void dispose() {
+    log('Bye -> ${widget.index}');
+    super.dispose();
   }
 
   Future<void> initializeWebView(Uri uri) async {
@@ -50,50 +57,41 @@ class _ReadWidgetState extends State<ReadWidget> {
       await controller.setBackgroundColor(widget.backgroundColor);
       await controller.setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (progress) => readState.value = ReadStateLoading(
-            progress: progress,
-          ),
-          onPageStarted: (_) => readState.value = ReadStateLoading(progress: 0),
-          onPageFinished: (_) => readState.value = ReadStateSuccess(
-            controller: controller,
-          ),
-          onWebResourceError: (error) => readState.value = ReadStateError(
-            error: error.description,
+          onProgress: (_) {},
+          onPageStarted: (_) {},
+          onPageFinished: (_) {},
+          onWebResourceError: (error) => setState(
+            () => readWidgetState = ReadWidgetStateError(
+              error: error.description,
+            ),
           ),
           onNavigationRequest: (_) => NavigationDecision.navigate,
         ),
       );
       await controller.loadRequest(uri);
+
+      setState(
+        () => readWidgetState = ReadWidgetStateSuccess(
+          controller: controller,
+        ),
+      );
     } catch (e) {
-      readState.value = ReadStateError(error: '$e');
+      setState(
+        () => readWidgetState = ReadWidgetStateError(error: '$e'),
+      );
     }
   }
 
   @override
-  Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: readState,
-        builder: (_, state, __) => switch (state) {
-          ReadStateInitial() => const NovinarkoLoader(),
-          ReadStateLoading() => Text(
-              'Loading -> ${state.progress}%',
-            ),
-          ReadStateError() => NovinarkoIconTextWidget(
-              icon: NovinarkoIcons.errorNews,
-              title: 'Error',
-              subtitle: state.error,
-            ),
-          ReadStateSuccess() => WebViewWidget(
-              controller: state.controller,
-            ),
-        },
-      );
-
-  @override
-  void dispose() {
-    readState.dispose();
-
-    log('Byee -> ${widget.index}');
-
-    super.dispose();
-  }
+  Widget build(BuildContext context) => switch (readWidgetState) {
+        ReadWidgetStateInitial() => const SizedBox.shrink(),
+        ReadWidgetStateError() => NovinarkoIconTextWidget(
+            icon: NovinarkoIcons.errorNews,
+            title: 'Error',
+            subtitle: (readWidgetState as ReadWidgetStateError).error,
+          ),
+        ReadWidgetStateSuccess() => WebViewWidget(
+            controller: (readWidgetState as ReadWidgetStateSuccess).controller,
+          ),
+      };
 }
