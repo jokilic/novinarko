@@ -1,22 +1,18 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../../../constants.dart';
-import '../../../../widgets/novinarko_icon_text_widget.dart';
+import '../../../constants.dart';
+import '../../../widgets/novinarko_icon_text_widget.dart';
+import '../../../widgets/novinarko_loader.dart';
 import 'read_widget_state.dart';
 
-// TODO: Localize
 class ReadWidget extends StatefulWidget {
   final String? url;
   final Color backgroundColor;
-  final int index;
 
   const ReadWidget({
     required this.url,
     required this.backgroundColor,
-    required this.index,
   });
 
   @override
@@ -25,12 +21,12 @@ class ReadWidget extends StatefulWidget {
 
 class _ReadWidgetState extends State<ReadWidget> {
   ReadWidgetState readWidgetState = ReadWidgetStateInitial();
+  // TODO: Localize
+  String? loaderText = 'Loading article';
 
   @override
   void initState() {
     super.initState();
-
-    log('Hey -> ${widget.index}');
 
     final uri = Uri.tryParse(widget.url ?? '');
 
@@ -38,15 +34,12 @@ class _ReadWidgetState extends State<ReadWidget> {
       initializeWebView(uri);
     } else {
       setState(
-        () => readWidgetState = ReadWidgetStateError(error: 'Uri is null'),
+        () => readWidgetState = ReadWidgetStateError(
+          // TODO: Localize
+          error: 'Uri is null',
+        ),
       );
     }
-  }
-
-  @override
-  void dispose() {
-    log('Bye -> ${widget.index}');
-    super.dispose();
   }
 
   Future<void> initializeWebView(Uri uri) async {
@@ -59,7 +52,9 @@ class _ReadWidgetState extends State<ReadWidget> {
         NavigationDelegate(
           onProgress: (_) {},
           onPageStarted: (_) {},
-          onPageFinished: (_) {},
+          onPageFinished: (_) => setState(
+            () => loaderText = null,
+          ),
           onWebResourceError: (error) => setState(
             () => readWidgetState = ReadWidgetStateError(
               error: error.description,
@@ -83,15 +78,33 @@ class _ReadWidgetState extends State<ReadWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => switch (readWidgetState) {
-        ReadWidgetStateInitial() => const SizedBox.shrink(),
-        ReadWidgetStateError() => NovinarkoIconTextWidget(
-            icon: NovinarkoIcons.errorNews,
-            title: 'Error',
-            subtitle: (readWidgetState as ReadWidgetStateError).error,
-          ),
-        ReadWidgetStateSuccess() => WebViewWidget(
-            controller: (readWidgetState as ReadWidgetStateSuccess).controller,
-          ),
-      };
+  Widget build(BuildContext context) => Stack(
+        alignment: Alignment.center,
+        children: [
+          ///
+          /// LOADER
+          ///
+          if (loaderText != null)
+            NovinarkoLoader(
+              text: loaderText,
+            ),
+
+          ///
+          /// CONTENT
+          ///
+          switch (readWidgetState) {
+            ReadWidgetStateInitial() => const SizedBox.shrink(),
+            // TODO: Icon for this, update `verticalPadding`
+            ReadWidgetStateError() => NovinarkoIconTextWidget(
+                icon: NovinarkoIcons.errorNews,
+                // TODO: Localize
+                title: 'Error',
+                subtitle: (readWidgetState as ReadWidgetStateError).error,
+              ),
+            ReadWidgetStateSuccess() => WebViewWidget(
+                controller: (readWidgetState as ReadWidgetStateSuccess).controller,
+              ),
+          },
+        ],
+      );
 }

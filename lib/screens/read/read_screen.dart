@@ -1,10 +1,12 @@
+// ignore_for_file: avoid_types_on_closure_parameters
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 import '../../theme/theme.dart';
-import 'widgets/read_app_bar.dart';
-import 'widgets/read_widget/read_widget.dart';
+import 'widgets/read_floating_action_button.dart';
+import 'widgets/read_widget.dart';
 
 class ReadScreen extends StatelessWidget {
   final websites = [
@@ -16,7 +18,9 @@ class ReadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: ReadAppBar(),
+        floatingActionButton: ReadFloatingActionButton(
+          onPressed: Navigator.of(context).pop,
+        ),
         body: Animate(
           effects: const [
             FadeEffect(
@@ -24,14 +28,25 @@ class ReadScreen extends StatelessWidget {
               duration: Duration(milliseconds: 450),
             ),
           ],
-          child: PreloadPageView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: websites.length,
-            itemBuilder: (_, index) => ReadWidget(
-              url: websites[index],
-              backgroundColor: context.colors.background,
-              index: index,
-            ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.paddingOf(context).top,
+              ),
+              Expanded(
+                child: PreloadPageView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: websites.length,
+                  itemBuilder: (_, index) => ReadWidget(
+                    url: websites[index],
+                    backgroundColor: context.colors.background,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.paddingOf(context).bottom,
+              ),
+            ],
           ),
         ),
       );
