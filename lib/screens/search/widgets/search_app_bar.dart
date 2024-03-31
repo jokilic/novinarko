@@ -152,6 +152,7 @@ class SearchBarTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => TextField(
+        autofocus: true,
         autocorrect: false,
         controller: textController,
         onSubmitted: onSubmitted,

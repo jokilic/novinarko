@@ -59,10 +59,17 @@ class NewsWidget extends WatchingWidget {
                   curve: Curves.easeIn,
                   child: PressableDough(
                     child: NewsReadButton(
-                      onPressed: () => openRead(
-                        context,
-                        items: readItems,
-                      ),
+                      onPressed: () {
+                        getIt.get<ReadController>().updateWebButtonVisibility(
+                              page: 0,
+                              itemLength: readItems.length,
+                            );
+
+                        openRead(
+                          context,
+                          items: readItems,
+                        );
+                      },
                       readNumber: readItems.length,
                     ),
                   ),

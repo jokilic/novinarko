@@ -21,7 +21,9 @@ void openRead(
   required List<NovinarkoRssItem> items,
 }) =>
     pushScreen(
-      ReadScreen(items),
+      ReadScreen(
+        items: items,
+      ),
       context: context,
     );
 

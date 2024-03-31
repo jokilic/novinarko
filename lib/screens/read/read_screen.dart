@@ -2,88 +2,117 @@ import 'package:dough/dough.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:preload_page_view/preload_page_view.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../../models/novinarko_rss_item.dart';
 import '../../util/dependencies.dart';
 import 'read_controller.dart';
+import 'web_buttons_controller.dart';
 import 'widgets/read_close_button.dart';
 import 'widgets/read_next_button.dart';
 import 'widgets/read_previous_button.dart';
 import 'widgets/read_widget.dart';
 
-class ReadScreen extends StatelessWidget {
+class ReadScreen extends WatchingWidget {
   final List<NovinarkoRssItem> items;
 
-  const ReadScreen(
-    this.items,
-  );
+  const ReadScreen({
+    required this.items,
+  });
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 32),
-              child: PressableDough(
-                child: ReadPreviousButton(
-                  onPressed: getIt.get<ReadController>().openPrevious,
-                ),
-              ),
-            ),
-            PressableDough(
-              child: ReadNextButton(
-                onPressed: getIt.get<ReadController>().openNext,
-              ),
-            ),
-          ],
-        ),
-        body: Animate(
-          effects: const [
-            FadeEffect(
-              curve: Curves.easeIn,
-              duration: Duration(milliseconds: 450),
-            ),
-          ],
-          child: SafeArea(
-            child: Stack(
-              children: [
-                ///
-                /// CONTENT
-                ///
-                PreloadPageView.builder(
-                  controller: getIt.get<ReadController>().pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: items.length,
-                  itemBuilder: (_, index) {
-                    final item = items[index];
+  Widget build(BuildContext context) {
+    final webButtons = watchIt<WebButtonsController>().value;
 
-                    return ReadWidget(
-                      url: item.link ?? item.guid,
-                    );
-                  },
-                ),
-
-                ///
-                /// CLOSE
-                ///
-                Positioned(
-                  left: 12,
-                  top: 16,
-                  child: PressableDough(
-                    child: ReadCloseButton(
-                      onPressed: () {
-                        getIt.get<ReadController>().clearItemsForReading();
-                        WidgetsBinding.instance.addPostFrameCallback(
-                          (_) => Navigator.of(context).pop(),
-                        );
-                      },
-                    ),
+    return Scaffold(
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ///
+          /// PREVIOUS
+          ///
+          Padding(
+            padding: const EdgeInsets.only(left: 32),
+            child: IgnorePointer(
+              ignoring: !webButtons.showPrevious,
+              child: AnimatedOpacity(
+                opacity: webButtons.showPrevious ? 1 : 0,
+                duration: const Duration(milliseconds: 150),
+                curve: Curves.easeIn,
+                child: PressableDough(
+                  child: ReadPreviousButton(
+                    onPressed: getIt.get<ReadController>().openPrevious,
                   ),
                 ),
-              ],
+              ),
             ),
           ),
+
+          ///
+          /// NEXT
+          ///
+          IgnorePointer(
+            ignoring: !webButtons.showNext,
+            child: AnimatedOpacity(
+              opacity: webButtons.showNext ? 1 : 0,
+              duration: const Duration(milliseconds: 150),
+              curve: Curves.easeIn,
+              child: PressableDough(
+                child: ReadNextButton(
+                  onPressed: getIt.get<ReadController>().openNext,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: Animate(
+        effects: const [
+          FadeEffect(
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 450),
+          ),
+        ],
+        child: SafeArea(
+          child: Stack(
+            children: [
+              ///
+              /// CONTENT
+              ///
+              PreloadPageView.builder(
+                controller: getIt.get<ReadController>().pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: items.length,
+                itemBuilder: (_, index) {
+                  final item = items[index];
+
+                  return ReadWidget(
+                    url: item.link ?? item.guid,
+                  );
+                },
+              ),
+
+              ///
+              /// CLOSE
+              ///
+              Positioned(
+                left: 12,
+                top: 16,
+                child: PressableDough(
+                  child: ReadCloseButton(
+                    onPressed: () {
+                      getIt.get<ReadController>().clearItemsForReading();
+                      WidgetsBinding.instance.addPostFrameCallback(
+                        (_) => Navigator.of(context).pop(),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      );
+      ),
+    );
+  }
 }

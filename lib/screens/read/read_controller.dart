@@ -3,12 +3,15 @@ import 'package:preload_page_view/preload_page_view.dart';
 
 import '../../models/novinarko_rss_item.dart';
 import '../../services/logger_service.dart';
+import 'web_buttons_controller.dart';
 
 class ReadController extends ValueNotifier<List<NovinarkoRssItem>> {
   final LoggerService logger;
+  final WebButtonsController webButtons;
 
   ReadController({
     required this.logger,
+    required this.webButtons,
   }) : super([]) {
     pageController = PreloadPageController();
   }
@@ -52,14 +55,33 @@ class ReadController extends ValueNotifier<List<NovinarkoRssItem>> {
   void clearItemsForReading() => value = [];
 
   /// Decrements the `pageController` index
-  void openPrevious() => pageController.previousPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-      );
+  Future<void> openPrevious() async {
+    await pageController.previousPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    );
+
+    updateWebButtonVisibility(
+      page: pageController.page?.round() ?? 0,
+      itemLength: value.length,
+    );
+  }
 
   /// Increments the `pageController` index
-  void openNext() => pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
+  Future<void> openNext() async {
+    await pageController.nextPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    );
+
+    updateWebButtonVisibility(
+      page: pageController.page?.round() ?? 0,
+      itemLength: value.length,
+    );
+  }
+
+  /// Updates visibility of web buttons (previous & next)
+  void updateWebButtonVisibility({required int page, required int itemLength}) => webButtons.updateState(
+        (showPrevious: page > 0, showNext: page != itemLength - 1),
       );
 }
