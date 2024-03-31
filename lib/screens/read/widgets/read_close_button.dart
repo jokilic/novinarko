@@ -3,28 +3,17 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../theme/theme.dart';
 
-class ReadFloatingActionButton extends StatelessWidget {
+class ReadCloseButton extends StatelessWidget {
   final Function() onPressed;
 
-  const ReadFloatingActionButton({
+  const ReadCloseButton({
     required this.onPressed,
   });
 
   @override
-  Widget build(BuildContext context) => FloatingActionButton.extended(
+  Widget build(BuildContext context) => FloatingActionButton.small(
+        heroTag: 'close',
         onPressed: onPressed,
-        label: Text(
-          // TODO: Localize
-          'Back'.toUpperCase(),
-          style: context.textStyles.floatingActionButtonTitle,
-        ),
-        icon: Image.asset(
-          NovinarkoIcons.back,
-          fit: BoxFit.cover,
-          color: context.colors.text,
-          height: 20,
-          width: 20,
-        ),
         backgroundColor: context.colors.background,
         focusColor: context.colors.primary.withOpacity(0.6),
         hoverColor: context.colors.primary.withOpacity(0.6),
@@ -36,6 +25,14 @@ class ReadFloatingActionButton extends StatelessWidget {
             color: context.colors.text,
             width: 1.5,
           ),
+        ),
+        child: Image.asset(
+          // TODO: Close icon
+          NovinarkoIcons.back,
+          fit: BoxFit.cover,
+          color: context.colors.text,
+          height: 16,
+          width: 16,
         ),
       );
 }

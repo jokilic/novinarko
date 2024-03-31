@@ -167,7 +167,7 @@ class SearchBarTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             borderSide: BorderSide(
               color: context.colors.text,
-              width: 2,
+              width: 1.5,
             ),
           ),
           border: OutlineInputBorder(

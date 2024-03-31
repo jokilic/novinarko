@@ -1,3 +1,4 @@
+import 'package:dough/dough.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
@@ -56,12 +57,14 @@ class NewsWidget extends WatchingWidget {
                   opacity: readItems.isNotEmpty ? 1 : 0,
                   duration: const Duration(milliseconds: 150),
                   curve: Curves.easeIn,
-                  child: NewsFloatingActionButton(
-                    onPressed: () => openRead(
-                      context,
-                      items: readItems,
+                  child: PressableDough(
+                    child: NewsFloatingActionButton(
+                      onPressed: () => openRead(
+                        context,
+                        items: readItems,
+                      ),
+                      readNumber: readItems.length,
                     ),
-                    readNumber: readItems.length,
                   ),
                 ),
               ),

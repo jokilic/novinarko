@@ -10,21 +10,49 @@ void showRemoveSomeFeedsSnackbar(BuildContext context, {required Function() onPr
     SnackBar(
       content: Text(
         'newsRemoveSnackbarText'.tr(),
-        style: context.textStyles.snackbar,
+        style: context.textStyles.snackbar.copyWith(
+          color: context.colors.text,
+        ),
       ),
       behavior: SnackBarBehavior.floating,
       elevation: 0,
+      backgroundColor: context.colors.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
           color: context.colors.text,
-          width: 2,
+          width: 1.5,
         ),
       ),
       action: SnackBarAction(
         label: 'newsRemoveSnackbarButton'.tr().toUpperCase(),
         textColor: context.colors.text,
         onPressed: onPressed,
+      ),
+    ),
+  );
+}
+
+void showWebSnackbar(BuildContext context, {required String text}) {
+  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        text,
+        style: context.textStyles.snackbar.copyWith(
+          color: context.colors.text,
+        ),
+      ),
+      behavior: SnackBarBehavior.floating,
+      elevation: 0,
+      backgroundColor: context.colors.background,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(
+          color: context.colors.text,
+          width: 1.5,
+        ),
       ),
     ),
   );

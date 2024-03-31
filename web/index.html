@@ -1,4 +1,7 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html>
+
+<head>
   <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
@@ -30,23 +33,18 @@
   <title>Novinarko</title>
   <link rel="manifest" href="manifest.json">
 
+  <script type="application/javascript" src="/assets/packages/flutter_inappwebview_web/assets/web/web_support.js"
+    defer></script>
+
   <script>
     // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer=""></script>
-  
-  
+
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-  
-  
-  
-  
-  
-  
-  
-  
+
   <style id="splash-screen-style">
     html {
       height: 100%
@@ -56,7 +54,7 @@
       margin: 0;
       min-height: 100%;
       background-color: #F2F2F2;
-          background-size: 100% 100%;
+      background-size: 100% 100%;
     }
 
     .center {
@@ -69,19 +67,22 @@
     }
 
     .contain {
-      display:block;
-      width:100%; height:100%;
+      display: block;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
     }
 
     .stretch {
-      display:block;
-      width:100%; height:100%;
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
     .cover {
-      display:block;
-      width:100%; height:100%;
+      display: block;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
@@ -108,7 +109,7 @@
     @media (prefers-color-scheme: dark) {
       body {
         background-color: #444B6E;
-          }
+      }
     }
   </style>
   <script id="splash-screen-script">
@@ -138,4 +139,6 @@
   </script>
 
 
-</body></html>
+</body>
+
+</html>

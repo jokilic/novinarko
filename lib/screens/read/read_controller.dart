@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:preload_page_view/preload_page_view.dart';
 
 import '../../models/novinarko_rss_item.dart';
 import '../../services/logger_service.dart';
@@ -8,13 +9,17 @@ class ReadController extends ValueNotifier<List<NovinarkoRssItem>> {
 
   ReadController({
     required this.logger,
-  }) : super([]);
+  }) : super([]) {
+    pageController = PreloadPageController();
+  }
 
   ///
   /// VARIABLES
   ///
 
   AnimationController? shakeFabController;
+
+  late PreloadPageController pageController;
 
   ///
   /// METHODS
@@ -45,4 +50,16 @@ class ReadController extends ValueNotifier<List<NovinarkoRssItem>> {
 
   /// Clears all [NovinarkoRssItem] from `state`
   void clearItemsForReading() => value = [];
+
+  /// Decrements the `pageController` index
+  void openPrevious() => pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+
+  /// Increments the `pageController` index
+  void openNext() => pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
 }

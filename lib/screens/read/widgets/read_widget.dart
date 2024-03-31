@@ -1,18 +1,21 @@
+import 'dart:io';
+
+import 'package:dough/dough.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import '../../../constants.dart';
+import '../../../util/snackbars.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
-import '../../../widgets/novinarko_loader.dart';
+import 'read_refresh_button.dart';
 import 'read_widget_state.dart';
 
 class ReadWidget extends StatefulWidget {
   final String? url;
-  final Color backgroundColor;
 
   const ReadWidget({
-    required this.url,
-    required this.backgroundColor,
+    this.url,
   });
 
   @override
@@ -24,6 +27,15 @@ class _ReadWidgetState extends State<ReadWidget> {
   // TODO: Localize
   String? loaderText = 'Loading article';
 
+  InAppWebViewController? webViewController;
+
+  final settings = InAppWebViewSettings(
+    isInspectable: kDebugMode,
+    mediaPlaybackRequiresUserGesture: false,
+    allowsInlineMediaPlayback: true,
+    iframeAllowFullscreen: true,
+  );
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +43,9 @@ class _ReadWidgetState extends State<ReadWidget> {
     final uri = Uri.tryParse(widget.url ?? '');
 
     if (uri != null) {
-      initializeWebView(uri);
+      setState(
+        () => readWidgetState = ReadWidgetStateSuccess(),
+      );
     } else {
       setState(
         () => readWidgetState = ReadWidgetStateError(
@@ -42,69 +56,59 @@ class _ReadWidgetState extends State<ReadWidget> {
     }
   }
 
-  Future<void> initializeWebView(Uri uri) async {
-    try {
-      final controller = WebViewController();
-
-      await controller.setJavaScriptMode(JavaScriptMode.unrestricted);
-      await controller.setBackgroundColor(widget.backgroundColor);
-      await controller.setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (_) {},
-          onPageStarted: (_) {},
-          onPageFinished: (_) => setState(
-            () => loaderText = null,
-          ),
-          onWebResourceError: (error) => setState(
-            () => readWidgetState = ReadWidgetStateError(
-              error: error.description,
-            ),
-          ),
-          onNavigationRequest: (_) => NavigationDecision.navigate,
+  Future<void> refresh() async {
+    if (Platform.isAndroid) {
+      await webViewController?.reload();
+    } else if (Platform.isIOS) {
+      await webViewController?.loadUrl(
+        urlRequest: URLRequest(
+          url: await webViewController?.getUrl(),
         ),
-      );
-      await controller.loadRequest(uri);
-
-      setState(
-        () => readWidgetState = ReadWidgetStateSuccess(
-          controller: controller,
-        ),
-      );
-    } catch (e) {
-      setState(
-        () => readWidgetState = ReadWidgetStateError(error: '$e'),
       );
     }
   }
 
   @override
-  Widget build(BuildContext context) => Stack(
-        alignment: Alignment.center,
-        children: [
-          ///
-          /// LOADER
-          ///
-          if (loaderText != null)
-            NovinarkoLoader(
-              text: loaderText,
-            ),
+  Widget build(BuildContext context) => switch (readWidgetState) {
+        ReadWidgetStateInitial() => const SizedBox.shrink(),
+        // TODO: Icon for this, update `verticalPadding`
+        ReadWidgetStateError() => NovinarkoIconTextWidget(
+            icon: NovinarkoIcons.errorNews,
+            // TODO: Localize
+            title: 'Error',
+            subtitle: (readWidgetState as ReadWidgetStateError).error,
+          ),
+        ReadWidgetStateSuccess() => Stack(
+            children: [
+              ///
+              /// CONTENT
+              ///
+              InAppWebView(
+                initialUrlRequest: URLRequest(
+                  url: WebUri(widget.url!),
+                ),
+                initialSettings: settings,
+                onWebViewCreated: (controller) => webViewController = controller,
+                onReceivedError: (_, __, error) => showWebSnackbar(
+                  context,
+                  text: error.description,
+                ),
+              ),
 
-          ///
-          /// CONTENT
-          ///
-          switch (readWidgetState) {
-            ReadWidgetStateInitial() => const SizedBox.shrink(),
-            // TODO: Icon for this, update `verticalPadding`
-            ReadWidgetStateError() => NovinarkoIconTextWidget(
-                icon: NovinarkoIcons.errorNews,
-                // TODO: Localize
-                title: 'Error',
-                subtitle: (readWidgetState as ReadWidgetStateError).error,
+              ///
+              /// REFRESH
+              ///
+              Positioned(
+                right: 12,
+                top: 16,
+                child: PressableDough(
+                  child: ReadRefreshButton(
+                    onPressed: refresh,
+                    tag: widget.url ?? '',
+                  ),
+                ),
               ),
-            ReadWidgetStateSuccess() => WebViewWidget(
-                controller: (readWidgetState as ReadWidgetStateSuccess).controller,
-              ),
-          },
-        ],
-      );
+            ],
+          ),
+      };
 }
