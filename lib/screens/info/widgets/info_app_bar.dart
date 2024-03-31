@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
@@ -35,9 +36,8 @@ class InfoAppBar extends WatchingWidget implements PreferredSizeWidget {
               InfoAppBarBack(
                 onPressed: Navigator.of(context).pop,
               ),
-              const InfoTitle(
-                // TODO: Localize
-                title: 'Info',
+              InfoTitle(
+                title: 'infoTitle'.tr(),
               ),
               const SizedBox(width: 48),
             ],

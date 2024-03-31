@@ -13,6 +13,7 @@
     "newsRemoveSnackbarButton": "Izvori",
     "newsNoResultsTitle": "Nema vijesti",
     "newsNoResultsSubtitle": "Učitaj neki drugi izvor",
+    "newsReadButton": "Pročitaj",
     "searchStateLoadingFeeds": "Tražim izvore",
     "searchStateLoadingGoogle": "Pitam Google za pomoć",
     "searchStateErrorGoogle": "Google nije pronašao ništa",
@@ -22,5 +23,13 @@
     "searchStateEmptySubtitle": "Provjeri svoju pretragu ili probaj nešto drugo",
     "searchStateErrorTitle": "Dogodila se greška",
     "searchFindFeed": "Traži izvor...",
-    "searchResults": "Rezultati pretrage"
+    "searchResults": "Rezultati pretrage",
+    "infoTitle": "Info",
+    "settingsTitle": "Postavke",
+    "settingsThemeTitle": "Boja",
+    "settingsThemeDescription": "Odaberi boje koje želiš koristiti u aplikaciji",
+    "settingsInAppBrowserTitle": "Preglednik unutar aplikacije",
+    "settingsInAppBrowserDescription": "Otvori članke sa preglednikom unutar aplikacije",
+    "settingsImagesInArticlesTitle": "Slike u člancima",
+    "settingsImagesInArticlesDescription": "Prikaži slike iznad članaka (neki članci nemaju slike)"
 }

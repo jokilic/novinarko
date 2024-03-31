@@ -10,7 +10,7 @@ import '../read/read_controller.dart';
 import 'news_controller.dart';
 import 'widgets/news_app_bar.dart';
 import 'widgets/news_content.dart';
-import 'widgets/news_floating_action_button.dart';
+import 'widgets/news_read_button.dart';
 
 class NewsScreen extends StatefulWidget {
   @override
@@ -58,7 +58,7 @@ class NewsWidget extends WatchingWidget {
                   duration: const Duration(milliseconds: 150),
                   curve: Curves.easeIn,
                   child: PressableDough(
-                    child: NewsFloatingActionButton(
+                    child: NewsReadButton(
                       onPressed: () => openRead(
                         context,
                         items: readItems,

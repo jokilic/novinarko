@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
@@ -12,7 +13,6 @@ import 'widgets/settings_app_bar.dart';
 import 'widgets/settings_list_tile.dart';
 import 'widgets/settings_theme_widget.dart';
 
-// TODO: Localize
 class SettingsScreen extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
@@ -43,8 +43,8 @@ class SettingsScreen extends WatchingWidget {
               /// Theme
               SettingsListTile(
                 onPressed: () {},
-                title: 'Theme',
-                description: 'Choose a theme to use in your app',
+                title: 'settingsThemeTitle'.tr(),
+                description: 'settingsThemeDescription'.tr(),
                 rightWidget: Row(
                   children: [
                     SettingsThemeWidget(
@@ -83,8 +83,8 @@ class SettingsScreen extends WatchingWidget {
               /// In-app browser
               SettingsListTile(
                 onPressed: getIt.get<SettingsService>().inAppBrowserPressed,
-                title: 'In-app browser',
-                description: 'When opening feeds, open them with an internal browser',
+                title: 'settingsInAppBrowserTitle'.tr(),
+                description: 'settingsInAppBrowserDescription'.tr(),
                 rightWidget: NovinarkoCheckbox(
                   value: settings.useInAppBrowser,
                 ),
@@ -102,8 +102,8 @@ class SettingsScreen extends WatchingWidget {
               /// In-app browser
               SettingsListTile(
                 onPressed: getIt.get<SettingsService>().imagesInArticlesPressed,
-                title: 'Images in articles',
-                description: "Show images above article text (some articles don't have images)",
+                title: 'settingsImagesInArticlesTitle'.tr(),
+                description: 'settingsImagesInArticlesDescription'.tr(),
                 rightWidget: NovinarkoCheckbox(
                   value: settings.useImagesInArticles,
                 ),

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
@@ -35,9 +36,8 @@ class SettingsAppBar extends WatchingWidget implements PreferredSizeWidget {
               SettingsAppBarBack(
                 onPressed: Navigator.of(context).pop,
               ),
-              const SettingsTitle(
-                // TODO: Localize
-                title: 'Settings',
+              SettingsTitle(
+                title: 'settingsTitle'.tr(),
               ),
               const SizedBox(width: 48),
             ],

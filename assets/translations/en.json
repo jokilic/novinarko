@@ -13,6 +13,7 @@
     "newsRemoveSnackbarButton": "Feeds",
     "newsNoResultsTitle": "There are no items",
     "newsNoResultsSubtitle": "Load some other feed",
+    "newsReadButton": "Read",
     "searchStateLoadingFeeds": "Finding feeds",
     "searchStateLoadingGoogle": "Asking Google for help",
     "searchStateErrorGoogle": "Google didn't find anything",
@@ -22,5 +23,13 @@
     "searchStateEmptySubtitle": "Check your search or try something else",
     "searchStateErrorTitle": "There was an error",
     "searchFindFeed": "Find feed...",
-    "searchResults": "Search results"
+    "searchResults": "Search results",
+    "infoTitle": "Info",
+    "settingsTitle": "Settings",
+    "settingsThemeTitle": "Theme",
+    "settingsThemeDescription": "Choose a theme to use in your app",
+    "settingsInAppBrowserTitle": "In-App browser",
+    "settingsInAppBrowserDescription": "When opening articles, open them with an internal browser",
+    "settingsImagesInArticlesTitle": "Images in articles",
+    "settingsImagesInArticlesDescription": "Show images above article text (some articles don't have images)"
 }

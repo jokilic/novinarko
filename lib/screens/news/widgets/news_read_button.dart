@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/theme.dart';
 
-class NewsFloatingActionButton extends StatelessWidget {
+class NewsReadButton extends StatelessWidget {
   final Function() onPressed;
   final int readNumber;
 
-  const NewsFloatingActionButton({
+  const NewsReadButton({
     required this.onPressed,
     required this.readNumber,
   });
@@ -15,8 +16,7 @@ class NewsFloatingActionButton extends StatelessWidget {
   Widget build(BuildContext context) => FloatingActionButton.extended(
         onPressed: onPressed,
         label: Text(
-          // TODO: Localize
-          'Read'.toUpperCase(),
+          'newsReadButton'.tr().toUpperCase(),
           style: context.textStyles.floatingActionButtonTitle,
         ),
         icon: Container(

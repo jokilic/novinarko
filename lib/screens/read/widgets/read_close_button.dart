@@ -27,8 +27,7 @@ class ReadCloseButton extends StatelessWidget {
           ),
         ),
         child: Image.asset(
-          // TODO: Close icon
-          NovinarkoIcons.back,
+          NovinarkoIcons.close,
           fit: BoxFit.cover,
           color: context.colors.text,
           height: 16,
