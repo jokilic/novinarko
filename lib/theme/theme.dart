@@ -104,6 +104,12 @@ class NovinarkoTheme {
     newsFeedInfoValue: NovinarkoTextStyles.newsFeedInfoValue.copyWith(
       color: lightAppColors.text,
     ),
+    settingsNovinarkoTitle: NovinarkoTextStyles.settingsNovinarkoTitle.copyWith(
+      color: lightAppColors.text,
+    ),
+    settingsNovinarkoVersion: NovinarkoTextStyles.settingsNovinarkoVersion.copyWith(
+      color: lightAppColors.text,
+    ),
   );
 
   ///
@@ -204,6 +210,12 @@ class NovinarkoTheme {
     newsFeedInfoValue: NovinarkoTextStyles.newsFeedInfoValue.copyWith(
       color: darkAppColors.text,
     ),
+    settingsNovinarkoTitle: NovinarkoTextStyles.settingsNovinarkoTitle.copyWith(
+      color: darkAppColors.text,
+    ),
+    settingsNovinarkoVersion: NovinarkoTextStyles.settingsNovinarkoVersion.copyWith(
+      color: darkAppColors.text,
+    ),
   );
 
   ///
@@ -302,6 +314,12 @@ class NovinarkoTheme {
       color: sepiaAppColors.text,
     ),
     newsFeedInfoValue: NovinarkoTextStyles.newsFeedInfoValue.copyWith(
+      color: sepiaAppColors.text,
+    ),
+    settingsNovinarkoTitle: NovinarkoTextStyles.settingsNovinarkoTitle.copyWith(
+      color: sepiaAppColors.text,
+    ),
+    settingsNovinarkoVersion: NovinarkoTextStyles.settingsNovinarkoVersion.copyWith(
       color: sepiaAppColors.text,
     ),
   );

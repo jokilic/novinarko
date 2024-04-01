@@ -38,10 +38,6 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
                 onPressed: Navigator.of(context).pop,
               ),
               const Spacer(),
-              FeedsAppBarInfo(
-                onPressed: () => openInfo(context),
-              ),
-              const SizedBox(width: 16),
               FeedsAppBarSettings(
                 onPressed: () => openSettings(context),
               ),
@@ -91,36 +87,6 @@ class FeedsAppBarBack extends StatelessWidget {
         icon: Center(
           child: Image.asset(
             NovinarkoIcons.back,
-            fit: BoxFit.cover,
-            color: context.colors.background,
-            height: 20,
-            width: 20,
-          ),
-        ),
-      );
-}
-
-class FeedsAppBarInfo extends StatelessWidget {
-  final Function() onPressed;
-
-  const FeedsAppBarInfo({
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) => IconButton(
-        onPressed: onPressed,
-        style: IconButton.styleFrom(
-          highlightColor: context.colors.primary.withOpacity(0.6),
-          fixedSize: const Size(48, 48),
-          shape: const CircleBorder(),
-          side: BorderSide(
-            color: context.colors.background,
-          ),
-        ),
-        icon: Center(
-          child: Image.asset(
-            NovinarkoIcons.info,
             fit: BoxFit.cover,
             color: context.colors.background,
             height: 20,

@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants.dart';
 import '../../services/settings_service.dart';
 import '../../services/theme_service.dart';
 import '../../theme/colors/colors.dart';
 import '../../theme/theme.dart';
+import '../../util/app_version.dart';
 import '../../util/dependencies.dart';
+import '../../util/sounds.dart';
 import '../../widgets/novinarko_checkbox.dart';
 import '../../widgets/novinarko_divider.dart';
 import 'widgets/settings_app_bar.dart';
@@ -96,6 +99,48 @@ class SettingsScreen extends WatchingWidget {
                 rightWidget: NovinarkoCheckbox(
                   value: settings.useImagesInArticles,
                 ),
+              ),
+
+              /// Novinarko info
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: playWelcomeToNovinarko,
+                    child: ClipOval(
+                      child: Image.asset(
+                        NovinarkoIcons.icon,
+                        height: 48,
+                        width: 48,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Novinarko',
+                        style: context.textStyles.settingsNovinarkoTitle,
+                      ),
+                      FutureBuilder(
+                        future: getAppVersion(),
+                        builder: (_, snapshot) {
+                          final version = snapshot.data;
+
+                          if (version != null) {
+                            return Text(
+                              'v$version',
+                              style: context.textStyles.settingsNovinarkoVersion,
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),

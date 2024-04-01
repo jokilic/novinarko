@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/feed_search_model.dart';
@@ -138,11 +139,11 @@ class NewsFeedInfoDialog extends StatelessWidget {
               const SizedBox(height: 12),
 
               ///
-              /// SITE URL
+              /// WEBSITE
               ///
               if (feed.siteUrl != null) ...[
                 Text(
-                  'Site URL',
+                  'newsFeedInfoDialogWebsite'.tr(),
                   style: context.textStyles.newsFeedInfoText,
                 ),
                 const SizedBox(height: 4),
@@ -174,7 +175,7 @@ class NewsFeedInfoDialog extends StatelessWidget {
               ///
               if (feed.url != null) ...[
                 Text(
-                  'Feed URL',
+                  'newsFeedInfoDialogFeedUrl'.tr(),
                   style: context.textStyles.newsFeedInfoText,
                 ),
                 const SizedBox(height: 4),

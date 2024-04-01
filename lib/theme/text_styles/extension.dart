@@ -26,6 +26,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
   final TextStyle newsFeedInfoText;
   final TextStyle newsFeedInfoTitle;
   final TextStyle newsFeedInfoValue;
+  final TextStyle settingsNovinarkoTitle;
+  final TextStyle settingsNovinarkoVersion;
 
   const NovinarkoTextThemesExtension({
     required this.newsTitle,
@@ -53,6 +55,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     required this.newsFeedInfoText,
     required this.newsFeedInfoTitle,
     required this.newsFeedInfoValue,
+    required this.settingsNovinarkoTitle,
+    required this.settingsNovinarkoVersion,
   });
 
   @override
@@ -82,6 +86,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     TextStyle? newsFeedInfoText,
     TextStyle? newsFeedInfoTitle,
     TextStyle? newsFeedInfoValue,
+    TextStyle? settingsNovinarkoTitle,
+    TextStyle? settingsNovinarkoVersion,
   }) =>
       NovinarkoTextThemesExtension(
         newsTitle: newsTitle ?? this.newsTitle,
@@ -109,6 +115,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
         newsFeedInfoText: newsFeedInfoText ?? this.newsFeedInfoText,
         newsFeedInfoTitle: newsFeedInfoTitle ?? this.newsFeedInfoTitle,
         newsFeedInfoValue: newsFeedInfoValue ?? this.newsFeedInfoValue,
+        settingsNovinarkoTitle: settingsNovinarkoTitle ?? this.settingsNovinarkoTitle,
+        settingsNovinarkoVersion: settingsNovinarkoVersion ?? this.settingsNovinarkoTitle,
       );
 
   @override
@@ -146,6 +154,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
       newsFeedInfoText: TextStyle.lerp(newsFeedInfoText, other.newsFeedInfoText, t)!,
       newsFeedInfoTitle: TextStyle.lerp(newsFeedInfoTitle, other.newsFeedInfoTitle, t)!,
       newsFeedInfoValue: TextStyle.lerp(newsFeedInfoValue, other.newsFeedInfoValue, t)!,
+      settingsNovinarkoTitle: TextStyle.lerp(settingsNovinarkoTitle, other.settingsNovinarkoTitle, t)!,
+      settingsNovinarkoVersion: TextStyle.lerp(settingsNovinarkoVersion, other.settingsNovinarkoVersion, t)!,
     );
   }
 }

@@ -175,4 +175,18 @@ abstract class NovinarkoTextStyles {
     fontFamily: 'EncodeSans',
     height: 1.2,
   );
+
+  static const settingsNovinarkoTitle = TextStyle(
+    fontSize: 26,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'SongMyung',
+    height: 1.2,
+  );
+
+  static const settingsNovinarkoVersion = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'EncodeSans',
+    height: 1.2,
+  );
 }
