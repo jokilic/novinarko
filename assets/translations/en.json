@@ -16,6 +16,8 @@
     "newsReadButton": "Read",
     "newsFeedInfoDialogWebsite": "Website",
     "newsFeedInfoDialogFeedUrl": "Feed URL",
+    "readStateErrorTitle": "There was an error",
+    "readStateErrorSubtitle": "URL doesn't exist",
     "searchStateLoadingFeeds": "Finding feeds",
     "searchStateLoadingGoogle": "Asking Google for help",
     "searchStateErrorGoogle": "Google didn't find anything",

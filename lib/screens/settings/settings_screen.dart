@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
@@ -78,18 +79,20 @@ class SettingsScreen extends WatchingWidget {
               /// Divider
               NovinarkoDivider(),
 
-              /// In-app browser
-              SettingsListTile(
-                onPressed: getIt.get<SettingsService>().inAppBrowserPressed,
-                title: 'settingsInAppBrowserTitle'.tr(),
-                description: 'settingsInAppBrowserDescription'.tr(),
-                rightWidget: NovinarkoCheckbox(
-                  value: settings.useInAppBrowser,
+              if (!kIsWeb) ...[
+                /// In-app browser
+                SettingsListTile(
+                  onPressed: getIt.get<SettingsService>().inAppBrowserPressed,
+                  title: 'settingsInAppBrowserTitle'.tr(),
+                  description: 'settingsInAppBrowserDescription'.tr(),
+                  rightWidget: NovinarkoCheckbox(
+                    value: settings.useInAppBrowser,
+                  ),
                 ),
-              ),
 
-              /// Divider
-              NovinarkoDivider(),
+                /// Divider
+                NovinarkoDivider(),
+              ],
 
               /// In-app browser
               SettingsListTile(
@@ -107,12 +110,21 @@ class SettingsScreen extends WatchingWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: playWelcomeToNovinarko,
-                    child: ClipOval(
-                      child: Image.asset(
-                        NovinarkoIcons.icon,
-                        height: 48,
-                        width: 48,
+                    onLongPress: playWelcomeToNovinarko,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: context.colors.text,
+                          width: 1.5,
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          NovinarkoIcons.icon,
+                          height: 48,
+                          width: 48,
+                        ),
                       ),
                     ),
                   ),

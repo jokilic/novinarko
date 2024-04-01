@@ -41,8 +41,8 @@ class NovinarkoIconTextWidget extends StatelessWidget {
                     onComplete: (controller) => controller.loop(reverse: true),
                     effects: const [
                       MoveEffect(
-                        begin: Offset(0, 4),
-                        end: Offset(0, -4),
+                        begin: Offset(0, -4),
+                        end: Offset(0, -8),
                         curve: Curves.easeIn,
                         duration: Duration(milliseconds: 750),
                       ),

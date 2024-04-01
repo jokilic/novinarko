@@ -16,6 +16,8 @@
     "newsReadButton": "Pročitaj",
     "newsFeedInfoDialogWebsite": "Web stranica",
     "newsFeedInfoDialogFeedUrl": "URL izvora",
+    "readStateErrorTitle": "Dogodila se greška",
+    "readStateErrorSubtitle": "URL ne postoji",
     "searchStateLoadingFeeds": "Tražim izvore",
     "searchStateLoadingGoogle": "Pitam Google za pomoć",
     "searchStateErrorGoogle": "Google nije pronašao ništa",

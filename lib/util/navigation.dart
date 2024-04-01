@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../theme/theme.dart';
 import 'circular_transition_clipper.dart';
@@ -9,6 +11,18 @@ void openUrlExternalBrowser(
   required String? url,
 }) {
   if (url != null) {
+    /// Use `url_launcher` if on web
+    if (kIsWeb) {
+      final uri = Uri.tryParse(url);
+
+      if (uri != null) {
+        launchUrl(uri);
+      }
+
+      return;
+    }
+
+    /// Use external browser
     FlutterWebBrowser.openWebPage(
       url: url,
       customTabsOptions: CustomTabsOptions(
