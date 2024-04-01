@@ -106,8 +106,15 @@ abstract class NovinarkoTextStyles {
     height: 1.6,
   );
 
-  static const twoLetters = TextStyle(
+  static const twoLettersAppBar = TextStyle(
     fontSize: 18,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'EncodeSans',
+    height: 1.6,
+  );
+
+  static const twoLettersDialog = TextStyle(
+    fontSize: 36,
     fontWeight: FontWeight.w700,
     fontFamily: 'EncodeSans',
     height: 1.6,
@@ -142,6 +149,27 @@ abstract class NovinarkoTextStyles {
   );
 
   static const floatingActionButtonNumber = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'EncodeSans',
+    height: 1.2,
+  );
+
+  static const newsFeedInfoText = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'EncodeSans',
+    height: 1.2,
+  );
+
+  static const newsFeedInfoTitle = TextStyle(
+    fontSize: 26,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'SongMyung',
+    height: 1.2,
+  );
+
+  static const newsFeedInfoValue = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w700,
     fontFamily: 'EncodeSans',

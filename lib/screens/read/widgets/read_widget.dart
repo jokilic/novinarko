@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-import '../../../util/snackbars.dart';
 import 'read_refresh_button.dart';
 
 class ReadWidget extends StatefulWidget {
@@ -53,10 +52,6 @@ class _ReadWidgetState extends State<ReadWidget> {
             ),
             initialSettings: settings,
             onWebViewCreated: (controller) => webViewController = controller,
-            onReceivedError: (_, __, error) => showWebSnackbar(
-              context,
-              text: error.description,
-            ),
           ),
 
           ///

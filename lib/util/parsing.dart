@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart' hide DateFormat;
 import 'package:html/parser.dart' as html_parser;
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -52,14 +51,14 @@ String? parseDateTimeago(DateTime? dateTime) {
   return timeagoDateTime;
 }
 
-String getFeedTitle(FeedSearchModel? feed) {
+String? getFeedTitle(FeedSearchModel? feed) {
   if (feed != null) {
     if (feed.siteName != null) {
-      return feed.siteName!;
+      return feed.siteName;
     }
 
     if (feed.title != null) {
-      return feed.title!;
+      return feed.title;
     }
 
     if (feed.siteUrl != null || feed.url != null) {
@@ -72,7 +71,7 @@ String getFeedTitle(FeedSearchModel? feed) {
     }
   }
 
-  return 'newsAllFeedsTitle'.tr();
+  return null;
 }
 
 String? getFeedIcon(FeedSearchModel? feed) {

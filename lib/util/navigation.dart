@@ -4,7 +4,7 @@ import 'package:flutter_web_browser/flutter_web_browser.dart';
 import '../theme/theme.dart';
 import 'circular_transition_clipper.dart';
 
-void openRssExternalBrowser(
+void openUrlExternalBrowser(
   BuildContext context, {
   required String? url,
 }) {

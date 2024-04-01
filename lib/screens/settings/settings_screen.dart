@@ -9,6 +9,7 @@ import '../../theme/colors/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
 import '../../widgets/novinarko_checkbox.dart';
+import '../../widgets/novinarko_divider.dart';
 import 'widgets/settings_app_bar.dart';
 import 'widgets/settings_list_tile.dart';
 import 'widgets/settings_theme_widget.dart';
@@ -72,13 +73,7 @@ class SettingsScreen extends WatchingWidget {
               ),
 
               /// Divider
-              Divider(
-                color: context.colors.text,
-                thickness: 1,
-                height: 8,
-                indent: 16,
-                endIndent: 16,
-              ),
+              NovinarkoDivider(),
 
               /// In-app browser
               SettingsListTile(
@@ -91,13 +86,7 @@ class SettingsScreen extends WatchingWidget {
               ),
 
               /// Divider
-              Divider(
-                color: context.colors.text,
-                thickness: 1,
-                height: 8,
-                indent: 16,
-                endIndent: 16,
-              ),
+              NovinarkoDivider(),
 
               /// In-app browser
               SettingsListTile(

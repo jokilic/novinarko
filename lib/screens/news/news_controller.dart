@@ -79,7 +79,9 @@ class NewsController extends ValueNotifier<NewsState> {
     if (useLoadingState) {
       value = NewsStateLoading(
         loadingStatus: 'newsStateLoadingSingle'.tr(
-          args: [getFeedTitle(feed)],
+          args: [
+            getFeedTitle(feed) ?? 'newsAllFeedsTitle'.tr(),
+          ],
         ),
       );
     }

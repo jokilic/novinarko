@@ -10,6 +10,7 @@ import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../util/navigation.dart';
 import '../../../util/parsing.dart';
+import '../../../widgets/novinarko_divider.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../../read/read_controller.dart';
 import '../news_controller.dart';
@@ -69,7 +70,7 @@ class NewsResult extends StatelessWidget {
                         child: NewsListTile(
                           onPressed: inAppBrowser
                               ? () => getIt.get<ReadController>().addItemForReading(item)
-                              : () => openRssExternalBrowser(
+                              : () => openUrlExternalBrowser(
                                     context,
                                     url: item.link ?? item.guid,
                                   ),
@@ -85,13 +86,7 @@ class NewsResult extends StatelessWidget {
                         ),
                       );
                     },
-                    separatorBuilder: (_, __) => Divider(
-                      color: context.colors.text,
-                      thickness: 1,
-                      height: 8,
-                      indent: 16,
-                      endIndent: 16,
-                    ),
+                    separatorBuilder: (_, __) => NovinarkoDivider(),
                   )
 
                 /// No results

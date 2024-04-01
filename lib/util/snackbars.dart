@@ -15,7 +15,6 @@ void showRemoveSomeFeedsSnackbar(BuildContext context, {required Function() onPr
         ),
       ),
       behavior: SnackBarBehavior.floating,
-      elevation: 0,
       backgroundColor: context.colors.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
@@ -33,7 +32,7 @@ void showRemoveSomeFeedsSnackbar(BuildContext context, {required Function() onPr
   );
 }
 
-void showWebSnackbar(BuildContext context, {required String text}) {
+void showSnackbar(BuildContext context, {required String text}) {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
   ScaffoldMessenger.of(context).showSnackBar(
@@ -45,7 +44,6 @@ void showWebSnackbar(BuildContext context, {required String text}) {
         ),
       ),
       behavior: SnackBarBehavior.floating,
-      elevation: 0,
       backgroundColor: context.colors.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),

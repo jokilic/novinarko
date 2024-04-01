@@ -33,4 +33,3 @@ If you're not sure about it, typing simple words will first trigger a search for
 ## To-do
 
 - [ ] Finish `InfoScreen`
-- [ ] Tapping `NewsAppBarAvatar` opens dialog showing info about feed

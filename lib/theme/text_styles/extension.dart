@@ -16,12 +16,16 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
   final TextStyle searchUrl;
   final TextStyle iconTextTitle;
   final TextStyle iconTextSubtitle;
-  final TextStyle twoLetters;
+  final TextStyle twoLettersAppBar;
+  final TextStyle twoLettersDialog;
   final TextStyle loading;
   final TextStyle snackbar;
   final TextStyle appBarTitle;
   final TextStyle floatingActionButtonTitle;
   final TextStyle floatingActionButtonNumber;
+  final TextStyle newsFeedInfoText;
+  final TextStyle newsFeedInfoTitle;
+  final TextStyle newsFeedInfoValue;
 
   const NovinarkoTextThemesExtension({
     required this.newsTitle,
@@ -39,12 +43,16 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     required this.searchUrl,
     required this.iconTextTitle,
     required this.iconTextSubtitle,
-    required this.twoLetters,
+    required this.twoLettersAppBar,
+    required this.twoLettersDialog,
     required this.loading,
     required this.snackbar,
     required this.appBarTitle,
     required this.floatingActionButtonTitle,
     required this.floatingActionButtonNumber,
+    required this.newsFeedInfoText,
+    required this.newsFeedInfoTitle,
+    required this.newsFeedInfoValue,
   });
 
   @override
@@ -64,12 +72,16 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     TextStyle? searchUrl,
     TextStyle? iconTextTitle,
     TextStyle? iconTextSubtitle,
-    TextStyle? twoLetters,
+    TextStyle? twoLettersAppBar,
+    TextStyle? twoLettersDialog,
     TextStyle? loading,
     TextStyle? snackbar,
     TextStyle? appBarTitle,
     TextStyle? floatingActionButtonTitle,
     TextStyle? floatingActionButtonNumber,
+    TextStyle? newsFeedInfoText,
+    TextStyle? newsFeedInfoTitle,
+    TextStyle? newsFeedInfoValue,
   }) =>
       NovinarkoTextThemesExtension(
         newsTitle: newsTitle ?? this.newsTitle,
@@ -87,12 +99,16 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
         searchUrl: searchUrl ?? this.searchUrl,
         iconTextTitle: iconTextTitle ?? this.iconTextTitle,
         iconTextSubtitle: iconTextSubtitle ?? this.iconTextSubtitle,
-        twoLetters: twoLetters ?? this.twoLetters,
+        twoLettersAppBar: twoLettersAppBar ?? this.twoLettersAppBar,
+        twoLettersDialog: twoLettersDialog ?? this.twoLettersDialog,
         loading: loading ?? this.loading,
         snackbar: snackbar ?? this.snackbar,
         appBarTitle: appBarTitle ?? this.appBarTitle,
         floatingActionButtonTitle: floatingActionButtonTitle ?? this.floatingActionButtonTitle,
         floatingActionButtonNumber: floatingActionButtonNumber ?? this.floatingActionButtonNumber,
+        newsFeedInfoText: newsFeedInfoText ?? this.newsFeedInfoText,
+        newsFeedInfoTitle: newsFeedInfoTitle ?? this.newsFeedInfoTitle,
+        newsFeedInfoValue: newsFeedInfoValue ?? this.newsFeedInfoValue,
       );
 
   @override
@@ -120,12 +136,16 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
       searchUrl: TextStyle.lerp(searchUrl, other.searchUrl, t)!,
       iconTextTitle: TextStyle.lerp(iconTextTitle, other.iconTextTitle, t)!,
       iconTextSubtitle: TextStyle.lerp(iconTextSubtitle, other.iconTextSubtitle, t)!,
-      twoLetters: TextStyle.lerp(twoLetters, other.twoLetters, t)!,
+      twoLettersAppBar: TextStyle.lerp(twoLettersAppBar, other.twoLettersAppBar, t)!,
+      twoLettersDialog: TextStyle.lerp(twoLettersDialog, other.twoLettersDialog, t)!,
       loading: TextStyle.lerp(loading, other.loading, t)!,
       snackbar: TextStyle.lerp(snackbar, other.snackbar, t)!,
       appBarTitle: TextStyle.lerp(appBarTitle, other.appBarTitle, t)!,
       floatingActionButtonTitle: TextStyle.lerp(floatingActionButtonTitle, other.floatingActionButtonTitle, t)!,
       floatingActionButtonNumber: TextStyle.lerp(floatingActionButtonNumber, other.floatingActionButtonNumber, t)!,
+      newsFeedInfoText: TextStyle.lerp(newsFeedInfoText, other.newsFeedInfoText, t)!,
+      newsFeedInfoTitle: TextStyle.lerp(newsFeedInfoTitle, other.newsFeedInfoTitle, t)!,
+      newsFeedInfoValue: TextStyle.lerp(newsFeedInfoValue, other.newsFeedInfoValue, t)!,
     );
   }
 }

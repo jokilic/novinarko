@@ -72,14 +72,14 @@ class SearchListTile extends StatelessWidget {
                                 imageUrl: favicon!,
                                 placeholderWidget: Text(
                                   title?.substring(0, 2) ?? siteName?.substring(0, 2) ?? '?',
-                                  style: context.textStyles.twoLetters,
+                                  style: context.textStyles.twoLettersAppBar,
                                   textAlign: TextAlign.center,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 errorWidget: Text(
                                   title?.substring(0, 2) ?? siteName?.substring(0, 2) ?? '?',
-                                  style: context.textStyles.twoLetters,
+                                  style: context.textStyles.twoLettersAppBar,
                                   textAlign: TextAlign.center,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -88,7 +88,7 @@ class SearchListTile extends StatelessWidget {
                             )
                           : Text(
                               title?.substring(0, 2) ?? siteName?.substring(0, 2) ?? '?',
-                              style: context.textStyles.twoLetters,
+                              style: context.textStyles.twoLettersAppBar,
                               textAlign: TextAlign.center,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

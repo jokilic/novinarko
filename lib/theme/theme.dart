@@ -74,7 +74,10 @@ class NovinarkoTheme {
     iconTextSubtitle: NovinarkoTextStyles.iconTextSubtitle.copyWith(
       color: lightAppColors.text,
     ),
-    twoLetters: NovinarkoTextStyles.twoLetters.copyWith(
+    twoLettersAppBar: NovinarkoTextStyles.twoLettersAppBar.copyWith(
+      color: lightAppColors.text,
+    ),
+    twoLettersDialog: NovinarkoTextStyles.twoLettersDialog.copyWith(
       color: lightAppColors.text,
     ),
     loading: NovinarkoTextStyles.loading.copyWith(
@@ -90,6 +93,15 @@ class NovinarkoTheme {
       color: lightAppColors.text,
     ),
     floatingActionButtonNumber: NovinarkoTextStyles.floatingActionButtonNumber.copyWith(
+      color: lightAppColors.text,
+    ),
+    newsFeedInfoText: NovinarkoTextStyles.newsFeedInfoText.copyWith(
+      color: lightAppColors.text,
+    ),
+    newsFeedInfoTitle: NovinarkoTextStyles.newsFeedInfoTitle.copyWith(
+      color: lightAppColors.text,
+    ),
+    newsFeedInfoValue: NovinarkoTextStyles.newsFeedInfoValue.copyWith(
       color: lightAppColors.text,
     ),
   );
@@ -162,7 +174,10 @@ class NovinarkoTheme {
     iconTextSubtitle: NovinarkoTextStyles.iconTextSubtitle.copyWith(
       color: darkAppColors.text,
     ),
-    twoLetters: NovinarkoTextStyles.twoLetters.copyWith(
+    twoLettersAppBar: NovinarkoTextStyles.twoLettersAppBar.copyWith(
+      color: darkAppColors.text,
+    ),
+    twoLettersDialog: NovinarkoTextStyles.twoLettersDialog.copyWith(
       color: darkAppColors.text,
     ),
     loading: NovinarkoTextStyles.loading.copyWith(
@@ -178,6 +193,15 @@ class NovinarkoTheme {
       color: darkAppColors.text,
     ),
     floatingActionButtonNumber: NovinarkoTextStyles.floatingActionButtonNumber.copyWith(
+      color: darkAppColors.text,
+    ),
+    newsFeedInfoText: NovinarkoTextStyles.newsFeedInfoText.copyWith(
+      color: darkAppColors.text,
+    ),
+    newsFeedInfoTitle: NovinarkoTextStyles.newsFeedInfoTitle.copyWith(
+      color: darkAppColors.text,
+    ),
+    newsFeedInfoValue: NovinarkoTextStyles.newsFeedInfoValue.copyWith(
       color: darkAppColors.text,
     ),
   );
@@ -250,7 +274,10 @@ class NovinarkoTheme {
     iconTextSubtitle: NovinarkoTextStyles.iconTextSubtitle.copyWith(
       color: sepiaAppColors.text,
     ),
-    twoLetters: NovinarkoTextStyles.twoLetters.copyWith(
+    twoLettersAppBar: NovinarkoTextStyles.twoLettersAppBar.copyWith(
+      color: sepiaAppColors.text,
+    ),
+    twoLettersDialog: NovinarkoTextStyles.twoLettersDialog.copyWith(
       color: sepiaAppColors.text,
     ),
     loading: NovinarkoTextStyles.loading.copyWith(
@@ -266,6 +293,15 @@ class NovinarkoTheme {
       color: sepiaAppColors.text,
     ),
     floatingActionButtonNumber: NovinarkoTextStyles.floatingActionButtonNumber.copyWith(
+      color: sepiaAppColors.text,
+    ),
+    newsFeedInfoText: NovinarkoTextStyles.newsFeedInfoText.copyWith(
+      color: sepiaAppColors.text,
+    ),
+    newsFeedInfoTitle: NovinarkoTextStyles.newsFeedInfoTitle.copyWith(
+      color: sepiaAppColors.text,
+    ),
+    newsFeedInfoValue: NovinarkoTextStyles.newsFeedInfoValue.copyWith(
       color: sepiaAppColors.text,
     ),
   );

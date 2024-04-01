@@ -3,8 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../models/feed_search_model.dart';
 import '../../../services/active_feed_service.dart';
-import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
+import '../../../widgets/novinarko_divider.dart';
 import 'search_list_tile.dart';
 
 class SearchResult extends StatelessWidget {
@@ -46,12 +46,6 @@ class SearchResult extends StatelessWidget {
             ),
           );
         },
-        separatorBuilder: (_, __) => Divider(
-          color: context.colors.text,
-          thickness: 1,
-          height: 8,
-          indent: 16,
-          endIndent: 16,
-        ),
+        separatorBuilder: (_, __) => NovinarkoDivider(),
       );
 }

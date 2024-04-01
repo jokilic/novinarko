@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
 import '../../../main.dart';
+import '../../../models/feed_search_model.dart';
 import '../../../routing.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../services/hive_service.dart';
@@ -15,10 +17,14 @@ import '../../../util/parsing.dart';
 import '../../../util/snackbars.dart';
 import '../../../widgets/novinarko_network_image.dart';
 import '../../search/search_screen.dart';
+import 'news_feed_info_dialog.dart';
 
 class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
   /// Opens [SearchScreen] or shows [SnackBar], depending on `feedsLength`
-  Future<void> openSearchOrShowSnackBar(BuildContext context, {required int feedsLength}) async {
+  Future<void> openSearchOrShowSnackBar(
+    BuildContext context, {
+    required int feedsLength,
+  }) async {
     /// User has less than feed limit, open [SearchScreen]
     if (feedsLength < feedLimit) {
       openSearch(context);
@@ -33,9 +39,21 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
     }
   }
 
+  /// Opens [NewsFeedInfoDialog] showing data about the active feed
+  void openFeedInfoDialog(
+    BuildContext context, {
+    required FeedSearchModel feed,
+  }) =>
+      showDialog(
+        context: context,
+        builder: (context) => NewsFeedInfoDialog(
+          feed: feed,
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
-    final activeFeed = watchIt<ActiveFeedService>();
+    final activeFeed = watchIt<ActiveFeedService>().value;
     final feedsLength = watchIt<HiveService>().value.length;
     final isDark = watchIt<ThemeService>().value == NovinarkoTheme.dark;
 
@@ -60,15 +78,20 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               NewsAppBarAvatar(
-                favicon: getFeedIcon(activeFeed.value),
-                feedTitle: getFeedTitle(activeFeed.value).substring(0, 2),
-                hasActiveFeed: activeFeed.value != null,
-                onPressed: () {},
+                favicon: getFeedIcon(activeFeed),
+                feedTitle: getFeedTitle(activeFeed)?.substring(0, 2) ?? 'newsAllFeedsTitle'.tr().substring(0, 2),
+                hasActiveFeed: activeFeed != null,
+                onPressed: activeFeed != null
+                    ? () => openFeedInfoDialog(
+                          context,
+                          feed: activeFeed,
+                        )
+                    : () {},
               ),
               const SizedBox(width: 40),
               Expanded(
                 child: NewsAppBarActiveFeed(
-                  feedTitle: getFeedTitle(activeFeed.value),
+                  feedTitle: getFeedTitle(activeFeed) ?? 'newsAllFeedsTitle'.tr(),
                   onPressed: () => openFeeds(context),
                 ),
               ),
@@ -144,14 +167,14 @@ class NewsAppBarAvatar extends StatelessWidget {
                         imageUrl: favicon!,
                         placeholderWidget: Text(
                           feedTitle,
-                          style: context.textStyles.twoLetters,
+                          style: context.textStyles.twoLettersAppBar,
                           textAlign: TextAlign.center,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         errorWidget: Text(
                           feedTitle,
-                          style: context.textStyles.twoLetters,
+                          style: context.textStyles.twoLettersAppBar,
                           textAlign: TextAlign.center,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -160,7 +183,7 @@ class NewsAppBarAvatar extends StatelessWidget {
                     )
                   : Text(
                       feedTitle,
-                      style: context.textStyles.twoLetters,
+                      style: context.textStyles.twoLettersAppBar,
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

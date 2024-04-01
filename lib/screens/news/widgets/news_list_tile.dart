@@ -124,14 +124,14 @@ class NewsListTile extends StatelessWidget {
                                         imageUrl: favicon!,
                                         placeholderWidget: Text(
                                           feedTitle?.substring(0, 2) ?? '?',
-                                          style: context.textStyles.twoLetters,
+                                          style: context.textStyles.twoLettersAppBar,
                                           textAlign: TextAlign.center,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         errorWidget: Text(
                                           feedTitle?.substring(0, 2) ?? '?',
-                                          style: context.textStyles.twoLetters,
+                                          style: context.textStyles.twoLettersAppBar,
                                           textAlign: TextAlign.center,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -140,7 +140,7 @@ class NewsListTile extends StatelessWidget {
                                     )
                                   : Text(
                                       feedTitle?.substring(0, 2) ?? '?',
-                                      style: context.textStyles.twoLetters,
+                                      style: context.textStyles.twoLettersAppBar,
                                       textAlign: TextAlign.center,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
