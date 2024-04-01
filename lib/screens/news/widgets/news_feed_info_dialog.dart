@@ -8,7 +8,6 @@ import '../../../util/parsing.dart';
 import '../../../widgets/novinarko_divider.dart';
 import '../../../widgets/novinarko_network_image.dart';
 
-// TODO: Localize
 class NewsFeedInfoDialog extends StatelessWidget {
   final FeedSearchModel feed;
 
