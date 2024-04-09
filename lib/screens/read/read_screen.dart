@@ -26,7 +26,7 @@ class ReadScreen extends WatchingWidget {
 
     return Scaffold(
       floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           ///
           /// PREVIOUS
@@ -47,6 +47,8 @@ class ReadScreen extends WatchingWidget {
               ),
             ),
           ),
+
+          const SizedBox(width: 16),
 
           ///
           /// NEXT

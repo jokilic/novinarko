@@ -13,7 +13,7 @@ class ReadNextButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => FloatingActionButton(
+  Widget build(BuildContext context) => FloatingActionButton.small(
         heroTag: 'next',
         onPressed: onPressed,
         backgroundColor: context.colors.background,
@@ -34,8 +34,8 @@ class ReadNextButton extends StatelessWidget {
             NovinarkoIcons.back,
             fit: BoxFit.cover,
             color: context.colors.text,
-            height: 20,
-            width: 20,
+            height: 16,
+            width: 16,
           ),
         ),
       );
