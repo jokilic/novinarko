@@ -30,6 +30,7 @@ dependencies:
   package_info_plus: 7.0.0
   preload_page_view: 0.2.0
   rss_dart: 1.0.6
+  sentry_flutter: 7.19.0
   timeago: 3.6.1
   url_launcher: 6.2.5
   watch_it: 1.4.1
@@ -43,6 +44,7 @@ dev_dependencies:
 
 dependency_overrides:
   intl: 0.19.0
+  package_info_plus: 7.0.0
 
   # Run code generation - `dart run build_runner build -d`
 
