@@ -1,13 +1,10 @@
 import 'dart:io';
 
 import 'package:dough/dough.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-import '../../../constants.dart';
-import '../../../widgets/novinarko_icon_text_widget.dart';
 import 'read_refresh_button.dart';
 
 class ReadWidget extends StatefulWidget {
@@ -50,23 +47,13 @@ class _ReadWidgetState extends State<ReadWidget> {
           ///
           /// CONTENT
           ///
-          if (widget.url != null && webError == null)
+          if (widget.url != null)
             InAppWebView(
               initialUrlRequest: URLRequest(
                 url: WebUri(widget.url!),
               ),
               initialSettings: settings,
               onWebViewCreated: (controller) => webViewController = controller,
-              onReceivedError: (_, __, error) => setState(
-                () => webError = error.description,
-              ),
-            )
-          else
-            NovinarkoIconTextWidget(
-              icon: NovinarkoIcons.errorNews,
-              title: 'readStateErrorTitle'.tr(),
-              subtitle: webError ?? 'readStateErrorSubtitle'.tr(),
-              verticalPadding: 0,
             ),
 
           ///
