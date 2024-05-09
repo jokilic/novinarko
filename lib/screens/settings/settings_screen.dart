@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +74,7 @@ class SettingsScreen extends WatchingWidget {
             /// Divider
             NovinarkoDivider(),
 
-            if (!kIsWeb) ...[
+            if (!kIsWeb || Platform.isAndroid || Platform.isIOS) ...[
               /// In-app browser
               SettingsListTile(
                 onPressed: getIt.get<SettingsService>().inAppBrowserPressed,

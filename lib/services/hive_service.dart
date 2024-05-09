@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../models/feed_search_model.dart';
 import '../models/novinarko_settings.dart';
@@ -27,9 +29,10 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   ///
 
   Future<void> init() async {
-    await Hive.initFlutter();
+    final supportDirectory = await getApplicationSupportDirectory();
 
     Hive
+      ..init(supportDirectory.path)
       ..registerAdapter(FeedSearchModelAdapter())
       ..registerAdapter(NovinarkoThemeEnumAdapter())
       ..registerAdapter(NovinarkoSettingsAdapter());
@@ -96,7 +99,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
       settingsBox.get(0) ??
       NovinarkoSettings(
         novinarkoThemeEnum: NovinarkoThemeEnum.light,
-        useInAppBrowser: !kIsWeb,
+        useInAppBrowser: !kIsWeb || Platform.isAndroid || Platform.isIOS,
         useImagesInArticles: false,
       );
 
