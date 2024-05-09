@@ -23,7 +23,10 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
   });
 
   /// Triggers search or shows [SnackBar], depending on `feedsLength`
-  Future<void> searchOrShowSnackbar(BuildContext context, {required int feedsLength}) async {
+  Future<void> searchOrShowSnackbar(
+    BuildContext context, {
+    required int feedsLength,
+  }) async {
     /// User has less than feed limit, trigger search
     if (feedsLength < feedLimit) {
       onSubmitted(
