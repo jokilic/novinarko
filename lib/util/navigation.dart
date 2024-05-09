@@ -15,7 +15,7 @@ void openUrlExternalBrowser(
 }) {
   if (url != null) {
     /// Use `url_launcher` if on web and not Android / iOS
-    if (kIsWeb && (!Platform.isAndroid && Platform.isIOS)) {
+    if (kIsWeb || (!Platform.isAndroid && !Platform.isIOS)) {
       final uri = Uri.tryParse(url);
 
       if (uri != null) {

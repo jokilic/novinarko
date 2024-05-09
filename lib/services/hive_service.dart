@@ -29,10 +29,13 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   ///
 
   Future<void> init() async {
-    final supportDirectory = await getApplicationSupportDirectory();
+    Directory? directoryPath;
+    if (!kIsWeb) {
+      directoryPath = await getApplicationSupportDirectory();
+    }
 
     Hive
-      ..init(supportDirectory.path)
+      ..init(directoryPath?.path)
       ..registerAdapter(FeedSearchModelAdapter())
       ..registerAdapter(NovinarkoThemeEnumAdapter())
       ..registerAdapter(NovinarkoSettingsAdapter());
