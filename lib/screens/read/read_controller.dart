@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 import '../../constants.dart';
@@ -6,7 +9,7 @@ import '../../models/novinarko_rss_item.dart';
 import '../../services/logger_service.dart';
 import 'web_buttons_controller.dart';
 
-class ReadController extends ValueNotifier<List<NovinarkoRssItem>> {
+class ReadController extends ValueNotifier<List<NovinarkoRssItem>> implements Disposable {
   final LoggerService logger;
   final WebButtonsController webButtons;
 
@@ -24,6 +27,16 @@ class ReadController extends ValueNotifier<List<NovinarkoRssItem>> {
   AnimationController? shakeFabController;
 
   late PreloadPageController pageController;
+
+  ///
+  /// DISPOSE
+  ///
+
+  @override
+  void onDispose() {
+    shakeFabController?.dispose();
+    pageController.dispose();
+  }
 
   ///
   /// METHODS
