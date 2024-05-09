@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../constants.dart';
 import '../theme/theme.dart';
 import 'circular_transition_clipper.dart';
 
@@ -73,8 +74,8 @@ Route<T> fadePageTransition<T>(
   Duration? reverseTransitionDuration,
 }) =>
     PageRouteBuilder<T>(
-      transitionDuration: transitionDuration ?? const Duration(milliseconds: 150),
-      reverseTransitionDuration: reverseTransitionDuration ?? const Duration(milliseconds: 150),
+      transitionDuration: transitionDuration ?? NovinarkoConstants.animationDuration,
+      reverseTransitionDuration: reverseTransitionDuration ?? NovinarkoConstants.animationDuration,
       pageBuilder: (_, __, ___) => screen,
       transitionsBuilder: (_, animation, __, child) => FadeTransition(
         opacity: animation,
@@ -88,8 +89,8 @@ Route<T> circularPageTransition<T>(
   Duration? reverseTransitionDuration,
 }) =>
     PageRouteBuilder<T>(
-      transitionDuration: transitionDuration ?? const Duration(milliseconds: 750),
-      reverseTransitionDuration: reverseTransitionDuration ?? const Duration(milliseconds: 750),
+      transitionDuration: transitionDuration ?? NovinarkoConstants.animationDuration,
+      reverseTransitionDuration: reverseTransitionDuration ?? NovinarkoConstants.animationDuration,
       opaque: false,
       pageBuilder: (_, __, ___) => screen,
       transitionsBuilder: (context, animation, _, child) {

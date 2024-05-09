@@ -140,7 +140,7 @@ class SearchListTile extends StatelessWidget {
                   /// Check
                   AnimatedOpacity(
                     opacity: usingFeed ? 1 : 0,
-                    duration: const Duration(milliseconds: 150),
+                    duration: NovinarkoConstants.animationDuration,
                     curve: Curves.easeIn,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),

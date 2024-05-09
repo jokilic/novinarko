@@ -45,7 +45,7 @@ class NovinarkoIconTextWidget extends StatelessWidget {
                           begin: Offset(0, -4),
                           end: Offset(0, -8),
                           curve: Curves.easeIn,
-                          duration: Duration(milliseconds: 750),
+                          duration: NovinarkoConstants.animationDuration,
                         ),
                       ],
                       child: Transform.rotate(

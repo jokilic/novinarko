@@ -85,7 +85,7 @@ class FeedsListTile extends StatelessWidget {
                     /// Active indicator
                     const SizedBox(width: 20),
                     AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 150),
+                      duration: NovinarkoConstants.animationDuration,
                       child: showActiveIndicator
                           ? Container(
                               height: 14,

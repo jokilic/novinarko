@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants.dart';
 import '../../services/active_feed_service.dart';
 import '../../services/hive_service.dart';
 import '../../theme/theme.dart';
@@ -18,7 +19,7 @@ class FeedsScreen extends WatchingWidget {
           effects: const [
             FadeEffect(
               curve: Curves.easeIn,
-              duration: Duration(milliseconds: 450),
+              duration: NovinarkoConstants.animationDuration,
             ),
           ],
           child: FeedsContent(

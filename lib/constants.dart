@@ -24,6 +24,8 @@ class NovinarkoConstants {
     r"(#[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?"
     r'$',
   );
+
+  static const animationDuration = Duration(milliseconds: 300);
 }
 
 class NovinarkoIcons {

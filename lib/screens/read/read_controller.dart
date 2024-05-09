@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
+import '../../constants.dart';
 import '../../models/novinarko_rss_item.dart';
 import '../../services/logger_service.dart';
 import 'web_buttons_controller.dart';
@@ -57,7 +58,7 @@ class ReadController extends ValueNotifier<List<NovinarkoRssItem>> {
   /// Decrements the `pageController` index
   Future<void> openPrevious() async {
     await pageController.previousPage(
-      duration: const Duration(milliseconds: 300),
+      duration: NovinarkoConstants.animationDuration,
       curve: Curves.easeIn,
     );
 
@@ -70,7 +71,7 @@ class ReadController extends ValueNotifier<List<NovinarkoRssItem>> {
   /// Increments the `pageController` index
   Future<void> openNext() async {
     await pageController.nextPage(
-      duration: const Duration(milliseconds: 300),
+      duration: NovinarkoConstants.animationDuration,
       curve: Curves.easeIn,
     );
 

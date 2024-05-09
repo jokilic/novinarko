@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants.dart';
 import '../../models/novinarko_rss_item.dart';
 import '../../util/dependencies.dart';
 import 'read_controller.dart';
@@ -37,7 +38,7 @@ class ReadScreen extends WatchingWidget {
               ignoring: !webButtons.showPrevious,
               child: AnimatedOpacity(
                 opacity: webButtons.showPrevious ? 1 : 0,
-                duration: const Duration(milliseconds: 150),
+                duration: NovinarkoConstants.animationDuration,
                 curve: Curves.easeIn,
                 child: PressableDough(
                   child: ReadPreviousButton(
@@ -57,7 +58,7 @@ class ReadScreen extends WatchingWidget {
             ignoring: !webButtons.showNext,
             child: AnimatedOpacity(
               opacity: webButtons.showNext ? 1 : 0,
-              duration: const Duration(milliseconds: 150),
+              duration: NovinarkoConstants.animationDuration,
               curve: Curves.easeIn,
               child: PressableDough(
                 child: ReadNextButton(
@@ -72,7 +73,7 @@ class ReadScreen extends WatchingWidget {
         effects: const [
           FadeEffect(
             curve: Curves.easeIn,
-            duration: Duration(milliseconds: 450),
+            duration: NovinarkoConstants.animationDuration,
           ),
         ],
         child: SafeArea(

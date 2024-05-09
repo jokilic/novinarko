@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../models/feed_search_model.dart';
 import '../../../services/active_feed_service.dart';
@@ -35,51 +34,31 @@ class FeedsContent extends StatelessWidget {
         itemBuilder: (_, index) {
           /// First value, show `All feeds`
           if (index == 0) {
-            return Animate(
+            return FeedsListTile(
+              isDraggable: false,
               key: ValueKey(index),
-              delay: (const Duration(milliseconds: 50).inMilliseconds * index).milliseconds,
-              effects: const [
-                FadeEffect(
-                  curve: Curves.easeIn,
-                  duration: Duration(milliseconds: 300),
-                ),
-              ],
-              child: FeedsListTile(
-                isDraggable: false,
-                key: ValueKey(index),
-                onPressedDelete: () {},
-                onPressed: () => loadFeedAndPop(context, null),
-                title: 'feedsAllFeedsTitle'.tr(),
-                subtitle: 'feedsAllFeedsSubtitle'.tr(),
-                showActiveIndicator: activeFeed == null,
-              ),
+              onPressedDelete: () {},
+              onPressed: () => loadFeedAndPop(context, null),
+              title: 'feedsAllFeedsTitle'.tr(),
+              subtitle: 'feedsAllFeedsSubtitle'.tr(),
+              showActiveIndicator: activeFeed == null,
             );
           }
 
           /// Show feeds
           final feed = feeds[index - 1];
 
-          return Animate(
+          return FeedsListTile(
             key: ValueKey(feed),
-            delay: (const Duration(milliseconds: 50).inMilliseconds * index).milliseconds,
-            effects: const [
-              FadeEffect(
-                curve: Curves.easeIn,
-                duration: Duration(milliseconds: 300),
-              ),
-            ],
-            child: FeedsListTile(
-              key: ValueKey(feed),
-              onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(
-                    feed,
-                    deleteFeed: true,
-                  ),
-              onPressed: () => loadFeedAndPop(context, feed),
-              title: feed.siteName ?? feed.title ?? '',
-              subtitle: feed.title,
-              url: feed.url,
-              showActiveIndicator: activeFeed == feed,
-            ),
+            onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(
+                  feed,
+                  deleteFeed: true,
+                ),
+            onPressed: () => loadFeedAndPop(context, feed),
+            title: feed.siteName ?? feed.title ?? '',
+            subtitle: feed.title,
+            url: feed.url,
+            showActiveIndicator: activeFeed == feed,
           );
         },
         separatorBuilder: (_, __) => const SizedBox(height: 8),

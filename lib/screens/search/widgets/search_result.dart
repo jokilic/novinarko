@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' hide SearchController;
-import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../models/feed_search_model.dart';
 import '../../../services/active_feed_service.dart';
@@ -23,27 +22,17 @@ class SearchResult extends StatelessWidget {
         itemBuilder: (_, index) {
           final result = results[index];
 
-          return Animate(
-            key: ValueKey(result),
-            delay: (const Duration(milliseconds: 50).inMilliseconds * index).milliseconds,
-            effects: const [
-              FadeEffect(
-                curve: Curves.easeIn,
-                duration: Duration(milliseconds: 300),
-              ),
-            ],
-            child: SearchListTile(
-              onPressed: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(
-                    result,
-                    deleteFeed: hiveFeeds.contains(result),
-                  ),
-              title: result.title,
-              siteName: result.siteName,
-              description: result.description,
-              favicon: result.favicon,
-              url: result.url,
-              usingFeed: hiveFeeds.contains(result),
-            ),
+          return SearchListTile(
+            onPressed: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(
+                  result,
+                  deleteFeed: hiveFeeds.contains(result),
+                ),
+            title: result.title,
+            siteName: result.siteName,
+            description: result.description,
+            favicon: result.favicon,
+            url: result.url,
+            usingFeed: hiveFeeds.contains(result),
           );
         },
         separatorBuilder: (_, __) => NovinarkoDivider(),

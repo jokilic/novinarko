@@ -25,7 +25,7 @@ class NovinarkoCheckbox extends StatelessWidget {
         ),
         child: AnimatedOpacity(
           opacity: value ? 1 : 0,
-          duration: const Duration(milliseconds: 200),
+          duration: NovinarkoConstants.animationDuration,
           curve: Curves.easeIn,
           child: Image.asset(
             NovinarkoIcons.check,

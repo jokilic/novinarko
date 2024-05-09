@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide SearchController;
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants.dart';
 import '../../services/hive_service.dart';
 import '../../util/dependencies.dart';
 import 'search_controller.dart';
@@ -39,7 +40,7 @@ class SearchWidget extends WatchingWidget {
         effects: const [
           FadeEffect(
             curve: Curves.easeIn,
-            duration: Duration(milliseconds: 450),
+            duration: NovinarkoConstants.animationDuration,
           ),
         ],
         child: SearchContent(

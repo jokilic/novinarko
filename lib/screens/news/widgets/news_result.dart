@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../constants.dart';
 import '../../../models/novinarko_rss_feed.dart';
@@ -58,32 +57,22 @@ class NewsResult extends StatelessWidget {
                       final cleanDescription = parseDescriptionHtml(item.description);
                       final cleanDate = parseDateTimeago(item.pubDate);
 
-                      return Animate(
-                        key: ValueKey(item),
-                        delay: (const Duration(milliseconds: 50).inMilliseconds * index).milliseconds,
-                        effects: const [
-                          FadeEffect(
-                            curve: Curves.easeIn,
-                            duration: Duration(milliseconds: 300),
-                          ),
-                        ],
-                        child: NewsListTile(
-                          onPressed: inAppBrowser
-                              ? () => getIt.get<ReadController>().addItemForReading(item)
-                              : () => openUrlExternalBrowser(
-                                    context,
-                                    url: item.link ?? item.guid,
-                                  ),
-                          imageUrl: item.imageUrl,
-                          title: item.title ?? '',
-                          favicon: item.favicon,
-                          feedTitle: item.feedTitle,
-                          cleanDescription: cleanDescription,
-                          cleanDate: cleanDate,
-                          showFavicon: showFavicon,
-                          showImages: showImages,
-                          isItemForReading: readItems.contains(item),
-                        ),
+                      return NewsListTile(
+                        onPressed: inAppBrowser
+                            ? () => getIt.get<ReadController>().addItemForReading(item)
+                            : () => openUrlExternalBrowser(
+                                  context,
+                                  url: item.link ?? item.guid,
+                                ),
+                        imageUrl: item.imageUrl,
+                        title: item.title ?? '',
+                        favicon: item.favicon,
+                        feedTitle: item.feedTitle,
+                        cleanDescription: cleanDescription,
+                        cleanDate: cleanDate,
+                        showFavicon: showFavicon,
+                        showImages: showImages,
+                        isItemForReading: readItems.contains(item),
                       );
                     },
                     separatorBuilder: (_, __) => NovinarkoDivider(),

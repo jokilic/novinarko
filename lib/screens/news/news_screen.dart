@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants.dart';
 import '../../routing.dart';
 import '../../services/settings_service.dart';
 import '../../util/dependencies.dart';
@@ -48,14 +49,14 @@ class NewsWidget extends WatchingWidget {
               effects: const [
                 ShakeEffect(
                   curve: Curves.easeIn,
-                  duration: Duration(milliseconds: 450),
+                  duration: NovinarkoConstants.animationDuration,
                 ),
               ],
               child: IgnorePointer(
                 ignoring: readItems.isEmpty,
                 child: AnimatedOpacity(
                   opacity: readItems.isNotEmpty ? 1 : 0,
-                  duration: const Duration(milliseconds: 150),
+                  duration: NovinarkoConstants.animationDuration,
                   curve: Curves.easeIn,
                   child: PressableDough(
                     child: NewsReadButton(
@@ -82,7 +83,7 @@ class NewsWidget extends WatchingWidget {
         effects: const [
           FadeEffect(
             curve: Curves.easeIn,
-            duration: Duration(milliseconds: 450),
+            duration: NovinarkoConstants.animationDuration,
           ),
         ],
         child: NewsContent(
