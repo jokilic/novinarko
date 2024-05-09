@@ -105,9 +105,7 @@ class ReadScreen extends WatchingWidget {
                   child: ReadCloseButton(
                     onPressed: () {
                       getIt.get<ReadController>().clearItemsForReading();
-                      WidgetsBinding.instance.addPostFrameCallback(
-                        (_) => Navigator.of(context).pop(),
-                      );
+                      Navigator.of(context).pop();
                     },
                   ),
                 ),
