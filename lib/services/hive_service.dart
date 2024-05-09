@@ -99,7 +99,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
       settingsBox.get(0) ??
       NovinarkoSettings(
         novinarkoThemeEnum: NovinarkoThemeEnum.light,
-        useInAppBrowser: !kIsWeb || Platform.isAndroid || Platform.isIOS,
+        useInAppBrowser: !kIsWeb && (Platform.isAndroid || Platform.isIOS),
         useImagesInArticles: false,
       );
 

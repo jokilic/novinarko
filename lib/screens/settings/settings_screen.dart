@@ -74,7 +74,7 @@ class SettingsScreen extends WatchingWidget {
             /// Divider
             NovinarkoDivider(),
 
-            if (!kIsWeb || Platform.isAndroid || Platform.isIOS) ...[
+            if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) ...[
               /// In-app browser
               SettingsListTile(
                 onPressed: getIt.get<SettingsService>().inAppBrowserPressed,
