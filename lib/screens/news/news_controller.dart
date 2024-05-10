@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:rss_dart/dart_rss.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../models/feed_search_model.dart';
 import '../../models/novinarko_rss_feed.dart';
 import '../../models/novinarko_rss_item.dart';
+import '../../rss_parser/models/rss_feed.dart';
 import '../../services/active_feed_service.dart';
 import '../../services/api_service.dart';
 import '../../services/hive_service.dart';
@@ -183,7 +183,7 @@ class NewsController extends ValueNotifier<NewsState> {
               (item) => NovinarkoRssItem(
                 favicon: feed.favicon,
                 title: item.title,
-                imageUrl: item.enclosure?.url,
+                imageUrl: item.enclosure?.url ?? item.content?.images.first,
                 feedTitle: feed.siteName ?? feed.title,
                 description: item.description,
                 link: item.link,
@@ -222,7 +222,8 @@ class NewsController extends ValueNotifier<NewsState> {
     }
   }
 
-  /// Fetches and parses single `feed`, retunrs `NovinarkoRssFeed` and uses it in `NewsStateSingleSuccess`
+  /// Fetches and parses single `feed`, retunrs `NovinarkoRssFeed`
+  /// Used when fetching one `item` and then using it in `NewsStateSingleSuccess`
   Future<({NovinarkoRssFeed? rssFeed, String? error})> fetchAndParseFeed(FeedSearchModel feed) async {
     /// Feed `url` is `null`
     if (feed.url == null) {
@@ -249,7 +250,7 @@ class NewsController extends ValueNotifier<NewsState> {
                 (item) => NovinarkoRssItem(
                   favicon: feed.favicon,
                   title: item.title,
-                  imageUrl: item.enclosure?.url,
+                  imageUrl: item.enclosure?.url ?? item.content?.images.first,
                   feedTitle: feed.siteName ?? feed.title,
                   description: item.description,
                   link: item.link,

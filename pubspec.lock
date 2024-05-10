@@ -824,14 +824,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
-  rss_dart:
-    dependency: "direct main"
-    description:
-      name: rss_dart
-      sha256: feb7e78f25ab9e35ef49f152b2ec8c1ee666be60a3668bfbfacc3bfa06ff513d
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.7"
   rxdart:
     dependency: transitive
     description:
@@ -1198,7 +1190,7 @@ packages:
     source: hosted
     version: "1.0.4"
   xml:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: xml
       sha256: b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226
