@@ -32,4 +32,7 @@ class RssItem {
         content: RssContent.parse(findElementOrNull(element, 'content')),
         enclosure: RssEnclosure.parse(findElementOrNull(element, 'enclosure')),
       );
+
+  @override
+  String toString() => 'RssItem(title: $title, description: $description, link: $link, guid: $guid, pubDate: $pubDate, content: $content, enclosure: $enclosure)';
 }

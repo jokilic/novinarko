@@ -34,4 +34,7 @@ class RssFeed {
       items: channelElement.findElements('item').map((element) => RssItem.parse(element)).toList(),
     );
   }
+
+  @override
+  String toString() => 'RssFeed(title: $title, description: $description, items: $items)';
 }

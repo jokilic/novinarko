@@ -22,4 +22,7 @@ class RssEnclosure {
 
     return RssEnclosure(url, type, length);
   }
+
+  @override
+  String toString() => 'RssEnclosure(url: $url, type: $type, length: $length)';
 }

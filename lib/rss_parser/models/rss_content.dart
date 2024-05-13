@@ -19,6 +19,7 @@ class RssContent {
 
     final content = element.innerText;
     final images = <String>[];
+
     imagesRegExp.allMatches(content).forEach((match) {
       final matchGroup = match.group(1);
       if (matchGroup != null) {
@@ -34,4 +35,7 @@ class RssContent {
 
   @override
   int get hashCode => value.hashCode ^ images.hashCode;
+
+  @override
+  String toString() => 'RssContent(value: $value, images: $images)';
 }
