@@ -1,3 +1,5 @@
+// ignore_for_file: use_setters_to_change_properties
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -5,26 +7,32 @@ import 'package:get_it/get_it.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 import '../../constants.dart';
-import '../../models/novinarko_rss_item.dart';
 import '../../services/logger_service.dart';
+import '../../services/settings_service.dart';
 import 'web_buttons_controller.dart';
 
-class ReadController extends ValueNotifier<List<NovinarkoRssItem>> implements Disposable {
+class ReadController implements Disposable {
   final LoggerService logger;
+  final SettingsService settings;
   final WebButtonsController webButtons;
 
   ReadController({
     required this.logger,
+    required this.settings,
     required this.webButtons,
-  }) : super([]) {
+  }) {
     pageController = PreloadPageController();
+
+    if (settings.value.useInAppBrowser) {
+      logger.f('Using in-app browser');
+    }
   }
 
   ///
   /// VARIABLES
   ///
 
-  AnimationController? shakeFabController;
+  late int itemLength;
 
   late PreloadPageController pageController;
 
@@ -34,7 +42,6 @@ class ReadController extends ValueNotifier<List<NovinarkoRssItem>> implements Di
 
   @override
   void onDispose() {
-    shakeFabController?.dispose();
     pageController.dispose();
   }
 
@@ -42,31 +49,10 @@ class ReadController extends ValueNotifier<List<NovinarkoRssItem>> implements Di
   /// METHODS
   ///
 
-  /// Adds an [NovinarkoRssItem] for reading in [ReadScreen]
-  void addItemForReading(NovinarkoRssItem item) {
-    /// Check if article is already in the list
-    final articleExists = value.any((article) => article == item);
-
-    /// Article exists in the list, remove it
-    if (articleExists) {
-      value.remove(item);
-    }
-
-    /// Article doesn't exist in the list, add it
-    else {
-      value.add(item);
-    }
-
-    /// Assign new state value
-    value = List.from(value);
-
-    /// Trigger FAB animation
-    shakeFabController?.reset();
-    shakeFabController?.forward();
+  /// Updates `itemLength` variable
+  void setItemLength(int value) {
+    itemLength = value;
   }
-
-  /// Clears all [NovinarkoRssItem] from `state`
-  void clearItemsForReading() => value = [];
 
   /// Decrements the `pageController` index
   Future<void> openPrevious() async {
@@ -77,7 +63,7 @@ class ReadController extends ValueNotifier<List<NovinarkoRssItem>> implements Di
 
     updateWebButtonVisibility(
       page: pageController.page?.round() ?? 0,
-      itemLength: value.length,
+      itemLength: itemLength,
     );
   }
 
@@ -90,7 +76,7 @@ class ReadController extends ValueNotifier<List<NovinarkoRssItem>> implements Di
 
     updateWebButtonVisibility(
       page: pageController.page?.round() ?? 0,
-      itemLength: value.length,
+      itemLength: itemLength,
     );
   }
 

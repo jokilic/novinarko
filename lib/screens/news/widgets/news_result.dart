@@ -11,8 +11,8 @@ import '../../../util/navigation.dart';
 import '../../../util/parsing.dart';
 import '../../../widgets/novinarko_divider.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
-import '../../read/read_controller.dart';
 import '../news_controller.dart';
+import '../news_read_controller.dart';
 import 'news_list_tile.dart';
 
 class NewsResult extends StatelessWidget {
@@ -59,7 +59,7 @@ class NewsResult extends StatelessWidget {
 
                       return NewsListTile(
                         onPressed: inAppBrowser
-                            ? () => getIt.get<ReadController>().addItemForReading(item)
+                            ? () => getIt.get<NewsReadController>().addItemForReading(item)
                             : () => openUrlExternalBrowser(
                                   context,
                                   url: item.link ?? item.guid,

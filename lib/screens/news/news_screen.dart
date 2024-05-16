@@ -7,8 +7,8 @@ import '../../constants.dart';
 import '../../routing.dart';
 import '../../services/settings_service.dart';
 import '../../util/dependencies.dart';
-import '../read/read_controller.dart';
 import 'news_controller.dart';
+import 'news_read_controller.dart';
 import 'widgets/news_app_bar.dart';
 import 'widgets/news_content.dart';
 import 'widgets/news_read_button.dart';
@@ -23,7 +23,7 @@ class _NewsScreenState extends State<NewsScreen> {
   void dispose() {
     getIt
       ..resetLazySingleton<NewsController>()
-      ..resetLazySingleton<ReadController>();
+      ..resetLazySingleton<NewsReadController>();
 
     super.dispose();
   }
@@ -37,7 +37,7 @@ class NewsWidget extends WatchingWidget {
   Widget build(BuildContext context) {
     final newsState = watchIt<NewsController>().value;
     final settings = watchIt<SettingsService>().value;
-    final readItems = watchIt<ReadController>().value;
+    final readItems = watchIt<NewsReadController>().value;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -45,7 +45,7 @@ class NewsWidget extends WatchingWidget {
       floatingActionButton: settings.useInAppBrowser
           ? Animate(
               autoPlay: false,
-              onInit: (controller) => getIt.get<ReadController>().shakeFabController = controller,
+              onInit: (controller) => getIt.get<NewsReadController>().shakeFabController = controller,
               effects: const [
                 ShakeEffect(
                   curve: Curves.easeIn,
@@ -60,17 +60,10 @@ class NewsWidget extends WatchingWidget {
                   curve: Curves.easeIn,
                   child: PressableDough(
                     child: NewsReadButton(
-                      onPressed: () {
-                        getIt.get<ReadController>().updateWebButtonVisibility(
-                              page: 0,
-                              itemLength: readItems.length,
-                            );
-
-                        openRead(
-                          context,
-                          items: readItems,
-                        );
-                      },
+                      onPressed: () => openRead(
+                        context,
+                        items: readItems,
+                      ),
                       readNumber: readItems.length,
                     ),
                   ),

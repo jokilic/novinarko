@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../screens/news/news_controller.dart';
+import '../screens/news/news_read_controller.dart';
 import '../screens/read/read_controller.dart';
 import '../screens/read/web_buttons_controller.dart';
 import '../screens/search/search_controller.dart';
@@ -82,6 +83,11 @@ void initializeControllers() => getIt
     )..init(),
   )
   ..registerLazySingleton(
+    () => NewsReadController(
+      logger: getIt.get<LoggerService>(),
+    ),
+  )
+  ..registerLazySingleton(
     () => WebButtonsController(
       logger: getIt.get<LoggerService>(),
     ),
@@ -89,6 +95,7 @@ void initializeControllers() => getIt
   ..registerLazySingleton(
     () => ReadController(
       logger: getIt.get<LoggerService>(),
+      settings: getIt.get<SettingsService>(),
       webButtons: getIt.get<WebButtonsController>(),
     ),
   );

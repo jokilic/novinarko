@@ -7,17 +7,51 @@ import 'package:watch_it/watch_it.dart';
 import '../../constants.dart';
 import '../../models/novinarko_rss_item.dart';
 import '../../util/dependencies.dart';
+import '../news/news_read_controller.dart';
 import 'read_controller.dart';
 import 'web_buttons_controller.dart';
 import 'widgets/read_close_button.dart';
+import 'widgets/read_item.dart';
 import 'widgets/read_next_button.dart';
 import 'widgets/read_previous_button.dart';
-import 'widgets/read_widget.dart';
 
-class ReadScreen extends WatchingWidget {
+class ReadScreen extends StatefulWidget {
   final List<NovinarkoRssItem> items;
 
   const ReadScreen({
+    required this.items,
+  });
+
+  @override
+  State<ReadScreen> createState() => _ReadScreenState();
+}
+
+class _ReadScreenState extends State<ReadScreen> {
+  @override
+  void initState() {
+    getIt.get<ReadController>().setItemLength(widget.items.length);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    getIt
+      ..resetLazySingleton<ReadController>()
+      ..resetLazySingleton<WebButtonsController>();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => ReadWidget(
+        items: widget.items,
+      );
+}
+
+class ReadWidget extends WatchingWidget {
+  final List<NovinarkoRssItem> items;
+
+  const ReadWidget({
     required this.items,
   });
 
@@ -89,7 +123,7 @@ class ReadScreen extends WatchingWidget {
                 itemBuilder: (_, index) {
                   final item = items[index];
 
-                  return ReadWidget(
+                  return ReadItem(
                     url: item.link ?? item.guid,
                   );
                 },
@@ -104,7 +138,7 @@ class ReadScreen extends WatchingWidget {
                 child: PressableDough(
                   child: ReadCloseButton(
                     onPressed: () {
-                      getIt.get<ReadController>().clearItemsForReading();
+                      getIt.get<NewsReadController>().clearItemsForReading();
                       Navigator.of(context).pop();
                     },
                   ),
