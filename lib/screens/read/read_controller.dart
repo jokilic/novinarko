@@ -10,7 +10,7 @@ import 'package:preload_page_view/preload_page_view.dart';
 import '../../constants.dart';
 import '../../services/logger_service.dart';
 import '../../services/settings_service.dart';
-import '../../util/ad_url_filters.dart';
+import '../../util/peter_lowe_ad_hosts.dart';
 import 'web_buttons_controller.dart';
 
 class ReadController extends ValueNotifier<List<ContentBlocker>> implements Disposable {
@@ -55,12 +55,12 @@ class ReadController extends ValueNotifier<List<ContentBlocker>> implements Disp
   /// Logic to set content blockers in order to have an ad-free experience
   bool setContentBlockers({required bool shouldUseContentBlockers}) {
     if (shouldUseContentBlockers) {
-      /// For each `adUrlFilter`, add a [ContentBlocker] to block its loading
-      for (final adUrlFilter in adUrlFilters) {
+      /// For each `adHost`, add a [ContentBlocker] to block its loading
+      for (final adHost in peterLoweAdHosts) {
         value.add(
           ContentBlocker(
             trigger: ContentBlockerTrigger(
-              urlFilter: adUrlFilter,
+              urlFilter: adHost,
             ),
             action: ContentBlockerAction(
               type: ContentBlockerActionType.BLOCK,
