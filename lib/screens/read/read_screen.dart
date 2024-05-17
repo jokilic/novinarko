@@ -58,6 +58,7 @@ class ReadWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final webButtons = watchIt<WebButtonsController>().value;
+    final contentBlockers = watchIt<ReadController>().value;
 
     return Scaffold(
       floatingActionButton: Row(
@@ -124,6 +125,7 @@ class ReadWidget extends WatchingWidget {
                   final item = items[index];
 
                   return ReadItem(
+                    contentBlockers: contentBlockers,
                     url: item.link ?? item.guid,
                   );
                 },

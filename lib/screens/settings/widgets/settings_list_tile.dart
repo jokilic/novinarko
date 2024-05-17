@@ -4,6 +4,7 @@ import '../../../theme/theme.dart';
 
 class SettingsListTile extends StatelessWidget {
   final Function() onPressed;
+  final Function()? onLongPressed;
   final String title;
   final Widget rightWidget;
   final String? description;
@@ -12,12 +13,14 @@ class SettingsListTile extends StatelessWidget {
     required this.onPressed,
     required this.title,
     required this.rightWidget,
+    this.onLongPressed,
     this.description,
   });
 
   @override
   Widget build(BuildContext context) => InkWell(
         onTap: onPressed,
+        onLongPress: onLongPressed,
         highlightColor: context.colors.primary.withOpacity(0.6),
         splashColor: context.colors.primary.withOpacity(0.6),
         borderRadius: BorderRadius.circular(16),

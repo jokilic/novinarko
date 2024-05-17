@@ -13,6 +13,7 @@ import '../../theme/colors/colors.dart';
 import '../../theme/theme.dart';
 import '../../util/app_version.dart';
 import '../../util/dependencies.dart';
+import '../../util/snackbars.dart';
 import '../../util/sounds.dart';
 import '../../widgets/novinarko_checkbox.dart';
 import '../../widgets/novinarko_divider.dart';
@@ -92,6 +93,15 @@ class SettingsScreen extends WatchingWidget {
             /// In-app browser
             SettingsListTile(
               onPressed: getIt.get<SettingsService>().imagesInArticlesPressed,
+              onLongPressed: () async {
+                final newValue = await getIt.get<SettingsService>().adBlockerPressed();
+
+                showSnackbar(
+                  context,
+                  // TODO: Localize
+                  text: newValue ? 'Ad-blocker is enabled' : 'Ad-blocker is disabled',
+                );
+              },
               title: 'settingsImagesInArticlesTitle'.tr(),
               description: 'settingsImagesInArticlesDescription'.tr(),
               rightWidget: NovinarkoCheckbox(

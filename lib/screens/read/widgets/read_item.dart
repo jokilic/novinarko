@@ -5,12 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
+import '../../../constants.dart';
+import '../../../widgets/novinarko_icon_text_widget.dart';
 import 'read_refresh_button.dart';
 
 class ReadItem extends StatefulWidget {
+  final List<ContentBlocker> contentBlockers;
   final String? url;
 
   const ReadItem({
+    required this.contentBlockers,
     this.url,
   });
 
@@ -20,14 +24,20 @@ class ReadItem extends StatefulWidget {
 
 class _ReadItemState extends State<ReadItem> {
   InAppWebViewController? webViewController;
-  String? webError;
+  late final InAppWebViewSettings settings;
 
-  final settings = InAppWebViewSettings(
-    isInspectable: kDebugMode,
-    mediaPlaybackRequiresUserGesture: false,
-    allowsInlineMediaPlayback: true,
-    iframeAllowFullscreen: true,
-  );
+  @override
+  void initState() {
+    super.initState();
+
+    settings = InAppWebViewSettings(
+      isInspectable: kDebugMode,
+      mediaPlaybackRequiresUserGesture: false,
+      allowsInlineMediaPlayback: true,
+      iframeAllowFullscreen: true,
+      contentBlockers: widget.contentBlockers,
+    );
+  }
 
   Future<void> refresh() async {
     if (Platform.isAndroid) {
@@ -54,6 +64,13 @@ class _ReadItemState extends State<ReadItem> {
               ),
               initialSettings: settings,
               onWebViewCreated: (controller) => webViewController = controller,
+            )
+          else
+            const NovinarkoIconTextWidget(
+              icon: NovinarkoIcons.errorNews,
+              // TODO: Localize
+              title: 'No URL',
+              subtitle: 'URL is not passed',
             ),
 
           ///

@@ -3,15 +3,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart' hide Disposable;
 import 'package:get_it/get_it.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 import '../../constants.dart';
 import '../../services/logger_service.dart';
 import '../../services/settings_service.dart';
+import '../../util/ad_url_filters.dart';
 import 'web_buttons_controller.dart';
 
-class ReadController implements Disposable {
+class ReadController extends ValueNotifier<List<ContentBlocker>> implements Disposable {
   final LoggerService logger;
   final SettingsService settings;
   final WebButtonsController webButtons;
@@ -20,12 +22,14 @@ class ReadController implements Disposable {
     required this.logger,
     required this.settings,
     required this.webButtons,
-  }) {
+  }) : super([]) {
     pageController = PreloadPageController();
 
-    if (settings.value.useInAppBrowser) {
-      logger.f('Using in-app browser');
-    }
+    final shouldUseContentBlockers = settings.value.useInAppBrowser && settings.value.useAdBlocker;
+
+    setContentBlockers(
+      shouldUseContentBlockers: shouldUseContentBlockers,
+    );
   }
 
   ///
@@ -33,7 +37,6 @@ class ReadController implements Disposable {
   ///
 
   late int itemLength;
-
   late PreloadPageController pageController;
 
   ///
@@ -48,6 +51,44 @@ class ReadController implements Disposable {
   ///
   /// METHODS
   ///
+
+  /// Logic to set content blockers in order to have an ad-free experience
+  bool setContentBlockers({required bool shouldUseContentBlockers}) {
+    if (shouldUseContentBlockers) {
+      /// For each `adUrlFilter`, add a [ContentBlocker] to block its loading
+      for (final adUrlFilter in adUrlFilters) {
+        value.add(
+          ContentBlocker(
+            trigger: ContentBlockerTrigger(
+              urlFilter: adUrlFilter,
+            ),
+            action: ContentBlockerAction(
+              type: ContentBlockerActionType.BLOCK,
+            ),
+          ),
+        );
+      }
+
+      /// Apply the `display: none` style to some HTML elements
+      value.add(
+        ContentBlocker(
+          trigger: ContentBlockerTrigger(
+            urlFilter: '.*',
+          ),
+          action: ContentBlockerAction(
+            type: ContentBlockerActionType.CSS_DISPLAY_NONE,
+            selector: '.banner, .banners, .ads, .ad, .advert',
+          ),
+        ),
+      );
+
+      return true;
+    } else {
+      value.clear();
+    }
+
+    return false;
+  }
 
   /// Updates `itemLength` variable
   void setItemLength(int value) {

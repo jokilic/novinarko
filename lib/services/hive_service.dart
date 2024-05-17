@@ -104,6 +104,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
         novinarkoThemeEnum: NovinarkoThemeEnum.light,
         useInAppBrowser: !kIsWeb && (Platform.isAndroid || Platform.isIOS),
         useImagesInArticles: false,
+        useAdBlocker: false,
       );
 
   /// Stores a new `settings` value in [Hive]

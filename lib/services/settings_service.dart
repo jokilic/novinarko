@@ -17,17 +17,36 @@ class SettingsService extends ValueNotifier<NovinarkoSettings> {
   /// METHODS
   ///
 
-  Future<void> inAppBrowserPressed() async {
+  Future<bool> inAppBrowserPressed() async {
+    final newValue = !value.useInAppBrowser;
+
     value = value.copyWith(
-      useInAppBrowser: !value.useInAppBrowser,
+      useInAppBrowser: newValue,
     );
     await hive.storeSettings(value);
+
+    return newValue;
   }
 
-  Future<void> imagesInArticlesPressed() async {
+  Future<bool> imagesInArticlesPressed() async {
+    final newValue = !value.useImagesInArticles;
+
     value = value.copyWith(
-      useImagesInArticles: !value.useImagesInArticles,
+      useImagesInArticles: newValue,
     );
     await hive.storeSettings(value);
+
+    return newValue;
+  }
+
+  Future<bool> adBlockerPressed() async {
+    final newValue = !value.useAdBlocker;
+
+    value = value.copyWith(
+      useAdBlocker: newValue,
+    );
+    await hive.storeSettings(value);
+
+    return newValue;
   }
 }

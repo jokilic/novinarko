@@ -20,19 +20,22 @@ class NovinarkoSettingsAdapter extends TypeAdapter<NovinarkoSettings> {
       novinarkoThemeEnum: fields[0] as NovinarkoThemeEnum,
       useInAppBrowser: fields[1] as bool,
       useImagesInArticles: fields[2] as bool,
+      useAdBlocker: fields[3] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, NovinarkoSettings obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.novinarkoThemeEnum)
       ..writeByte(1)
       ..write(obj.useInAppBrowser)
       ..writeByte(2)
-      ..write(obj.useImagesInArticles);
+      ..write(obj.useImagesInArticles)
+      ..writeByte(3)
+      ..write(obj.useAdBlocker);
   }
 
   @override
