@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dough/dough.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -66,11 +67,10 @@ class _ReadItemState extends State<ReadItem> {
               onWebViewCreated: (controller) => webViewController = controller,
             )
           else
-            const NovinarkoIconTextWidget(
+            NovinarkoIconTextWidget(
               icon: NovinarkoIcons.errorNews,
-              // TODO: Localize
-              title: 'No URL',
-              subtitle: 'URL is not passed',
+              title: 'readStateErrorTitle'.tr(),
+              subtitle: 'readStateErrorSubtitle'.tr(),
             ),
 
           ///

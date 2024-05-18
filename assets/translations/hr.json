@@ -35,5 +35,7 @@
     "settingsInAppBrowserTitle": "Preglednik unutar aplikacije",
     "settingsInAppBrowserDescription": "Otvori članke sa preglednikom unutar aplikacije",
     "settingsImagesInArticlesTitle": "Slike u člancima",
-    "settingsImagesInArticlesDescription": "Prikaži slike iznad članaka (neki članci nemaju slike)"
+    "settingsImagesInArticlesDescription": "Prikaži slike iznad članaka (neki članci nemaju slike)",
+    "settingsAdBlockerTitle": "Ukloni reklame",
+    "settingsAdBlockerDescription": "Ukloni reklame tijekom čitanja članaka koristeći preglednik unutar aplikacije"
 }
