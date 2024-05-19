@@ -30,6 +30,11 @@ class _ReadScreenState extends State<ReadScreen> {
   @override
   void initState() {
     getIt.get<ReadController>().setItemLength(widget.items.length);
+    getIt.get<ReadController>().updateWebButtonVisibility(
+          page: 0,
+          itemLength: widget.items.length,
+        );
+
     super.initState();
   }
 

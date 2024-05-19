@@ -87,20 +87,20 @@ class SettingsScreen extends WatchingWidget {
 
               /// Divider
               NovinarkoDivider(),
-            ],
 
-            /// In-app browser
-            SettingsListTile(
-              onPressed: getIt.get<SettingsService>().imagesInArticlesPressed,
-              title: 'settingsImagesInArticlesTitle'.tr(),
-              description: 'settingsImagesInArticlesDescription'.tr(),
-              rightWidget: NovinarkoCheckbox(
-                value: settings.useImagesInArticles,
+              /// In-app browser
+              SettingsListTile(
+                onPressed: getIt.get<SettingsService>().imagesInArticlesPressed,
+                title: 'settingsImagesInArticlesTitle'.tr(),
+                description: 'settingsImagesInArticlesDescription'.tr(),
+                rightWidget: NovinarkoCheckbox(
+                  value: settings.useImagesInArticles,
+                ),
               ),
-            ),
 
-            /// Divider
-            NovinarkoDivider(),
+              /// Divider
+              NovinarkoDivider(),
+            ],
 
             /// Ad-blocker
             SettingsListTile(
