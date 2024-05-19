@@ -36,6 +36,6 @@
     "settingsInAppBrowserDescription": "When opening articles, open them with an internal browser",
     "settingsImagesInArticlesTitle": "Images in articles",
     "settingsImagesInArticlesDescription": "Show images above article text (some articles don't have images)",
-    "settingsAdBlockerTitle": "Ad-blocker",
+    "settingsAdBlockerTitle": "Block ads",
     "settingsAdBlockerDescription": "Block ads when reading articles using in-app broswer"
 }
