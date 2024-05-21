@@ -23,10 +23,7 @@ class SearchResult extends StatelessWidget {
           final result = results[index];
 
           return SearchListTile(
-            onPressed: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(
-                  result,
-                  deleteFeed: hiveFeeds.contains(result),
-                ),
+            onPressed: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(result),
             title: result.title,
             siteName: result.siteName,
             description: result.description,

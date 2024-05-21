@@ -34,9 +34,9 @@ class ActiveFeedService extends ValueNotifier<FeedSearchModel?> {
     value = hive.getActiveFeed();
   }
 
-  Future<void> storeOrDeleteFeed(FeedSearchModel feed, {required bool deleteFeed}) async {
+  Future<void> storeOrDeleteFeed(FeedSearchModel feed) async {
     /// Store `feed` in [Hive] and refresh if `activeFeed == null`
-    if (!deleteFeed) {
+    if (!hive.value.contains(feed)) {
       await hive.storeFeed(feed);
 
       if (value == null) {
@@ -48,7 +48,9 @@ class ActiveFeedService extends ValueNotifier<FeedSearchModel?> {
 
     /// Delete `feed` from [Hive] and set `activeFeed = null` if deleted feed was the active one
     else {
-      await hive.deleteFeed(feed);
+      await hive.deleteFeed(
+        hive.value.indexOf(feed),
+      );
 
       if (feed == value) {
         await updateActiveFeed(null);

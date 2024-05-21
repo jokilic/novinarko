@@ -50,10 +50,7 @@ class FeedsContent extends StatelessWidget {
 
           return FeedsListTile(
             key: ValueKey(feed),
-            onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(
-                  feed,
-                  deleteFeed: true,
-                ),
+            onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(feed),
             onPressed: () => loadFeedAndPop(context, feed),
             title: feed.siteName ?? feed.title ?? '',
             subtitle: feed.title,

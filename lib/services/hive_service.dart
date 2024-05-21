@@ -69,14 +69,14 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   /// Stores a new `feed` value in [Hive]
   Future<void> storeFeed(FeedSearchModel feed) async {
     if (feed.url != null) {
-      await feedBox.put(feed.url, feed);
+      await feedBox.put(value.length, feed);
       value = getFeeds();
     }
   }
 
   /// Deletes `feed` value from [Hive]
-  Future<void> deleteFeed(FeedSearchModel feed) async {
-    await feedBox.delete(feed.url);
+  Future<void> deleteFeed(int index) async {
+    await feedBox.delete(index);
     value = getFeeds();
   }
 
