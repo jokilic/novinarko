@@ -44,7 +44,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
     activeFeedBox = await Hive.openBox<FeedSearchModel>('activeFeedBox');
     settingsBox = await Hive.openBox<NovinarkoSettings>('settingsBox');
 
-    value = getFeeds();
+    updateState();
   }
 
   ///
@@ -67,30 +67,66 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   List<FeedSearchModel> getFeeds() => feedBox.values.toList();
 
   /// Stores a new `feed` value in [Hive]
-  Future<void> storeFeed(FeedSearchModel feed) async {
+  Future<void> storeFeed({
+    required FeedSearchModel feed,
+    required int index,
+  }) async {
     if (feed.url != null) {
-      await feedBox.put(value.length, feed);
-      value = getFeeds();
+      await feedBox.put(index, feed);
     }
   }
 
   /// Deletes `feed` value from [Hive]
-  Future<void> deleteFeed(int index) async {
-    await feedBox.delete(index);
-    value = getFeeds();
+  Future<void> deleteFeed(int index) async => writeAllFeedsToHive(
+        feeds: List.from(value..removeAt(index)),
+      );
+
+  /// Reorders `feed` in [Hive]
+  Future<void> reorderFeeds(int oldIndex, int newIndex) async {
+    /// Rearange feeds
+    final item = value.removeAt(oldIndex);
+    value.insert(
+      oldIndex < newIndex ? newIndex - 1 : newIndex,
+      item,
+    );
+
+    /// Update all feeds in [Hive]
+    await writeAllFeedsToHive(feeds: value);
   }
+
+  /// Replace [Hive] box with passed `List<FeedSearchModel>`
+  Future<void> writeAllFeedsToHive({required List<FeedSearchModel> feeds}) async {
+    /// Update `state`
+    value = feeds;
+
+    /// Clear current [Hive] box
+    await feedBox.clear();
+
+    if (feeds.isNotEmpty) {
+      /// Add passed `List<FeedSearchModel>` to [Hive]
+      for (var i = 0; i < feeds.length; i++) {
+        await storeFeed(feed: feeds[i], index: i);
+      }
+
+      /// Update `state` again (needed because issues with `GlobalKey`)
+      updateState();
+    }
+  }
+
+  /// Updates state with values from [Hive]
+  void updateState() => value = getFeeds();
 
   ///
   /// ACTIVE FEED
   ///
 
-  /// Gets `active feed` value from [Hive]
+  /// Gets `activeFeed` value from [Hive]
   FeedSearchModel? getActiveFeed() => activeFeedBox.get(0);
 
-  /// Stores a new `active feed` value in [Hive]
+  /// Stores a new `activeFeed` value in [Hive]
   Future<void> storeActiveFeed(FeedSearchModel feed) async => activeFeedBox.put(0, feed);
 
-  /// Deletes `active feed` value from [Hive]
+  /// Deletes `activeFeed` value from [Hive]
   Future<void> deleteActiveFeed() async => activeFeedBox.clear();
 
   ///

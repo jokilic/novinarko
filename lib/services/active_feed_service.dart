@@ -37,7 +37,11 @@ class ActiveFeedService extends ValueNotifier<FeedSearchModel?> {
   Future<void> storeOrDeleteFeed(FeedSearchModel feed) async {
     /// Store `feed` in [Hive] and refresh if `activeFeed == null`
     if (!hive.value.contains(feed)) {
-      await hive.storeFeed(feed);
+      await hive.storeFeed(
+        feed: feed,
+        index: hive.value.length,
+      );
+      hive.updateState();
 
       if (value == null) {
         if (getIt.isRegistered<NewsController>()) {

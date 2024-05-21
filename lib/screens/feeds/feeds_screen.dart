@@ -6,6 +6,7 @@ import '../../constants.dart';
 import '../../services/active_feed_service.dart';
 import '../../services/hive_service.dart';
 import '../../theme/theme.dart';
+import '../../util/dependencies.dart';
 import 'widgets/feeds_app_bar.dart';
 import 'widgets/feeds_content.dart';
 
@@ -25,6 +26,7 @@ class FeedsScreen extends WatchingWidget {
           child: FeedsContent(
             activeFeed: watchIt<ActiveFeedService>().value,
             feeds: watchIt<HiveService>().value.toList(),
+            onReorder: getIt.get<HiveService>().reorderFeeds,
           ),
         ),
       );
