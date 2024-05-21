@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart' hide Disposable;
 import 'package:get_it/get_it.dart';
@@ -13,7 +14,7 @@ import '../../services/settings_service.dart';
 import '../../util/peter_lowe_ad_hosts.dart';
 import 'web_buttons_controller.dart';
 
-class ReadController extends ValueNotifier<List<ContentBlocker>> implements Disposable {
+class ReadController implements Disposable {
   final LoggerService logger;
   final SettingsService settings;
   final WebButtonsController webButtons;
@@ -22,13 +23,17 @@ class ReadController extends ValueNotifier<List<ContentBlocker>> implements Disp
     required this.logger,
     required this.settings,
     required this.webButtons,
-  }) : super([]) {
+  }) {
     pageController = PreloadPageController();
 
-    final shouldUseContentBlockers = settings.value.useInAppBrowser && settings.value.useAdBlocker;
-
-    setContentBlockers(
-      shouldUseContentBlockers: shouldUseContentBlockers,
+    webViewSettings = InAppWebViewSettings(
+      isInspectable: kDebugMode,
+      mediaPlaybackRequiresUserGesture: false,
+      allowsInlineMediaPlayback: true,
+      iframeAllowFullscreen: true,
+      contentBlockers: generateContentBlockers(
+        shouldUseContentBlockers: settings.value.useInAppBrowser && settings.value.useAdBlocker,
+      ),
     );
   }
 
@@ -38,6 +43,7 @@ class ReadController extends ValueNotifier<List<ContentBlocker>> implements Disp
 
   late int itemLength;
   late PreloadPageController pageController;
+  late final InAppWebViewSettings webViewSettings;
 
   ///
   /// DISPOSE
@@ -52,12 +58,14 @@ class ReadController extends ValueNotifier<List<ContentBlocker>> implements Disp
   /// METHODS
   ///
 
-  /// Logic to set content blockers in order to have an ad-free experience
-  bool setContentBlockers({required bool shouldUseContentBlockers}) {
+  /// Logic to generate content blockers in order to have an ad-free experience
+  List<ContentBlocker> generateContentBlockers({required bool shouldUseContentBlockers}) {
+    final contentBlockers = <ContentBlocker>[];
+
     if (shouldUseContentBlockers) {
       /// For each `adHost`, add a [ContentBlocker] to block its loading
       for (final adHost in peterLoweAdHosts) {
-        value.add(
+        contentBlockers.add(
           ContentBlocker(
             trigger: ContentBlockerTrigger(
               urlFilter: adHost,
@@ -70,7 +78,7 @@ class ReadController extends ValueNotifier<List<ContentBlocker>> implements Disp
       }
 
       /// Apply the `display: none` style to some HTML elements
-      value.add(
+      contentBlockers.add(
         ContentBlocker(
           trigger: ContentBlockerTrigger(
             urlFilter: '.*',
@@ -81,13 +89,11 @@ class ReadController extends ValueNotifier<List<ContentBlocker>> implements Disp
           ),
         ),
       );
-
-      return true;
     } else {
-      value.clear();
+      contentBlockers.clear();
     }
 
-    return false;
+    return contentBlockers;
   }
 
   /// Updates `itemLength` variable
