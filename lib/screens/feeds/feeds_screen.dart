@@ -24,7 +24,7 @@ class FeedsScreen extends WatchingWidget {
           ],
           child: FeedsContent(
             activeFeed: watchIt<ActiveFeedService>().value,
-            feeds: watchIt<HiveService>().value.reversed.toList(),
+            feeds: watchIt<HiveService>().value.toList(),
           ),
         ),
       );
