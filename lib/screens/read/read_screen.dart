@@ -138,7 +138,7 @@ class ReadWidget extends WatchingWidget {
               /// CLOSE
               ///
               Positioned(
-                left: 12,
+                right: 12,
                 top: 16,
                 child: PressableDough(
                   child: ReadCloseButton(
