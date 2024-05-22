@@ -85,6 +85,7 @@ void initializeControllers() => getIt
   ..registerLazySingleton(
     () => NewsReadController(
       logger: getIt.get<LoggerService>(),
+      settings: getIt.get<SettingsService>(),
     ),
   )
   ..registerLazySingleton(
@@ -95,7 +96,6 @@ void initializeControllers() => getIt
   ..registerLazySingleton(
     () => ReadController(
       logger: getIt.get<LoggerService>(),
-      settings: getIt.get<SettingsService>(),
       webButtons: getIt.get<WebButtonsController>(),
     ),
   );

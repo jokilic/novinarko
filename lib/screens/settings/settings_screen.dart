@@ -16,6 +16,7 @@ import '../../util/dependencies.dart';
 import '../../util/sounds.dart';
 import '../../widgets/novinarko_checkbox.dart';
 import '../../widgets/novinarko_divider.dart';
+import '../news/news_read_controller.dart';
 import 'widgets/settings_app_bar.dart';
 import 'widgets/settings_list_tile.dart';
 import 'widgets/settings_theme_widget.dart';
@@ -104,7 +105,10 @@ class SettingsScreen extends WatchingWidget {
 
             /// Ad-blocker
             SettingsListTile(
-              onPressed: getIt.get<SettingsService>().adBlockerPressed,
+              onPressed: () async {
+                await getIt.get<SettingsService>().adBlockerPressed();
+                getIt.get<NewsReadController>().generateWebViewSettings();
+              },
               title: 'settingsAdBlockerTitle'.tr(),
               description: 'settingsAdBlockerDescription'.tr(),
               rightWidget: NovinarkoCheckbox(

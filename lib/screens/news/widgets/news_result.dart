@@ -59,7 +59,7 @@ class NewsResult extends StatelessWidget {
 
                       return NewsListTile(
                         onPressed: inAppBrowser
-                            ? () => getIt.get<NewsReadController>().addItemForReading(item)
+                            ? () => getIt.get<NewsReadController>().itemPressed(item)
                             : () => openUrlExternalBrowser(
                                   context,
                                   url: item.link ?? item.guid,

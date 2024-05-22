@@ -130,6 +130,7 @@ class ReadWidget extends WatchingWidget {
 
                   return ReadItem(
                     url: item.link ?? item.guid,
+                    headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
                   );
                 },
               ),
@@ -143,7 +144,7 @@ class ReadWidget extends WatchingWidget {
                 child: PressableDough(
                   child: ReadCloseButton(
                     onPressed: () {
-                      getIt.get<NewsReadController>().clearItemsForReading();
+                      getIt.get<NewsReadController>().clearReadingState();
                       Navigator.of(context).pop();
                     },
                   ),
