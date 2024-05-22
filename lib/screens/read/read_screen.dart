@@ -1,6 +1,5 @@
 import 'package:dough/dough.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -108,50 +107,42 @@ class ReadWidget extends WatchingWidget {
           ),
         ],
       ),
-      body: Animate(
-        effects: const [
-          FadeEffect(
-            curve: Curves.easeIn,
-            duration: NovinarkoConstants.animationDuration,
-          ),
-        ],
-        child: SafeArea(
-          child: Stack(
-            children: [
-              ///
-              /// CONTENT
-              ///
-              PreloadPageView.builder(
-                controller: getIt.get<ReadController>().pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: items.length,
-                itemBuilder: (_, index) {
-                  final item = items[index];
+      body: SafeArea(
+        child: Stack(
+          children: [
+            ///
+            /// CONTENT
+            ///
+            PreloadPageView.builder(
+              controller: getIt.get<ReadController>().pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: items.length,
+              itemBuilder: (_, index) {
+                final item = items[index];
 
-                  return ReadItem(
-                    url: item.link ?? item.guid,
-                    headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
-                  );
-                },
-              ),
+                return ReadItem(
+                  url: item.link ?? item.guid,
+                  headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
+                );
+              },
+            ),
 
-              ///
-              /// CLOSE
-              ///
-              Positioned(
-                right: 12,
-                top: 16,
-                child: PressableDough(
-                  child: ReadCloseButton(
-                    onPressed: () {
-                      getIt.get<NewsReadController>().clearReadingState();
-                      Navigator.of(context).pop();
-                    },
-                  ),
+            ///
+            /// CLOSE
+            ///
+            Positioned(
+              right: 12,
+              top: 16,
+              child: PressableDough(
+                child: ReadCloseButton(
+                  onPressed: () {
+                    getIt.get<NewsReadController>().clearReadingState();
+                    Navigator.of(context).pop();
+                  },
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

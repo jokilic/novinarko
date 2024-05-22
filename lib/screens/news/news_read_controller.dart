@@ -26,6 +26,7 @@ class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implement
   AnimationController? shakeFabController;
   HeadlessInAppWebView? headlessWebView;
   InAppWebViewSettings? webViewSettings;
+  NovinarkoRssItem? previousFirstItem;
 
   ///
   /// DISPOSE
@@ -68,15 +69,19 @@ class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implement
 
   /// Initializes or disposes `headlessWebView`, depending on value in `state`
   Future<void> toggleHeadlessWebView() async {
-    final firstItem = value.firstOrNull;
+    final currentFirstItem = value.firstOrNull;
 
     /// Item exists in the list, preload `headlessWebView`
-    if (firstItem != null) {
+    if (currentFirstItem != null) {
       /// Generate article URL
-      final url = firstItem.link ?? firstItem.guid;
+      final url = currentFirstItem.link ?? currentFirstItem.guid;
 
       /// URL exists & `headlessWebView` isn't already initialized
-      if (url != null && headlessWebView == null) {
+      if (url != null && previousFirstItem != currentFirstItem) {
+        /// Store in variable to compare when triggering this method again
+        previousFirstItem = currentFirstItem;
+
+        /// Initialize `headlessWebView`
         headlessWebView = HeadlessInAppWebView(
           initialUrlRequest: URLRequest(
             url: WebUri(url),
@@ -90,6 +95,7 @@ class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implement
 
     /// List is empty, dispose `headlessWebView`
     else {
+      previousFirstItem = null;
       await headlessWebView?.dispose();
       headlessWebView = null;
     }
