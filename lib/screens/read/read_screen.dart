@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dough/dough.dart';
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
@@ -28,11 +30,12 @@ class ReadScreen extends StatefulWidget {
 class _ReadScreenState extends State<ReadScreen> {
   @override
   void initState() {
-    getIt.get<ReadController>().setItemLength(widget.items.length);
-    getIt.get<ReadController>().updateWebButtonVisibility(
-          page: 0,
-          itemLength: widget.items.length,
-        );
+    getIt.get<ReadController>()
+      ..setItemLength(widget.items.length)
+      ..updateWebButtonVisibility(
+        page: 0,
+        itemLength: widget.items.length,
+      );
 
     super.initState();
   }
@@ -59,90 +62,96 @@ class ReadWidget extends WatchingWidget {
     required this.items,
   });
 
+  Future<bool> popScreen(BuildContext context) async {
+    getIt.get<NewsReadController>().clearReadingState();
+    Navigator.of(context).pop();
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final webButtons = watchIt<WebButtonsController>().value;
 
-    return Scaffold(
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          ///
-          /// PREVIOUS
-          ///
-          Padding(
-            padding: const EdgeInsets.only(left: 32),
-            child: IgnorePointer(
-              ignoring: !webButtons.showPrevious,
-              child: AnimatedOpacity(
-                opacity: webButtons.showPrevious ? 1 : 0,
-                duration: NovinarkoConstants.animationDuration,
-                curve: Curves.easeIn,
-                child: PressableDough(
-                  child: ReadPreviousButton(
-                    onPressed: getIt.get<ReadController>().openPrevious,
+    return WillPopScope(
+      onWillPop: () => popScreen(context),
+      child: Scaffold(
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ///
+            /// PREVIOUS
+            ///
+            Padding(
+              padding: const EdgeInsets.only(left: 32),
+              child: IgnorePointer(
+                ignoring: !webButtons.showPrevious,
+                child: AnimatedOpacity(
+                  opacity: webButtons.showPrevious ? 1 : 0,
+                  duration: NovinarkoConstants.animationDuration,
+                  curve: Curves.easeIn,
+                  child: PressableDough(
+                    child: ReadPreviousButton(
+                      onPressed: getIt.get<ReadController>().openPrevious,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
 
-          const SizedBox(width: 16),
-
-          ///
-          /// NEXT
-          ///
-          IgnorePointer(
-            ignoring: !webButtons.showNext,
-            child: AnimatedOpacity(
-              opacity: webButtons.showNext ? 1 : 0,
-              duration: NovinarkoConstants.animationDuration,
-              curve: Curves.easeIn,
-              child: PressableDough(
-                child: ReadNextButton(
-                  onPressed: getIt.get<ReadController>().openNext,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            ///
-            /// CONTENT
-            ///
-            PreloadPageView.builder(
-              controller: getIt.get<ReadController>().pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: items.length,
-              itemBuilder: (_, index) {
-                final item = items[index];
-
-                return ReadItem(
-                  url: item.link ?? item.guid,
-                  headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
-                );
-              },
-            ),
+            const SizedBox(width: 16),
 
             ///
-            /// CLOSE
+            /// NEXT
             ///
-            Positioned(
-              right: 12,
-              top: 16,
-              child: PressableDough(
-                child: ReadCloseButton(
-                  onPressed: () {
-                    getIt.get<NewsReadController>().clearReadingState();
-                    Navigator.of(context).pop();
-                  },
+            IgnorePointer(
+              ignoring: !webButtons.showNext,
+              child: AnimatedOpacity(
+                opacity: webButtons.showNext ? 1 : 0,
+                duration: NovinarkoConstants.animationDuration,
+                curve: Curves.easeIn,
+                child: PressableDough(
+                  child: ReadNextButton(
+                    onPressed: getIt.get<ReadController>().openNext,
+                  ),
                 ),
               ),
             ),
           ],
+        ),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              ///
+              /// CONTENT
+              ///
+              PreloadPageView.builder(
+                controller: getIt.get<ReadController>().pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: items.length,
+                itemBuilder: (_, index) {
+                  final item = items[index];
+
+                  return ReadItem(
+                    url: item.link ?? item.guid,
+                    headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
+                  );
+                },
+              ),
+
+              ///
+              /// CLOSE
+              ///
+              Positioned(
+                right: 12,
+                top: 16,
+                child: PressableDough(
+                  child: ReadCloseButton(
+                    onPressed: () => popScreen(context),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
