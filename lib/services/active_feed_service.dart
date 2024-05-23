@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/feed_search_model.dart';
-import '../screens/news/news_controller.dart';
+import '../screens/news/controllers/news_controller.dart';
 import '../util/dependencies.dart';
 import 'hive_service.dart';
 import 'logger_service.dart';

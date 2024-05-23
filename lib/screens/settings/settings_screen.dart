@@ -16,7 +16,7 @@ import '../../util/dependencies.dart';
 import '../../util/sounds.dart';
 import '../../widgets/novinarko_checkbox.dart';
 import '../../widgets/novinarko_divider.dart';
-import '../news/news_read_controller.dart';
+import '../news/controllers/news_read_controller.dart';
 import 'widgets/settings_app_bar.dart';
 import 'widgets/settings_list_tile.dart';
 import 'widgets/settings_theme_widget.dart';

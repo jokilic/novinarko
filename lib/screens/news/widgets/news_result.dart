@@ -11,8 +11,8 @@ import '../../../util/navigation.dart';
 import '../../../util/parsing.dart';
 import '../../../widgets/novinarko_divider.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
-import '../news_controller.dart';
-import '../news_read_controller.dart';
+import '../controllers/news_controller.dart';
+import '../controllers/news_read_controller.dart';
 import 'news_list_tile.dart';
 
 class NewsResult extends StatelessWidget {

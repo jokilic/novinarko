@@ -3,18 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart' hide Disposable;
 import 'package:get_it/get_it.dart';
 
-import '../../models/novinarko_rss_item.dart';
-import '../../services/logger_service.dart';
-import '../../services/settings_service.dart';
-import '../../util/peter_lowe_ad_hosts.dart';
+import '../../../models/novinarko_rss_item.dart';
+import '../../../services/logger_service.dart';
+import '../../../services/settings_service.dart';
+import '../../../util/peter_lowe_ad_hosts.dart';
+import 'news_read_loader_controller.dart';
 
 class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implements Disposable {
   final LoggerService logger;
   final SettingsService settings;
+  final NewsReadLoaderController loader;
 
   NewsReadController({
     required this.logger,
     required this.settings,
+    required this.loader,
   }) : super([]) {
     generateWebViewSettings();
   }
@@ -87,6 +90,8 @@ class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implement
             url: WebUri(url),
           ),
           initialSettings: webViewSettings,
+          onWebViewCreated: (_) => loader.setLoader = 0,
+          onProgressChanged: (_, progress) => loader.setLoader = progress / 100,
         );
 
         await headlessWebView?.run();
@@ -104,6 +109,7 @@ class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implement
   /// Clears all [NovinarkoRssItem] from `state` and disposes `headlessWebView`
   void clearReadingState() {
     value = [];
+    loader.setLoader = 0;
     toggleHeadlessWebView();
   }
 

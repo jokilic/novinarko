@@ -5,7 +5,7 @@ import '../../../models/feed_search_model.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
-import '../../news/news_controller.dart';
+import '../../news/controllers/news_controller.dart';
 import 'feeds_list_tile.dart';
 
 class FeedsContent extends StatelessWidget {

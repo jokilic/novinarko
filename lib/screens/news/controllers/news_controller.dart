@@ -2,16 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../../models/feed_search_model.dart';
-import '../../models/novinarko_rss_feed.dart';
-import '../../models/novinarko_rss_item.dart';
-import '../../rss_parser/models/rss_feed.dart';
-import '../../services/active_feed_service.dart';
-import '../../services/api_service.dart';
-import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
-import '../../util/parsing.dart';
-import 'news_state.dart';
+import '../../../models/feed_search_model.dart';
+import '../../../models/novinarko_rss_feed.dart';
+import '../../../models/novinarko_rss_item.dart';
+import '../../../rss_parser/models/rss_feed.dart';
+import '../../../services/active_feed_service.dart';
+import '../../../services/api_service.dart';
+import '../../../services/hive_service.dart';
+import '../../../services/logger_service.dart';
+import '../../../util/parsing.dart';
+import '../news_state.dart';
 
 class NewsController extends ValueNotifier<NewsState> {
   final LoggerService logger;

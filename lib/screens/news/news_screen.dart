@@ -7,8 +7,9 @@ import '../../constants.dart';
 import '../../routing.dart';
 import '../../services/settings_service.dart';
 import '../../util/dependencies.dart';
-import 'news_controller.dart';
-import 'news_read_controller.dart';
+import 'controllers/news_controller.dart';
+import 'controllers/news_read_controller.dart';
+import 'controllers/news_read_loader_controller.dart';
 import 'widgets/news_app_bar.dart';
 import 'widgets/news_content.dart';
 import 'widgets/news_read_button.dart';
@@ -38,6 +39,7 @@ class NewsWidget extends WatchingWidget {
     final newsState = watchIt<NewsController>().value;
     final settings = watchIt<SettingsService>().value;
     final readItems = watchIt<NewsReadController>().value;
+    final loaderValue = watchIt<NewsReadLoaderController>().value;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -65,6 +67,7 @@ class NewsWidget extends WatchingWidget {
                         items: readItems,
                       ),
                       readNumber: readItems.length,
+                      loaderValue: loaderValue,
                     ),
                   ),
                 ),

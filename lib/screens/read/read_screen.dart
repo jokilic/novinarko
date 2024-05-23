@@ -8,7 +8,7 @@ import 'package:watch_it/watch_it.dart';
 import '../../constants.dart';
 import '../../models/novinarko_rss_item.dart';
 import '../../util/dependencies.dart';
-import '../news/news_read_controller.dart';
+import '../news/controllers/news_read_controller.dart';
 import 'read_controller.dart';
 import 'web_buttons_controller.dart';
 import 'widgets/read_close_button.dart';

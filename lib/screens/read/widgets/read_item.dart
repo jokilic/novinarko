@@ -5,7 +5,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../../../constants.dart';
 import '../../../util/dependencies.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
-import '../../news/news_read_controller.dart';
+import '../../news/controllers/news_read_controller.dart';
 
 class ReadItem extends StatelessWidget {
   final String? url;
