@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../models/feed_search_model.dart';
 import '../../../services/active_feed_service.dart';
+import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../news/news_controller.dart';
 import 'feeds_list_tile.dart';
@@ -56,6 +57,11 @@ class FeedsContent extends StatelessWidget {
             ///
             Flexible(
               child: ReorderableListView.builder(
+                proxyDecorator: (child, _, __) => Material(
+                  borderRadius: BorderRadius.circular(16),
+                  color: context.colors.primary.withOpacity(0.6),
+                  child: child,
+                ),
                 onReorder: onReorder,
                 physics: const BouncingScrollPhysics(),
                 itemCount: feeds.length,
