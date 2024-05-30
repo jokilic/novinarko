@@ -85,18 +85,13 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
     else {
       /// Loading state
       value = SearchStateLoading(
-        loadingStatus: 'searchStateLoadingGoogle'.tr(),
+        loadingStatus: 'searchStateLoadingFeeds'.tr(),
       );
 
       final search = await getWebsiteFromGoogleSearch(searchValue);
 
       /// Search returned URL
       if (search.result != null && search.error == null) {
-        /// Loading state
-        value = SearchStateLoading(
-          loadingStatus: 'searchStateLoadingFeeds'.tr(),
-        );
-
         final feeds = await getFeedsearch(search.result!.link);
 
         if (feeds.results != null) {

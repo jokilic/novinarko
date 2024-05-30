@@ -3,22 +3,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../constants.dart';
 import '../../../widgets/novinarko_divider.dart';
-import 'news_list_tile_loading.dart';
+import 'search_list_tile_loading.dart';
 
-class NewsLoading extends StatelessWidget {
-  final bool showImages;
-
-  const NewsLoading({
-    required this.showImages,
-  });
-
+class SearchLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListView.separated(
         physics: const NeverScrollableScrollPhysics(),
         itemCount: 5,
-        itemBuilder: (_, index) => NewsListTileLoading(
-          showImages: showImages,
-        ),
+        itemBuilder: (_, index) => SearchListTileLoading(),
         separatorBuilder: (_, __) => Animate(
           onPlay: (controller) => controller.loop(
             reverse: true,

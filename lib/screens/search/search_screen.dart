@@ -4,6 +4,7 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../constants.dart';
 import '../../services/hive_service.dart';
+import '../../services/settings_service.dart';
 import '../../util/dependencies.dart';
 import 'search_controller.dart';
 import 'widgets/search_app_bar.dart';
@@ -46,6 +47,7 @@ class SearchWidget extends WatchingWidget {
         child: SearchContent(
           searchState: searchState,
           hiveFeeds: watchIt<HiveService>().value,
+          shimmerLoader: watchIt<SettingsService>().value.useShimmerLoader,
         ),
       ),
     );

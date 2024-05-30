@@ -6,15 +6,18 @@ import '../../../models/feed_search_model.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../../../widgets/novinarko_loader.dart';
 import '../search_state.dart';
+import 'search_loading.dart';
 import 'search_result.dart';
 
 class SearchContent extends StatelessWidget {
   final SearchState searchState;
   final List<FeedSearchModel> hiveFeeds;
+  final bool shimmerLoader;
 
   const SearchContent({
     required this.searchState,
     required this.hiveFeeds,
+    required this.shimmerLoader,
   });
 
   @override
@@ -25,9 +28,11 @@ class SearchContent extends StatelessWidget {
             title: 'searchStateInitialTitle'.tr(),
             subtitle: 'searchStateInitialSubtitle'.tr(),
           ),
-        SearchStateLoading() => NovinarkoLoader(
-            text: (searchState as SearchStateLoading).loadingStatus,
-          ),
+        SearchStateLoading() => shimmerLoader
+            ? SearchLoading()
+            : NovinarkoLoader(
+                text: (searchState as SearchStateLoading).loadingStatus,
+              ),
         SearchStateEmpty() => NovinarkoIconTextWidget(
             icon: NovinarkoIcons.noSearch,
             title: 'searchStateEmptyTitle'.tr(),
