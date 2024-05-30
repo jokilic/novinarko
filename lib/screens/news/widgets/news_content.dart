@@ -14,20 +14,20 @@ class NewsContent extends StatelessWidget {
   final List<NovinarkoRssItem> readItems;
   final bool showImages;
   final bool inAppBrowser;
-  final bool useShimmerLoader;
+  final bool shimmerLoader;
 
   const NewsContent({
     required this.newsState,
     required this.readItems,
     required this.showImages,
     required this.inAppBrowser,
-    required this.useShimmerLoader,
+    required this.shimmerLoader,
   });
 
   @override
   Widget build(BuildContext context) => switch (newsState) {
         NewsStateInitial() => const SizedBox.shrink(),
-        NewsStateLoading() => useShimmerLoader
+        NewsStateLoading() => shimmerLoader
             ? NewsLoading(
                 showImages: showImages,
               )

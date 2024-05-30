@@ -37,5 +37,7 @@
     "settingsImagesInArticlesTitle": "Images in articles",
     "settingsImagesInArticlesDescription": "Show images above article text (some articles don't have images)",
     "settingsAdBlockerTitle": "Block ads",
-    "settingsAdBlockerDescription": "Block ads when reading articles using in-app broswer"
+    "settingsAdBlockerDescription": "Block ads when reading articles using in-app broswer",
+    "settingsShimmerLoaderTitle": "Shimmer loader",
+    "settingsShimmerLoaderDescription": "Use shimmer when loading articles & feeds"
 }

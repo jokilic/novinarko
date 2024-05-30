@@ -217,6 +217,7 @@ class NewsAppBarActiveFeed extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             border: Border.all(
               color: context.colors.text,
+              width: 2,
             ),
           ),
           child: Row(

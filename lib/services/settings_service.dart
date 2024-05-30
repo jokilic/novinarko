@@ -49,4 +49,15 @@ class SettingsService extends ValueNotifier<NovinarkoSettings> {
 
     return newValue;
   }
+
+  Future<bool> shimmerLoaderPressed() async {
+    final newValue = !value.useShimmerLoader;
+
+    value = value.copyWith(
+      useShimmerLoader: newValue,
+    );
+    await hive.storeSettings(value);
+
+    return newValue;
+  }
 }

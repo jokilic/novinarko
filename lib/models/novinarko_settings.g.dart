@@ -21,13 +21,14 @@ class NovinarkoSettingsAdapter extends TypeAdapter<NovinarkoSettings> {
       useInAppBrowser: fields[1] as bool,
       useImagesInArticles: fields[2] as bool,
       useAdBlocker: fields[3] as bool,
+      useShimmerLoader: fields[4] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, NovinarkoSettings obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.novinarkoThemeEnum)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class NovinarkoSettingsAdapter extends TypeAdapter<NovinarkoSettings> {
       ..writeByte(2)
       ..write(obj.useImagesInArticles)
       ..writeByte(3)
-      ..write(obj.useAdBlocker);
+      ..write(obj.useAdBlocker)
+      ..writeByte(4)
+      ..write(obj.useShimmerLoader);
   }
 
   @override

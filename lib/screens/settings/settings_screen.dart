@@ -116,6 +116,19 @@ class SettingsScreen extends WatchingWidget {
               ),
             ),
 
+            /// Divider
+            NovinarkoDivider(),
+
+            /// Shimmer loader
+            SettingsListTile(
+              onPressed: getIt.get<SettingsService>().shimmerLoaderPressed,
+              title: 'settingsShimmerLoaderTitle'.tr(),
+              description: 'settingsShimmerLoaderDescription'.tr(),
+              rightWidget: NovinarkoCheckbox(
+                value: settings.useShimmerLoader,
+              ),
+            ),
+
             /// Novinarko info
             const SizedBox(height: 24),
             Row(
@@ -166,6 +179,8 @@ class SettingsScreen extends WatchingWidget {
                 ),
               ],
             ),
+
+            const SizedBox(height: 24),
           ],
         ),
       ),

@@ -37,5 +37,7 @@
     "settingsImagesInArticlesTitle": "Slike u člancima",
     "settingsImagesInArticlesDescription": "Prikaži slike iznad članaka (neki članci nemaju slike)",
     "settingsAdBlockerTitle": "Ukloni reklame",
-    "settingsAdBlockerDescription": "Ukloni reklame tijekom čitanja članaka koristeći preglednik unutar aplikacije"
+    "settingsAdBlockerDescription": "Ukloni reklame tijekom čitanja članaka koristeći preglednik unutar aplikacije",
+    "settingsShimmerLoaderTitle": "Svjetleće učitavanje",
+    "settingsShimmerLoaderDescription": "Koristi svjetleće učitavanje članaka i izvora"
 }

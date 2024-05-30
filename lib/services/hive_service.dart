@@ -141,6 +141,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
         useInAppBrowser: !kIsWeb && (Platform.isAndroid || Platform.isIOS),
         useImagesInArticles: false,
         useAdBlocker: false,
+        useShimmerLoader: false,
       );
 
   /// Stores a new `settings` value in [Hive]

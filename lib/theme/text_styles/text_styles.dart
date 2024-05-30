@@ -24,7 +24,7 @@ abstract class NovinarkoTextStyles {
 
   static const newsAppBar = TextStyle(
     fontSize: 18,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w600,
     fontFamily: 'EncodeSans',
     height: 1.6,
   );

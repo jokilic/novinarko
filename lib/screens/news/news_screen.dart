@@ -87,6 +87,7 @@ class NewsWidget extends WatchingWidget {
           readItems: readItems,
           showImages: settings.useImagesInArticles,
           inAppBrowser: settings.useInAppBrowser,
+          shimmerLoader: settings.useShimmerLoader,
         ),
       ),
     );
