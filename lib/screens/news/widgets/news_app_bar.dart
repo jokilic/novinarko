@@ -150,6 +150,7 @@ class NewsAppBarAvatar extends StatelessWidget {
           shape: const CircleBorder(),
           side: BorderSide(
             color: context.colors.text,
+            width: 2,
           ),
         ),
         icon: Center(
@@ -263,6 +264,7 @@ class NewsAppBarSearch extends StatelessWidget {
           shape: const CircleBorder(),
           side: BorderSide(
             color: context.colors.text,
+            width: 2,
           ),
         ),
         icon: Center(

@@ -23,7 +23,7 @@ class ReadCloseButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
             color: context.colors.text,
-            width: 1.5,
+            width: 2,
           ),
         ),
         child: Image.asset(

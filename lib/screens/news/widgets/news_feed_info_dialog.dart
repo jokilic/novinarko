@@ -25,7 +25,7 @@ class NewsFeedInfoDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
           color: context.colors.text,
-          width: 1.5,
+          width: 2,
         ),
       ),
       child: Padding(
@@ -54,7 +54,7 @@ class NewsFeedInfoDialog extends StatelessWidget {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: context.colors.text,
-                          width: 1.5,
+                          width: 2,
                         ),
                       ),
                       child: Text(
@@ -73,7 +73,7 @@ class NewsFeedInfoDialog extends StatelessWidget {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: context.colors.text,
-                          width: 1.5,
+                          width: 2,
                         ),
                       ),
                       child: Text(
@@ -95,7 +95,7 @@ class NewsFeedInfoDialog extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: context.colors.text,
-                      width: 1.5,
+                      width: 2,
                     ),
                   ),
                   child: Text(

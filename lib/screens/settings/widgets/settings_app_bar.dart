@@ -81,6 +81,7 @@ class SettingsAppBarBack extends StatelessWidget {
           shape: const CircleBorder(),
           side: BorderSide(
             color: context.colors.text,
+            width: 2,
           ),
         ),
         icon: Center(

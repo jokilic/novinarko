@@ -58,7 +58,7 @@ class NewsListTile extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
                             color: context.colors.text,
-                            width: 1.5,
+                            width: 2.5,
                           ),
                         ),
                       ),
@@ -115,6 +115,7 @@ class NewsListTile extends StatelessWidget {
                               shape: const CircleBorder(),
                               side: BorderSide(
                                 color: context.colors.text,
+                                width: 2,
                               ),
                             ),
                             icon: Center(

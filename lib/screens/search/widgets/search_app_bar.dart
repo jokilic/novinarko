@@ -130,6 +130,7 @@ class SearchAppBarBack extends StatelessWidget {
           shape: const CircleBorder(),
           side: BorderSide(
             color: context.colors.text,
+            width: 2,
           ),
         ),
         icon: Center(
@@ -165,19 +166,21 @@ class SearchBarTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             borderSide: BorderSide(
               color: context.colors.text,
+              width: 2,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(100),
             borderSide: BorderSide(
               color: context.colors.text,
-              width: 1.5,
+              width: 2,
             ),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(100),
             borderSide: BorderSide(
               color: context.colors.text,
+              width: 2,
             ),
           ),
           contentPadding: const EdgeInsets.symmetric(
@@ -222,6 +225,7 @@ class SearchAppBarSearch extends StatelessWidget {
           shape: const CircleBorder(),
           side: BorderSide(
             color: context.colors.text,
+            width: 2,
           ),
         ),
         icon: Center(

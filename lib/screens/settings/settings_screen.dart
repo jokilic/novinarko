@@ -128,7 +128,7 @@ class SettingsScreen extends WatchingWidget {
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: context.colors.text,
-                        width: 1.5,
+                        width: 2,
                       ),
                     ),
                     child: ClipOval(

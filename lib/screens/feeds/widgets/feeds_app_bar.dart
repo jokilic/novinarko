@@ -82,6 +82,7 @@ class FeedsAppBarBack extends StatelessWidget {
           shape: const CircleBorder(),
           side: BorderSide(
             color: context.colors.background,
+            width: 2,
           ),
         ),
         icon: Center(
@@ -112,6 +113,7 @@ class FeedsAppBarSettings extends StatelessWidget {
           shape: const CircleBorder(),
           side: BorderSide(
             color: context.colors.background,
+            width: 2,
           ),
         ),
         icon: Center(

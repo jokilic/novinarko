@@ -6,6 +6,7 @@ import '../../../models/novinarko_rss_item.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../../../widgets/novinarko_loader.dart';
 import '../news_state.dart';
+import 'news_loading.dart';
 import 'news_result.dart';
 
 class NewsContent extends StatelessWidget {
@@ -13,20 +14,26 @@ class NewsContent extends StatelessWidget {
   final List<NovinarkoRssItem> readItems;
   final bool showImages;
   final bool inAppBrowser;
+  final bool useShimmerLoader;
 
   const NewsContent({
     required this.newsState,
     required this.readItems,
     required this.showImages,
     required this.inAppBrowser,
+    required this.useShimmerLoader,
   });
 
   @override
   Widget build(BuildContext context) => switch (newsState) {
         NewsStateInitial() => const SizedBox.shrink(),
-        NewsStateLoading() => NovinarkoLoader(
-            text: (newsState as NewsStateLoading).loadingStatus,
-          ),
+        NewsStateLoading() => useShimmerLoader
+            ? NewsLoading(
+                showImages: showImages,
+              )
+            : NovinarkoLoader(
+                text: (newsState as NewsStateLoading).loadingStatus,
+              ),
         NewsStateEmpty() => NovinarkoIconTextWidget(
             arrowAlignment: Alignment.centerRight,
             icon: NovinarkoIcons.noNews,

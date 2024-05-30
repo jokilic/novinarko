@@ -20,7 +20,7 @@ void showRemoveSomeFeedsSnackbar(BuildContext context, {required Function() onPr
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
           color: context.colors.text,
-          width: 1.5,
+          width: 2,
         ),
       ),
       action: SnackBarAction(
@@ -49,7 +49,7 @@ void showSnackbar(BuildContext context, {required String text}) {
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
           color: context.colors.text,
-          width: 1.5,
+          width: 2,
         ),
       ),
     ),

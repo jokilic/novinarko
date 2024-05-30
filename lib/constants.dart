@@ -26,6 +26,7 @@ class NovinarkoConstants {
   );
 
   static const animationDuration = Duration(milliseconds: 300);
+  static const shimmerDuration = Duration(milliseconds: 1500);
 }
 
 class NovinarkoIcons {

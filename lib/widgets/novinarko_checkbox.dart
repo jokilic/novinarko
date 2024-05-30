@@ -20,7 +20,7 @@ class NovinarkoCheckbox extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: context.colors.text,
-            width: 1.5,
+            width: 2,
           ),
         ),
         child: AnimatedOpacity(
