@@ -23,6 +23,7 @@ class NewsListTileLoading extends StatelessWidget {
           child: Animate(
             onPlay: (controller) => controller.loop(
               reverse: true,
+              min: 0.6,
             ),
             effects: const [
               FadeEffect(
@@ -31,15 +32,15 @@ class NewsListTileLoading extends StatelessWidget {
               ),
             ],
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ///
                   /// Image
                   ///
                   if (showImages) ...[
                     Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
                       height: 120,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
@@ -49,7 +50,7 @@ class NewsListTileLoading extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                   ],
 
                   ///
@@ -61,7 +62,7 @@ class NewsListTileLoading extends StatelessWidget {
                       /// Title
                       Expanded(
                         child: Container(
-                          height: 56,
+                          height: 48,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                           ),
@@ -71,7 +72,7 @@ class NewsListTileLoading extends StatelessWidget {
                               2,
                               (_) => Container(
                                 margin: const EdgeInsets.symmetric(
-                                  horizontal: 16,
+                                  horizontal: 20,
                                 ),
                                 height: 4,
                                 decoration: BoxDecoration(
@@ -88,7 +89,6 @@ class NewsListTileLoading extends StatelessWidget {
 
                       /// Date & time
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           const SizedBox(height: 4),
 
@@ -105,7 +105,7 @@ class NewsListTileLoading extends StatelessWidget {
                                 1,
                                 (_) => Container(
                                   margin: const EdgeInsets.symmetric(
-                                    horizontal: 16,
+                                    horizontal: 20,
                                   ),
                                   height: 1,
                                   decoration: BoxDecoration(
@@ -121,13 +121,13 @@ class NewsListTileLoading extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
 
                   ///
                   /// Description
                   ///
                   Container(
-                    height: 56,
+                    height: 48,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -136,8 +136,9 @@ class NewsListTileLoading extends StatelessWidget {
                       children: List.generate(
                         3,
                         (_) => Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 16,
+                          margin: const EdgeInsets.only(
+                            left: 20,
+                            right: 40,
                           ),
                           height: 1.5,
                           decoration: BoxDecoration(
@@ -148,6 +149,7 @@ class NewsListTileLoading extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 8),
                 ],
               ),
             ),

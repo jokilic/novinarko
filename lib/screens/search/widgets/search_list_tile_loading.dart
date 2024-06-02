@@ -17,6 +17,7 @@ class SearchListTileLoading extends StatelessWidget {
           child: Animate(
             onPlay: (controller) => controller.loop(
               reverse: true,
+              min: 0.6,
             ),
             effects: const [
               FadeEffect(
@@ -25,10 +26,12 @@ class SearchListTileLoading extends StatelessWidget {
               ),
             ],
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 8),
+
                   ///
                   /// Title & favicon
                   ///
@@ -38,7 +41,7 @@ class SearchListTileLoading extends StatelessWidget {
                       /// Title
                       Expanded(
                         child: Container(
-                          height: 24,
+                          height: 4,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                           ),
@@ -48,7 +51,7 @@ class SearchListTileLoading extends StatelessWidget {
                               1,
                               (_) => Container(
                                 margin: const EdgeInsets.symmetric(
-                                  horizontal: 16,
+                                  horizontal: 20,
                                 ),
                                 height: 4,
                                 decoration: BoxDecoration(
@@ -67,7 +70,7 @@ class SearchListTileLoading extends StatelessWidget {
                       Container(
                         height: 40,
                         width: 40,
-                        padding: const EdgeInsets.all(4),
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
@@ -82,36 +85,30 @@ class SearchListTileLoading extends StatelessWidget {
                   ///
                   /// Description
                   ///
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 24,
+                  Container(
+                    height: 24,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: List.generate(
+                        2,
+                        (_) => Container(
+                          margin: const EdgeInsets.only(
+                            left: 20,
+                            right: 88,
+                          ),
+                          height: 1.5,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: List.generate(
-                              2,
-                              (_) => Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                height: 1.5,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: context.colors.text,
-                                ),
-                              ),
-                            ),
+                            color: context.colors.text,
                           ),
                         ),
                       ),
-                      const SizedBox(width: 64),
-                    ],
+                    ),
                   ),
+                  const SizedBox(height: 8),
                 ],
               ),
             ),

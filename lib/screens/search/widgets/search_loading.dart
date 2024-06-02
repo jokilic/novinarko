@@ -14,6 +14,7 @@ class SearchLoading extends StatelessWidget {
         separatorBuilder: (_, __) => Animate(
           onPlay: (controller) => controller.loop(
             reverse: true,
+            min: 0.6,
           ),
           effects: const [
             FadeEffect(
