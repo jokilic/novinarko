@@ -183,7 +183,7 @@ class NewsController extends ValueNotifier<NewsState> {
               (item) => NovinarkoRssItem(
                 favicon: feed.favicon,
                 title: item.title,
-                imageUrl: item.enclosure?.url ?? item.content?.images.first,
+                imageUrl: item.media?.url ?? item.content?.images.first ?? item.enclosure?.url,
                 feedTitle: feed.siteName ?? feed.title,
                 description: item.description,
                 link: item.link,
@@ -250,7 +250,7 @@ class NewsController extends ValueNotifier<NewsState> {
                 (item) => NovinarkoRssItem(
                   favicon: feed.favicon,
                   title: item.title,
-                  imageUrl: item.enclosure?.url ?? item.content?.images.first,
+                  imageUrl: item.media?.url ?? item.content?.images.first ?? item.enclosure?.url,
                   feedTitle: feed.siteName ?? feed.title,
                   description: item.description,
                   link: item.link,

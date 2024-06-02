@@ -3,6 +3,7 @@ import 'package:xml/xml.dart';
 import '../util/helpers.dart';
 import 'rss_content.dart';
 import 'rss_enclosure.dart';
+import 'rss_media.dart';
 
 class RssItem {
   final String? title;
@@ -12,6 +13,7 @@ class RssItem {
   final String? pubDate;
   final RssContent? content;
   final RssEnclosure? enclosure;
+  final RssMedia? media;
 
   const RssItem({
     this.title,
@@ -21,6 +23,7 @@ class RssItem {
     this.pubDate,
     this.content,
     this.enclosure,
+    this.media,
   });
 
   factory RssItem.parse(XmlElement element) => RssItem(
@@ -31,6 +34,7 @@ class RssItem {
         pubDate: findElementOrNull(element, 'pubDate')?.innerText,
         content: RssContent.parse(findElementOrNull(element, 'content')),
         enclosure: RssEnclosure.parse(findElementOrNull(element, 'enclosure')),
+        media: RssMedia.parse(findElementOrNull(element, 'media:content')),
       );
 
   @override
