@@ -24,6 +24,7 @@ class NovinarkoIconTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 20,

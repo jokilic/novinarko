@@ -41,6 +41,7 @@ class NovinarkoIcons {
   static const yesNews = 'assets/icons/yes_news.png';
   static const noSearch = 'assets/icons/no_search.png';
   static const search = 'assets/icons/search.png';
+  static const customSearch = 'assets/icons/custom_search.png';
   static const settings = 'assets/icons/settings.png';
   static const info = 'assets/icons/info.png';
   static const close = 'assets/icons/close.png';

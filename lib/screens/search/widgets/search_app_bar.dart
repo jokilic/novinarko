@@ -14,23 +14,39 @@ import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../util/snackbars.dart';
 import '../search_controller.dart';
+import 'search_custom_dialog.dart';
 
 class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
-  final Function(String value) onSubmitted;
-
-  const SearchAppBar({
-    required this.onSubmitted,
-  });
-
   /// Triggers search or shows [SnackBar], depending on `feedsLength`
-  Future<void> searchOrShowSnackbar(
+  void searchOrShowSnackbar(
     BuildContext context, {
+    required String text,
     required int feedsLength,
-  }) async {
+  }) {
     /// User has less than feed limit, trigger search
     if (feedsLength < feedLimit) {
-      onSubmitted(
-        getIt.get<SearchController>().textController.text,
+      getIt.get<SearchController>().searchTriggered(text);
+    }
+
+    /// User has more than feed limit, show [SnackBar]
+    else {
+      showRemoveSomeFeedsSnackbar(
+        context,
+        onPressed: () => openFeeds(context),
+      );
+    }
+  }
+
+  /// Triggers custom search or shows [SnackBar], depending on `feedsLength`
+  void customSearchOrShowSnackbar(
+    BuildContext context, {
+    required int feedsLength,
+  }) {
+    /// User has less than feed limit, trigger custom search
+    if (feedsLength < feedLimit) {
+      showDialog(
+        context: context,
+        builder: (context) => SearchCustomDialog(),
       );
     }
 
@@ -75,16 +91,17 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
               Expanded(
                 child: SearchBarTextField(
                   textController: getIt.get<SearchController>().textController,
-                  onSubmitted: (_) => searchOrShowSnackbar(
+                  onSubmitted: (value) => searchOrShowSnackbar(
                     context,
+                    text: value,
                     feedsLength: feedsLength,
                   ),
                 ),
               ),
               const SizedBox(width: 40),
-              SearchAppBarSearch(
+              SearchAppBarCustom(
                 noSearch: feedsLength >= feedLimit,
-                onPressed: () => searchOrShowSnackbar(
+                onPressed: () => customSearchOrShowSnackbar(
                   context,
                   feedsLength: feedsLength,
                 ),
@@ -207,11 +224,11 @@ class SearchBarTextField extends StatelessWidget {
       );
 }
 
-class SearchAppBarSearch extends StatelessWidget {
+class SearchAppBarCustom extends StatelessWidget {
   final Function() onPressed;
   final bool noSearch;
 
-  const SearchAppBarSearch({
+  const SearchAppBarCustom({
     required this.onPressed,
     required this.noSearch,
   });
@@ -230,7 +247,7 @@ class SearchAppBarSearch extends StatelessWidget {
         ),
         icon: Center(
           child: Image.asset(
-            noSearch ? NovinarkoIcons.noSearch : NovinarkoIcons.search,
+            noSearch ? NovinarkoIcons.noSearch : NovinarkoIcons.customSearch,
             fit: BoxFit.cover,
             color: context.colors.text,
             height: 20,

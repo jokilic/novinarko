@@ -33,9 +33,7 @@ class SearchWidget extends WatchingWidget {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: SearchAppBar(
-        onSubmitted: (value) => getIt.get<SearchController>().searchTriggered(value.trim()),
-      ),
+      appBar: SearchAppBar(),
       body: Animate(
         key: ValueKey(searchState),
         effects: const [
