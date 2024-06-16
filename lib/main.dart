@@ -10,6 +10,7 @@ import 'services/theme_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
 import 'util/env.dart';
+import 'widgets/novinarko_loader.dart';
 
 /// Feed limit to be used in the app
 const feedLimit = 10;
@@ -76,8 +77,8 @@ class NovinarkoWidget extends WatchingWidget {
                 color: context.colors.text,
                 location: BannerLocation.topEnd,
                 layoutDirection: TextDirection.ltr,
-                child: child ?? const CircularProgressIndicator(),
+                child: child ?? const NovinarkoLoader(),
               )
-            : child ?? const CircularProgressIndicator(),
+            : child ?? const NovinarkoLoader(),
       );
 }
