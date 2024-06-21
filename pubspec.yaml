@@ -42,28 +42,8 @@ dev_dependencies:
   flutter_launcher_icons: 0.13.1
   flutter_native_splash: 2.4.0
   hive_generator: 2.0.1
-
-  # Run code generation - `dart run build_runner build -d`
-
-# Configuration for 'flutter_launcher_icons'
-# Run icon generation with 'dart run flutter_launcher_icons:main'
-flutter_icons:
-  android: true
-  ios: true
-  image_path: 'assets/icon.png'
-  adaptive_icon_background: '#F2E2BA'
-  adaptive_icon_foreground: 'assets/icon.png'
-
-# Configuration for 'flutter_native_splash'
-# Run splash screen generation with 'dart run flutter_native_splash:create'
-flutter_native_splash:
-  android: true
-  ios: true
-  color: '#F2E2BA'
-  color_dark: '#444B6E'
-  android_12:
-    color: '#F2E2BA'
-    color_dark: '#444B6E'
+  
+# Run code generation - `dart run build_runner build -d`
 
 flutter:
   uses-material-design: true
@@ -98,3 +78,31 @@ flutter:
       fonts:
         - asset: assets/fonts/SongMyung/SongMyung-Regular.ttf
           weight: 400
+
+# Configuration for 'flutter_launcher_icons'
+# Run icon generation with 'flutter pub run flutter_launcher_icons:main'
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: 'assets/icon.png'
+  min_sdk_android: 21
+  adaptive_icon_background: '#F2E2BA'
+  adaptive_icon_foreground: 'assets/icon.png'
+  web:
+    generate: true
+    image_path: 'assets/icon.png'
+    background_color: '#F2E2BA'
+    theme_color: '#F2E2BA'
+  windows:
+    generate: true
+    image_path: 'assets/icon.png'
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: 'assets/icon.png'
+
+# Configuration for 'flutter_native_splash'
+# Run splash screen generation with 'flutter pub run flutter_native_splash:create'
+flutter_native_splash:
+  background_image: "assets/splash.png"
+  background_image_dark: "assets/splash_dark.png"
