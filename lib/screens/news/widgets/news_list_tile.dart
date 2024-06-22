@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/novinarko_network_image.dart';
 
@@ -62,7 +63,24 @@ class NewsListTile extends StatelessWidget {
                           ),
                         ),
                       ),
-                      errorWidget: const SizedBox.shrink(),
+                      errorWidget: Container(
+                        alignment: Alignment.center,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: context.colors.text,
+                            width: 2,
+                          ),
+                        ),
+                        child: Image.asset(
+                          NovinarkoIcons.errorNews,
+                          fit: BoxFit.cover,
+                          color: context.colors.text,
+                          height: 40,
+                          width: 40,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
