@@ -63,22 +63,27 @@ class NovinarkoApp extends StatelessWidget {
 
 class NovinarkoWidget extends WatchingWidget {
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        debugShowCheckedModeBanner: false,
-        home: NewsScreen(),
-        onGenerateTitle: (_) => 'appName'.tr(),
-        theme: watchIt<ThemeService>().value,
-        builder: (context, child) => kDebugMode
-            ? Banner(
-                message: 'Debug'.toUpperCase(),
-                color: context.colors.text,
-                location: BannerLocation.topEnd,
-                layoutDirection: TextDirection.ltr,
-                child: child ?? const NovinarkoLoader(),
-              )
-            : child ?? const NovinarkoLoader(),
-      );
+  Widget build(BuildContext context) {
+    final theme = watchIt<ThemeService>().value;
+
+    return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      debugShowCheckedModeBanner: false,
+      home: NewsScreen(),
+      onGenerateTitle: (_) => 'appName'.tr(),
+      theme: theme ?? NovinarkoTheme.light,
+      darkTheme: theme ?? NovinarkoTheme.dark,
+      builder: (context, child) => kDebugMode
+          ? Banner(
+              message: 'Debug'.toUpperCase(),
+              color: context.colors.text,
+              location: BannerLocation.topEnd,
+              layoutDirection: TextDirection.ltr,
+              child: child ?? const NovinarkoLoader(),
+            )
+          : child ?? const NovinarkoLoader(),
+    );
+  }
 }

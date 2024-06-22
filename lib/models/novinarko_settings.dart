@@ -7,7 +7,7 @@ part 'novinarko_settings.g.dart';
 @HiveType(typeId: 2)
 class NovinarkoSettings {
   @HiveField(0)
-  final NovinarkoThemeEnum novinarkoThemeEnum;
+  final NovinarkoThemeEnum? novinarkoThemeEnum;
   @HiveField(1)
   final bool useInAppBrowser;
   @HiveField(2)

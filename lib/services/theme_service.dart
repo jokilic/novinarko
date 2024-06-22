@@ -6,7 +6,7 @@ import 'hive_service.dart';
 import 'logger_service.dart';
 import 'settings_service.dart';
 
-class ThemeService extends ValueNotifier<ThemeData> {
+class ThemeService extends ValueNotifier<ThemeData?> {
   final LoggerService logger;
   final HiveService hive;
   final SettingsService settings;
@@ -23,10 +23,11 @@ class ThemeService extends ValueNotifier<ThemeData> {
   /// METHODS
   ///
 
-  ThemeData getThemeData() => switch (settings.value.novinarkoThemeEnum) {
+  ThemeData? getThemeData() => switch (settings.value.novinarkoThemeEnum) {
         NovinarkoThemeEnum.light => NovinarkoTheme.light,
         NovinarkoThemeEnum.dark => NovinarkoTheme.dark,
         NovinarkoThemeEnum.sepia => NovinarkoTheme.sepia,
+        _ => null,
       };
 
   Future<void> updateTheme(ThemeData newTheme) async {

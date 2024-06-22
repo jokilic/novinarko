@@ -137,11 +137,11 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   NovinarkoSettings getSettings() =>
       settingsBox.get(0) ??
       NovinarkoSettings(
-        novinarkoThemeEnum: NovinarkoThemeEnum.light,
+        novinarkoThemeEnum: null,
         useInAppBrowser: !kIsWeb && (Platform.isAndroid || Platform.isIOS),
-        useImagesInArticles: false,
+        useImagesInArticles: true,
         useAdBlocker: false,
-        useShimmerLoader: false,
+        useShimmerLoader: true,
       );
 
   /// Stores a new `settings` value in [Hive]
