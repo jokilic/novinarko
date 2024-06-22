@@ -44,34 +44,20 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
   }) async {
     /// User has less than feed limit, trigger custom search
     if (feedsLength < feedLimit) {
+      /// Clear [TextEditingControllers]
+      getIt.get<SearchController>().clearCustomTextControllers();
+
+      /// Show [SearchCustomDialog]
       await showDialog(
         context: context,
         builder: (context) => SearchCustomDialog(
-          addFeedPressed: () async {
-            final feedAdded = await getIt.get<SearchController>().storeCustomFeed();
-
-            if (feedAdded) {
-              showSnackbar(
-                context,
-                text: 'searchCustomFeedAdded'.tr(),
-                icon: NovinarkoIcons.check,
-              );
-              Navigator.of(context).pop();
-            } else {
-              showSnackbar(
-                context,
-                text: 'searchCustomFeedDataIncomplete'.tr(),
-                icon: NovinarkoIcons.close,
-              );
-            }
-          },
+          addFeedPressed: (dialogContext) => getIt.get<SearchController>().addCustomFeedPressed(dialogContext),
+          outsideDialogPressed: Navigator.of(context).pop,
           feedTitleTextController: getIt.get<SearchController>().customFeedTitleTextController,
           feedUrlTextController: getIt.get<SearchController>().customFeedUrlTextController,
           siteNameTextController: getIt.get<SearchController>().customFeedSiteNameTextController,
         ),
       );
-
-      getIt.get<SearchController>().clearCustomTextControllers();
     }
 
     /// User has more than feed limit, show [SnackBar]

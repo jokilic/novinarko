@@ -12,6 +12,7 @@ import '../../services/active_feed_service.dart';
 import '../../services/api_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/snackbars.dart';
 import 'search_state.dart';
 
 class SearchController extends ValueNotifier<SearchState> implements Disposable {
@@ -141,6 +142,34 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
   Future<({List<FeedSearchModel>? results, ErrorModel? error, String? genericError})> getFeedsearch(String searchUrl) async {
     final response = await api.getFeedsearch(searchUrl: searchUrl);
     return response;
+  }
+
+  Future<void> addCustomFeedPressed(BuildContext context) async {
+    /// Dismiss keyboard
+    FocusScope.of(context).unfocus();
+
+    /// Add feed
+    final feedAdded = await storeCustomFeed();
+
+    /// Show proper snackbar
+    if (feedAdded) {
+      showSnackbar(
+        context,
+        text: 'searchCustomFeedAdded'.tr(),
+        icon: NovinarkoIcons.check,
+      );
+
+      /// Clear [TextEditingControllers]
+      clearCustomTextControllers();
+
+      Navigator.of(context).pop();
+    } else {
+      showSnackbar(
+        context,
+        text: 'searchCustomFeedDataIncomplete'.tr(),
+        icon: NovinarkoIcons.close,
+      );
+    }
   }
 
   Future<bool> storeCustomFeed() async {
