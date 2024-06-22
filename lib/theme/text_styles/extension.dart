@@ -28,6 +28,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
   final TextStyle newsFeedInfoValue;
   final TextStyle settingsNovinarkoTitle;
   final TextStyle settingsNovinarkoVersion;
+  final TextStyle searchCustomDialogButton;
 
   const NovinarkoTextThemesExtension({
     required this.newsTitle,
@@ -57,6 +58,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     required this.newsFeedInfoValue,
     required this.settingsNovinarkoTitle,
     required this.settingsNovinarkoVersion,
+    required this.searchCustomDialogButton,
   });
 
   @override
@@ -88,6 +90,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     TextStyle? newsFeedInfoValue,
     TextStyle? settingsNovinarkoTitle,
     TextStyle? settingsNovinarkoVersion,
+    TextStyle? searchCustomDialogButton,
   }) =>
       NovinarkoTextThemesExtension(
         newsTitle: newsTitle ?? this.newsTitle,
@@ -116,7 +119,8 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
         newsFeedInfoTitle: newsFeedInfoTitle ?? this.newsFeedInfoTitle,
         newsFeedInfoValue: newsFeedInfoValue ?? this.newsFeedInfoValue,
         settingsNovinarkoTitle: settingsNovinarkoTitle ?? this.settingsNovinarkoTitle,
-        settingsNovinarkoVersion: settingsNovinarkoVersion ?? this.settingsNovinarkoTitle,
+        settingsNovinarkoVersion: settingsNovinarkoVersion ?? this.settingsNovinarkoVersion,
+        searchCustomDialogButton: searchCustomDialogButton ?? this.searchCustomDialogButton,
       );
 
   @override
@@ -156,6 +160,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
       newsFeedInfoValue: TextStyle.lerp(newsFeedInfoValue, other.newsFeedInfoValue, t)!,
       settingsNovinarkoTitle: TextStyle.lerp(settingsNovinarkoTitle, other.settingsNovinarkoTitle, t)!,
       settingsNovinarkoVersion: TextStyle.lerp(settingsNovinarkoVersion, other.settingsNovinarkoVersion, t)!,
+      searchCustomDialogButton: TextStyle.lerp(searchCustomDialogButton, other.searchCustomDialogButton, t)!,
     );
   }
 }

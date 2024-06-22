@@ -110,6 +110,9 @@ class NovinarkoTheme {
     settingsNovinarkoVersion: NovinarkoTextStyles.settingsNovinarkoVersion.copyWith(
       color: lightAppColors.text,
     ),
+    searchCustomDialogButton: NovinarkoTextStyles.searchCustomDialogButton.copyWith(
+      color: lightAppColors.text,
+    ),
   );
 
   ///
@@ -216,6 +219,9 @@ class NovinarkoTheme {
     settingsNovinarkoVersion: NovinarkoTextStyles.settingsNovinarkoVersion.copyWith(
       color: darkAppColors.text,
     ),
+    searchCustomDialogButton: NovinarkoTextStyles.searchCustomDialogButton.copyWith(
+      color: darkAppColors.text,
+    ),
   );
 
   ///
@@ -320,6 +326,9 @@ class NovinarkoTheme {
       color: sepiaAppColors.text,
     ),
     settingsNovinarkoVersion: NovinarkoTextStyles.settingsNovinarkoVersion.copyWith(
+      color: sepiaAppColors.text,
+    ),
+    searchCustomDialogButton: NovinarkoTextStyles.searchCustomDialogButton.copyWith(
       color: sepiaAppColors.text,
     ),
   );

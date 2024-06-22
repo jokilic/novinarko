@@ -31,14 +31,22 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
   /// VARIABLES
   ///
 
-  late final textController = TextEditingController();
+  late final searchTextController = TextEditingController();
+  late final customFeedTitleTextController = TextEditingController();
+  late final customFeedUrlTextController = TextEditingController();
+  late final customFeedSiteNameTextController = TextEditingController();
 
   ///
   /// DISPOSE
   ///
 
   @override
-  void onDispose() => textController.dispose();
+  void onDispose() {
+    searchTextController.dispose();
+    customFeedTitleTextController.dispose();
+    customFeedUrlTextController.dispose();
+    customFeedSiteNameTextController.dispose();
+  }
 
   ///
   /// METHODS
@@ -133,5 +141,40 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
   Future<({List<FeedSearchModel>? results, ErrorModel? error, String? genericError})> getFeedsearch(String searchUrl) async {
     final response = await api.getFeedsearch(searchUrl: searchUrl);
     return response;
+  }
+
+  Future<bool> storeCustomFeed() async {
+    final feedTitle = customFeedTitleTextController.text.trim();
+    final feedUrl = customFeedUrlTextController.text.trim();
+    final siteName = customFeedSiteNameTextController.text.trim();
+
+    /// Some of the values is not typed, exit
+    if (feedTitle.isEmpty || feedUrl.isEmpty || siteName.isEmpty) {
+      return false;
+    }
+
+    /// Check if `feedUrl` is URL
+    final isURL = NovinarkoConstants.urlRegExp.hasMatch(feedUrl);
+
+    /// Store custom feed
+    if (isURL) {
+      final customFeed = FeedSearchModel(
+        title: feedTitle,
+        url: feedUrl,
+        siteName: siteName,
+      );
+
+      await activeFeedService.storeOrDeleteFeed(customFeed);
+
+      return true;
+    }
+
+    return false;
+  }
+
+  void clearCustomTextControllers() {
+    customFeedTitleTextController.clear();
+    customFeedUrlTextController.clear();
+    customFeedSiteNameTextController.clear();
   }
 }

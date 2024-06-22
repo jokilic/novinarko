@@ -38,16 +38,40 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
   }
 
   /// Triggers custom search or shows [SnackBar], depending on `feedsLength`
-  void customSearchOrShowSnackbar(
+  Future<void> customSearchOrShowSnackbar(
     BuildContext context, {
     required int feedsLength,
-  }) {
+  }) async {
     /// User has less than feed limit, trigger custom search
     if (feedsLength < feedLimit) {
-      showDialog(
+      await showDialog(
         context: context,
-        builder: (context) => SearchCustomDialog(),
+        builder: (context) => SearchCustomDialog(
+          addFeedPressed: () async {
+            final feedAdded = await getIt.get<SearchController>().storeCustomFeed();
+
+            if (feedAdded) {
+              showSnackbar(
+                context,
+                text: 'searchCustomFeedAdded'.tr(),
+                icon: NovinarkoIcons.check,
+              );
+              Navigator.of(context).pop();
+            } else {
+              showSnackbar(
+                context,
+                text: 'searchCustomFeedDataIncomplete'.tr(),
+                icon: NovinarkoIcons.close,
+              );
+            }
+          },
+          feedTitleTextController: getIt.get<SearchController>().customFeedTitleTextController,
+          feedUrlTextController: getIt.get<SearchController>().customFeedUrlTextController,
+          siteNameTextController: getIt.get<SearchController>().customFeedSiteNameTextController,
+        ),
       );
+
+      getIt.get<SearchController>().clearCustomTextControllers();
     }
 
     /// User has more than feed limit, show [SnackBar]
@@ -90,7 +114,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
               const SizedBox(width: 40),
               Expanded(
                 child: SearchBarTextField(
-                  textController: getIt.get<SearchController>().textController,
+                  textController: getIt.get<SearchController>().searchTextController,
                   onSubmitted: (value) => searchOrShowSnackbar(
                     context,
                     text: value,
@@ -175,6 +199,9 @@ class SearchBarTextField extends StatelessWidget {
   Widget build(BuildContext context) => TextField(
         autofocus: true,
         autocorrect: false,
+        enableSuggestions: false,
+        keyboardType: TextInputType.url,
+        textInputAction: TextInputAction.search,
         controller: textController,
         onSubmitted: onSubmitted,
         cursorColor: context.colors.text,
@@ -216,11 +243,8 @@ class SearchBarTextField extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.never,
           alignLabelWithHint: true,
         ),
-        keyboardType: TextInputType.url,
-        enableSuggestions: false,
         style: context.textStyles.searchTextField,
         textAlign: TextAlign.center,
-        textInputAction: TextInputAction.search,
       );
 }
 

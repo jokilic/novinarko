@@ -30,8 +30,8 @@ class NewsFeedInfoDialog extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 24,
+          horizontal: 24,
+          vertical: 28,
         ),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

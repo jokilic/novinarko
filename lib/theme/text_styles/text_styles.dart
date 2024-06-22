@@ -189,4 +189,11 @@ abstract class NovinarkoTextStyles {
     fontFamily: 'EncodeSans',
     height: 1.2,
   );
+
+  static const searchCustomDialogButton = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'EncodeSans',
+    height: 1.2,
+  );
 }
