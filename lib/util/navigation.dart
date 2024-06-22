@@ -1,12 +1,7 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
-import '../theme/theme.dart';
 import 'circular_transition_clipper.dart';
 
 void openUrlExternalBrowser(
@@ -15,37 +10,40 @@ void openUrlExternalBrowser(
 }) {
   if (url != null) {
     /// Use `url_launcher` if on web and not Android / iOS
-    if (kIsWeb || (!Platform.isAndroid && !Platform.isIOS)) {
-      final uri = Uri.tryParse(url);
+    // if (kIsWeb || (!Platform.isAndroid && !Platform.isIOS)) {
+    final uri = Uri.tryParse(url);
 
-      if (uri != null) {
-        launchUrl(uri);
-      }
-
-      return;
+    if (uri != null) {
+      launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
     }
 
+    // return;
+    // }
+
     /// Use external browser
-    FlutterWebBrowser.openWebPage(
-      url: url,
-      customTabsOptions: CustomTabsOptions(
-        defaultColorSchemeParams: CustomTabsColorSchemeParams(
-          toolbarColor: context.colors.background,
-          navigationBarColor: context.colors.background,
-          secondaryToolbarColor: context.colors.background,
-          navigationBarDividerColor: context.colors.background,
-        ),
-        showTitle: true,
-        urlBarHidingEnabled: true,
-      ),
-      safariVCOptions: SafariViewControllerOptions(
-        barCollapsingEnabled: true,
-        preferredBarTintColor: context.colors.background,
-        preferredControlTintColor: context.colors.text,
-        dismissButtonStyle: SafariViewControllerDismissButtonStyle.close,
-        modalPresentationCapturesStatusBarAppearance: true,
-      ),
-    );
+    // FlutterWebBrowser.openWebPage(
+    //   url: url,
+    //   customTabsOptions: CustomTabsOptions(
+    //     defaultColorSchemeParams: CustomTabsColorSchemeParams(
+    //       toolbarColor: context.colors.background,
+    //       navigationBarColor: context.colors.background,
+    //       secondaryToolbarColor: context.colors.background,
+    //       navigationBarDividerColor: context.colors.background,
+    //     ),
+    //     showTitle: true,
+    //     urlBarHidingEnabled: true,
+    //   ),
+    //   safariVCOptions: SafariViewControllerOptions(
+    //     barCollapsingEnabled: true,
+    //     preferredBarTintColor: context.colors.background,
+    //     preferredControlTintColor: context.colors.text,
+    //     dismissButtonStyle: SafariViewControllerDismissButtonStyle.close,
+    //     modalPresentationCapturesStatusBarAppearance: true,
+    //   ),
+    // );
   }
 }
 
