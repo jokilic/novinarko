@@ -17,7 +17,7 @@ class NovinarkoSettingsAdapter extends TypeAdapter<NovinarkoSettings> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return NovinarkoSettings(
-      novinarkoThemeEnum: fields[0] as NovinarkoThemeEnum,
+      novinarkoThemeEnum: fields[0] as NovinarkoThemeEnum?,
       useInAppBrowser: fields[1] as bool,
       useImagesInArticles: fields[2] as bool,
       useAdBlocker: fields[3] as bool,

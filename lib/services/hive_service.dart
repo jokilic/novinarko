@@ -3,8 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 
 import '../models/feed_search_model.dart';
 import '../models/novinarko_settings.dart';
@@ -29,13 +28,9 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   ///
 
   Future<void> init() async {
-    Directory? directoryPath;
-    if (!kIsWeb) {
-      directoryPath = await getApplicationSupportDirectory();
-    }
+    await Hive.initFlutter();
 
     Hive
-      ..init(directoryPath?.path)
       ..registerAdapter(FeedSearchModelAdapter())
       ..registerAdapter(NovinarkoThemeEnumAdapter())
       ..registerAdapter(NovinarkoSettingsAdapter());
@@ -56,6 +51,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
     await feedBox.close();
     await activeFeedBox.close();
     await settingsBox.close();
+
     await Hive.close();
   }
 
