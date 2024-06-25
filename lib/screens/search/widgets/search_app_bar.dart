@@ -51,7 +51,10 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
       await showDialog(
         context: context,
         builder: (context) => SearchCustomDialog(
-          addFeedPressed: (dialogContext) => getIt.get<SearchController>().addCustomFeedPressed(dialogContext),
+          addFeedPressed: (dialogContext) => getIt.get<SearchController>().addCustomFeedPressed(
+                context: context,
+                dialogContext: dialogContext,
+              ),
           outsideDialogPressed: Navigator.of(context).pop,
           feedTitleTextController: getIt.get<SearchController>().customFeedTitleTextController,
           feedUrlTextController: getIt.get<SearchController>().customFeedUrlTextController,

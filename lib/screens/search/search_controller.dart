@@ -144,7 +144,10 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
     return response;
   }
 
-  Future<void> addCustomFeedPressed(BuildContext context) async {
+  Future<void> addCustomFeedPressed({
+    required BuildContext context,
+    required BuildContext dialogContext,
+  }) async {
     /// Dismiss keyboard
     FocusScope.of(context).unfocus();
 
@@ -165,7 +168,7 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
       Navigator.of(context).pop();
     } else {
       showSnackbar(
-        context,
+        dialogContext,
         text: 'searchCustomFeedDataIncomplete'.tr(),
         icon: NovinarkoIcons.close,
       );
