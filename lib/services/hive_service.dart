@@ -8,6 +8,7 @@ import 'package:hive_ce_flutter/adapters.dart';
 import '../models/feed_search_model.dart';
 import '../models/novinarko_settings.dart';
 import '../models/novinarko_theme_enum.dart';
+import '../util/path.dart';
 import 'logger_service.dart';
 
 class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Disposable {
@@ -28,9 +29,10 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   ///
 
   Future<void> init() async {
-    await Hive.initFlutter();
+    final directory = await getHiveDirectory();
 
     Hive
+      ..init(directory?.path)
       ..registerAdapter(FeedSearchModelAdapter())
       ..registerAdapter(NovinarkoThemeEnumAdapter())
       ..registerAdapter(NovinarkoSettingsAdapter());

@@ -62,6 +62,7 @@ class FeedsContent extends StatelessWidget {
               color: context.colors.primary.withOpacity(0.6),
               child: child,
             ),
+            buildDefaultDragHandles: false,
             onReorder: onReorder,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: feeds.length,
@@ -71,14 +72,17 @@ class FeedsContent extends StatelessWidget {
               return Padding(
                 key: ValueKey(feed),
                 padding: const EdgeInsets.only(bottom: 8),
-                child: FeedsListTile(
-                  key: ValueKey(feed),
-                  onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(feed),
-                  onPressed: () => loadFeedAndPop(context, feed),
-                  title: feed.siteName ?? feed.title ?? '',
-                  subtitle: feed.title,
-                  url: feed.url,
-                  showActiveIndicator: activeFeed == feed,
+                child: ReorderableDragStartListener(
+                  index: index,
+                  child: FeedsListTile(
+                    key: ValueKey(feed),
+                    onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(feed),
+                    onPressed: () => loadFeedAndPop(context, feed),
+                    title: feed.siteName ?? feed.title ?? '',
+                    subtitle: feed.title,
+                    url: feed.url,
+                    showActiveIndicator: activeFeed == feed,
+                  ),
                 ),
               );
             },
