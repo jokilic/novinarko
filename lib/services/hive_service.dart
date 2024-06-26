@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -136,7 +135,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
       settingsBox.get(0) ??
       NovinarkoSettings(
         novinarkoThemeEnum: null,
-        useInAppBrowser: !kIsWeb && (Platform.isAndroid || Platform.isIOS),
+        useInAppBrowser: !kIsWeb && (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS),
         useImagesInArticles: true,
         useAdBlocker: false,
         useShimmerLoader: true,

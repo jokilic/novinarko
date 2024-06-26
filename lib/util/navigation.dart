@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
@@ -15,7 +13,7 @@ void openUrlExternalBrowser(
 }) {
   if (url != null) {
     /// Use `url_launcher` if on web and not Android / iOS
-    if (kIsWeb || (!Platform.isAndroid && !Platform.isIOS)) {
+    if (kIsWeb || (defaultTargetPlatform != TargetPlatform.android && defaultTargetPlatform != TargetPlatform.iOS)) {
       final uri = Uri.tryParse(url);
 
       if (uri != null) {
