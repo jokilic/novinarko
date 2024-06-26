@@ -70,8 +70,8 @@ class NovinarkoIconTextWidget extends StatelessWidget {
                   icon,
                   fit: BoxFit.cover,
                   color: context.colors.text,
-                  height: 64,
-                  width: 64,
+                  height: 80,
+                  width: 80,
                 ),
 
                 const SizedBox(height: 36),
