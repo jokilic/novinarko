@@ -80,7 +80,7 @@ flutter:
           weight: 400
 
 # Configuration for 'flutter_launcher_icons'
-# Run icon generation with 'flutter pub run flutter_launcher_icons:main'
+# Run icon generation with 'dart run flutter_launcher_icons:main'
 flutter_launcher_icons:
   android: true
   ios: true
@@ -102,10 +102,12 @@ flutter_launcher_icons:
     image_path: 'assets/icon.png'
 
 # Configuration for 'flutter_native_splash'
-# Run splash screen generation with 'flutter pub run flutter_native_splash:create'
+# Run splash screen generation with 'dart run flutter_native_splash:create'
 flutter_native_splash:
   background_image: "assets/splash.png"
   background_image_dark: "assets/splash_dark.png"
   android_12:
-    color: '#F2E2BA'
-    color_dark: '#444B6E'
+    image: assets/splash_icon.png
+    icon_background_color: "#F2E2BA"
+    image_dark: assets/splash_icon.png
+    icon_background_color_dark: "#444B6E"
