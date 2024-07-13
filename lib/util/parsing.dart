@@ -4,6 +4,17 @@ import 'package:timeago/timeago.dart' as timeago;
 
 import '../models/feed_search_model.dart';
 
+String? parseImageSourceHtml(String? htmlContent) {
+  final htmlDocument = html_parser.parse(htmlContent);
+  final imgElement = htmlDocument.querySelector('img');
+
+  if (imgElement != null) {
+    return imgElement.attributes['src'];
+  }
+
+  return null;
+}
+
 String? parseDescriptionHtml(String? htmlContent) {
   final htmlDocument = html_parser.parse(htmlContent);
   final text = htmlDocument.body?.text.trim();

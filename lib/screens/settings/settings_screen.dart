@@ -24,6 +24,8 @@ class SettingsScreen extends WatchingWidget {
   Widget build(BuildContext context) {
     final settings = watchIt<SettingsService>().value;
 
+    final showInAppBrowser = !kIsWeb && (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: SettingsAppBar(),
@@ -73,44 +75,13 @@ class SettingsScreen extends WatchingWidget {
             /// Divider
             NovinarkoDivider(),
 
-            if (!kIsWeb && (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS)) ...[
-              /// In-app browser
-              SettingsListTile(
-                onPressed: getIt.get<SettingsService>().inAppBrowserPressed,
-                title: 'settingsInAppBrowserTitle'.tr(),
-                description: 'settingsInAppBrowserDescription'.tr(),
-                rightWidget: NovinarkoCheckbox(
-                  value: settings.useInAppBrowser,
-                ),
-              ),
-
-              /// Divider
-              NovinarkoDivider(),
-
-              /// In-app browser
-              SettingsListTile(
-                onPressed: getIt.get<SettingsService>().imagesInArticlesPressed,
-                title: 'settingsImagesInArticlesTitle'.tr(),
-                description: 'settingsImagesInArticlesDescription'.tr(),
-                rightWidget: NovinarkoCheckbox(
-                  value: settings.useImagesInArticles,
-                ),
-              ),
-
-              /// Divider
-              NovinarkoDivider(),
-            ],
-
-            /// Ad-blocker
+            /// Images in articles
             SettingsListTile(
-              onPressed: () async {
-                await getIt.get<SettingsService>().adBlockerPressed();
-                getIt.get<NewsReadController>().generateWebViewSettings();
-              },
-              title: 'settingsAdBlockerTitle'.tr(),
-              description: 'settingsAdBlockerDescription'.tr(),
+              onPressed: getIt.get<SettingsService>().imagesInArticlesPressed,
+              title: 'settingsImagesInArticlesTitle'.tr(),
+              description: 'settingsImagesInArticlesDescription'.tr(),
               rightWidget: NovinarkoCheckbox(
-                value: settings.useAdBlocker,
+                value: settings.useImagesInArticles,
               ),
             ),
 
@@ -126,6 +97,37 @@ class SettingsScreen extends WatchingWidget {
                 value: settings.useShimmerLoader,
               ),
             ),
+
+            if (showInAppBrowser) ...[
+              /// In-app browser
+              SettingsListTile(
+                onPressed: getIt.get<SettingsService>().inAppBrowserPressed,
+                title: 'settingsInAppBrowserTitle'.tr(),
+                description: 'settingsInAppBrowserDescription'.tr(),
+                rightWidget: NovinarkoCheckbox(
+                  value: settings.useInAppBrowser,
+                ),
+              ),
+
+              /// Divider
+              NovinarkoDivider(),
+
+              /// Ad-blocker
+              SettingsListTile(
+                onPressed: () async {
+                  await getIt.get<SettingsService>().adBlockerPressed();
+                  getIt.get<NewsReadController>().generateWebViewSettings();
+                },
+                title: 'settingsAdBlockerTitle'.tr(),
+                description: 'settingsAdBlockerDescription'.tr(),
+                rightWidget: NovinarkoCheckbox(
+                  value: settings.useAdBlocker,
+                ),
+              ),
+
+              /// Divider
+              NovinarkoDivider(),
+            ],
 
             /// Novinarko info
             const SizedBox(height: 24),
