@@ -88,16 +88,6 @@ class SettingsScreen extends WatchingWidget {
             /// Divider
             NovinarkoDivider(),
 
-            /// Shimmer loader
-            SettingsListTile(
-              onPressed: getIt.get<SettingsService>().shimmerLoaderPressed,
-              title: 'settingsShimmerLoaderTitle'.tr(),
-              description: 'settingsShimmerLoaderDescription'.tr(),
-              rightWidget: NovinarkoCheckbox(
-                value: settings.useShimmerLoader,
-              ),
-            ),
-
             if (showInAppBrowser) ...[
               /// In-app browser
               SettingsListTile(
@@ -124,10 +114,20 @@ class SettingsScreen extends WatchingWidget {
                   value: settings.useAdBlocker,
                 ),
               ),
-
-              /// Divider
-              NovinarkoDivider(),
             ],
+
+            /// Divider
+            NovinarkoDivider(),
+
+            /// Shimmer loader
+            SettingsListTile(
+              onPressed: getIt.get<SettingsService>().shimmerLoaderPressed,
+              title: 'settingsShimmerLoaderTitle'.tr(),
+              description: 'settingsShimmerLoaderDescription'.tr(),
+              rightWidget: NovinarkoCheckbox(
+                value: settings.useShimmerLoader,
+              ),
+            ),
 
             /// Novinarko info
             const SizedBox(height: 24),
