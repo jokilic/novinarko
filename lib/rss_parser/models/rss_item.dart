@@ -35,7 +35,9 @@ class RssItem {
     return RssItem(
       title: findElementOrNull(element, 'title')?.innerText,
       description: description?.innerText,
-      descriptionImage: parseImageSourceHtml(description?.children.first.value),
+      descriptionImage: parseImageSourceHtml(
+        description?.children.firstOrNull?.value,
+      ),
       link: findElementOrNull(element, 'link')?.innerText,
       guid: findElementOrNull(element, 'guid')?.innerText,
       pubDate: findElementOrNull(element, 'pubDate')?.innerText,
