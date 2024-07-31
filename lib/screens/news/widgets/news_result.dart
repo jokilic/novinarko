@@ -54,8 +54,13 @@ class NewsResult extends StatelessWidget {
                     itemBuilder: (_, index) {
                       final item = feed.items![index];
 
-                      final cleanDescription = parseDescriptionHtml(item.description);
-                      final cleanDate = parseDateTimeago(item.pubDate);
+                      final cleanDescription = parseDescriptionHtml(
+                        item.description,
+                      );
+                      final cleanDate = parseDateTimeago(
+                        item.pubDate,
+                        context: context,
+                      );
 
                       return NewsListTile(
                         onPressed: inAppBrowser

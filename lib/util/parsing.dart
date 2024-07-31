@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:html/parser.dart' as html_parser;
-import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../models/feed_search_model.dart';
@@ -40,7 +41,7 @@ DateTime? parsePubDate(String? pubDate) {
     /// See if timezone offset should have a negative value
     final timeZoneOffsetIsNegative = pubDate[pubDate.length - 5] == '-';
 
-    // Get the timezone offset of the device in minutes
+    /// Get the timezone offset of the device in minutes
     final deviceTimeZoneOffsetInMinutes = DateTime.now().timeZoneOffset.inMinutes;
 
     /// Calculate the offset
@@ -52,13 +53,16 @@ DateTime? parsePubDate(String? pubDate) {
   return null;
 }
 
-String? parseDateTimeago(DateTime? dateTime) {
+String? parseDateTimeago(DateTime? dateTime, {required BuildContext context}) {
   if (dateTime == null) {
     return null;
   }
 
   /// Format `DateTime` using `timeago` package
-  final timeagoDateTime = timeago.format(dateTime);
+  final timeagoDateTime = timeago.format(
+    dateTime,
+    locale: context.locale.toLanguageTag(),
+  );
   return timeagoDateTime;
 }
 
