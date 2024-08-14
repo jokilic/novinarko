@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 import '../constants.dart';
 import '../models/error_model.dart';
@@ -11,10 +13,12 @@ import 'logger_service.dart';
 class APIService {
   final LoggerService logger;
   final Dio dio;
+  final InternetConnection internetConnection;
 
   APIService({
     required this.logger,
     required this.dio,
+    required this.internetConnection,
   });
 
   ///
@@ -54,9 +58,15 @@ class APIService {
         return (results: null, error: null, genericError: error);
       }
     } catch (e) {
-      final error = 'API -> getFeedsearch -> catch -> $e';
-      logger.e(error);
-      return (results: null, error: null, genericError: error);
+      final error = await handleCatch(
+        methodName: 'getFeedsearch',
+        mainError: '$e',
+      );
+      return (
+        results: null,
+        error: null,
+        genericError: error,
+      );
     }
   }
 
@@ -87,14 +97,16 @@ class APIService {
         return (result: null, error: error);
       }
     } catch (e) {
-      final error = 'API -> getGoogleSearch -> catch -> $e';
-      logger.e(error);
+      final error = await handleCatch(
+        methodName: 'getGoogleSearch',
+        mainError: '$e',
+      );
       return (result: null, error: error);
     }
   }
 
   ///
-  /// RSS feed
+  /// `RSS feed`
   ///
   Future<({dynamic data, String? error})> getRSSFeed({required String url}) async {
     try {
@@ -112,9 +124,23 @@ class APIService {
         return (data: null, error: error);
       }
     } catch (e) {
-      final error = 'API -> getRSSFeed -> catch -> $e';
-      logger.e(error);
+      final error = await handleCatch(
+        methodName: 'getRSSFeed',
+        mainError: '$e',
+      );
       return (data: null, error: error);
     }
+  }
+
+  /// Checks for internet connection and returns error message
+  Future<String> handleCatch({
+    required String methodName,
+    required String mainError,
+  }) async {
+    final hasInternet = await internetConnection.hasInternetAccess;
+    final generatedError = hasInternet ? mainError : 'internetError'.tr();
+    final error = 'API -> $methodName -> catch -> $generatedError';
+    logger.e(error);
+    return error;
   }
 }

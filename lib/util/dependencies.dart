@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 import '../screens/news/controllers/news_controller.dart';
 import '../screens/news/controllers/news_read_controller.dart';
@@ -40,6 +41,7 @@ void initializeServices() => getIt
     () async => APIService(
       logger: getIt.get<LoggerService>(),
       dio: getIt.get<DioService>().dio,
+      internetConnection: InternetConnection(),
     ),
     dependsOn: [LoggerService, DioService],
   )

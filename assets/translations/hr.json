@@ -1,5 +1,6 @@
 {
     "appName": "Novinarko",
+    "internetError": "Nemate internetsku vezu",
     "feedsAllFeedsTitle": "Svi izvori",
     "feedsAllFeedsSubtitle": "Prikaži sve izvore koje imaš",
     "newsStateLoadingSingle": "Dohvaćam {}",

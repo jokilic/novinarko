@@ -1,5 +1,6 @@
 {
     "appName": "Novinarko",
+    "internetError": "You don't have internet connection",
     "feedsAllFeedsTitle": "All feeds",
     "feedsAllFeedsSubtitle": "Show all feeds you have",
     "newsStateLoadingSingle": "Fetching {}",
