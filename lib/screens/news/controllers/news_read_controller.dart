@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart' hide Disposable;
 import 'package:get_it/get_it.dart';
 
+import '../../../constants.dart';
 import '../../../models/novinarko_rss_item.dart';
 import '../../../services/logger_service.dart';
 import '../../../services/settings_service.dart';
 import '../../../util/peter_lowe_ad_hosts.dart';
+import '../../../util/snackbars.dart';
 import 'news_read_loader_controller.dart';
 
 class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implements Disposable {
@@ -104,6 +106,30 @@ class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implement
       await headlessWebView?.dispose();
       headlessWebView = null;
     }
+  }
+
+  /// Shows restore articles snackbar, if the user went back by accident
+  void showRestoreArticlesSnackbar(BuildContext context) {
+    /// Save current articles in a variable
+    final oldState = value;
+
+    /// Clear articles
+    clearReadingState();
+
+    /// Show restore articles snackbar
+    showRestoreReadingSnackbar(
+      context,
+      onPressed: () => Future.delayed(
+        NovinarkoConstants.restoreReadingDuration,
+        () {
+          /// Restore articles
+          value = oldState;
+
+          /// Reinitialize headless web view
+          toggleHeadlessWebView();
+        },
+      ),
+    );
   }
 
   /// Clears all [NovinarkoRssItem] from `state` and disposes `headlessWebView`

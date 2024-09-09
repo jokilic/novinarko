@@ -32,7 +32,7 @@ class NewsController extends ValueNotifier<NewsState> {
   /// INIT
   ///
 
-  Future<void> init() async {
+  void init() {
     /// [Timeago] formatting
     timeago.setLocaleMessages('en', timeago.EnMessages());
     timeago.setLocaleMessages('hr', timeago.HrMessages());

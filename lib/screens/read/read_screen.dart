@@ -18,9 +18,11 @@ import 'widgets/read_previous_button.dart';
 
 class ReadScreen extends StatefulWidget {
   final List<NovinarkoRssItem> items;
+  final BuildContext previousContext;
 
   const ReadScreen({
     required this.items,
+    required this.previousContext,
   });
 
   @override
@@ -52,19 +54,22 @@ class _ReadScreenState extends State<ReadScreen> {
   @override
   Widget build(BuildContext context) => ReadWidget(
         items: widget.items,
+        previousContext: widget.previousContext,
       );
 }
 
 class ReadWidget extends WatchingWidget {
   final List<NovinarkoRssItem> items;
+  final BuildContext previousContext;
 
   const ReadWidget({
     required this.items,
+    required this.previousContext,
   });
 
   Future<bool> popScreen(BuildContext context) async {
-    getIt.get<NewsReadController>().clearReadingState();
     Navigator.of(context).pop();
+    getIt.get<NewsReadController>().showRestoreArticlesSnackbar(previousContext);
     return false;
   }
 

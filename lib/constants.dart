@@ -27,6 +27,8 @@ class NovinarkoConstants {
 
   static const animationDuration = Duration(milliseconds: 300);
   static const shimmerDuration = Duration(milliseconds: 1500);
+  static const restoreReadingDuration = Duration(milliseconds: 150);
+  static const restoreReadingSnackbarDuration = Duration(milliseconds: 4500);
 }
 
 class NovinarkoIcons {

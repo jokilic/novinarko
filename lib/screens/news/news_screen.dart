@@ -45,29 +45,34 @@ class NewsWidget extends WatchingWidget {
       extendBodyBehindAppBar: true,
       appBar: NewsAppBar(),
       floatingActionButton: settings.useInAppBrowser
-          ? Animate(
-              autoPlay: false,
-              onInit: (controller) => getIt.get<NewsReadController>().shakeFabController = controller,
-              effects: const [
-                ShakeEffect(
-                  curve: Curves.easeIn,
-                  duration: NovinarkoConstants.animationDuration,
-                ),
-              ],
-              child: IgnorePointer(
-                ignoring: readItems.isEmpty,
-                child: AnimatedOpacity(
-                  opacity: readItems.isNotEmpty ? 1 : 0,
-                  duration: NovinarkoConstants.animationDuration,
-                  curve: Curves.easeIn,
-                  child: PressableDough(
-                    child: NewsReadButton(
-                      onPressed: () => openRead(
-                        context,
-                        items: readItems,
+          ? Visibility(
+              visible: readItems.isNotEmpty,
+              maintainAnimation: true,
+              maintainState: true,
+              child: Animate(
+                autoPlay: false,
+                onInit: (controller) => getIt.get<NewsReadController>().shakeFabController = controller,
+                effects: const [
+                  ShakeEffect(
+                    curve: Curves.easeIn,
+                    duration: NovinarkoConstants.animationDuration,
+                  ),
+                ],
+                child: IgnorePointer(
+                  ignoring: readItems.isEmpty,
+                  child: AnimatedOpacity(
+                    opacity: readItems.isNotEmpty ? 1 : 0,
+                    duration: NovinarkoConstants.animationDuration,
+                    curve: Curves.easeIn,
+                    child: PressableDough(
+                      child: NewsReadButton(
+                        onPressed: () => openRead(
+                          context,
+                          items: readItems,
+                        ),
+                        readNumber: readItems.length,
+                        loaderValue: loaderValue,
                       ),
-                      readNumber: readItems.length,
-                      loaderValue: loaderValue,
                     ),
                   ),
                 ),

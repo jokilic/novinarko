@@ -22,6 +22,7 @@ void openRead(
     pushScreen(
       ReadScreen(
         items: items,
+        previousContext: context,
       ),
       context: context,
     );
