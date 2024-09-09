@@ -12,6 +12,8 @@
     "newsAllFeedsTitle": "Svi izvori",
     "newsRemoveSnackbarText": "Ukloni neke izvore",
     "newsRemoveSnackbarButton": "Izvori",
+    "newsRestoreReadingSnackbarText": "Vrati članke?",
+    "newsRestoreReadingSnackbarButton": "Vrati",
     "newsNoResultsTitle": "Nema vijesti",
     "newsNoResultsSubtitle": "Učitaj neki drugi izvor",
     "newsReadButton": "Pročitaj",

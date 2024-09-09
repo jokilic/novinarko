@@ -12,6 +12,8 @@
     "newsAllFeedsTitle": "All feeds",
     "newsRemoveSnackbarText": "Remove some feeds",
     "newsRemoveSnackbarButton": "Feeds",
+    "newsRestoreReadingSnackbarText": "Restore articles?",
+    "newsRestoreReadingSnackbarButton": "Restore",
     "newsNoResultsTitle": "There are no items",
     "newsNoResultsSubtitle": "Load some other feed",
     "newsReadButton": "Read",

@@ -32,7 +32,21 @@ void showRemoveSomeFeedsSnackbar(
               ),
             ),
           ),
-          const SizedBox(width: 4),
+          TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: context.colors.text,
+              minimumSize: Size.zero,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            onPressed: onPressed,
+            child: Text(
+              'newsRemoveSnackbarButton'.tr().toUpperCase(),
+              style: context.textStyles.snackbar.copyWith(
+                color: context.colors.text,
+              ),
+            ),
+          ),
         ],
       ),
       behavior: SnackBarBehavior.floating,
@@ -43,11 +57,6 @@ void showRemoveSomeFeedsSnackbar(
           color: context.colors.text,
           width: 2,
         ),
-      ),
-      action: SnackBarAction(
-        label: 'newsRemoveSnackbarButton'.tr().toUpperCase(),
-        textColor: context.colors.text,
-        onPressed: onPressed,
       ),
     ),
   );
@@ -75,14 +84,27 @@ void showRestoreReadingSnackbar(
           const SizedBox(width: 14),
           Expanded(
             child: Text(
-              // TODO
-              'Restore articles?',
+              'newsRestoreReadingSnackbarText'.tr(),
               style: context.textStyles.snackbar.copyWith(
                 color: context.colors.text,
               ),
             ),
           ),
-          const SizedBox(width: 4),
+          TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: context.colors.text,
+              minimumSize: Size.zero,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            onPressed: onPressed,
+            child: Text(
+              'newsRestoreReadingSnackbarButton'.tr().toUpperCase(),
+              style: context.textStyles.snackbar.copyWith(
+                color: context.colors.text,
+              ),
+            ),
+          ),
         ],
       ),
       behavior: SnackBarBehavior.floating,
@@ -93,12 +115,6 @@ void showRestoreReadingSnackbar(
           color: context.colors.text,
           width: 2,
         ),
-      ),
-      action: SnackBarAction(
-        // TODO
-        label: 'Restore'.toUpperCase(),
-        textColor: context.colors.text,
-        onPressed: onPressed,
       ),
     ),
   );

@@ -119,16 +119,20 @@ class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implement
     /// Show restore articles snackbar
     showRestoreReadingSnackbar(
       context,
-      onPressed: () => Future.delayed(
-        NovinarkoConstants.restoreReadingDuration,
-        () {
-          /// Restore articles
-          value = oldState;
+      onPressed: () {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
-          /// Reinitialize headless web view
-          toggleHeadlessWebView();
-        },
-      ),
+        Future.delayed(
+          NovinarkoConstants.restoreReadingDuration,
+          () {
+            /// Restore articles
+            value = oldState;
+
+            /// Reinitialize headless web view
+            toggleHeadlessWebView();
+          },
+        );
+      },
     );
   }
 
