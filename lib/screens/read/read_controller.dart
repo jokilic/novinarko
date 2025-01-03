@@ -73,7 +73,11 @@ class ReadController implements Disposable {
   }
 
   /// Updates visibility of web buttons (previous & next)
-  void updateWebButtonVisibility({required int page, required int itemLength}) => webButtons.updateState(
+  void updateWebButtonVisibility({
+    required int page,
+    required int itemLength,
+  }) =>
+      webButtons.updateState(
         (showPrevious: page > 0, showNext: page != itemLength - 1),
       );
 }

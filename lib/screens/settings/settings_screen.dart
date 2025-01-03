@@ -24,8 +24,6 @@ class SettingsScreen extends WatchingWidget {
   Widget build(BuildContext context) {
     final settings = watchIt<SettingsService>().value;
 
-    final showInAppBrowser = !kIsWeb && (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS);
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: SettingsAppBar(),
@@ -88,7 +86,7 @@ class SettingsScreen extends WatchingWidget {
             /// Divider
             NovinarkoDivider(),
 
-            if (showInAppBrowser) ...[
+            if (!kIsWeb) ...[
               /// In-app browser
               SettingsListTile(
                 onPressed: getIt.get<SettingsService>().inAppBrowserPressed,
@@ -114,10 +112,10 @@ class SettingsScreen extends WatchingWidget {
                   value: settings.useAdBlocker,
                 ),
               ),
-            ],
 
-            /// Divider
-            NovinarkoDivider(),
+              /// Divider
+              NovinarkoDivider(),
+            ],
 
             /// Shimmer loader
             SettingsListTile(

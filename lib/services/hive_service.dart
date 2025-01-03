@@ -135,7 +135,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
       settingsBox.get(0) ??
       NovinarkoSettings(
         novinarkoThemeEnum: null,
-        useInAppBrowser: !kIsWeb && (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS),
+        useInAppBrowser: !kIsWeb,
         useImagesInArticles: true,
         useAdBlocker: false,
         useShimmerLoader: true,

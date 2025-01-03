@@ -32,14 +32,14 @@ class ReadScreen extends StatefulWidget {
 class _ReadScreenState extends State<ReadScreen> {
   @override
   void initState() {
+    super.initState();
+
     getIt.get<ReadController>()
       ..setItemLength(widget.items.length)
       ..updateWebButtonVisibility(
         page: 0,
         itemLength: widget.items.length,
       );
-
-    super.initState();
   }
 
   @override
@@ -137,7 +137,7 @@ class ReadWidget extends WatchingWidget {
                   final item = items[index];
 
                   return ReadItem(
-                    url: item.link ?? item.guid,
+                    initialUrl: item.link ?? item.guid,
                     headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
                   );
                 },
@@ -152,6 +152,22 @@ class ReadWidget extends WatchingWidget {
                 child: PressableDough(
                   child: ReadCloseButton(
                     onPressed: () => popScreen(context),
+                  ),
+                ),
+              ),
+
+              ///
+              /// BOTTOM MENU
+              ///
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 16,
+                child: PressableDough(
+                  child: Container(
+                    height: 48,
+                    width: 104,
+                    color: Colors.indigo,
                   ),
                 ),
               ),

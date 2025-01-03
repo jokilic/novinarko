@@ -14,7 +14,7 @@ void openFeeds(BuildContext context) => pushScreen(
       isCircularTransition: true,
     );
 
-/// Opens [ReadWebView]
+/// Opens [ReadScreen]
 void openRead(
   BuildContext context, {
   required List<NovinarkoRssItem> items,

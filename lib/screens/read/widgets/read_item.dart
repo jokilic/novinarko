@@ -7,21 +7,39 @@ import '../../../util/dependencies.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../../news/controllers/news_read_controller.dart';
 
-class ReadItem extends StatelessWidget {
-  final String? url;
+class ReadItem extends StatefulWidget {
+  final String? initialUrl;
   final HeadlessInAppWebView? headlessWebView;
 
   const ReadItem({
-    this.url,
+    this.initialUrl,
     this.headlessWebView,
   });
 
   @override
-  Widget build(BuildContext context) => url != null
+  State<ReadItem> createState() => _ReadItemState();
+}
+
+class _ReadItemState extends State<ReadItem> {
+  InAppWebViewController? webViewController;
+
+  var url = '';
+  var progress = 0.0;
+
+  Future<void> loadUrl(String url) async {
+    final webUri = WebUri(url);
+
+    await webViewController?.loadUrl(
+      urlRequest: URLRequest(url: webUri),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.initialUrl != null
       ? InAppWebView(
-          headlessWebView: headlessWebView,
+          headlessWebView: widget.headlessWebView,
           initialUrlRequest: URLRequest(
-            url: WebUri(url!),
+            url: WebUri(widget.initialUrl!),
           ),
           initialSettings: getIt.get<NewsReadController>().webViewSettings,
         )
