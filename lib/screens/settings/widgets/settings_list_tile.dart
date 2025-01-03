@@ -21,8 +21,8 @@ class SettingsListTile extends StatelessWidget {
   Widget build(BuildContext context) => InkWell(
         onTap: onPressed,
         onLongPress: onLongPressed,
-        highlightColor: context.colors.primary.withOpacity(0.6),
-        splashColor: context.colors.primary.withOpacity(0.6),
+        highlightColor: context.colors.primary.withValues(alpha: 0.6),
+        splashColor: context.colors.primary.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(16),
         child: Padding(
           padding: const EdgeInsets.all(16),

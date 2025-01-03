@@ -76,7 +76,7 @@ class SettingsAppBarBack extends StatelessWidget {
   Widget build(BuildContext context) => IconButton(
         onPressed: onPressed,
         style: IconButton.styleFrom(
-          highlightColor: context.colors.primary.withOpacity(0.6),
+          highlightColor: context.colors.primary.withValues(alpha: 0.6),
           fixedSize: const Size(48, 48),
           shape: const CircleBorder(),
           side: BorderSide(

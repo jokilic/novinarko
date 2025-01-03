@@ -31,12 +31,12 @@ class NewsListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Material(
-        color: context.colors.text.withOpacity(isItemForReading ? 0.2 : 0),
+        color: context.colors.text.withValues(alpha: isItemForReading ? 0.2 : 0),
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
           onTap: onPressed,
-          highlightColor: context.colors.primary.withOpacity(0.6),
-          splashColor: context.colors.primary.withOpacity(0.6),
+          highlightColor: context.colors.primary.withValues(alpha: 0.6),
+          splashColor: context.colors.primary.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(16),
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -128,7 +128,7 @@ class NewsListTile extends StatelessWidget {
                             onPressed: onPressed,
                             style: IconButton.styleFrom(
                               padding: const EdgeInsets.all(4),
-                              highlightColor: context.colors.primary.withOpacity(0.6),
+                              highlightColor: context.colors.primary.withValues(alpha: 0.6),
                               fixedSize: const Size(40, 40),
                               shape: const CircleBorder(),
                               side: BorderSide(

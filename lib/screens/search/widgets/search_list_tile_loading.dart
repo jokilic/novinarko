@@ -7,12 +7,12 @@ import '../../../theme/theme.dart';
 class SearchListTileLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Material(
-        color: context.colors.text.withOpacity(0),
+        color: context.colors.text.withValues(alpha: 0),
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
           onTap: () {},
-          highlightColor: context.colors.primary.withOpacity(0.6),
-          splashColor: context.colors.primary.withOpacity(0.6),
+          highlightColor: context.colors.primary.withValues(alpha: 0.6),
+          splashColor: context.colors.primary.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(16),
           child: Animate(
             onPlay: (controller) => controller.loop(

@@ -59,7 +59,7 @@ class FeedsContent extends StatelessWidget {
             shrinkWrap: true,
             proxyDecorator: (child, _, __) => Material(
               borderRadius: BorderRadius.circular(16),
-              color: context.colors.primary.withOpacity(0.6),
+              color: context.colors.primary.withValues(alpha: 0.6),
               child: child,
             ),
             onReorder: onReorder,

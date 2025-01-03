@@ -15,9 +15,9 @@ class ReadCloseButton extends StatelessWidget {
         heroTag: 'close',
         onPressed: onPressed,
         backgroundColor: context.colors.background,
-        focusColor: context.colors.primary.withOpacity(0.6),
-        hoverColor: context.colors.primary.withOpacity(0.6),
-        splashColor: context.colors.primary.withOpacity(0.6),
+        focusColor: context.colors.primary.withValues(alpha: 0.6),
+        hoverColor: context.colors.primary.withValues(alpha: 0.6),
+        splashColor: context.colors.primary.withValues(alpha: 0.6),
         enableFeedback: true,
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),

@@ -40,8 +40,8 @@ class FeedsListTile extends StatelessWidget {
             backgroundRadius: 100,
             content: InkWell(
               onTap: onPressedDelete,
-              highlightColor: context.colors.primary.withOpacity(0.6),
-              splashColor: context.colors.primary.withOpacity(0.6),
+              highlightColor: context.colors.primary.withValues(alpha: 0.6),
+              splashColor: context.colors.primary.withValues(alpha: 0.6),
               borderRadius: BorderRadius.circular(16),
               child: Padding(
                 padding: const EdgeInsets.all(8),
@@ -58,8 +58,8 @@ class FeedsListTile extends StatelessWidget {
         ],
         child: InkWell(
           onTap: onPressed,
-          highlightColor: context.colors.primary.withOpacity(0.6),
-          splashColor: context.colors.primary.withOpacity(0.6),
+          highlightColor: context.colors.primary.withValues(alpha: 0.6),
+          splashColor: context.colors.primary.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(16),
           child: Padding(
             padding: const EdgeInsets.all(16),
