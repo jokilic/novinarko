@@ -1,6 +1,6 @@
 import 'package:just_audio/just_audio.dart';
 
-/// Plays the `welcome to Novinarko` sound when long pressing the [Novinarko] icon
+/// Plays the `Welcome to Novinarko` sound when long pressing the [Novinarko] icon
 Future<void> playWelcomeToNovinarko() async {
   final player = AudioPlayer();
   await player.setAsset(

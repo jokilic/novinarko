@@ -13,9 +13,9 @@ class DioService {
   /// CONSTRUCTOR
   ///
 
-  final LoggerService loggerService;
+  final LoggerService logger;
 
-  DioService(this.loggerService)
+  DioService(this.logger)
 
   ///
   /// INIT
