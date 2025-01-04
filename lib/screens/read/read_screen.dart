@@ -7,8 +7,10 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../constants.dart';
 import '../../models/novinarko_rss_item.dart';
+import '../../services/logger_service.dart';
 import '../../util/dependencies.dart';
 import '../news/controllers/news_read_controller.dart';
+import 'active_url_controller.dart';
 import 'read_controller.dart';
 import 'web_buttons_controller.dart';
 import 'widgets/read_close_button.dart';
@@ -35,10 +37,13 @@ class _ReadScreenState extends State<ReadScreen> {
     super.initState();
 
     getIt.get<ReadController>()
-      ..setItemLength(widget.items.length)
+      ..setItems(widget.items)
       ..updateWebButtonVisibility(
         page: 0,
         itemLength: widget.items.length,
+      )
+      ..updateActiveUri(
+        overriddenUrl: widget.items.first.link ?? widget.items.first.guid,
       );
   }
 
@@ -46,7 +51,8 @@ class _ReadScreenState extends State<ReadScreen> {
   void dispose() {
     getIt
       ..resetLazySingleton<ReadController>()
-      ..resetLazySingleton<WebButtonsController>();
+      ..resetLazySingleton<WebButtonsController>()
+      ..resetLazySingleton<ActiveUrlController>();
 
     super.dispose();
   }
@@ -76,6 +82,7 @@ class ReadWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final webButtons = watchIt<WebButtonsController>().value;
+    final activeUrl = watchIt<ActiveUrlController>().value;
 
     return WillPopScope(
       onWillPop: () => popScreen(context),
@@ -96,7 +103,7 @@ class ReadWidget extends WatchingWidget {
                   curve: Curves.easeIn,
                   child: PressableDough(
                     child: ReadPreviousButton(
-                      onPressed: getIt.get<ReadController>().openPrevious,
+                      onPressed: getIt.get<ReadController>().openPreviousArticle,
                     ),
                   ),
                 ),
@@ -116,7 +123,7 @@ class ReadWidget extends WatchingWidget {
                 curve: Curves.easeIn,
                 child: PressableDough(
                   child: ReadNextButton(
-                    onPressed: getIt.get<ReadController>().openNext,
+                    onPressed: getIt.get<ReadController>().openNextArticle,
                   ),
                 ),
               ),
@@ -139,6 +146,13 @@ class ReadWidget extends WatchingWidget {
                   return ReadItem(
                     initialUrl: item.link ?? item.guid,
                     headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
+                    onWebViewCreated: (controller) => getIt.get<ReadController>().initializeWebViewController(
+                          controller: controller,
+                          item: item,
+                        ),
+                    onProgressChanged: (_, progress) {
+                      getIt.get<LoggerService>().f('Progress -> $progress');
+                    },
                   );
                 },
               ),
@@ -162,12 +176,65 @@ class ReadWidget extends WatchingWidget {
               Positioned(
                 left: 0,
                 right: 0,
-                bottom: 16,
+                bottom: 24,
                 child: PressableDough(
-                  child: Container(
-                    height: 48,
-                    width: 104,
-                    color: Colors.indigo,
+                  child: Center(
+                    child: IconButton.filled(
+                      onPressed: getIt.get<ReadController>().refresh,
+                      icon: const Icon(
+                        Icons.refresh_rounded,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 80,
+                child: PressableDough(
+                  child: Center(
+                    child: IconButton.filled(
+                      onPressed: getIt.get<ReadController>().goBack,
+                      icon: const Icon(
+                        Icons.arrow_back_rounded,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 160,
+                child: PressableDough(
+                  child: Center(
+                    child: IconButton.filled(
+                      onPressed: getIt.get<ReadController>().goForward,
+                      icon: const Icon(
+                        Icons.arrow_forward_rounded,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 240,
+                child: PressableDough(
+                  child: Center(
+                    child: Text(
+                      activeUrl,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'EncodeSans',
+                        height: 1.4,
+                        color: Colors.yellow,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),

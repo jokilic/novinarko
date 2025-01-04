@@ -7,41 +7,40 @@ import '../../../util/dependencies.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../../news/controllers/news_read_controller.dart';
 
-class ReadItem extends StatefulWidget {
+class ReadItem extends StatelessWidget {
   final String? initialUrl;
   final HeadlessInAppWebView? headlessWebView;
+  final Function(InAppWebViewController controller)? onWebViewCreated;
+  final Function(
+    InAppWebViewController controller,
+    int progress,
+  )? onProgressChanged;
 
   const ReadItem({
     this.initialUrl,
     this.headlessWebView,
+    this.onWebViewCreated,
+    this.onProgressChanged,
   });
 
   @override
-  State<ReadItem> createState() => _ReadItemState();
-}
-
-class _ReadItemState extends State<ReadItem> {
-  InAppWebViewController? webViewController;
-
-  var url = '';
-  var progress = 0.0;
-
-  Future<void> loadUrl(String url) async {
-    final webUri = WebUri(url);
-
-    await webViewController?.loadUrl(
-      urlRequest: URLRequest(url: webUri),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) => widget.initialUrl != null
+  Widget build(BuildContext context) => initialUrl != null
       ? InAppWebView(
-          headlessWebView: widget.headlessWebView,
+          headlessWebView: headlessWebView,
           initialUrlRequest: URLRequest(
-            url: WebUri(widget.initialUrl!),
+            url: WebUri(initialUrl!),
           ),
           initialSettings: getIt.get<NewsReadController>().webViewSettings,
+          onWebViewCreated: (controller) {
+            if (onWebViewCreated != null) {
+              onWebViewCreated!(controller);
+            }
+          },
+          onProgressChanged: (controller, progress) {
+            if (onProgressChanged != null) {
+              onProgressChanged!(controller, progress);
+            }
+          },
         )
       : NovinarkoIconTextWidget(
           icon: NovinarkoIcons.errorNews,
