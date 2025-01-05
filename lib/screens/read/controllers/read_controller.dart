@@ -11,7 +11,7 @@ import 'package:preload_page_view/preload_page_view.dart';
 import '../../../constants.dart';
 import '../../../models/novinarko_rss_item.dart';
 import '../../../services/logger_service.dart';
-import '../../../util/clean_url.dart';
+import '../../../util/url.dart';
 import 'web_buttons_controller.dart';
 
 class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewController?>> implements Disposable {
@@ -23,7 +23,29 @@ class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewCon
     required this.webButtons,
   }) : super({}) {
     pageController = PreloadPageController();
-    addressBarController = TextEditingController();
+
+    addressBarController = TextEditingController(text: 'Loading...');
+
+    addressBarFocusNode = FocusNode()
+      ..addListener(
+        () {
+          if (addressBarFocusNode.hasFocus) {
+            /// Select all text and move cursor to end when focused
+            if (isFirstAddressBarPress) {
+              addressBarController.selection = TextSelection(
+                baseOffset: 0,
+                extentOffset: addressBarController.text.length,
+                affinity: TextAffinity.upstream,
+              );
+            }
+
+            /// Reset the press state when focus is lost
+            else {
+              isFirstAddressBarPress = true;
+            }
+          }
+        },
+      );
   }
 
   ///
@@ -32,6 +54,9 @@ class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewCon
 
   late PreloadPageController pageController;
   late TextEditingController addressBarController;
+  late FocusNode addressBarFocusNode;
+
+  var isFirstAddressBarPress = true;
 
   ///
   /// DISPOSE
@@ -62,6 +87,31 @@ class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewCon
     required NovinarkoRssItem item,
   }) =>
       value[item] = controller;
+
+  /// Triggered when the user presses address bar
+  void onAddressBarPressed() {
+    /// First press - select all and move cursor to end
+    if (isFirstAddressBarPress) {
+      addressBarController.selection = TextSelection(
+        baseOffset: 0,
+        extentOffset: addressBarController.text.length,
+        affinity: TextAffinity.upstream,
+      );
+
+      isFirstAddressBarPress = false;
+    }
+
+    /// Second press - do regular Flutter logic
+    else {
+      /// Get the current tap position from the controller
+      final tapPosition = addressBarController.selection.base.offset;
+
+      /// Create a new selection with both base and extent at tap position
+      addressBarController.selection = TextSelection.collapsed(
+        offset: tapPosition,
+      );
+    }
+  }
 
   /// Triggered when the user presses `refresh` button
   Future<void> refresh() async {
@@ -114,7 +164,7 @@ class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewCon
     final currentPage = pageController.page?.round() ?? 0;
     final activeController = value.entries.toList()[currentPage].value;
 
-    final webUri = WebUri(url);
+    final webUri = WebUri(addHttpsInUrl(url));
 
     await activeController?.loadUrl(
       urlRequest: URLRequest(url: webUri),
@@ -124,22 +174,17 @@ class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewCon
   }
 
   /// Updates active `url` shown in UI
-  Future<void> updateActiveUri({String? overriddenUrl}) async {
-    if (overriddenUrl != null) {
-      final newUrl = cleanUrl(overriddenUrl);
-      addressBarController.text = newUrl;
+  Future<void> updateActiveUri() async {
+    if (pageController.hasClients) {
+      final currentPage = pageController.page?.round() ?? 0;
+      final activeController = value.entries.toList()[currentPage].value;
 
-      return;
-    }
+      final url = await activeController?.getUrl();
 
-    final currentPage = pageController.page?.round() ?? 0;
-    final activeController = value.entries.toList()[currentPage].value;
-
-    final url = await activeController?.getUrl();
-
-    if (url != null) {
-      final newUrl = cleanUrl('$url');
-      addressBarController.text = newUrl;
+      if (url != null) {
+        final newUrl = cleanUrl('$url');
+        addressBarController.text = newUrl;
+      }
     }
   }
 

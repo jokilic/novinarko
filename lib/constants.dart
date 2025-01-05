@@ -47,5 +47,8 @@ class NovinarkoIcons {
   static const settings = 'assets/icons/settings.png';
   static const info = 'assets/icons/info.png';
   static const close = 'assets/icons/close.png';
+  static const browserBack = 'assets/icons/browser_back.png';
+  static const share = 'assets/icons/share.png';
+  static const refresh = 'assets/icons/refresh.png';
   static const icon = 'assets/icon.png';
 }

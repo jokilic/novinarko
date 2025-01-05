@@ -42,9 +42,7 @@ class _ReadScreenState extends State<ReadScreen> {
         page: 0,
         itemLength: widget.items.length,
       )
-      ..updateActiveUri(
-        overriddenUrl: widget.items.first.link ?? widget.items.first.guid,
-      );
+      ..updateActiveUri();
   }
 
   @override
@@ -87,49 +85,6 @@ class ReadWidget extends WatchingWidget {
     return WillPopScope(
       onWillPop: () => popScreen(context),
       child: Scaffold(
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ///
-            /// PREVIOUS
-            ///
-            Padding(
-              padding: const EdgeInsets.only(left: 32),
-              child: IgnorePointer(
-                ignoring: !webButtons.showPrevious,
-                child: AnimatedOpacity(
-                  opacity: webButtons.showPrevious ? 1 : 0,
-                  duration: NovinarkoConstants.animationDuration,
-                  curve: Curves.easeIn,
-                  child: PressableDough(
-                    child: ReadPreviousButton(
-                      onPressed: getIt.get<ReadController>().openPreviousArticle,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(width: 16),
-
-            ///
-            /// NEXT
-            ///
-            IgnorePointer(
-              ignoring: !webButtons.showNext,
-              child: AnimatedOpacity(
-                opacity: webButtons.showNext ? 1 : 0,
-                duration: NovinarkoConstants.animationDuration,
-                curve: Curves.easeIn,
-                child: PressableDough(
-                  child: ReadNextButton(
-                    onPressed: getIt.get<ReadController>().openNextArticle,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
         body: SafeArea(
           child: Stack(
             children: [
@@ -156,7 +111,7 @@ class ReadWidget extends WatchingWidget {
                                 );
                             getIt.get<ReadLoaderController>().setLoader = 0;
                           },
-                          updateUri: (uri) => getIt.get<ReadController>().updateActiveUri(overriddenUrl: uri.toString()),
+                          updateUri: (_) => getIt.get<ReadController>().updateActiveUri(),
                           onProgressChanged: (progress) => getIt.get<ReadLoaderController>().setLoader = progress / 100,
                         );
                       },
@@ -169,6 +124,15 @@ class ReadWidget extends WatchingWidget {
                   ReadBottomBar(
                     progress: loaderValue,
                     controller: getIt.get<ReadController>().addressBarController,
+                    focusNode: getIt.get<ReadController>().addressBarFocusNode,
+                    onAddressBarPressed: getIt.get<ReadController>().onAddressBarPressed,
+                    onAddressBarSubmitted: getIt.get<ReadController>().loadUrl,
+                    onBackPressed: getIt.get<ReadController>().goBack,
+                    onForwardPressed: getIt.get<ReadController>().goForward,
+                    onSharePressed: () {
+                      // TODO: Implement share
+                    },
+                    onRefreshPressed: getIt.get<ReadController>().refresh,
                   ),
                 ],
               ),
@@ -186,49 +150,54 @@ class ReadWidget extends WatchingWidget {
                 ),
               ),
 
+              ///
+              /// ARTICLE BUTTONS
+              ///
               Positioned(
-                left: 0,
-                right: 0,
-                bottom: 24,
-                child: PressableDough(
-                  child: Center(
-                    child: IconButton.filled(
-                      onPressed: getIt.get<ReadController>().refresh,
-                      icon: const Icon(
-                        Icons.refresh_rounded,
+                bottom: 72,
+                right: 12,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ///
+                    /// PREVIOUS
+                    ///
+                    Padding(
+                      padding: const EdgeInsets.only(left: 32),
+                      child: IgnorePointer(
+                        ignoring: !webButtons.showPrevious,
+                        child: AnimatedOpacity(
+                          opacity: webButtons.showPrevious ? 1 : 0,
+                          duration: NovinarkoConstants.animationDuration,
+                          curve: Curves.easeIn,
+                          child: PressableDough(
+                            child: ReadPreviousButton(
+                              onPressed: getIt.get<ReadController>().openPreviousArticle,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 80,
-                child: PressableDough(
-                  child: Center(
-                    child: IconButton.filled(
-                      onPressed: getIt.get<ReadController>().goBack,
-                      icon: const Icon(
-                        Icons.arrow_back_rounded,
+
+                    const SizedBox(width: 16),
+
+                    ///
+                    /// NEXT
+                    ///
+                    IgnorePointer(
+                      ignoring: !webButtons.showNext,
+                      child: AnimatedOpacity(
+                        opacity: webButtons.showNext ? 1 : 0,
+                        duration: NovinarkoConstants.animationDuration,
+                        curve: Curves.easeIn,
+                        child: PressableDough(
+                          child: ReadNextButton(
+                            onPressed: getIt.get<ReadController>().openNextArticle,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 160,
-                child: PressableDough(
-                  child: Center(
-                    child: IconButton.filled(
-                      onPressed: getIt.get<ReadController>().goForward,
-                      icon: const Icon(
-                        Icons.arrow_forward_rounded,
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
               ),
             ],

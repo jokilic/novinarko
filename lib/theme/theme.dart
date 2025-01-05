@@ -15,6 +15,11 @@ class NovinarkoTheme {
 
     return defaultTheme.copyWith(
       scaffoldBackgroundColor: lightAppColors.background,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: lightAppColors.primary,
+        cursorColor: lightAppColors.primary,
+        selectionHandleColor: lightAppColors.primary,
+      ),
       extensions: [
         lightAppColors,
         lightTextTheme,
@@ -124,6 +129,11 @@ class NovinarkoTheme {
 
     return defaultTheme.copyWith(
       scaffoldBackgroundColor: darkAppColors.background,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: darkAppColors.primary,
+        cursorColor: darkAppColors.primary,
+        selectionHandleColor: darkAppColors.primary,
+      ),
       extensions: [
         darkAppColors,
         darkTextTheme,
@@ -233,6 +243,11 @@ class NovinarkoTheme {
 
     return defaultTheme.copyWith(
       scaffoldBackgroundColor: sepiaAppColors.background,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: sepiaAppColors.primary,
+        cursorColor: sepiaAppColors.primary,
+        selectionHandleColor: sepiaAppColors.primary,
+      ),
       extensions: [
         sepiaAppColors,
         sepiaTextTheme,

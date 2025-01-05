@@ -9,3 +9,11 @@ String cleanUrl(String url) {
 
   return cleaned;
 }
+
+String addHttpsInUrl(String url) {
+  /// Remove any existing protocol (`http://` or `https://`)
+  final cleaned = url.replaceAll(RegExp('https?://'), '');
+
+  /// Return the URL with `https://` prefix
+  return 'https://$cleaned';
+}

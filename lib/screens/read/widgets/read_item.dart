@@ -25,6 +25,7 @@ class ReadItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => initialUrl != null
       ? InAppWebView(
+          key: ValueKey(initialUrl),
           headlessWebView: headlessWebView,
           initialUrlRequest: URLRequest(
             url: WebUri(initialUrl!),
