@@ -4,9 +4,9 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 import '../screens/news/controllers/news_controller.dart';
 import '../screens/news/controllers/news_read_controller.dart';
 import '../screens/news/controllers/news_read_loader_controller.dart';
-import '../screens/read/active_url_controller.dart';
-import '../screens/read/read_controller.dart';
-import '../screens/read/web_buttons_controller.dart';
+import '../screens/read/controllers/read_controller.dart';
+import '../screens/read/controllers/read_loader_controller.dart';
+import '../screens/read/controllers/web_buttons_controller.dart';
 import '../screens/search/search_controller.dart';
 import '../services/active_feed_service.dart';
 import '../services/api_service.dart';
@@ -104,7 +104,7 @@ void initializeControllers() => getIt
     ),
   )
   ..registerLazySingleton(
-    () => ActiveUrlController(
+    () => ReadLoaderController(
       logger: getIt.get<LoggerService>(),
     ),
   )
@@ -112,6 +112,5 @@ void initializeControllers() => getIt
     () => ReadController(
       logger: getIt.get<LoggerService>(),
       webButtons: getIt.get<WebButtonsController>(),
-      activeUrl: getIt.get<ActiveUrlController>(),
     ),
   );

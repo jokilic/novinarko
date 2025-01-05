@@ -8,24 +8,22 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart' hide Disposable;
 import 'package:get_it/get_it.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
-import '../../constants.dart';
-import '../../models/novinarko_rss_item.dart';
-import '../../services/logger_service.dart';
-import '../../util/clean_url.dart';
-import 'active_url_controller.dart';
+import '../../../constants.dart';
+import '../../../models/novinarko_rss_item.dart';
+import '../../../services/logger_service.dart';
+import '../../../util/clean_url.dart';
 import 'web_buttons_controller.dart';
 
 class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewController?>> implements Disposable {
   final LoggerService logger;
   final WebButtonsController webButtons;
-  final ActiveUrlController activeUrl;
 
   ReadController({
     required this.logger,
     required this.webButtons,
-    required this.activeUrl,
   }) : super({}) {
     pageController = PreloadPageController();
+    addressBarController = TextEditingController();
   }
 
   ///
@@ -33,6 +31,7 @@ class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewCon
   ///
 
   late PreloadPageController pageController;
+  late TextEditingController addressBarController;
 
   ///
   /// DISPOSE
@@ -41,6 +40,7 @@ class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewCon
   @override
   void onDispose() {
     pageController.dispose();
+    addressBarController.dispose();
   }
 
   ///
@@ -126,9 +126,8 @@ class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewCon
   /// Updates active `url` shown in UI
   Future<void> updateActiveUri({String? overriddenUrl}) async {
     if (overriddenUrl != null) {
-      activeUrl.updateState(
-        cleanUrl(overriddenUrl),
-      );
+      final newUrl = cleanUrl(overriddenUrl);
+      addressBarController.text = newUrl;
 
       return;
     }
@@ -139,9 +138,8 @@ class ReadController extends ValueNotifier<Map<NovinarkoRssItem, InAppWebViewCon
     final url = await activeController?.getUrl();
 
     if (url != null) {
-      activeUrl.updateState(
-        cleanUrl('$url'),
-      );
+      final newUrl = cleanUrl('$url');
+      addressBarController.text = newUrl;
     }
   }
 

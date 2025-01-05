@@ -7,12 +7,12 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../constants.dart';
 import '../../models/novinarko_rss_item.dart';
-import '../../services/logger_service.dart';
 import '../../util/dependencies.dart';
 import '../news/controllers/news_read_controller.dart';
-import 'active_url_controller.dart';
-import 'read_controller.dart';
-import 'web_buttons_controller.dart';
+import 'controllers/read_controller.dart';
+import 'controllers/read_loader_controller.dart';
+import 'controllers/web_buttons_controller.dart';
+import 'widgets/read_bottom_bar.dart';
 import 'widgets/read_close_button.dart';
 import 'widgets/read_item.dart';
 import 'widgets/read_next_button.dart';
@@ -52,7 +52,7 @@ class _ReadScreenState extends State<ReadScreen> {
     getIt
       ..resetLazySingleton<ReadController>()
       ..resetLazySingleton<WebButtonsController>()
-      ..resetLazySingleton<ActiveUrlController>();
+      ..resetLazySingleton<ReadLoaderController>();
 
     super.dispose();
   }
@@ -82,7 +82,7 @@ class ReadWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final webButtons = watchIt<WebButtonsController>().value;
-    final activeUrl = watchIt<ActiveUrlController>().value;
+    final loaderValue = watchIt<ReadLoaderController>().value;
 
     return WillPopScope(
       onWillPop: () => popScreen(context),
@@ -133,28 +133,44 @@ class ReadWidget extends WatchingWidget {
         body: SafeArea(
           child: Stack(
             children: [
-              ///
-              /// CONTENT
-              ///
-              PreloadPageView.builder(
-                controller: getIt.get<ReadController>().pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: items.length,
-                itemBuilder: (_, index) {
-                  final item = items[index];
+              Column(
+                children: [
+                  ///
+                  /// CONTENT
+                  ///
+                  Expanded(
+                    child: PreloadPageView.builder(
+                      controller: getIt.get<ReadController>().pageController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: items.length,
+                      itemBuilder: (_, index) {
+                        final item = items[index];
 
-                  return ReadItem(
-                    initialUrl: item.link ?? item.guid,
-                    headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
-                    onWebViewCreated: (controller) => getIt.get<ReadController>().initializeWebViewController(
-                          controller: controller,
-                          item: item,
-                        ),
-                    onProgressChanged: (_, progress) {
-                      getIt.get<LoggerService>().f('Progress -> $progress');
-                    },
-                  );
-                },
+                        return ReadItem(
+                          initialUrl: item.link ?? item.guid,
+                          headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
+                          onWebViewCreated: (controller) {
+                            getIt.get<ReadController>().initializeWebViewController(
+                                  controller: controller,
+                                  item: item,
+                                );
+                            getIt.get<ReadLoaderController>().setLoader = 0;
+                          },
+                          updateUri: (uri) => getIt.get<ReadController>().updateActiveUri(overriddenUrl: uri.toString()),
+                          onProgressChanged: (progress) => getIt.get<ReadLoaderController>().setLoader = progress / 100,
+                        );
+                      },
+                    ),
+                  ),
+
+                  ///
+                  /// BOTTOM MENU BAR
+                  ///
+                  ReadBottomBar(
+                    progress: loaderValue,
+                    controller: getIt.get<ReadController>().addressBarController,
+                  ),
+                ],
               ),
 
               ///
@@ -170,9 +186,6 @@ class ReadWidget extends WatchingWidget {
                 ),
               ),
 
-              ///
-              /// BOTTOM MENU
-              ///
               Positioned(
                 left: 0,
                 right: 0,
@@ -214,26 +227,6 @@ class ReadWidget extends WatchingWidget {
                       icon: const Icon(
                         Icons.arrow_forward_rounded,
                       ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 240,
-                child: PressableDough(
-                  child: Center(
-                    child: Text(
-                      activeUrl,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'EncodeSans',
-                        height: 1.4,
-                        color: Colors.yellow,
-                      ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),

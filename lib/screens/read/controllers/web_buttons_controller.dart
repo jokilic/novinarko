@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../services/logger_service.dart';
+import '../../../services/logger_service.dart';
 
 class WebButtonsController extends ValueNotifier<({bool showPrevious, bool showNext})> {
   final LoggerService logger;

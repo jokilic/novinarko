@@ -11,16 +11,15 @@ class ReadItem extends StatelessWidget {
   final String? initialUrl;
   final HeadlessInAppWebView? headlessWebView;
   final Function(InAppWebViewController controller)? onWebViewCreated;
-  final Function(
-    InAppWebViewController controller,
-    int progress,
-  )? onProgressChanged;
+  final Function(int progress)? onProgressChanged;
+  final Function(WebUri? uri)? updateUri;
 
   const ReadItem({
     this.initialUrl,
     this.headlessWebView,
     this.onWebViewCreated,
     this.onProgressChanged,
+    this.updateUri,
   });
 
   @override
@@ -36,9 +35,24 @@ class ReadItem extends StatelessWidget {
               onWebViewCreated!(controller);
             }
           },
-          onProgressChanged: (controller, progress) {
+          onLoadStart: (_, url) {
+            if (updateUri != null) {
+              updateUri!(url);
+            }
+          },
+          onLoadStop: (_, url) {
+            if (updateUri != null) {
+              updateUri!(url);
+            }
+          },
+          onUpdateVisitedHistory: (_, url, __) {
+            if (updateUri != null) {
+              updateUri!(url);
+            }
+          },
+          onProgressChanged: (_, progress) {
             if (onProgressChanged != null) {
-              onProgressChanged!(controller, progress);
+              onProgressChanged!(progress);
             }
           },
         )
