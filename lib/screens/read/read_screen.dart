@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:dough/dough.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 import 'package:watch_it/watch_it.dart';
@@ -159,7 +160,7 @@ class ReadWidget extends WatchingWidget {
               /// ARTICLE BUTTONS
               ///
               Positioned(
-                bottom: 72,
+                bottom: defaultTargetPlatform == TargetPlatform.iOS ? 88 : 72,
                 right: 12,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -38,7 +39,7 @@ class ReadBottomBar extends StatelessWidget {
             ),
           ),
         ),
-        padding: const EdgeInsets.all(6),
+        padding: EdgeInsets.fromLTRB(8, 8, 8, defaultTargetPlatform == TargetPlatform.iOS ? 24 : 8),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
