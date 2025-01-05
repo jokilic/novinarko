@@ -29,6 +29,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
   final TextStyle settingsNovinarkoTitle;
   final TextStyle settingsNovinarkoVersion;
   final TextStyle searchCustomDialogButton;
+  final TextStyle readAddressBar;
 
   const NovinarkoTextThemesExtension({
     required this.newsTitle,
@@ -59,6 +60,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     required this.settingsNovinarkoTitle,
     required this.settingsNovinarkoVersion,
     required this.searchCustomDialogButton,
+    required this.readAddressBar,
   });
 
   @override
@@ -91,6 +93,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     TextStyle? settingsNovinarkoTitle,
     TextStyle? settingsNovinarkoVersion,
     TextStyle? searchCustomDialogButton,
+    TextStyle? readAddressBar,
   }) =>
       NovinarkoTextThemesExtension(
         newsTitle: newsTitle ?? this.newsTitle,
@@ -121,6 +124,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
         settingsNovinarkoTitle: settingsNovinarkoTitle ?? this.settingsNovinarkoTitle,
         settingsNovinarkoVersion: settingsNovinarkoVersion ?? this.settingsNovinarkoVersion,
         searchCustomDialogButton: searchCustomDialogButton ?? this.searchCustomDialogButton,
+        readAddressBar: readAddressBar ?? this.readAddressBar,
       );
 
   @override
@@ -161,6 +165,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
       settingsNovinarkoTitle: TextStyle.lerp(settingsNovinarkoTitle, other.settingsNovinarkoTitle, t)!,
       settingsNovinarkoVersion: TextStyle.lerp(settingsNovinarkoVersion, other.settingsNovinarkoVersion, t)!,
       searchCustomDialogButton: TextStyle.lerp(searchCustomDialogButton, other.searchCustomDialogButton, t)!,
+      readAddressBar: TextStyle.lerp(readAddressBar, other.readAddressBar, t)!,
     );
   }
 }

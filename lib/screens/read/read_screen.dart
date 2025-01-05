@@ -90,6 +90,7 @@ class ReadWidget extends WatchingWidget {
       onWillPop: () => popScreen(context),
       child: Scaffold(
         body: SafeArea(
+          bottom: false,
           child: Stack(
             children: [
               Column(

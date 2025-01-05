@@ -38,7 +38,7 @@ class ReadBottomBar extends StatelessWidget {
             ),
           ),
         ),
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
+        padding: const EdgeInsets.all(6),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -94,9 +94,9 @@ class ReadBottomBar extends StatelessWidget {
                       width: 0,
                     ),
                   ),
-                  contentPadding: const EdgeInsets.all(8),
+                  contentPadding: const EdgeInsets.all(4),
                 ),
-                style: context.textStyles.searchTextField,
+                style: context.textStyles.readAddressBar,
                 textAlign: TextAlign.center,
               ),
             ),

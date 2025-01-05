@@ -196,4 +196,11 @@ abstract class NovinarkoTextStyles {
     fontFamily: 'EncodeSans',
     height: 1.2,
   );
+
+  static const readAddressBar = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'EncodeSans',
+    height: 1.6,
+  );
 }

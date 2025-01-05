@@ -118,6 +118,9 @@ class NovinarkoTheme {
     searchCustomDialogButton: NovinarkoTextStyles.searchCustomDialogButton.copyWith(
       color: lightAppColors.text,
     ),
+    readAddressBar: NovinarkoTextStyles.readAddressBar.copyWith(
+      color: lightAppColors.text,
+    ),
   );
 
   ///
@@ -232,6 +235,9 @@ class NovinarkoTheme {
     searchCustomDialogButton: NovinarkoTextStyles.searchCustomDialogButton.copyWith(
       color: darkAppColors.text,
     ),
+    readAddressBar: NovinarkoTextStyles.readAddressBar.copyWith(
+      color: darkAppColors.text,
+    ),
   );
 
   ///
@@ -344,6 +350,9 @@ class NovinarkoTheme {
       color: sepiaAppColors.text,
     ),
     searchCustomDialogButton: NovinarkoTextStyles.searchCustomDialogButton.copyWith(
+      color: sepiaAppColors.text,
+    ),
+    readAddressBar: NovinarkoTextStyles.readAddressBar.copyWith(
       color: sepiaAppColors.text,
     ),
   );
