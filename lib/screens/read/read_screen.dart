@@ -36,13 +36,17 @@ class _ReadScreenState extends State<ReadScreen> {
   void initState() {
     super.initState();
 
+    final firstUrl = widget.items.firstOrNull?.link ?? widget.items.firstOrNull?.guid;
+
     getIt.get<ReadController>()
       ..setItems(widget.items)
       ..updateWebButtonVisibility(
         page: 0,
         itemLength: widget.items.length,
       )
-      ..updateActiveUri();
+      ..updateActiveUri(
+        overrideUrl: firstUrl,
+      );
   }
 
   @override
@@ -106,6 +110,7 @@ class ReadWidget extends WatchingWidget {
                           headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
                           onWebViewCreated: (controller) {
                             getIt.get<ReadController>().initializeWebViewController(
+                                  index: index,
                                   controller: controller,
                                   item: item,
                                 );
@@ -113,6 +118,7 @@ class ReadWidget extends WatchingWidget {
                           },
                           updateUri: (_) => getIt.get<ReadController>().updateActiveUri(),
                           onProgressChanged: (progress) => getIt.get<ReadLoaderController>().setLoader = progress / 100,
+                          onConsoleMessage: (_) {},
                         );
                       },
                     ),
@@ -129,9 +135,7 @@ class ReadWidget extends WatchingWidget {
                     onAddressBarSubmitted: getIt.get<ReadController>().loadUrl,
                     onBackPressed: getIt.get<ReadController>().goBack,
                     onForwardPressed: getIt.get<ReadController>().goForward,
-                    onSharePressed: () {
-                      // TODO: Implement share
-                    },
+                    onSharePressed: getIt.get<ReadController>().share,
                     onRefreshPressed: getIt.get<ReadController>().refresh,
                   ),
                 ],

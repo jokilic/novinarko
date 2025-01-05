@@ -10,10 +10,19 @@ String cleanUrl(String url) {
   return cleaned;
 }
 
-String addHttpsInUrl(String url) {
-  /// Remove any existing protocol (`http://` or `https://`)
-  final cleaned = url.replaceAll(RegExp('https?://'), '');
+/// Remove any existing protocol (`http://` or `https://`)
+/// Return proper `Url` or `Google Search Url`
+String processUrl(String addressValue) {
+  final cleaned = addressValue.replaceAll(RegExp('https?://'), '');
 
-  /// Return the URL with `https://` prefix
-  return 'https://$cleaned';
+  /// Split by dots and check the last part
+  final parts = cleaned.split('.');
+
+  /// There are no dots, return the URL with `https://` prefix
+  if (parts.length > 1 && parts.last.length >= 2) {
+    return 'https://$cleaned';
+  }
+
+  /// There are dots, return `Google Search Url`
+  return 'https://www.google.com/search?q=$cleaned';
 }

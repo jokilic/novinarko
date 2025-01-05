@@ -29,8 +29,16 @@ class ReadBottomBar extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+  Widget build(BuildContext context) => Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: context.colors.text,
+              width: 2.5,
+            ),
+          ),
+        ),
+        padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -103,12 +111,43 @@ class ReadBottomBar extends StatelessWidget {
             ),
 
             ///
-            /// REFRESH
+            /// REFRESH & LOADER
             ///
-            ReadBottomBarCircularButton(
-              onPressed: onRefreshPressed,
-              icon: NovinarkoIcons.refresh,
-              size: 24,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                ///
+                /// LOADER
+                ///
+                AnimatedOpacity(
+                  opacity: progress > 0.1 && progress < 0.95 ? 1 : 0,
+                  duration: NovinarkoConstants.animationDuration,
+                  curve: Curves.easeIn,
+                  child: SizedBox(
+                    height: 34,
+                    width: 34,
+                    child: TweenAnimationBuilder<double>(
+                      duration: NovinarkoConstants.animationDuration,
+                      curve: Curves.easeIn,
+                      tween: Tween<double>(begin: 0, end: progress),
+                      builder: (_, value, __) => CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        color: context.colors.text,
+                        value: value,
+                      ),
+                    ),
+                  ),
+                ),
+
+                ///
+                /// REFRESH
+                ///
+                ReadBottomBarCircularButton(
+                  onPressed: onRefreshPressed,
+                  icon: NovinarkoIcons.refresh,
+                  size: 24,
+                ),
+              ],
             ),
           ],
         ),

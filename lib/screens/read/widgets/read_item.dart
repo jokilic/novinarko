@@ -13,6 +13,7 @@ class ReadItem extends StatelessWidget {
   final Function(InAppWebViewController controller)? onWebViewCreated;
   final Function(int progress)? onProgressChanged;
   final Function(WebUri? uri)? updateUri;
+  final Function(ConsoleMessage consoleMessage)? onConsoleMessage;
 
   const ReadItem({
     this.initialUrl,
@@ -20,6 +21,7 @@ class ReadItem extends StatelessWidget {
     this.onWebViewCreated,
     this.onProgressChanged,
     this.updateUri,
+    this.onConsoleMessage,
   });
 
   @override
@@ -54,6 +56,11 @@ class ReadItem extends StatelessWidget {
           onProgressChanged: (_, progress) {
             if (onProgressChanged != null) {
               onProgressChanged!(progress);
+            }
+          },
+          onConsoleMessage: (controller, consoleMessage) {
+            if (onConsoleMessage != null) {
+              onConsoleMessage!(consoleMessage);
             }
           },
         )
