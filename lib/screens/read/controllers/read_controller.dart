@@ -171,7 +171,7 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
   Future<void> loadUrl(String url) async {
     final activeController = getControllerFromPage();
 
-    final newUrl = processUrl(url);
+    final newUrl = processUrl(url).trim();
 
     final webUri = WebUri(newUrl);
 
