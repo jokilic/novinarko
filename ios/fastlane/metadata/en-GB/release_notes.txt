@@ -1,0 +1,3 @@
+* Bottom menu in ReadScreen
+* Update dependencies
+* Code syntax updates
