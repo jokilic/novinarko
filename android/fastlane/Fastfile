@@ -58,7 +58,7 @@ platform :android do
       name: "Novinarko v#{pubspec_version}",
       tag_name: "v#{pubspec_version}",
       description: (File.read("metadata/android/en-GB/changelogs/default.txt") rescue "No changelog provided"),
-      commitish: "master",
+      commitish: "main",
       upload_assets: ["../build/app/outputs/flutter-apk/novinarko.apk"],
       )
 
