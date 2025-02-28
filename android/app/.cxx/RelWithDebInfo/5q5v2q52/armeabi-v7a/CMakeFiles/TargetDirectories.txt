@@ -1,0 +1,2 @@
+/Users/josipkilic/Projects/novinarko/android/app/.cxx/RelWithDebInfo/5q5v2q52/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/josipkilic/Projects/novinarko/android/app/.cxx/RelWithDebInfo/5q5v2q52/armeabi-v7a/CMakeFiles/rebuild_cache.dir

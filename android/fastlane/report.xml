@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000227">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: puro flutter clean" time="6.145471">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: puro flutter pub get" time="3.328336">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: puro flutter build appbundle" time="64.044352">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: supply" time="38.52798">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: notification" time="1.545664">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
