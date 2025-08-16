@@ -96,13 +96,13 @@ flutter_launcher_icons:
   ios: true
   image_path: 'assets/icon.png'
   min_sdk_android: 21
-  adaptive_icon_background: '#F2E2BA'
+  adaptive_icon_background: '#748479'
   adaptive_icon_foreground: 'assets/icon.png'
   web:
     generate: true
     image_path: 'assets/icon.png'
-    background_color: '#F2E2BA'
-    theme_color: '#F2E2BA'
+    background_color: '#748479'
+    theme_color: '#748479'
   windows:
     generate: true
     image_path: 'assets/icon.png'
@@ -115,9 +115,8 @@ flutter_launcher_icons:
 # Run splash screen generation with 'dart run flutter_native_splash:create'
 flutter_native_splash:
   background_image: "assets/splash.png"
-  background_image_dark: "assets/splash_dark.png"
   android_12:
     image: assets/splash_icon.png
-    color: "#F2E2BA"
+    color: "#748479"
     image_dark: assets/splash_icon.png
-    color_dark: "#444B6E"
+    color_dark: "#748479"
