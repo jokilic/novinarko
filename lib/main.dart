@@ -39,7 +39,7 @@ Future<void> main() async {
   /// Init [Sentry] & run [Novinarko]
   await SentryFlutter.init(
     (options) => options
-      ..dsn = kDebugMode ? '' : Env.sentryDsn
+      ..dsn = kDebugMode || kIsWeb ? '' : Env.sentryDsn
       ..debug = kDebugMode,
     appRunner: () => runApp(
       NovinarkoApp(),
