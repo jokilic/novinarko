@@ -50,15 +50,15 @@ Future<void> main() async {
 class NovinarkoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => EasyLocalization(
-        useOnlyLangCode: true,
-        supportedLocales: const [
-          Locale('en'),
-          Locale('hr'),
-        ],
-        fallbackLocale: const Locale('en'),
-        path: 'assets/translations',
-        child: NovinarkoWidget(),
-      );
+    useOnlyLangCode: true,
+    supportedLocales: const [
+      Locale('en'),
+      Locale('hr'),
+    ],
+    fallbackLocale: const Locale('en'),
+    path: 'assets/translations',
+    child: NovinarkoWidget(),
+  );
 }
 
 class NovinarkoWidget extends WatchingWidget {
@@ -73,7 +73,7 @@ class NovinarkoWidget extends WatchingWidget {
       debugShowCheckedModeBanner: false,
       home: NewsScreen(),
       onGenerateTitle: (_) => 'appName'.tr(),
-      theme: theme ?? NovinarkoTheme.light,
+      theme: theme ?? NovinarkoTheme.green,
       darkTheme: theme ?? NovinarkoTheme.dark,
       builder: (context, child) => kDebugMode
           ? Banner(

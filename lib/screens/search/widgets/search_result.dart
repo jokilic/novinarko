@@ -17,21 +17,21 @@ class SearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        itemCount: results.length,
-        itemBuilder: (_, index) {
-          final result = results[index];
+    physics: const BouncingScrollPhysics(),
+    itemCount: results.length,
+    itemBuilder: (_, index) {
+      final result = results[index];
 
-          return SearchListTile(
-            onPressed: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(result),
-            title: result.title,
-            siteName: result.siteName,
-            description: result.description,
-            favicon: result.favicon,
-            url: result.url,
-            usingFeed: hiveFeeds.contains(result),
-          );
-        },
-        separatorBuilder: (_, __) => NovinarkoDivider(),
+      return SearchListTile(
+        onPressed: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(result),
+        title: result.title,
+        siteName: result.siteName,
+        description: result.description,
+        favicon: result.favicon,
+        url: result.url,
+        usingFeed: hiveFeeds.contains(result),
       );
+    },
+    separatorBuilder: (_, __) => NovinarkoDivider(),
+  );
 }

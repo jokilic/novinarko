@@ -77,26 +77,13 @@ flutter:
     - assets/icons/
     - assets/translations/
   fonts:
-    - family: EncodeSans
+    - family: Nunito
       fonts:
-        - asset: assets/fonts/EncodeSans/EncodeSans-Thin.ttf
-          weight: 100
-        - asset: assets/fonts/EncodeSans/EncodeSans-ExtraLight.ttf
-          weight: 200
-        - asset: assets/fonts/EncodeSans/EncodeSans-Light.ttf
-          weight: 300
-        - asset: assets/fonts/EncodeSans/EncodeSans-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/EncodeSans/EncodeSans-Medium.ttf
+        - asset: assets/fonts/Nunito/Nunito-Medium.ttf
           weight: 500
-        - asset: assets/fonts/EncodeSans/EncodeSans-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/EncodeSans/EncodeSans-Bold.ttf
+        - asset: assets/fonts/Nunito/Nunito-Bold.ttf
           weight: 700
-        - asset: assets/fonts/EncodeSans/EncodeSans-ExtraBold.ttf
-          weight: 800
-        - asset: assets/fonts/EncodeSans/EncodeSans-Black.ttf
-          weight: 900
+
     - family: Merriweather
       fonts:
         - asset: assets/fonts/Merriweather/Merriweather-Bold.ttf

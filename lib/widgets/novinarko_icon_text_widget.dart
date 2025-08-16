@@ -24,86 +24,86 @@ class NovinarkoIconTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: verticalPadding,
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 104),
+    physics: const BouncingScrollPhysics(),
+    child: Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: verticalPadding,
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 104),
 
-                if (arrowAlignment != null)
-                  Align(
-                    alignment: arrowAlignment!,
-                    child: Animate(
-                      onComplete: (controller) => controller.loop(reverse: true),
-                      effects: const [
-                        MoveEffect(
-                          begin: Offset(0, -4),
-                          end: Offset(0, -8),
-                          curve: Curves.easeIn,
-                          duration: NovinarkoConstants.animationDuration,
-                        ),
-                      ],
-                      child: Transform.rotate(
-                        angle: 0.5 * pi,
-                        child: Image.asset(
-                          NovinarkoIcons.back,
-                          fit: BoxFit.cover,
-                          color: context.colors.text,
-                          height: 40,
-                          width: 40,
-                        ),
-                      ),
+            if (arrowAlignment != null)
+              Align(
+                alignment: arrowAlignment!,
+                child: Animate(
+                  onComplete: (controller) => controller.loop(reverse: true),
+                  effects: const [
+                    MoveEffect(
+                      begin: Offset(0, -4),
+                      end: Offset(0, -8),
+                      curve: Curves.easeIn,
+                      duration: NovinarkoConstants.animationDuration,
                     ),
-                  )
-                else
-                  const SizedBox(height: 40),
-
-                const SizedBox(height: 120),
-
-                Image.asset(
-                  icon,
-                  fit: BoxFit.cover,
-                  color: context.colors.text,
-                  height: 80,
-                  width: 80,
+                  ],
+                  child: Transform.rotate(
+                    angle: 0.5 * pi,
+                    child: Image.asset(
+                      NovinarkoIcons.back,
+                      fit: BoxFit.cover,
+                      color: context.colors.text,
+                      height: 40,
+                      width: 40,
+                    ),
+                  ),
                 ),
+              )
+            else
+              const SizedBox(height: 40),
 
-                const SizedBox(height: 36),
+            const SizedBox(height: 120),
 
-                /// Search title
-                if (title != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 36),
-                    child: Text(
-                      title!,
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: context.textStyles.iconTextTitle,
-                    ),
-                  ),
-
-                const SizedBox(height: 8),
-
-                /// Search subtitle
-                if (subtitle != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 60),
-                    child: Text(
-                      subtitle!,
-                      textAlign: TextAlign.center,
-                      style: context.textStyles.iconTextSubtitle,
-                    ),
-                  ),
-              ],
+            Image.asset(
+              icon,
+              fit: BoxFit.cover,
+              color: context.colors.text,
+              height: 80,
+              width: 80,
             ),
-          ),
+
+            const SizedBox(height: 36),
+
+            /// Search title
+            if (title != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 36),
+                child: Text(
+                  title!,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.textStyles.iconTextTitle,
+                ),
+              ),
+
+            const SizedBox(height: 8),
+
+            /// Search subtitle
+            if (subtitle != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 60),
+                child: Text(
+                  subtitle!,
+                  textAlign: TextAlign.center,
+                  style: context.textStyles.iconTextSubtitle,
+                ),
+              ),
+          ],
         ),
-      );
+      ),
+    ),
+  );
 }

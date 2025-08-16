@@ -5,7 +5,8 @@ abstract class NovinarkoTextStyles {
     fontSize: 17,
     fontWeight: FontWeight.w700,
     fontFamily: 'Merriweather',
-    letterSpacing: 1.1,
+    height: 1.6,
+    letterSpacing: 1.2,
   );
 
   static const newsFeedTitle = TextStyle(
@@ -17,9 +18,9 @@ abstract class NovinarkoTextStyles {
 
   static const newsDescription = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'EncodeSans',
-    height: 1.6,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Nunito',
+    height: 1.4,
   );
 
   static const newsAppBar = TextStyle(
@@ -31,7 +32,7 @@ abstract class NovinarkoTextStyles {
   static const newsDateTime = TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.w500,
-    fontFamily: 'EncodeSans',
+    fontFamily: 'Nunito',
     height: 1.4,
   );
 
@@ -39,27 +40,27 @@ abstract class NovinarkoTextStyles {
     fontSize: 34,
     fontWeight: FontWeight.w700,
     fontFamily: 'Merriweather',
-    height: 1.6,
+    height: 1.4,
   );
 
   static const feedsTitle = TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.w700,
     fontFamily: 'Merriweather',
-    height: 1.6,
+    height: 1.4,
   );
 
   static const feedsSubtitle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
-    fontFamily: 'EncodeSans',
-    height: 1.6,
+    fontFamily: 'Nunito',
+    height: 1.4,
   );
 
   static const feedsUrl = TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
+    fontFamily: 'Nunito',
     height: 1.4,
   );
 
@@ -67,27 +68,26 @@ abstract class NovinarkoTextStyles {
     fontSize: 20,
     fontWeight: FontWeight.w700,
     fontFamily: 'Merriweather',
-    height: 1.6,
+    height: 1.4,
   );
 
   static const searchTitle = TextStyle(
     fontSize: 18,
-    fontWeight: FontWeight.w900,
-    fontFamily: 'EncodeSans',
-    height: 1.6,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
   );
 
   static const searchDescription = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
-    height: 1.6,
+    fontFamily: 'Nunito',
+    height: 1.4,
   );
 
   static const searchUrl = TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
+    fontFamily: 'Nunito',
     height: 1.4,
   );
 
@@ -101,36 +101,36 @@ abstract class NovinarkoTextStyles {
   static const iconTextSubtitle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
-    height: 1.6,
+    fontFamily: 'Nunito',
+    height: 1.4,
   );
 
   static const twoLettersAppBar = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w700,
     fontFamily: 'Merriweather',
-    height: 1.6,
+    height: 1.4,
   );
 
   static const twoLettersDialog = TextStyle(
     fontSize: 36,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
-    height: 1.6,
+    fontFamily: 'Nunito',
+    height: 1.4,
   );
 
   static const loading = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
-    height: 1.6,
+    fontFamily: 'Nunito',
+    height: 1.4,
   );
 
   static const snackbar = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
-    height: 1.6,
+    fontFamily: 'Nunito',
+    height: 1.4,
   );
 
   static const appBarTitle = TextStyle(
@@ -142,22 +142,22 @@ abstract class NovinarkoTextStyles {
 
   static const floatingActionButtonTitle = TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.w600,
-    fontFamily: 'EncodeSans',
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Nunito',
     height: 1.2,
   );
 
   static const floatingActionButtonNumber = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
+    fontFamily: 'Nunito',
     height: 1.2,
   );
 
   static const newsFeedInfoText = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
-    fontFamily: 'EncodeSans',
+    fontFamily: 'Nunito',
     height: 1.2,
   );
 
@@ -171,7 +171,7 @@ abstract class NovinarkoTextStyles {
   static const newsFeedInfoValue = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
+    fontFamily: 'Nunito',
     height: 1.2,
   );
 
@@ -185,21 +185,21 @@ abstract class NovinarkoTextStyles {
   static const settingsNovinarkoVersion = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
+    fontFamily: 'Nunito',
     height: 1.2,
   );
 
   static const searchCustomDialogButton = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
+    fontFamily: 'Nunito',
     height: 1.2,
   );
 
   static const readAddressBar = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
-    fontFamily: 'EncodeSans',
-    height: 1.6,
+    fontFamily: 'Nunito',
+    height: 1.4,
   );
 }

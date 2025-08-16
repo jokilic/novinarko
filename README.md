@@ -30,5 +30,5 @@ Here you can find your desired news sources.\
 Typing news URL is encouraged, it will make the search more accurate.\
 If you're not sure about it, typing simple words will first trigger a search for the proper URL and then it will search for news sources.
 
-- [ ] Different sans-serif font
 - [ ] Update ad hosts
+- [ ] New splash screen color
