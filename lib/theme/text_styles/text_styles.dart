@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 abstract class NovinarkoTextStyles {
   static const newsTitle = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w900,
-    fontFamily: 'EncodeSans',
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Lusitana',
     height: 1.6,
   );
 
   static const newsFeedTitle = TextStyle(
     fontSize: 48,
     fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontFamily: 'Lusitana',
     height: 1.2,
   );
 
@@ -23,9 +23,9 @@ abstract class NovinarkoTextStyles {
   );
 
   static const newsAppBar = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w600,
-    fontFamily: 'EncodeSans',
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Lusitana',
     height: 1.6,
   );
 
@@ -39,14 +39,14 @@ abstract class NovinarkoTextStyles {
   static const feedsNovinarko = TextStyle(
     fontSize: 34,
     fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontFamily: 'Lusitana',
     height: 1.6,
   );
 
   static const feedsTitle = TextStyle(
     fontSize: 28,
-    fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Lusitana',
     height: 1.6,
   );
 
@@ -65,9 +65,9 @@ abstract class NovinarkoTextStyles {
   );
 
   static const searchTextField = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w500,
-    fontFamily: 'EncodeSans',
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Lusitana',
     height: 1.6,
   );
 
@@ -95,7 +95,7 @@ abstract class NovinarkoTextStyles {
   static const iconTextTitle = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontFamily: 'Lusitana',
     height: 1.2,
   );
 
@@ -107,9 +107,9 @@ abstract class NovinarkoTextStyles {
   );
 
   static const twoLettersAppBar = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w700,
-    fontFamily: 'EncodeSans',
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Lusitana',
     height: 1.6,
   );
 
@@ -137,7 +137,7 @@ abstract class NovinarkoTextStyles {
   static const appBarTitle = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontFamily: 'Lusitana',
     height: 1.2,
   );
 
@@ -165,7 +165,7 @@ abstract class NovinarkoTextStyles {
   static const newsFeedInfoTitle = TextStyle(
     fontSize: 26,
     fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontFamily: 'Lusitana',
     height: 1.2,
   );
 
@@ -179,7 +179,7 @@ abstract class NovinarkoTextStyles {
   static const settingsNovinarkoTitle = TextStyle(
     fontSize: 26,
     fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontFamily: 'Lusitana',
     height: 1.2,
   );
 

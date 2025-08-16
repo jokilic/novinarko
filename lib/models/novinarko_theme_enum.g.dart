@@ -8,7 +8,7 @@ part of 'novinarko_theme_enum.dart';
 
 class NovinarkoThemeEnumAdapter extends TypeAdapter<NovinarkoThemeEnum> {
   @override
-  final int typeId = 1;
+  final typeId = 1;
 
   @override
   NovinarkoThemeEnum read(BinaryReader reader) {
@@ -19,6 +19,8 @@ class NovinarkoThemeEnumAdapter extends TypeAdapter<NovinarkoThemeEnum> {
         return NovinarkoThemeEnum.dark;
       case 2:
         return NovinarkoThemeEnum.sepia;
+      case 3:
+        return NovinarkoThemeEnum.green;
       default:
         return NovinarkoThemeEnum.light;
     }
@@ -29,13 +31,12 @@ class NovinarkoThemeEnumAdapter extends TypeAdapter<NovinarkoThemeEnum> {
     switch (obj) {
       case NovinarkoThemeEnum.light:
         writer.writeByte(0);
-        break;
       case NovinarkoThemeEnum.dark:
         writer.writeByte(1);
-        break;
       case NovinarkoThemeEnum.sepia:
         writer.writeByte(2);
-        break;
+      case NovinarkoThemeEnum.green:
+        writer.writeByte(3);
     }
   }
 

@@ -24,26 +24,39 @@ class ThemeService extends ValueNotifier<ThemeData?> {
   ///
 
   ThemeData? getThemeData() => switch (settings.value.novinarkoThemeEnum) {
-        NovinarkoThemeEnum.light => NovinarkoTheme.light,
-        NovinarkoThemeEnum.dark => NovinarkoTheme.dark,
-        NovinarkoThemeEnum.sepia => NovinarkoTheme.sepia,
-        _ => null,
-      };
+    NovinarkoThemeEnum.light => NovinarkoTheme.light,
+    NovinarkoThemeEnum.dark => NovinarkoTheme.dark,
+    NovinarkoThemeEnum.sepia => NovinarkoTheme.sepia,
+    NovinarkoThemeEnum.green => NovinarkoTheme.green,
+    _ => null,
+  };
 
   Future<void> updateTheme(ThemeData newTheme) async {
     value = newTheme;
 
     if (newTheme == NovinarkoTheme.light) {
       await hive.storeSettings(
-        settings.value.copyWith(novinarkoThemeEnum: NovinarkoThemeEnum.light),
+        settings.value.copyWith(
+          novinarkoThemeEnum: NovinarkoThemeEnum.light,
+        ),
       );
     } else if (newTheme == NovinarkoTheme.dark) {
       await hive.storeSettings(
-        settings.value.copyWith(novinarkoThemeEnum: NovinarkoThemeEnum.dark),
+        settings.value.copyWith(
+          novinarkoThemeEnum: NovinarkoThemeEnum.dark,
+        ),
       );
     } else if (newTheme == NovinarkoTheme.sepia) {
       await hive.storeSettings(
-        settings.value.copyWith(novinarkoThemeEnum: NovinarkoThemeEnum.sepia),
+        settings.value.copyWith(
+          novinarkoThemeEnum: NovinarkoThemeEnum.sepia,
+        ),
+      );
+    } else if (newTheme == NovinarkoTheme.green) {
+      await hive.storeSettings(
+        settings.value.copyWith(
+          novinarkoThemeEnum: NovinarkoThemeEnum.green,
+        ),
       );
     }
   }

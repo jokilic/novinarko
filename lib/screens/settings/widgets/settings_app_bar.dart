@@ -74,26 +74,26 @@ class SettingsAppBarBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        onPressed: onPressed,
-        style: IconButton.styleFrom(
-          highlightColor: context.colors.primary.withValues(alpha: 0.6),
-          fixedSize: const Size(48, 48),
-          shape: const CircleBorder(),
-          side: BorderSide(
-            color: context.colors.text,
-            width: 2,
-          ),
-        ),
-        icon: Center(
-          child: Image.asset(
-            NovinarkoIcons.back,
-            fit: BoxFit.cover,
-            color: context.colors.text,
-            height: 20,
-            width: 20,
-          ),
-        ),
-      );
+    onPressed: onPressed,
+    style: IconButton.styleFrom(
+      highlightColor: context.colors.primary.withValues(alpha: 0.6),
+      fixedSize: const Size(50, 50),
+      shape: const CircleBorder(),
+      side: BorderSide(
+        color: context.colors.text,
+        width: 2,
+      ),
+    ),
+    icon: Center(
+      child: Image.asset(
+        NovinarkoIcons.back,
+        fit: BoxFit.cover,
+        color: context.colors.text,
+        height: 20,
+        width: 20,
+      ),
+    ),
+  );
 }
 
 class SettingsTitle extends StatelessWidget {
@@ -105,7 +105,7 @@ class SettingsTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Text(
-        title,
-        style: context.textStyles.appBarTitle,
-      );
+    title,
+    style: context.textStyles.appBarTitle,
+  );
 }

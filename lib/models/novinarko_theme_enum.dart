@@ -12,4 +12,7 @@ enum NovinarkoThemeEnum {
 
   @HiveField(2)
   sepia,
+
+  @HiveField(3)
+  green,
 }

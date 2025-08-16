@@ -8,7 +8,7 @@ part of 'novinarko_settings.dart';
 
 class NovinarkoSettingsAdapter extends TypeAdapter<NovinarkoSettings> {
   @override
-  final int typeId = 2;
+  final typeId = 2;
 
   @override
   NovinarkoSettings read(BinaryReader reader) {

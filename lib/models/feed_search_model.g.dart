@@ -8,7 +8,7 @@ part of 'feed_search_model.dart';
 
 class FeedSearchModelAdapter extends TypeAdapter<FeedSearchModel> {
   @override
-  final int typeId = 0;
+  final typeId = 0;
 
   @override
   FeedSearchModel read(BinaryReader reader) {

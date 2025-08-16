@@ -48,23 +48,30 @@ class SettingsScreen extends WatchingWidget {
                 children: [
                   SettingsThemeWidget(
                     onPressed: () => getIt.get<ThemeService>().updateTheme(
-                          NovinarkoTheme.light,
-                        ),
+                      NovinarkoTheme.light,
+                    ),
                     color: NovinarkoColors.white,
                   ),
                   const SizedBox(width: 8),
                   SettingsThemeWidget(
                     onPressed: () => getIt.get<ThemeService>().updateTheme(
-                          NovinarkoTheme.dark,
-                        ),
+                      NovinarkoTheme.dark,
+                    ),
                     color: NovinarkoColors.dark,
                   ),
                   const SizedBox(width: 8),
                   SettingsThemeWidget(
                     onPressed: () => getIt.get<ThemeService>().updateTheme(
-                          NovinarkoTheme.sepia,
-                        ),
+                      NovinarkoTheme.sepia,
+                    ),
                     color: NovinarkoColors.sepia,
+                  ),
+                  const SizedBox(width: 8),
+                  SettingsThemeWidget(
+                    onPressed: () => getIt.get<ThemeService>().updateTheme(
+                      NovinarkoTheme.green,
+                    ),
+                    color: NovinarkoColors.green,
                   ),
                 ],
               ),

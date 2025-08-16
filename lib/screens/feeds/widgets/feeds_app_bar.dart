@@ -75,26 +75,26 @@ class FeedsAppBarBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        onPressed: onPressed,
-        style: IconButton.styleFrom(
-          highlightColor: context.colors.primary.withValues(alpha: 0.6),
-          fixedSize: const Size(48, 48),
-          shape: const CircleBorder(),
-          side: BorderSide(
-            color: context.colors.background,
-            width: 2,
-          ),
-        ),
-        icon: Center(
-          child: Image.asset(
-            NovinarkoIcons.back,
-            fit: BoxFit.cover,
-            color: context.colors.background,
-            height: 20,
-            width: 20,
-          ),
-        ),
-      );
+    onPressed: onPressed,
+    style: IconButton.styleFrom(
+      highlightColor: context.colors.primary.withValues(alpha: 0.6),
+      fixedSize: const Size(50, 50),
+      shape: const CircleBorder(),
+      side: BorderSide(
+        color: context.colors.background,
+        width: 2,
+      ),
+    ),
+    icon: Center(
+      child: Image.asset(
+        NovinarkoIcons.back,
+        fit: BoxFit.cover,
+        color: context.colors.background,
+        height: 20,
+        width: 20,
+      ),
+    ),
+  );
 }
 
 class FeedsAppBarSettings extends StatelessWidget {
@@ -106,24 +106,24 @@ class FeedsAppBarSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        onPressed: onPressed,
-        style: IconButton.styleFrom(
-          highlightColor: context.colors.primary.withValues(alpha: 0.6),
-          fixedSize: const Size(48, 48),
-          shape: const CircleBorder(),
-          side: BorderSide(
-            color: context.colors.background,
-            width: 2,
-          ),
-        ),
-        icon: Center(
-          child: Image.asset(
-            NovinarkoIcons.settings,
-            fit: BoxFit.cover,
-            color: context.colors.background,
-            height: 20,
-            width: 20,
-          ),
-        ),
-      );
+    onPressed: onPressed,
+    style: IconButton.styleFrom(
+      highlightColor: context.colors.primary.withValues(alpha: 0.6),
+      fixedSize: const Size(50, 50),
+      shape: const CircleBorder(),
+      side: BorderSide(
+        color: context.colors.background,
+        width: 2,
+      ),
+    ),
+    icon: Center(
+      child: Image.asset(
+        NovinarkoIcons.settings,
+        fit: BoxFit.cover,
+        color: context.colors.background,
+        height: 20,
+        width: 20,
+      ),
+    ),
+  );
 }

@@ -29,7 +29,6 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
     if (feedsLength < feedLimit) {
       openSearch(context);
     }
-
     /// User has more than feed limit, show [SnackBar]
     else {
       showRemoveSomeFeedsSnackbar(
@@ -43,13 +42,12 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
   void openFeedInfoDialog(
     BuildContext context, {
     required FeedSearchModel feed,
-  }) =>
-      showDialog(
-        context: context,
-        builder: (context) => NewsFeedInfoDialog(
-          feed: feed,
-        ),
-      );
+  }) => showDialog(
+    context: context,
+    builder: (context) => NewsFeedInfoDialog(
+      feed: feed,
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +81,9 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
                 hasActiveFeed: activeFeed != null,
                 onPressed: activeFeed != null
                     ? () => openFeedInfoDialog(
-                          context,
-                          feed: activeFeed,
-                        )
+                        context,
+                        feed: activeFeed,
+                      )
                     : () {},
               ),
               const SizedBox(width: 40),
@@ -143,54 +141,54 @@ class NewsAppBarAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        onPressed: onPressed,
-        style: IconButton.styleFrom(
-          highlightColor: context.colors.primary.withValues(alpha: 0.6),
-          fixedSize: const Size(48, 48),
-          shape: const CircleBorder(),
-          side: BorderSide(
-            color: context.colors.text,
-            width: 2,
-          ),
-        ),
-        icon: Center(
-          child: !hasActiveFeed
-              ? ClipOval(
-                  child: Image.asset(
-                    NovinarkoIcons.all,
-                    fit: BoxFit.cover,
-                    color: context.colors.text,
-                  ),
-                )
-              : favicon != null
-                  ? ClipOval(
-                      child: NovinarkoNetworkImage(
-                        imageUrl: favicon!,
-                        placeholderWidget: Text(
-                          feedTitle,
-                          style: context.textStyles.twoLettersAppBar,
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        errorWidget: Text(
-                          feedTitle,
-                          style: context.textStyles.twoLettersAppBar,
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    )
-                  : Text(
-                      feedTitle,
-                      style: context.textStyles.twoLettersAppBar,
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-        ),
-      );
+    onPressed: onPressed,
+    style: IconButton.styleFrom(
+      highlightColor: context.colors.primary.withValues(alpha: 0.6),
+      fixedSize: const Size(50, 50),
+      shape: const CircleBorder(),
+      side: BorderSide(
+        color: context.colors.text,
+        width: 2,
+      ),
+    ),
+    icon: Center(
+      child: !hasActiveFeed
+          ? ClipOval(
+              child: Image.asset(
+                NovinarkoIcons.all,
+                fit: BoxFit.cover,
+                color: context.colors.text,
+              ),
+            )
+          : favicon != null
+          ? ClipOval(
+              child: NovinarkoNetworkImage(
+                imageUrl: favicon!,
+                placeholderWidget: Text(
+                  feedTitle,
+                  style: context.textStyles.twoLettersAppBar,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                errorWidget: Text(
+                  feedTitle,
+                  style: context.textStyles.twoLettersAppBar,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            )
+          : Text(
+              feedTitle,
+              style: context.textStyles.twoLettersAppBar,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+    ),
+  );
 }
 
 class NewsAppBarActiveFeed extends StatelessWidget {
@@ -204,47 +202,47 @@ class NewsAppBarActiveFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: onPressed,
-        splashColor: context.colors.primary.withValues(alpha: 0.6),
-        highlightColor: context.colors.primary.withValues(alpha: 0.6),
+    onTap: onPressed,
+    splashColor: context.colors.primary.withValues(alpha: 0.6),
+    highlightColor: context.colors.primary.withValues(alpha: 0.6),
+    borderRadius: BorderRadius.circular(100),
+    child: Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 10,
+      ),
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 10,
+        border: Border.all(
+          color: context.colors.text,
+          width: 2,
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const SizedBox(
+            height: 16,
+            width: 16,
           ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              color: context.colors.text,
-              width: 2,
+          Expanded(
+            child: Text(
+              feedTitle,
+              style: context.textStyles.newsAppBar,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                height: 16,
-                width: 16,
-              ),
-              Expanded(
-                child: Text(
-                  feedTitle,
-                  style: context.textStyles.newsAppBar,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Icon(
-                Icons.arrow_downward_rounded,
-                color: context.colors.text,
-                size: 24,
-              ),
-            ],
+          Icon(
+            Icons.arrow_downward_rounded,
+            color: context.colors.text,
+            size: 24,
           ),
-        ),
-      );
+        ],
+      ),
+    ),
+  );
 }
 
 class NewsAppBarSearch extends StatelessWidget {
@@ -258,24 +256,24 @@ class NewsAppBarSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        onPressed: onPressed,
-        style: IconButton.styleFrom(
-          highlightColor: context.colors.primary.withValues(alpha: 0.6),
-          fixedSize: const Size(48, 48),
-          shape: const CircleBorder(),
-          side: BorderSide(
-            color: context.colors.text,
-            width: 2,
-          ),
-        ),
-        icon: Center(
-          child: Image.asset(
-            noSearch ? NovinarkoIcons.noSearch : NovinarkoIcons.search,
-            fit: BoxFit.cover,
-            color: context.colors.text,
-            height: 20,
-            width: 20,
-          ),
-        ),
-      );
+    onPressed: onPressed,
+    style: IconButton.styleFrom(
+      highlightColor: context.colors.primary.withValues(alpha: 0.6),
+      fixedSize: const Size(50, 50),
+      shape: const CircleBorder(),
+      side: BorderSide(
+        color: context.colors.text,
+        width: 2,
+      ),
+    ),
+    icon: Center(
+      child: Image.asset(
+        noSearch ? NovinarkoIcons.noSearch : NovinarkoIcons.search,
+        fit: BoxFit.cover,
+        color: context.colors.text,
+        height: 20,
+        width: 20,
+      ),
+    ),
+  );
 }

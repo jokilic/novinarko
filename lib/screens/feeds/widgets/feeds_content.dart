@@ -32,62 +32,62 @@ class FeedsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView(
-        padding: EdgeInsets.fromLTRB(8, MediaQuery.paddingOf(context).top, 8, 8),
-        physics: const BouncingScrollPhysics(),
-        children: [
-          ///
-          /// ALL FEEDS
-          ///
-          Padding(
-            key: const ValueKey('all_feeds'),
+    padding: EdgeInsets.fromLTRB(8, MediaQuery.paddingOf(context).top, 8, 8),
+    physics: const BouncingScrollPhysics(),
+    children: [
+      ///
+      /// ALL FEEDS
+      ///
+      Padding(
+        key: const ValueKey('all_feeds'),
+        padding: const EdgeInsets.only(bottom: 8),
+        child: FeedsListTile(
+          isDraggable: false,
+          key: const ValueKey('all_feeds'),
+          onPressedDelete: () {},
+          onPressed: () => loadFeedAndPop(context, null),
+          title: 'feedsAllFeedsTitle'.tr(),
+          subtitle: 'feedsAllFeedsSubtitle'.tr(),
+          showActiveIndicator: activeFeed == null,
+        ),
+      ),
+
+      ///
+      /// FEEDS
+      ///
+      ReorderableListView.builder(
+        shrinkWrap: true,
+        proxyDecorator: (child, _, __) => Material(
+          borderRadius: BorderRadius.circular(16),
+          color: context.colors.primary.withValues(alpha: 0.6),
+          child: child,
+        ),
+        onReorder: onReorder,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: feeds.length,
+        itemBuilder: (_, index) {
+          final feed = feeds[index];
+
+          return Padding(
+            key: ValueKey(feed),
             padding: const EdgeInsets.only(bottom: 8),
             child: FeedsListTile(
-              isDraggable: false,
-              key: const ValueKey('all_feeds'),
-              onPressedDelete: () {},
-              onPressed: () => loadFeedAndPop(context, null),
-              title: 'feedsAllFeedsTitle'.tr(),
-              subtitle: 'feedsAllFeedsSubtitle'.tr(),
-              showActiveIndicator: activeFeed == null,
+              key: ValueKey(feed),
+              onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(feed),
+              onPressed: () => loadFeedAndPop(context, feed),
+              title: feed.siteName ?? feed.title ?? '',
+              subtitle: feed.title,
+              url: feed.url,
+              showActiveIndicator: activeFeed == feed,
             ),
-          ),
+          );
+        },
+      ),
 
-          ///
-          /// FEEDS
-          ///
-          ReorderableListView.builder(
-            shrinkWrap: true,
-            proxyDecorator: (child, _, __) => Material(
-              borderRadius: BorderRadius.circular(16),
-              color: context.colors.primary.withValues(alpha: 0.6),
-              child: child,
-            ),
-            onReorder: onReorder,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: feeds.length,
-            itemBuilder: (_, index) {
-              final feed = feeds[index];
-
-              return Padding(
-                key: ValueKey(feed),
-                padding: const EdgeInsets.only(bottom: 8),
-                child: FeedsListTile(
-                  key: ValueKey(feed),
-                  onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(feed),
-                  onPressed: () => loadFeedAndPop(context, feed),
-                  title: feed.siteName ?? feed.title ?? '',
-                  subtitle: feed.title,
-                  url: feed.url,
-                  showActiveIndicator: activeFeed == feed,
-                ),
-              );
-            },
-          ),
-
-          ///
-          /// SPACING
-          ///
-          const SizedBox(height: 40),
-        ],
-      );
+      ///
+      /// SPACING
+      ///
+      const SizedBox(height: 40),
+    ],
+  );
 }

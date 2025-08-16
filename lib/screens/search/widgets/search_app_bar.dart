@@ -27,7 +27,6 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
     if (feedsLength < feedLimit) {
       getIt.get<SearchController>().searchTriggered(text);
     }
-
     /// User has more than feed limit, show [SnackBar]
     else {
       showRemoveSomeFeedsSnackbar(
@@ -52,9 +51,9 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
         context: context,
         builder: (context) => SearchCustomDialog(
           addFeedPressed: (dialogContext) => getIt.get<SearchController>().addCustomFeedPressed(
-                context: context,
-                dialogContext: dialogContext,
-              ),
+            context: context,
+            dialogContext: dialogContext,
+          ),
           outsideDialogPressed: Navigator.of(context).pop,
           feedTitleTextController: getIt.get<SearchController>().customFeedTitleTextController,
           feedUrlTextController: getIt.get<SearchController>().customFeedUrlTextController,
@@ -62,7 +61,6 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
         ),
       );
     }
-
     /// User has more than feed limit, show [SnackBar]
     else {
       showRemoveSomeFeedsSnackbar(
@@ -153,26 +151,26 @@ class SearchAppBarBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        onPressed: onPressed,
-        style: IconButton.styleFrom(
-          highlightColor: context.colors.primary.withValues(alpha: 0.6),
-          fixedSize: const Size(48, 48),
-          shape: const CircleBorder(),
-          side: BorderSide(
-            color: context.colors.text,
-            width: 2,
-          ),
-        ),
-        icon: Center(
-          child: Image.asset(
-            NovinarkoIcons.back,
-            fit: BoxFit.cover,
-            color: context.colors.text,
-            height: 20,
-            width: 20,
-          ),
-        ),
-      );
+    onPressed: onPressed,
+    style: IconButton.styleFrom(
+      highlightColor: context.colors.primary.withValues(alpha: 0.6),
+      fixedSize: const Size(50, 50),
+      shape: const CircleBorder(),
+      side: BorderSide(
+        color: context.colors.text,
+        width: 2,
+      ),
+    ),
+    icon: Center(
+      child: Image.asset(
+        NovinarkoIcons.back,
+        fit: BoxFit.cover,
+        color: context.colors.text,
+        height: 20,
+        width: 20,
+      ),
+    ),
+  );
 }
 
 class SearchBarTextField extends StatelessWidget {
@@ -186,55 +184,55 @@ class SearchBarTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => TextField(
-        autofocus: true,
-        autocorrect: false,
-        enableSuggestions: false,
-        keyboardType: TextInputType.url,
-        textInputAction: TextInputAction.search,
-        controller: textController,
-        onSubmitted: onSubmitted,
-        cursorColor: context.colors.text,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide(
-              color: context.colors.text,
-              width: 2,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide(
-              color: context.colors.text,
-              width: 2,
-            ),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide(
-              color: context.colors.text,
-              width: 2,
-            ),
-          ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 12,
-          ),
-          label: Center(
-            child: Text(
-              'searchFindFeed'.tr(),
-              style: context.textStyles.searchTextField,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-            ),
-          ),
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          alignLabelWithHint: true,
+    autofocus: true,
+    autocorrect: false,
+    enableSuggestions: false,
+    keyboardType: TextInputType.url,
+    textInputAction: TextInputAction.search,
+    controller: textController,
+    onSubmitted: onSubmitted,
+    cursorColor: context.colors.text,
+    decoration: InputDecoration(
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(100),
+        borderSide: BorderSide(
+          color: context.colors.text,
+          width: 2,
         ),
-        style: context.textStyles.searchTextField,
-        textAlign: TextAlign.center,
-      );
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(100),
+        borderSide: BorderSide(
+          color: context.colors.text,
+          width: 2,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(100),
+        borderSide: BorderSide(
+          color: context.colors.text,
+          width: 2,
+        ),
+      ),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 24,
+        vertical: 12,
+      ),
+      label: Center(
+        child: Text(
+          'searchFindFeed'.tr(),
+          style: context.textStyles.searchTextField,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+      ),
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      alignLabelWithHint: true,
+    ),
+    style: context.textStyles.searchTextField,
+    textAlign: TextAlign.center,
+  );
 }
 
 class SearchAppBarCustom extends StatelessWidget {
@@ -248,24 +246,24 @@ class SearchAppBarCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        onPressed: onPressed,
-        style: IconButton.styleFrom(
-          highlightColor: context.colors.primary.withValues(alpha: 0.6),
-          fixedSize: const Size(48, 48),
-          shape: const CircleBorder(),
-          side: BorderSide(
-            color: context.colors.text,
-            width: 2,
-          ),
-        ),
-        icon: Center(
-          child: Image.asset(
-            noSearch ? NovinarkoIcons.noSearch : NovinarkoIcons.customSearch,
-            fit: BoxFit.cover,
-            color: context.colors.text,
-            height: 20,
-            width: 20,
-          ),
-        ),
-      );
+    onPressed: onPressed,
+    style: IconButton.styleFrom(
+      highlightColor: context.colors.primary.withValues(alpha: 0.6),
+      fixedSize: const Size(50, 50),
+      shape: const CircleBorder(),
+      side: BorderSide(
+        color: context.colors.text,
+        width: 2,
+      ),
+    ),
+    icon: Center(
+      child: Image.asset(
+        noSearch ? NovinarkoIcons.noSearch : NovinarkoIcons.customSearch,
+        fit: BoxFit.cover,
+        color: context.colors.text,
+        height: 20,
+        width: 20,
+      ),
+    ),
+  );
 }
