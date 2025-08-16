@@ -40,7 +40,6 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
                 affinity: TextAffinity.upstream,
               );
             }
-
             /// Reset the press state when focus is lost
             else {
               isFirstAddressBarPress = true;
@@ -92,12 +91,11 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
     required int index,
     required NovinarkoRssItem item,
     required InAppWebViewController controller,
-  }) =>
-      value[index] = (
-        index: value[index].index,
-        url: value[index].url,
-        controller: controller,
-      );
+  }) => value[index] = (
+    index: value[index].index,
+    url: value[index].url,
+    controller: controller,
+  );
 
   /// Triggered when the user presses address bar
   void onAddressBarPressed() {
@@ -111,7 +109,6 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
 
       isFirstAddressBarPress = false;
     }
-
     /// Second press - do regular Flutter logic
     else {
       /// Get the current tap position from the controller
@@ -188,7 +185,12 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
     final activeUrl = value[currentPage].url;
 
     if (activeUrl != null) {
-      await Share.shareUri(Uri.parse(activeUrl));
+      await SharePlus.instance.share(
+        ShareParams(
+          uri: Uri.parse(activeUrl),
+        ),
+      );
+
       await updateActiveUri();
     }
   }
@@ -268,8 +270,7 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
   void updateWebButtonVisibility({
     required int page,
     required int itemLength,
-  }) =>
-      webButtons.updateState(
-        (showPrevious: page > 0, showNext: page != itemLength - 1),
-      );
+  }) => webButtons.updateState(
+    (showPrevious: page > 0, showNext: page != itemLength - 1),
+  );
 }
