@@ -38,57 +38,55 @@ class NewsResult extends StatelessWidget {
 
       return RefreshIndicator(
         onRefresh: () => getIt.get<NewsController>().pullToRefresh(
-              getIt.get<ActiveFeedService>().value,
-            ),
+          getIt.get<ActiveFeedService>().value,
+        ),
         color: context.colors.background,
         backgroundColor: context.colors.text,
         edgeOffset: kToolbarHeight + 32 + 80,
         strokeWidth: 3,
         child:
-
             /// Result items
             (feed.items?.isNotEmpty ?? false)
-                ? ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: feed.items?.length ?? 0,
-                    itemBuilder: (_, index) {
-                      final item = feed.items![index];
+            ? ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                itemCount: feed.items?.length ?? 0,
+                itemBuilder: (_, index) {
+                  final item = feed.items![index];
 
-                      final cleanDescription = parseDescriptionHtml(
-                        item.description,
-                      );
-                      final cleanDate = parseDateTimeago(
-                        item.pubDate,
-                        context: context,
-                      );
+                  final cleanDescription = parseDescriptionHtml(
+                    item.description,
+                  );
+                  final cleanDate = parseDateTimeago(
+                    item.pubDate,
+                    context: context,
+                  );
 
-                      return NewsListTile(
-                        onPressed: inAppBrowser
-                            ? () => getIt.get<NewsReadController>().itemPressed(item)
-                            : () => openUrlExternalBrowser(
-                                  context,
-                                  url: item.link ?? item.guid,
-                                ),
-                        imageUrl: item.imageUrl,
-                        title: item.title ?? '',
-                        favicon: item.favicon,
-                        feedTitle: item.feedTitle,
-                        cleanDescription: cleanDescription,
-                        cleanDate: cleanDate,
-                        showFavicon: showFavicon,
-                        showImages: showImages,
-                        isItemForReading: readItems.contains(item),
-                      );
-                    },
-                    separatorBuilder: (_, __) => NovinarkoDivider(),
-                  )
-
-                /// No results
-                : NovinarkoIconTextWidget(
-                    icon: NovinarkoIcons.noNews,
-                    title: 'newsNoResultsTitle'.tr(),
-                    subtitle: 'newsNoResultsSubtitle'.tr(),
-                  ),
+                  return NewsListTile(
+                    onPressed: inAppBrowser
+                        ? () => getIt.get<NewsReadController>().itemPressed(item)
+                        : () => openUrlExternalBrowser(
+                            context,
+                            url: item.link ?? item.guid,
+                          ),
+                    imageUrl: item.imageUrl,
+                    title: item.title ?? '',
+                    favicon: item.favicon,
+                    feedTitle: item.feedTitle,
+                    cleanDescription: cleanDescription,
+                    cleanDate: cleanDate,
+                    showFavicon: showFavicon,
+                    showImages: showImages,
+                    isItemForReading: readItems.contains(item),
+                  );
+                },
+                separatorBuilder: (_, __) => NovinarkoDivider(),
+              )
+            /// No results
+            : NovinarkoIconTextWidget(
+                icon: NovinarkoIcons.noNews,
+                title: 'newsNoResultsTitle'.tr(),
+                subtitle: 'newsNoResultsSubtitle'.tr(),
+              ),
       );
     }
 
