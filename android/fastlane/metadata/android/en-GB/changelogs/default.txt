@@ -1,1 +1,5 @@
+* New theme
+* New fonts
+* Small UI updates
+* New icon & splash screen
 * Update dependencies

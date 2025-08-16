@@ -100,6 +100,8 @@ class FeedsListTile extends StatelessWidget {
               ],
             ),
 
+            if (subtitle != null || url != null) const SizedBox(height: 4),
+
             ///
             /// Subtitle
             ///
