@@ -31,14 +31,13 @@ class NovinarkoSettings {
     bool? useImagesInArticles,
     bool? useAdBlocker,
     bool? useShimmerLoader,
-  }) =>
-      NovinarkoSettings(
-        novinarkoThemeEnum: novinarkoThemeEnum ?? this.novinarkoThemeEnum,
-        useInAppBrowser: useInAppBrowser ?? this.useInAppBrowser,
-        useImagesInArticles: useImagesInArticles ?? this.useImagesInArticles,
-        useAdBlocker: useAdBlocker ?? this.useAdBlocker,
-        useShimmerLoader: useShimmerLoader ?? this.useShimmerLoader,
-      );
+  }) => NovinarkoSettings(
+    novinarkoThemeEnum: novinarkoThemeEnum ?? this.novinarkoThemeEnum,
+    useInAppBrowser: useInAppBrowser ?? this.useInAppBrowser,
+    useImagesInArticles: useImagesInArticles ?? this.useImagesInArticles,
+    useAdBlocker: useAdBlocker ?? this.useAdBlocker,
+    useShimmerLoader: useShimmerLoader ?? this.useShimmerLoader,
+  );
 
   @override
   String toString() =>

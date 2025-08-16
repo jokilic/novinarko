@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 abstract class NovinarkoTextStyles {
   static const newsTitle = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
-    height: 1.6,
+    fontSize: 17,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
+    letterSpacing: 1.1,
   );
 
   static const newsFeedTitle = TextStyle(
     fontSize: 48,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
     height: 1.2,
   );
 
@@ -24,9 +24,8 @@ abstract class NovinarkoTextStyles {
 
   static const newsAppBar = TextStyle(
     fontSize: 20,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
-    height: 1.6,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
   );
 
   static const newsDateTime = TextStyle(
@@ -38,15 +37,15 @@ abstract class NovinarkoTextStyles {
 
   static const feedsNovinarko = TextStyle(
     fontSize: 34,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
     height: 1.6,
   );
 
   static const feedsTitle = TextStyle(
     fontSize: 28,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
     height: 1.6,
   );
 
@@ -59,15 +58,15 @@ abstract class NovinarkoTextStyles {
 
   static const feedsUrl = TextStyle(
     fontSize: 10,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w700,
     fontFamily: 'EncodeSans',
     height: 1.4,
   );
 
   static const searchTextField = TextStyle(
     fontSize: 20,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
     height: 1.6,
   );
 
@@ -80,22 +79,22 @@ abstract class NovinarkoTextStyles {
 
   static const searchDescription = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w700,
     fontFamily: 'EncodeSans',
     height: 1.6,
   );
 
   static const searchUrl = TextStyle(
     fontSize: 10,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w700,
     fontFamily: 'EncodeSans',
     height: 1.4,
   );
 
   static const iconTextTitle = TextStyle(
     fontSize: 32,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
     height: 1.2,
   );
 
@@ -108,8 +107,8 @@ abstract class NovinarkoTextStyles {
 
   static const twoLettersAppBar = TextStyle(
     fontSize: 20,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
     height: 1.6,
   );
 
@@ -136,8 +135,8 @@ abstract class NovinarkoTextStyles {
 
   static const appBarTitle = TextStyle(
     fontSize: 32,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
     height: 1.2,
   );
 
@@ -164,8 +163,8 @@ abstract class NovinarkoTextStyles {
 
   static const newsFeedInfoTitle = TextStyle(
     fontSize: 26,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
     height: 1.2,
   );
 
@@ -178,8 +177,8 @@ abstract class NovinarkoTextStyles {
 
   static const settingsNovinarkoTitle = TextStyle(
     fontSize: 26,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'SongMyung',
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
     height: 1.2,
   );
 

@@ -15,7 +15,7 @@ class ThemeService extends ValueNotifier<ThemeData?> {
     required this.logger,
     required this.hive,
     required this.settings,
-  }) : super(NovinarkoTheme.light) {
+  }) : super(NovinarkoTheme.green) {
     value = getThemeData();
   }
 

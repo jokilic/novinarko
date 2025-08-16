@@ -97,10 +97,10 @@ flutter:
           weight: 800
         - asset: assets/fonts/EncodeSans/EncodeSans-Black.ttf
           weight: 900
-    - family: SongMyung
+    - family: Merriweather
       fonts:
-        - asset: assets/fonts/SongMyung/SongMyung-Regular.ttf
-          weight: 400
+        - asset: assets/fonts/Merriweather/Merriweather-Bold.ttf
+          weight: 700
 
 # Configuration for 'flutter_launcher_icons'
 # Run icon generation with 'dart run flutter_launcher_icons:main'

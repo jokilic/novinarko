@@ -19,52 +19,52 @@ class SettingsListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: onPressed,
-        onLongPress: onLongPressed,
-        highlightColor: context.colors.primary.withValues(alpha: 0.6),
-        splashColor: context.colors.primary.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              ///
-              /// Title & description
-              ///
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /// Title
-                    Text(
-                      title,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      style: context.textStyles.newsTitle,
-                    ),
-
-                    const SizedBox(height: 8),
-
-                    /// Description
-                    if (description != null)
-                      Text(
-                        description!,
-                        textAlign: TextAlign.left,
-                        style: context.textStyles.newsDescription,
-                      ),
-                  ],
+    onTap: onPressed,
+    onLongPress: onLongPressed,
+    highlightColor: context.colors.primary.withValues(alpha: 0.6),
+    splashColor: context.colors.primary.withValues(alpha: 0.6),
+    borderRadius: BorderRadius.circular(16),
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          ///
+          /// Title & description
+          ///
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /// Title
+                Text(
+                  title,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                  style: context.textStyles.newsTitle,
                 ),
-              ),
 
-              const SizedBox(width: 24),
+                const SizedBox(height: 8),
 
-              ///
-              /// Right widget
-              ///
-              rightWidget,
-            ],
+                /// Description
+                if (description != null)
+                  Text(
+                    description!,
+                    textAlign: TextAlign.left,
+                    style: context.textStyles.newsDescription,
+                  ),
+              ],
+            ),
           ),
-        ),
-      );
+
+          const SizedBox(width: 24),
+
+          ///
+          /// Right widget
+          ///
+          rightWidget,
+        ],
+      ),
+    ),
+  );
 }
