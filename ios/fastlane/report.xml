@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.00022">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: puro flutter clean" time="6.798327">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: puro flutter pub get" time="3.296629">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: puro flutter build ipa" time="114.875933">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: app_store_connect_api_key" time="0.012527">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: deliver" time="278.849028">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: notification" time="1.164098">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
