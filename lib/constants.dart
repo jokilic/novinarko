@@ -7,19 +7,14 @@ class NovinarkoConstants {
   static final urlRegExp = RegExp(
     /// Optional protocol part (`http://` or `https://`)
     '^(http(s)?://)?'
-
     /// Domain name
     r'([a-zA-Z0-9]+\.)*[a-zA-Z0-9-]+(\.[a-z]{2,})+'
-
     /// Optional port number
     '(:[0-9]+)?'
-
     /// Optional path
     r"(/([a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?)?"
-
     /// Optional query parameters
     r"(\?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?"
-
     /// Optional fragment identifier
     r"(#[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?"
     r'$',
@@ -51,4 +46,5 @@ class NovinarkoIcons {
   static const share = 'assets/icons/share.png';
   static const refresh = 'assets/icons/refresh.png';
   static const icon = 'assets/icon.png';
+  static const splashIcon = 'assets/splash_icon.png';
 }

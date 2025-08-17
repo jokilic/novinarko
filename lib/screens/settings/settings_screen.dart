@@ -187,7 +187,7 @@ class SettingsScreen extends WatchingWidget {
                     ),
                     child: ClipOval(
                       child: Image.asset(
-                        NovinarkoIcons.icon,
+                        NovinarkoIcons.splashIcon,
                         height: 48,
                         width: 48,
                       ),
