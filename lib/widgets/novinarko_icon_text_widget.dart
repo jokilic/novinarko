@@ -76,7 +76,7 @@ class NovinarkoIconTextWidget extends StatelessWidget {
 
             const SizedBox(height: 36),
 
-            /// Search title
+            /// Title
             if (title != null)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 36),
@@ -91,7 +91,7 @@ class NovinarkoIconTextWidget extends StatelessWidget {
 
             const SizedBox(height: 8),
 
-            /// Search subtitle
+            /// Subtitle
             if (subtitle != null)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 60),

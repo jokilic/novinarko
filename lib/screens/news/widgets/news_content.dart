@@ -15,6 +15,7 @@ class NewsContent extends StatelessWidget {
   final bool showImages;
   final bool inAppBrowser;
   final bool shimmerLoader;
+  final String fontFamily;
 
   const NewsContent({
     required this.newsState,
@@ -22,42 +23,46 @@ class NewsContent extends StatelessWidget {
     required this.showImages,
     required this.inAppBrowser,
     required this.shimmerLoader,
+    required this.fontFamily,
   });
 
   @override
   Widget build(BuildContext context) => switch (newsState) {
-        NewsStateInitial() => const SizedBox.shrink(),
-        NewsStateLoading() => shimmerLoader
-            ? NewsLoading(
-                showImages: showImages,
-              )
-            : NovinarkoLoader(
-                text: (newsState as NewsStateLoading).loadingStatus,
-              ),
-        NewsStateEmpty() => NovinarkoIconTextWidget(
-            arrowAlignment: Alignment.centerRight,
-            icon: NovinarkoIcons.noNews,
-            title: 'newsStateEmptyTitle'.tr(),
-            subtitle: 'newsStateEmptySubtitle'.tr(),
-          ),
-        NewsStateError() => NovinarkoIconTextWidget(
-            icon: NovinarkoIcons.errorNews,
-            title: 'newsStateErrorTitle'.tr(),
-            subtitle: (newsState as NewsStateError).error,
-          ),
-        NewsStateSingleSuccess() => NewsResult(
-            result: (newsState as NewsStateSingleSuccess).result,
-            readItems: readItems,
-            showFavicon: false,
-            showImages: showImages,
-            inAppBrowser: inAppBrowser,
-          ),
-        NewsStateAllSuccess() => NewsResult(
-            result: (newsState as NewsStateAllSuccess).result,
-            readItems: readItems,
-            showFavicon: true,
-            showImages: showImages,
-            inAppBrowser: inAppBrowser,
-          ),
-      };
+    NewsStateInitial() => const SizedBox.shrink(),
+    NewsStateLoading() =>
+      shimmerLoader
+          ? NewsLoading(
+              showImages: showImages,
+            )
+          : NovinarkoLoader(
+              text: (newsState as NewsStateLoading).loadingStatus,
+            ),
+    NewsStateEmpty() => NovinarkoIconTextWidget(
+      arrowAlignment: Alignment.centerRight,
+      icon: NovinarkoIcons.noNews,
+      title: 'newsStateEmptyTitle'.tr(),
+      subtitle: 'newsStateEmptySubtitle'.tr(),
+    ),
+    NewsStateError() => NovinarkoIconTextWidget(
+      icon: NovinarkoIcons.errorNews,
+      title: 'newsStateErrorTitle'.tr(),
+      subtitle: (newsState as NewsStateError).error,
+    ),
+    NewsStateSingleSuccess() => NewsResult(
+      result: (newsState as NewsStateSingleSuccess).result,
+      readItems: readItems,
+      showFavicon: false,
+      showImages: showImages,
+      inAppBrowser: inAppBrowser,
+      fontFamily: fontFamily,
+    ),
+    NewsStateAllSuccess() => NewsResult(
+      result: (newsState as NewsStateAllSuccess).result,
+      readItems: readItems,
+      showFavicon: true,
+      showImages: showImages,
+      inAppBrowser: inAppBrowser,
+      fontFamily: fontFamily,
+    ),
+  };
 }

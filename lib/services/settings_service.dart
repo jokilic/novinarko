@@ -17,15 +17,11 @@ class SettingsService extends ValueNotifier<NovinarkoSettings> {
   /// METHODS
   ///
 
-  Future<bool> inAppBrowserPressed() async {
-    final newValue = !value.useInAppBrowser;
-
+  Future<void> fontPressed({required String fontFamily}) async {
     value = value.copyWith(
-      useInAppBrowser: newValue,
+      fontFamily: fontFamily,
     );
     await hive.storeSettings(value);
-
-    return newValue;
   }
 
   Future<bool> imagesInArticlesPressed() async {
@@ -33,6 +29,17 @@ class SettingsService extends ValueNotifier<NovinarkoSettings> {
 
     value = value.copyWith(
       useImagesInArticles: newValue,
+    );
+    await hive.storeSettings(value);
+
+    return newValue;
+  }
+
+  Future<bool> inAppBrowserPressed() async {
+    final newValue = !value.useInAppBrowser;
+
+    value = value.copyWith(
+      useInAppBrowser: newValue,
     );
     await hive.storeSettings(value);
 

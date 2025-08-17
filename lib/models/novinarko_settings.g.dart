@@ -22,13 +22,14 @@ class NovinarkoSettingsAdapter extends TypeAdapter<NovinarkoSettings> {
       useImagesInArticles: fields[2] as bool,
       useAdBlocker: fields[3] as bool,
       useShimmerLoader: fields[4] as bool,
+      fontFamily: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, NovinarkoSettings obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.novinarkoThemeEnum)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class NovinarkoSettingsAdapter extends TypeAdapter<NovinarkoSettings> {
       ..writeByte(3)
       ..write(obj.useAdBlocker)
       ..writeByte(4)
-      ..write(obj.useShimmerLoader);
+      ..write(obj.useShimmerLoader)
+      ..writeByte(5)
+      ..write(obj.fontFamily);
   }
 
   @override

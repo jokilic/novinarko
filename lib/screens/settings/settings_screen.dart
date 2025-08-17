@@ -16,6 +16,7 @@ import '../../widgets/novinarko_checkbox.dart';
 import '../../widgets/novinarko_divider.dart';
 import '../news/controllers/news_read_controller.dart';
 import 'widgets/settings_app_bar.dart';
+import 'widgets/settings_font_widget.dart';
 import 'widgets/settings_list_tile.dart';
 import 'widgets/settings_theme_widget.dart';
 
@@ -41,6 +42,7 @@ class SettingsScreen extends WatchingWidget {
 
             /// Theme
             SettingsListTile(
+              fontFamily: settings.fontFamily,
               onPressed: () {},
               title: 'settingsThemeTitle'.tr(),
               description: 'settingsThemeDescription'.tr(),
@@ -80,8 +82,39 @@ class SettingsScreen extends WatchingWidget {
             /// Divider
             NovinarkoDivider(),
 
+            /// Theme
+            SettingsListTile(
+              fontFamily: settings.fontFamily,
+              onPressed: () {},
+              // TODO: Localize
+              title: 'Font',
+              // TODO: Localize
+              description: 'Choose font used in titles',
+              rightWidget: Row(
+                children: [
+                  SettingsFontWidget(
+                    onPressed: () => getIt.get<SettingsService>().fontPressed(
+                      fontFamily: 'Merriweather',
+                    ),
+                    fontFamily: 'Merriweather',
+                  ),
+                  const SizedBox(width: 20),
+                  SettingsFontWidget(
+                    onPressed: () => getIt.get<SettingsService>().fontPressed(
+                      fontFamily: 'Nunito',
+                    ),
+                    fontFamily: 'Nunito',
+                  ),
+                ],
+              ),
+            ),
+
+            /// Divider
+            NovinarkoDivider(),
+
             /// Images in articles
             SettingsListTile(
+              fontFamily: settings.fontFamily,
               onPressed: getIt.get<SettingsService>().imagesInArticlesPressed,
               title: 'settingsImagesInArticlesTitle'.tr(),
               description: 'settingsImagesInArticlesDescription'.tr(),
@@ -96,6 +129,7 @@ class SettingsScreen extends WatchingWidget {
             if (!kIsWeb) ...[
               /// In-app browser
               SettingsListTile(
+                fontFamily: settings.fontFamily,
                 onPressed: getIt.get<SettingsService>().inAppBrowserPressed,
                 title: 'settingsInAppBrowserTitle'.tr(),
                 description: 'settingsInAppBrowserDescription'.tr(),
@@ -109,6 +143,7 @@ class SettingsScreen extends WatchingWidget {
 
               /// Ad-blocker
               SettingsListTile(
+                fontFamily: settings.fontFamily,
                 onPressed: () async {
                   await getIt.get<SettingsService>().adBlockerPressed();
                   getIt.get<NewsReadController>().generateWebViewSettings();
@@ -126,6 +161,7 @@ class SettingsScreen extends WatchingWidget {
 
             /// Shimmer loader
             SettingsListTile(
+              fontFamily: settings.fontFamily,
               onPressed: getIt.get<SettingsService>().shimmerLoaderPressed,
               title: 'settingsShimmerLoaderTitle'.tr(),
               description: 'settingsShimmerLoaderDescription'.tr(),

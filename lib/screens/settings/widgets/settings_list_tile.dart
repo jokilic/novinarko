@@ -8,11 +8,13 @@ class SettingsListTile extends StatelessWidget {
   final String title;
   final Widget rightWidget;
   final String? description;
+  final String fontFamily;
 
   const SettingsListTile({
     required this.onPressed,
     required this.title,
     required this.rightWidget,
+    required this.fontFamily,
     this.onLongPressed,
     this.description,
   });
@@ -41,7 +43,9 @@ class SettingsListTile extends StatelessWidget {
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
-                  style: context.textStyles.newsTitle,
+                  style: context.textStyles.newsTitle.copyWith(
+                    fontFamily: fontFamily,
+                  ),
                 ),
 
                 const SizedBox(height: 8),

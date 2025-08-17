@@ -16,6 +16,8 @@ class NovinarkoSettings {
   final bool useAdBlocker;
   @HiveField(4)
   final bool useShimmerLoader;
+  @HiveField(5)
+  final String fontFamily;
 
   NovinarkoSettings({
     required this.novinarkoThemeEnum,
@@ -23,6 +25,7 @@ class NovinarkoSettings {
     required this.useImagesInArticles,
     required this.useAdBlocker,
     required this.useShimmerLoader,
+    required this.fontFamily,
   });
 
   NovinarkoSettings copyWith({
@@ -31,17 +34,19 @@ class NovinarkoSettings {
     bool? useImagesInArticles,
     bool? useAdBlocker,
     bool? useShimmerLoader,
+    String? fontFamily,
   }) => NovinarkoSettings(
     novinarkoThemeEnum: novinarkoThemeEnum ?? this.novinarkoThemeEnum,
     useInAppBrowser: useInAppBrowser ?? this.useInAppBrowser,
     useImagesInArticles: useImagesInArticles ?? this.useImagesInArticles,
     useAdBlocker: useAdBlocker ?? this.useAdBlocker,
     useShimmerLoader: useShimmerLoader ?? this.useShimmerLoader,
+    fontFamily: fontFamily ?? this.fontFamily,
   );
 
   @override
   String toString() =>
-      'NovinarkoSettings(novinarkoThemeEnum: $novinarkoThemeEnum, useInAppBrowser: $useInAppBrowser, useImagesInArticles: $useImagesInArticles, useAdBlocker: $useAdBlocker, useShimmerLoader: $useShimmerLoader)';
+      'NovinarkoSettings(novinarkoThemeEnum: $novinarkoThemeEnum, useInAppBrowser: $useInAppBrowser, useImagesInArticles: $useImagesInArticles, useAdBlocker: $useAdBlocker, useShimmerLoader: $useShimmerLoader, fontFamily: $fontFamily)';
 
   @override
   bool operator ==(covariant NovinarkoSettings other) {
@@ -53,9 +58,11 @@ class NovinarkoSettings {
         other.useInAppBrowser == useInAppBrowser &&
         other.useImagesInArticles == useImagesInArticles &&
         other.useAdBlocker == useAdBlocker &&
-        other.useShimmerLoader == useShimmerLoader;
+        other.useShimmerLoader == useShimmerLoader &&
+        other.fontFamily == fontFamily;
   }
 
   @override
-  int get hashCode => novinarkoThemeEnum.hashCode ^ useInAppBrowser.hashCode ^ useImagesInArticles.hashCode ^ useAdBlocker.hashCode ^ useShimmerLoader.hashCode;
+  int get hashCode =>
+      novinarkoThemeEnum.hashCode ^ useInAppBrowser.hashCode ^ useImagesInArticles.hashCode ^ useAdBlocker.hashCode ^ useShimmerLoader.hashCode ^ fontFamily.hashCode;
 }

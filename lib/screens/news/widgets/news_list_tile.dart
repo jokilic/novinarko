@@ -15,6 +15,7 @@ class NewsListTile extends StatelessWidget {
   final bool showFavicon;
   final bool showImages;
   final bool isItemForReading;
+  final String fontFamily;
 
   const NewsListTile({
     required this.onPressed,
@@ -27,6 +28,7 @@ class NewsListTile extends StatelessWidget {
     required this.showFavicon,
     required this.showImages,
     required this.isItemForReading,
+    required this.fontFamily,
   });
 
   @override
@@ -99,7 +101,9 @@ class NewsListTile extends StatelessWidget {
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
-                    style: context.textStyles.newsTitle,
+                    style: context.textStyles.newsTitle.copyWith(
+                      fontFamily: fontFamily,
+                    ),
                   ),
                 ),
 

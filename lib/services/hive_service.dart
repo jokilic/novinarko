@@ -75,8 +75,8 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
 
   /// Deletes `feed` value from [Hive]
   Future<void> deleteFeed(int index) async => writeAllFeedsToHive(
-        feeds: List.from(value..removeAt(index)),
-      );
+    feeds: List.from(value..removeAt(index)),
+  );
 
   /// Reorders `feed` in [Hive]
   Future<void> reorderFeeds(int oldIndex, int newIndex) async {
@@ -139,6 +139,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
         useImagesInArticles: true,
         useAdBlocker: false,
         useShimmerLoader: true,
+        fontFamily: 'Merriweather',
       );
 
   /// Stores a new `settings` value in [Hive]

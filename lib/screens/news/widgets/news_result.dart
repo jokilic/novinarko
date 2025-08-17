@@ -21,6 +21,7 @@ class NewsResult extends StatelessWidget {
   final bool showFavicon;
   final bool showImages;
   final bool inAppBrowser;
+  final String fontFamily;
 
   const NewsResult({
     required this.result,
@@ -28,6 +29,7 @@ class NewsResult extends StatelessWidget {
     required this.showFavicon,
     required this.showImages,
     required this.inAppBrowser,
+    required this.fontFamily,
   });
 
   @override
@@ -77,6 +79,7 @@ class NewsResult extends StatelessWidget {
                     showFavicon: showFavicon,
                     showImages: showImages,
                     isItemForReading: readItems.contains(item),
+                    fontFamily: fontFamily,
                   );
                 },
                 separatorBuilder: (_, __) => NovinarkoDivider(),

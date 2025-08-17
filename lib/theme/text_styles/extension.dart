@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExtension> {
   final TextStyle newsTitle;
-  final TextStyle newsFeedTitle;
   final TextStyle newsDescription;
   final TextStyle newsAppBar;
   final TextStyle newsDateTime;
-  final TextStyle feedsNovinarko;
   final TextStyle feedsTitle;
   final TextStyle feedsSubtitle;
   final TextStyle feedsUrl;
@@ -30,14 +28,13 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
   final TextStyle settingsNovinarkoVersion;
   final TextStyle searchCustomDialogButton;
   final TextStyle readAddressBar;
+  final TextStyle settingsFont;
 
   const NovinarkoTextThemesExtension({
     required this.newsTitle,
-    required this.newsFeedTitle,
     required this.newsDescription,
     required this.newsAppBar,
     required this.newsDateTime,
-    required this.feedsNovinarko,
     required this.feedsTitle,
     required this.feedsSubtitle,
     required this.feedsUrl,
@@ -61,12 +58,12 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     required this.settingsNovinarkoVersion,
     required this.searchCustomDialogButton,
     required this.readAddressBar,
+    required this.settingsFont,
   });
 
   @override
   ThemeExtension<NovinarkoTextThemesExtension> copyWith({
     TextStyle? newsTitle,
-    TextStyle? newsFeedTitle,
     TextStyle? newsDescription,
     TextStyle? newsAppBar,
     TextStyle? newsDateTime,
@@ -94,38 +91,37 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     TextStyle? settingsNovinarkoVersion,
     TextStyle? searchCustomDialogButton,
     TextStyle? readAddressBar,
-  }) =>
-      NovinarkoTextThemesExtension(
-        newsTitle: newsTitle ?? this.newsTitle,
-        newsFeedTitle: newsFeedTitle ?? this.newsFeedTitle,
-        newsDescription: newsDescription ?? this.newsDescription,
-        newsAppBar: newsAppBar ?? this.newsAppBar,
-        newsDateTime: newsDateTime ?? this.newsDateTime,
-        feedsNovinarko: feedsNovinarko ?? this.feedsNovinarko,
-        feedsTitle: feedsTitle ?? this.feedsTitle,
-        feedsSubtitle: feedsSubtitle ?? this.feedsSubtitle,
-        feedsUrl: feedsUrl ?? this.feedsUrl,
-        searchTextField: searchTextField ?? this.searchTextField,
-        searchTitle: searchTitle ?? this.searchTitle,
-        searchDescription: searchDescription ?? this.searchDescription,
-        searchUrl: searchUrl ?? this.searchUrl,
-        iconTextTitle: iconTextTitle ?? this.iconTextTitle,
-        iconTextSubtitle: iconTextSubtitle ?? this.iconTextSubtitle,
-        twoLettersAppBar: twoLettersAppBar ?? this.twoLettersAppBar,
-        twoLettersDialog: twoLettersDialog ?? this.twoLettersDialog,
-        loading: loading ?? this.loading,
-        snackbar: snackbar ?? this.snackbar,
-        appBarTitle: appBarTitle ?? this.appBarTitle,
-        floatingActionButtonTitle: floatingActionButtonTitle ?? this.floatingActionButtonTitle,
-        floatingActionButtonNumber: floatingActionButtonNumber ?? this.floatingActionButtonNumber,
-        newsFeedInfoText: newsFeedInfoText ?? this.newsFeedInfoText,
-        newsFeedInfoTitle: newsFeedInfoTitle ?? this.newsFeedInfoTitle,
-        newsFeedInfoValue: newsFeedInfoValue ?? this.newsFeedInfoValue,
-        settingsNovinarkoTitle: settingsNovinarkoTitle ?? this.settingsNovinarkoTitle,
-        settingsNovinarkoVersion: settingsNovinarkoVersion ?? this.settingsNovinarkoVersion,
-        searchCustomDialogButton: searchCustomDialogButton ?? this.searchCustomDialogButton,
-        readAddressBar: readAddressBar ?? this.readAddressBar,
-      );
+    TextStyle? settingsFont,
+  }) => NovinarkoTextThemesExtension(
+    newsTitle: newsTitle ?? this.newsTitle,
+    newsDescription: newsDescription ?? this.newsDescription,
+    newsAppBar: newsAppBar ?? this.newsAppBar,
+    newsDateTime: newsDateTime ?? this.newsDateTime,
+    feedsTitle: feedsTitle ?? this.feedsTitle,
+    feedsSubtitle: feedsSubtitle ?? this.feedsSubtitle,
+    feedsUrl: feedsUrl ?? this.feedsUrl,
+    searchTextField: searchTextField ?? this.searchTextField,
+    searchTitle: searchTitle ?? this.searchTitle,
+    searchDescription: searchDescription ?? this.searchDescription,
+    searchUrl: searchUrl ?? this.searchUrl,
+    iconTextTitle: iconTextTitle ?? this.iconTextTitle,
+    iconTextSubtitle: iconTextSubtitle ?? this.iconTextSubtitle,
+    twoLettersAppBar: twoLettersAppBar ?? this.twoLettersAppBar,
+    twoLettersDialog: twoLettersDialog ?? this.twoLettersDialog,
+    loading: loading ?? this.loading,
+    snackbar: snackbar ?? this.snackbar,
+    appBarTitle: appBarTitle ?? this.appBarTitle,
+    floatingActionButtonTitle: floatingActionButtonTitle ?? this.floatingActionButtonTitle,
+    floatingActionButtonNumber: floatingActionButtonNumber ?? this.floatingActionButtonNumber,
+    newsFeedInfoText: newsFeedInfoText ?? this.newsFeedInfoText,
+    newsFeedInfoTitle: newsFeedInfoTitle ?? this.newsFeedInfoTitle,
+    newsFeedInfoValue: newsFeedInfoValue ?? this.newsFeedInfoValue,
+    settingsNovinarkoTitle: settingsNovinarkoTitle ?? this.settingsNovinarkoTitle,
+    settingsNovinarkoVersion: settingsNovinarkoVersion ?? this.settingsNovinarkoVersion,
+    searchCustomDialogButton: searchCustomDialogButton ?? this.searchCustomDialogButton,
+    readAddressBar: readAddressBar ?? this.readAddressBar,
+    settingsFont: settingsFont ?? this.settingsFont,
+  );
 
   @override
   ThemeExtension<NovinarkoTextThemesExtension> lerp(
@@ -138,11 +134,9 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
 
     return NovinarkoTextThemesExtension(
       newsTitle: TextStyle.lerp(newsTitle, other.newsTitle, t)!,
-      newsFeedTitle: TextStyle.lerp(newsFeedTitle, other.newsFeedTitle, t)!,
       newsDescription: TextStyle.lerp(newsDescription, other.newsDescription, t)!,
       newsAppBar: TextStyle.lerp(newsAppBar, other.newsAppBar, t)!,
       newsDateTime: TextStyle.lerp(newsDateTime, other.newsDateTime, t)!,
-      feedsNovinarko: TextStyle.lerp(feedsNovinarko, other.feedsNovinarko, t)!,
       feedsTitle: TextStyle.lerp(feedsTitle, other.feedsTitle, t)!,
       feedsSubtitle: TextStyle.lerp(feedsSubtitle, other.feedsSubtitle, t)!,
       feedsUrl: TextStyle.lerp(feedsUrl, other.feedsUrl, t)!,
@@ -166,6 +160,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
       settingsNovinarkoVersion: TextStyle.lerp(settingsNovinarkoVersion, other.settingsNovinarkoVersion, t)!,
       searchCustomDialogButton: TextStyle.lerp(searchCustomDialogButton, other.searchCustomDialogButton, t)!,
       readAddressBar: TextStyle.lerp(readAddressBar, other.readAddressBar, t)!,
+      settingsFont: TextStyle.lerp(settingsFont, other.settingsFont, t)!,
     );
   }
 }

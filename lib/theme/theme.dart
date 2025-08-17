@@ -148,9 +148,6 @@ NovinarkoTextThemesExtension getTextThemesExtension({
   newsTitle: NovinarkoTextStyles.newsTitle.copyWith(
     color: colorsExtension.text,
   ),
-  newsFeedTitle: NovinarkoTextStyles.newsFeedTitle.copyWith(
-    color: colorsExtension.text,
-  ),
   newsDescription: NovinarkoTextStyles.newsDescription.copyWith(
     color: colorsExtension.text,
   ),
@@ -159,9 +156,6 @@ NovinarkoTextThemesExtension getTextThemesExtension({
   ),
   newsDateTime: NovinarkoTextStyles.newsDateTime.copyWith(
     color: colorsExtension.text,
-  ),
-  feedsNovinarko: NovinarkoTextStyles.feedsNovinarko.copyWith(
-    color: colorsExtension.background,
   ),
   feedsTitle: NovinarkoTextStyles.feedsTitle.copyWith(
     color: colorsExtension.background,
@@ -230,6 +224,9 @@ NovinarkoTextThemesExtension getTextThemesExtension({
     color: colorsExtension.text,
   ),
   readAddressBar: NovinarkoTextStyles.readAddressBar.copyWith(
+    color: colorsExtension.text,
+  ),
+  settingsFont: NovinarkoTextStyles.settingsFont.copyWith(
     color: colorsExtension.text,
   ),
 );
