@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/theme.dart';
@@ -24,8 +25,7 @@ class SettingsFontWidget extends StatelessWidget {
       ),
     ),
     icon: Text(
-      // TODO: Localize
-      'Aa',
+      'settingsFontExample'.tr(),
       style: context.textStyles.settingsFont.copyWith(
         fontFamily: fontFamily,
       ),

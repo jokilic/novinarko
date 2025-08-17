@@ -86,10 +86,8 @@ class SettingsScreen extends WatchingWidget {
             SettingsListTile(
               fontFamily: settings.fontFamily,
               onPressed: () {},
-              // TODO: Localize
-              title: 'Font',
-              // TODO: Localize
-              description: 'Choose font used in titles',
+              title: 'settingsFontTitle'.tr(),
+              description: 'settingsFontDescription'.tr(),
               rightWidget: Row(
                 children: [
                   SettingsFontWidget(
