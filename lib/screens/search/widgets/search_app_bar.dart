@@ -9,6 +9,7 @@ import '../../../constants.dart';
 import '../../../main.dart';
 import '../../../routing.dart';
 import '../../../services/hive_service.dart';
+import '../../../services/settings_service.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
@@ -40,6 +41,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
   Future<void> customSearchOrShowSnackbar(
     BuildContext context, {
     required int feedsLength,
+    required String fontFamily,
   }) async {
     /// User has less than feed limit, trigger custom search
     if (feedsLength < feedLimit) {
@@ -58,6 +60,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
           feedTitleTextController: getIt.get<SearchController>().customFeedTitleTextController,
           feedUrlTextController: getIt.get<SearchController>().customFeedUrlTextController,
           siteNameTextController: getIt.get<SearchController>().customFeedSiteNameTextController,
+          fontFamily: fontFamily,
         ),
       );
     }
@@ -74,6 +77,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final feedsLength = watchIt<HiveService>().value.length;
     final isDark = watchIt<ThemeService>().value == NovinarkoTheme.dark;
+    final fontFamily = watchIt<SettingsService>().value.fontFamily;
 
     return AppBar(
       elevation: 0,
@@ -107,6 +111,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
                     text: value,
                     feedsLength: feedsLength,
                   ),
+                  fontFamily: fontFamily,
                 ),
               ),
               const SizedBox(width: 40),
@@ -115,6 +120,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
                 onPressed: () => customSearchOrShowSnackbar(
                   context,
                   feedsLength: feedsLength,
+                  fontFamily: fontFamily,
                 ),
               ),
             ],
@@ -176,10 +182,12 @@ class SearchAppBarBack extends StatelessWidget {
 class SearchBarTextField extends StatelessWidget {
   final TextEditingController textController;
   final Function(String value) onSubmitted;
+  final String fontFamily;
 
   const SearchBarTextField({
     required this.textController,
     required this.onSubmitted,
+    required this.fontFamily,
   });
 
   @override
@@ -221,7 +229,9 @@ class SearchBarTextField extends StatelessWidget {
       label: Center(
         child: Text(
           'searchFindFeed'.tr(),
-          style: context.textStyles.searchTextField,
+          style: context.textStyles.searchTextField.copyWith(
+            fontFamily: fontFamily,
+          ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
@@ -230,7 +240,9 @@ class SearchBarTextField extends StatelessWidget {
       floatingLabelBehavior: FloatingLabelBehavior.never,
       alignLabelWithHint: true,
     ),
-    style: context.textStyles.searchTextField,
+    style: context.textStyles.searchTextField.copyWith(
+      fontFamily: fontFamily,
+    ),
     textAlign: TextAlign.center,
   );
 }

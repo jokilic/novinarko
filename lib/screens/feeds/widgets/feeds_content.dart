@@ -12,11 +12,13 @@ class FeedsContent extends StatelessWidget {
   final FeedSearchModel? activeFeed;
   final List<FeedSearchModel> feeds;
   final Function(int oldIndex, int newIndex) onReorder;
+  final String fontFamily;
 
   const FeedsContent({
     required this.activeFeed,
     required this.feeds,
     required this.onReorder,
+    required this.fontFamily,
   });
 
   /// Loads passed `feed` and dismisses screen
@@ -49,6 +51,7 @@ class FeedsContent extends StatelessWidget {
           title: 'feedsAllFeedsTitle'.tr(),
           subtitle: 'feedsAllFeedsSubtitle'.tr(),
           showActiveIndicator: activeFeed == null,
+          fontFamily: fontFamily,
         ),
       ),
 
@@ -79,6 +82,7 @@ class FeedsContent extends StatelessWidget {
               subtitle: feed.title,
               url: feed.url,
               showActiveIndicator: activeFeed == feed,
+              fontFamily: fontFamily,
             ),
           );
         },

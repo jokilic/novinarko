@@ -11,6 +11,7 @@ import '../../../models/feed_search_model.dart';
 import '../../../routing.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../services/hive_service.dart';
+import '../../../services/settings_service.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/parsing.dart';
@@ -54,6 +55,7 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
     final activeFeed = watchIt<ActiveFeedService>().value;
     final feedsLength = watchIt<HiveService>().value.length;
     final isDark = watchIt<ThemeService>().value == NovinarkoTheme.dark;
+    final fontFamily = watchIt<SettingsService>().value.fontFamily;
 
     return AppBar(
       elevation: 0,
@@ -85,12 +87,14 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
                         feed: activeFeed,
                       )
                     : () {},
+                fontFamily: fontFamily,
               ),
               const SizedBox(width: 40),
               Expanded(
                 child: NewsAppBarActiveFeed(
                   feedTitle: getFeedTitle(activeFeed) ?? 'newsAllFeedsTitle'.tr(),
                   onPressed: () => openFeeds(context),
+                  fontFamily: fontFamily,
                 ),
               ),
               const SizedBox(width: 40),
@@ -131,11 +135,13 @@ class NewsAppBarAvatar extends StatelessWidget {
   final String feedTitle;
   final Function() onPressed;
   final bool hasActiveFeed;
+  final String fontFamily;
 
   const NewsAppBarAvatar({
     required this.feedTitle,
     required this.onPressed,
     required this.hasActiveFeed,
+    required this.fontFamily,
     this.favicon,
   });
 
@@ -166,14 +172,18 @@ class NewsAppBarAvatar extends StatelessWidget {
                 imageUrl: favicon!,
                 placeholderWidget: Text(
                   feedTitle,
-                  style: context.textStyles.twoLettersAppBar,
+                  style: context.textStyles.twoLettersAppBar.copyWith(
+                    fontFamily: fontFamily,
+                  ),
                   textAlign: TextAlign.center,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 errorWidget: Text(
                   feedTitle,
-                  style: context.textStyles.twoLettersAppBar,
+                  style: context.textStyles.twoLettersAppBar.copyWith(
+                    fontFamily: fontFamily,
+                  ),
                   textAlign: TextAlign.center,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -182,7 +192,9 @@ class NewsAppBarAvatar extends StatelessWidget {
             )
           : Text(
               feedTitle,
-              style: context.textStyles.twoLettersAppBar,
+              style: context.textStyles.twoLettersAppBar.copyWith(
+                fontFamily: fontFamily,
+              ),
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -194,10 +206,12 @@ class NewsAppBarAvatar extends StatelessWidget {
 class NewsAppBarActiveFeed extends StatelessWidget {
   final String feedTitle;
   final Function() onPressed;
+  final String fontFamily;
 
   const NewsAppBarActiveFeed({
     required this.feedTitle,
     required this.onPressed,
+    required this.fontFamily,
   });
 
   @override
@@ -228,7 +242,9 @@ class NewsAppBarActiveFeed extends StatelessWidget {
           Expanded(
             child: Text(
               feedTitle,
-              style: context.textStyles.newsAppBar,
+              style: context.textStyles.newsAppBar.copyWith(
+                fontFamily: fontFamily,
+              ),
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

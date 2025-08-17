@@ -42,11 +42,13 @@ class NewsContent extends StatelessWidget {
       icon: NovinarkoIcons.noNews,
       title: 'newsStateEmptyTitle'.tr(),
       subtitle: 'newsStateEmptySubtitle'.tr(),
+      fontFamily: fontFamily,
     ),
     NewsStateError() => NovinarkoIconTextWidget(
       icon: NovinarkoIcons.errorNews,
       title: 'newsStateErrorTitle'.tr(),
       subtitle: (newsState as NewsStateError).error,
+      fontFamily: fontFamily,
     ),
     NewsStateSingleSuccess() => NewsResult(
       result: (newsState as NewsStateSingleSuccess).result,

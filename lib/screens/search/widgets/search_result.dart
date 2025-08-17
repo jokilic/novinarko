@@ -9,10 +9,12 @@ import 'search_list_tile.dart';
 class SearchResult extends StatelessWidget {
   final List<FeedSearchModel> results;
   final List<FeedSearchModel> hiveFeeds;
+  final String fontFamily;
 
   const SearchResult({
     required this.results,
     required this.hiveFeeds,
+    required this.fontFamily,
   });
 
   @override
@@ -30,6 +32,7 @@ class SearchResult extends StatelessWidget {
         favicon: result.favicon,
         url: result.url,
         usingFeed: hiveFeeds.contains(result),
+        fontFamily: fontFamily,
       );
     },
     separatorBuilder: (_, __) => NovinarkoDivider(),

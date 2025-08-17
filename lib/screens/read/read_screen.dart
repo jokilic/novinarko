@@ -8,6 +8,7 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../constants.dart';
 import '../../models/novinarko_rss_item.dart';
+import '../../services/settings_service.dart';
 import '../../util/dependencies.dart';
 import '../news/controllers/news_read_controller.dart';
 import 'controllers/read_controller.dart';
@@ -62,9 +63,9 @@ class _ReadScreenState extends State<ReadScreen> {
 
   @override
   Widget build(BuildContext context) => ReadWidget(
-        items: widget.items,
-        previousContext: widget.previousContext,
-      );
+    items: widget.items,
+    previousContext: widget.previousContext,
+  );
 }
 
 class ReadWidget extends WatchingWidget {
@@ -112,15 +113,16 @@ class ReadWidget extends WatchingWidget {
                           headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
                           onWebViewCreated: (controller) {
                             getIt.get<ReadController>().initializeWebViewController(
-                                  index: index,
-                                  controller: controller,
-                                  item: item,
-                                );
+                              index: index,
+                              controller: controller,
+                              item: item,
+                            );
                             getIt.get<ReadLoaderController>().setLoader = 0;
                           },
                           updateUri: (_) => getIt.get<ReadController>().updateActiveUri(),
                           onProgressChanged: (progress) => getIt.get<ReadLoaderController>().setLoader = progress / 100,
                           onConsoleMessage: (_) {},
+                          fontFamily: watchIt<SettingsService>().value.fontFamily,
                         );
                       },
                     ),

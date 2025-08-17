@@ -89,6 +89,7 @@ class NewsResult extends StatelessWidget {
                 icon: NovinarkoIcons.noNews,
                 title: 'newsNoResultsTitle'.tr(),
                 subtitle: 'newsNoResultsSubtitle'.tr(),
+                fontFamily: fontFamily,
               ),
       );
     }
@@ -98,6 +99,7 @@ class NewsResult extends StatelessWidget {
       return NovinarkoIconTextWidget(
         icon: NovinarkoIcons.errorNews,
         title: 'newsStateErrorTitle'.tr(),
+        fontFamily: fontFamily,
         subtitle: result.error,
       );
     }
@@ -107,6 +109,7 @@ class NewsResult extends StatelessWidget {
       icon: NovinarkoIcons.errorNews,
       title: 'newsStateErrorTitle'.tr(),
       subtitle: 'newsStateErrorSubtitle'.tr(),
+      fontFamily: fontFamily,
     );
   }
 }

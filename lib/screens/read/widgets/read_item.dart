@@ -14,8 +14,10 @@ class ReadItem extends StatelessWidget {
   final Function(int progress)? onProgressChanged;
   final Function(WebUri? uri)? updateUri;
   final Function(ConsoleMessage consoleMessage)? onConsoleMessage;
+  final String fontFamily;
 
   const ReadItem({
+    required this.fontFamily,
     this.initialUrl,
     this.headlessWebView,
     this.onWebViewCreated,
@@ -68,5 +70,6 @@ class ReadItem extends StatelessWidget {
           icon: NovinarkoIcons.errorNews,
           title: 'readStateErrorTitle'.tr(),
           subtitle: 'readStateErrorSubtitle'.tr(),
+          fontFamily: fontFamily,
         );
 }

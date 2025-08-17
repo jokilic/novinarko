@@ -12,6 +12,7 @@ class FeedsListTile extends StatelessWidget {
   final String? url;
   final bool showActiveIndicator;
   final bool isDraggable;
+  final String fontFamily;
   @override
   final Key key;
 
@@ -20,6 +21,7 @@ class FeedsListTile extends StatelessWidget {
     required this.onPressedDelete,
     required this.title,
     required this.showActiveIndicator,
+    required this.fontFamily,
     required this.key,
     this.isDraggable = true,
     this.subtitle,
@@ -78,7 +80,9 @@ class FeedsListTile extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
-                    style: context.textStyles.feedsTitle,
+                    style: context.textStyles.feedsTitle.copyWith(
+                      fontFamily: fontFamily,
+                    ),
                   ),
                 ),
 

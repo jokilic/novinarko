@@ -6,7 +6,6 @@ abstract class NovinarkoTextStyles {
     fontWeight: FontWeight.w700,
     fontFamily: 'Merriweather',
     height: 1.6,
-    letterSpacing: 1.2,
   );
 
   static const newsDescription = TextStyle(
@@ -29,7 +28,6 @@ abstract class NovinarkoTextStyles {
     height: 1.4,
   );
 
-  // TODO
   static const feedsTitle = TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.w700,
@@ -51,7 +49,6 @@ abstract class NovinarkoTextStyles {
     height: 1.4,
   );
 
-  // TODO
   static const searchTextField = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w700,
@@ -59,7 +56,6 @@ abstract class NovinarkoTextStyles {
     height: 1.4,
   );
 
-  // TODO
   static const searchTitle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w700,
@@ -80,7 +76,6 @@ abstract class NovinarkoTextStyles {
     height: 1.4,
   );
 
-  // TODO
   static const iconTextTitle = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w700,
@@ -95,7 +90,6 @@ abstract class NovinarkoTextStyles {
     height: 1.4,
   );
 
-  // TODO
   static const twoLettersAppBar = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w700,

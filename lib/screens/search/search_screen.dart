@@ -30,6 +30,7 @@ class SearchWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final searchState = watchIt<SearchController>().value;
+    final settings = watchIt<SettingsService>().value;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -45,7 +46,8 @@ class SearchWidget extends WatchingWidget {
         child: SearchContent(
           searchState: searchState,
           hiveFeeds: watchIt<HiveService>().value,
-          shimmerLoader: watchIt<SettingsService>().value.useShimmerLoader,
+          shimmerLoader: settings.useShimmerLoader,
+          fontFamily: settings.fontFamily,
         ),
       ),
     );

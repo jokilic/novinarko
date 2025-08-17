@@ -13,9 +13,11 @@ class NovinarkoIconTextWidget extends StatelessWidget {
   final String? subtitle;
   final double verticalPadding;
   final AlignmentGeometry? arrowAlignment;
+  final String fontFamily;
 
   const NovinarkoIconTextWidget({
     required this.icon,
+    required this.fontFamily,
     this.title,
     this.subtitle,
     this.verticalPadding = 56,
@@ -85,7 +87,9 @@ class NovinarkoIconTextWidget extends StatelessWidget {
                   maxLines: 2,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
-                  style: context.textStyles.iconTextTitle,
+                  style: context.textStyles.iconTextTitle.copyWith(
+                    fontFamily: fontFamily,
+                  ),
                 ),
               ),
 
