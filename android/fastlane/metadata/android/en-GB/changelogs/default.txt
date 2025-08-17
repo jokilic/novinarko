@@ -2,4 +2,6 @@
 * New fonts
 * Small UI updates
 * New icon & splash screen
+* Choose font
+* Update localizations
 * Update dependencies
