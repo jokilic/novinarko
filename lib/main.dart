@@ -10,6 +10,7 @@ import 'services/theme_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
 import 'util/env.dart';
+import 'util/sentry.dart';
 import 'widgets/novinarko_loader.dart';
 
 /// Feed limit to be used in the app
@@ -41,9 +42,13 @@ Future<void> main() async {
     (options) => options
       ..dsn = kDebugMode || kIsWeb ? '' : Env.sentryDsn
       ..debug = kDebugMode,
-    appRunner: () => runApp(
-      NovinarkoApp(),
-    ),
+    appRunner: () {
+      runApp(NovinarkoApp());
+
+      triggerSentryBreadcrumb(
+        message: 'Novinarko started',
+      );
+    },
   );
 }
 

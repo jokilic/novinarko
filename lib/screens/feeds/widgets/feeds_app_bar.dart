@@ -8,6 +8,7 @@ import '../../../constants.dart';
 import '../../../routing.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
+import '../../../util/sentry.dart';
 
 class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
@@ -36,11 +37,23 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FeedsAppBarBack(
-                onPressed: Navigator.of(context).pop,
+                onPressed: () {
+                  triggerSentryBreadcrumb(
+                    message: 'FeedsAppBar -> Back button pressed',
+                  );
+
+                  Navigator.of(context).pop();
+                },
               ),
               const Spacer(),
               FeedsAppBarSettings(
-                onPressed: () => openSettings(context),
+                onPressed: () {
+                  triggerSentryBreadcrumb(
+                    message: 'FeedsAppBar -> Settings button pressed',
+                  );
+
+                  openSettings(context);
+                },
               ),
             ],
           ),

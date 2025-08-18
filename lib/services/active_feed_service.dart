@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/feed_search_model.dart';
 import '../screens/news/controllers/news_controller.dart';
 import '../util/dependencies.dart';
+import '../util/sentry.dart';
 import 'hive_service.dart';
 import 'logger_service.dart';
 
@@ -37,6 +38,10 @@ class ActiveFeedService extends ValueNotifier<FeedSearchModel?> {
   Future<void> storeOrDeleteFeed(FeedSearchModel feed) async {
     /// Store `feed` in [Hive] and refresh if `activeFeed == null`
     if (!hive.value.contains(feed)) {
+      triggerSentryBreadcrumb(
+        message: 'Search feed added -> ${feed.title}',
+      );
+
       await hive.storeFeed(
         feed: feed,
         index: hive.value.length,
@@ -49,9 +54,12 @@ class ActiveFeedService extends ValueNotifier<FeedSearchModel?> {
         }
       }
     }
-
     /// Delete `feed` from [Hive] and set `activeFeed = null` if deleted feed was the active one
     else {
+      triggerSentryBreadcrumb(
+        message: 'Search feed deleted -> ${feed.title}',
+      );
+
       await hive.deleteFeed(
         hive.value.indexOf(feed),
       );

@@ -9,6 +9,7 @@ import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../util/navigation.dart';
 import '../../../util/parsing.dart';
+import '../../../util/sentry.dart';
 import '../../../widgets/novinarko_divider.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../controllers/news_controller.dart';
@@ -66,10 +67,18 @@ class NewsResult extends StatelessWidget {
                   return NewsListTile(
                     onPressed: inAppBrowser
                         ? () => getIt.get<NewsReadController>().itemPressed(item)
-                        : () => openUrlExternalBrowser(
-                            context,
-                            url: item.link ?? item.guid,
-                          ),
+                        : () {
+                            final url = item.link ?? item.guid;
+
+                            triggerSentryBreadcrumb(
+                              message: 'Article opened in URL launcher -> $url',
+                            );
+
+                            openUrlExternalBrowser(
+                              context,
+                              url: url,
+                            );
+                          },
                     imageUrl: item.imageUrl,
                     title: item.title ?? '',
                     favicon: item.favicon,

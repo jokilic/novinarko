@@ -12,6 +12,7 @@ import '../../services/active_feed_service.dart';
 import '../../services/api_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../util/sentry.dart';
 import '../../util/snackbars.dart';
 import 'search_state.dart';
 
@@ -88,7 +89,6 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
         );
       }
     }
-
     /// Generate URL by searching Google
     /// Then trigger feed search
     else {
@@ -120,7 +120,6 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
           );
         }
       }
-
       /// Search didn't find anything
       else {
         final error = 'searchStateErrorGoogle'.tr();
@@ -135,11 +134,19 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
   }
 
   Future<({GoogleSearchModel? result, String? error})> getWebsiteFromGoogleSearch(String searchValue) async {
+    triggerSentryBreadcrumb(
+      message: 'Google search triggered -> $searchValue',
+    );
+
     final response = await api.getGoogleSearch(searchValue: searchValue);
     return response;
   }
 
   Future<({List<FeedSearchModel>? results, ErrorModel? error, String? genericError})> getFeedsearch(String searchUrl) async {
+    triggerSentryBreadcrumb(
+      message: 'Search triggered -> $searchUrl',
+    );
+
     final response = await api.getFeedsearch(searchUrl: searchUrl);
     return response;
   }
@@ -156,6 +163,10 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
 
     /// Show proper snackbar
     if (feedAdded) {
+      triggerSentryBreadcrumb(
+        message: 'Custom feed added -> ${customFeedTitleTextController.text.trim()}',
+      );
+
       showSnackbar(
         context,
         text: 'searchCustomFeedAdded'.tr(),
@@ -167,6 +178,10 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
 
       Navigator.of(context).pop();
     } else {
+      triggerSentryBreadcrumb(
+        message: 'Custom feed data incomplete',
+      );
+
       showSnackbar(
         dialogContext,
         text: 'searchCustomFeedDataIncomplete'.tr(),

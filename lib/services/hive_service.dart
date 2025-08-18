@@ -8,6 +8,7 @@ import '../models/feed_search_model.dart';
 import '../models/novinarko_settings.dart';
 import '../models/novinarko_theme_enum.dart';
 import '../util/path.dart';
+import '../util/sentry.dart';
 import 'logger_service.dart';
 
 class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Disposable {
@@ -80,6 +81,10 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
 
   /// Reorders `feed` in [Hive]
   Future<void> reorderFeeds(int oldIndex, int newIndex) async {
+    triggerSentryBreadcrumb(
+      message: 'Feeds -> Feeds reordered',
+    );
+
     /// Rearange feeds
     final item = value.removeAt(oldIndex);
     value.insert(

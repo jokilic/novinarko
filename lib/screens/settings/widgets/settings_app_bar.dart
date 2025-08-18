@@ -8,6 +8,7 @@ import 'package:watch_it/watch_it.dart';
 import '../../../constants.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
+import '../../../util/sentry.dart';
 
 class SettingsAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
@@ -35,7 +36,13 @@ class SettingsAppBar extends WatchingWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SettingsAppBarBack(
-                onPressed: Navigator.of(context).pop,
+                onPressed: () {
+                  triggerSentryBreadcrumb(
+                    message: 'SettingsAppBar -> Back button pressed',
+                  );
+
+                  Navigator.of(context).pop();
+                },
               ),
               SettingsTitle(
                 title: 'settingsTitle'.tr(),

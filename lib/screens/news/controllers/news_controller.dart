@@ -11,6 +11,7 @@ import '../../../services/api_service.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/logger_service.dart';
 import '../../../util/parsing.dart';
+import '../../../util/sentry.dart';
 import '../news_state.dart';
 
 class NewsController extends ValueNotifier<NewsState> {
@@ -56,6 +57,10 @@ class NewsController extends ValueNotifier<NewsState> {
   }
 
   Future<void> pullToRefresh(FeedSearchModel? activeFeed) async {
+    triggerSentryBreadcrumb(
+      message: 'Pull-to-Refresh',
+    );
+
     /// `activeFeed` exists, fetch and parse it
     if (activeFeed != null) {
       await loadSingleFeed(
@@ -63,7 +68,6 @@ class NewsController extends ValueNotifier<NewsState> {
         useLoadingState: false,
       );
     }
-
     /// No `activeFeed`, fetch and parse all `feeds`
     else {
       await loadAllFeeds(useLoadingState: false);
@@ -75,6 +79,10 @@ class NewsController extends ValueNotifier<NewsState> {
     required FeedSearchModel feed,
     bool useLoadingState = true,
   }) async {
+    triggerSentryBreadcrumb(
+      message: 'Load single feed -> ${getFeedTitle(feed)}',
+    );
+
     /// Loading state
     if (useLoadingState) {
       value = NewsStateLoading(
@@ -97,6 +105,10 @@ class NewsController extends ValueNotifier<NewsState> {
 
   /// This will fetche and parse all `feeds`
   Future<void> loadAllFeeds({bool useLoadingState = true}) async {
+    triggerSentryBreadcrumb(
+      message: 'Load all feeds',
+    );
+
     /// No values in [Hive], set state to [NewsStateEmpty]
     if (hive.value.isEmpty) {
       value = NewsStateEmpty();
@@ -125,13 +137,11 @@ class NewsController extends ValueNotifier<NewsState> {
       if (result.items != null && result.error == null) {
         allItems.addAll(result.items!);
       }
-
       /// Result returned an `error`
       else if (result.items == null && result.error != null) {
         final error = 'News -> loadAllFeeds -> result returned an error -> ${result.error}';
         logger.e(error);
       }
-
       /// Some weird error
       else {
         const error = 'News -> loadAllFeeds -> some weird error';
@@ -178,37 +188,36 @@ class NewsController extends ValueNotifier<NewsState> {
         /// Parse `feedURL`
         final parsedFeed = RssFeed.parse(response.data);
 
-        final items = parsedFeed.items
-            .map(
-              (item) => NovinarkoRssItem(
-                favicon: feed.favicon,
-                title: item.title,
-                imageUrl: item.media?.url ?? item.content?.images.first ?? item.enclosure?.url ?? item.descriptionImage,
-                feedTitle: feed.siteName ?? feed.title,
-                description: item.description,
-                link: item.link,
-                guid: item.guid,
-                pubDate: parsePubDate(item.pubDate),
-              ),
-            )
-            .toList()
-          ..sort((a, b) {
-            final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
-            final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+        final items =
+            parsedFeed.items
+                .map(
+                  (item) => NovinarkoRssItem(
+                    favicon: feed.favicon,
+                    title: item.title,
+                    imageUrl: item.media?.url ?? item.content?.images.first ?? item.enclosure?.url ?? item.descriptionImage,
+                    feedTitle: feed.siteName ?? feed.title,
+                    description: item.description,
+                    link: item.link,
+                    guid: item.guid,
+                    pubDate: parsePubDate(item.pubDate),
+                  ),
+                )
+                .toList()
+              ..sort((a, b) {
+                final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+                final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
 
-            return firstDate.compareTo(secondDate);
-          });
+                return firstDate.compareTo(secondDate);
+              });
 
         return (items: items, error: null);
       }
-
       /// Fetching is not successful
       else if (response.data == null && response.error != null) {
         final error = 'News -> fetchAndParseFeedItems -> ${feed.url} -> error from response -> ${response.error}';
         logger.e(error);
         return (items: null, error: error);
       }
-
       /// Some weird error
       else {
         final error = 'News -> fetchAndParseFeedItems -> ${feed.url} -> some weird error';
@@ -245,38 +254,37 @@ class NewsController extends ValueNotifier<NewsState> {
           siteName: feed.siteName,
           title: parsedFeed.title,
           description: parsedFeed.description,
-          items: parsedFeed.items
-              .map(
-                (item) => NovinarkoRssItem(
-                  favicon: feed.favicon,
-                  title: item.title,
-                  imageUrl: item.media?.url ?? item.content?.images.first ?? item.enclosure?.url ?? item.descriptionImage,
-                  feedTitle: feed.siteName ?? feed.title,
-                  description: item.description,
-                  link: item.link,
-                  guid: item.guid,
-                  pubDate: parsePubDate(item.pubDate),
-                ),
-              )
-              .toList()
-            ..sort((a, b) {
-              final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
-              final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+          items:
+              parsedFeed.items
+                  .map(
+                    (item) => NovinarkoRssItem(
+                      favicon: feed.favicon,
+                      title: item.title,
+                      imageUrl: item.media?.url ?? item.content?.images.first ?? item.enclosure?.url ?? item.descriptionImage,
+                      feedTitle: feed.siteName ?? feed.title,
+                      description: item.description,
+                      link: item.link,
+                      guid: item.guid,
+                      pubDate: parsePubDate(item.pubDate),
+                    ),
+                  )
+                  .toList()
+                ..sort((a, b) {
+                  final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+                  final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
 
-              return firstDate.compareTo(secondDate);
-            }),
+                  return firstDate.compareTo(secondDate);
+                }),
         );
 
         return (rssFeed: rssFeed, error: null);
       }
-
       /// Fetching is not successful
       else if (response.data == null && response.error != null) {
         final error = 'News -> fetchAndParseFeed -> ${feed.url} -> error from response -> ${response.error}';
         logger.e(error);
         return (rssFeed: null, error: error);
       }
-
       /// Some weird error
       else {
         final error = 'News -> fetchAndParseFeed -> ${feed.url} -> some weird error';

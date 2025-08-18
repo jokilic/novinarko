@@ -82,7 +82,7 @@ class SettingsScreen extends WatchingWidget {
             /// Divider
             NovinarkoDivider(),
 
-            /// Theme
+            /// Font
             SettingsListTile(
               fontFamily: settings.fontFamily,
               onPressed: () {},

@@ -13,6 +13,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../../constants.dart';
 import '../../../models/novinarko_rss_item.dart';
 import '../../../services/logger_service.dart';
+import '../../../util/sentry.dart';
 import '../../../util/url.dart';
 import 'web_buttons_controller.dart';
 
@@ -126,6 +127,10 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
     final activeController = getControllerFromPage();
 
     if (activeController != null) {
+      triggerSentryBreadcrumb(
+        message: 'ReadScreen -> Refresh pressed',
+      );
+
       if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) {
         await activeController.loadUrl(
           urlRequest: URLRequest(
@@ -147,6 +152,10 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
     final canGoBack = await activeController?.canGoBack();
 
     if (canGoBack ?? false) {
+      triggerSentryBreadcrumb(
+        message: 'ReadScreen -> Back pressed',
+      );
+
       await activeController?.goBack();
       await updateActiveUri();
     }
@@ -159,6 +168,10 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
     final canGoForward = await activeController?.canGoForward();
 
     if (canGoForward ?? false) {
+      triggerSentryBreadcrumb(
+        message: 'ReadScreen -> Forward pressed',
+      );
+
       await activeController?.goForward();
       await updateActiveUri();
     }
@@ -169,6 +182,10 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
     final activeController = getControllerFromPage();
 
     final newUrl = processUrl(url).trim();
+
+    triggerSentryBreadcrumb(
+      message: 'ReadScreen -> Address bar submitted -> $newUrl',
+    );
 
     final webUri = WebUri(newUrl);
 
@@ -185,6 +202,10 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
     final activeUrl = value[currentPage].url;
 
     if (activeUrl != null) {
+      triggerSentryBreadcrumb(
+        message: 'ReadScreen -> Share pressed -> $activeUrl',
+      );
+
       await SharePlus.instance.share(
         ShareParams(
           uri: Uri.parse(activeUrl),
@@ -234,6 +255,10 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
 
   /// Decrements the `pageController` index
   Future<void> openPreviousArticle() async {
+    triggerSentryBreadcrumb(
+      message: 'ReadScreen -> Previous article pressed',
+    );
+
     await pageController.previousPage(
       duration: NovinarkoConstants.animationDuration,
       curve: Curves.easeIn,
@@ -251,6 +276,10 @@ class ReadController extends ValueNotifier<List<({int index, String? url, InAppW
 
   /// Increments the `pageController` index
   Future<void> openNextArticle() async {
+    triggerSentryBreadcrumb(
+      message: 'ReadScreen -> Next article pressed',
+    );
+
     await pageController.nextPage(
       duration: NovinarkoConstants.animationDuration,
       curve: Curves.easeIn,
