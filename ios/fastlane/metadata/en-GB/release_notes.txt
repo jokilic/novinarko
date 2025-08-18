@@ -5,3 +5,4 @@
 * Choose font
 * Update localizations
 * Update dependencies
+* Fix error in ReadScreen
