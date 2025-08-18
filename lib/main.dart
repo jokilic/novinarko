@@ -74,7 +74,7 @@ class NovinarkoWidget extends WatchingWidget {
       home: NewsScreen(),
       onGenerateTitle: (_) => 'appName'.tr(),
       theme: theme ?? NovinarkoTheme.green,
-      darkTheme: theme ?? NovinarkoTheme.dark,
+      darkTheme: theme ?? NovinarkoTheme.green,
       builder: (context, child) => kDebugMode
           ? Banner(
               message: 'Debug'.toUpperCase(),

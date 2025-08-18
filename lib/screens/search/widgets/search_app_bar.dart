@@ -76,14 +76,15 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final feedsLength = watchIt<HiveService>().value.length;
-    final isDark = watchIt<ThemeService>().value == NovinarkoTheme.dark;
     final fontFamily = watchIt<SettingsService>().value.fontFamily;
+    final theme = watchIt<ThemeService>().value;
+    final isDark = theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green;
 
     return AppBar(
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
-      systemOverlayStyle: isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+      systemOverlayStyle: isDark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light,
       automaticallyImplyLeading: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
