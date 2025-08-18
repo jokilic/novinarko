@@ -87,6 +87,7 @@ class ReadWidget extends WatchingWidget {
   Widget build(BuildContext context) {
     final webButtons = watchIt<WebButtonsController>().value;
     final loaderValue = watchIt<ReadLoaderController>().value;
+    final fontFamily = watchIt<SettingsService>().value.fontFamily;
 
     return WillPopScope(
       onWillPop: () => popScreen(context),
@@ -122,7 +123,7 @@ class ReadWidget extends WatchingWidget {
                           updateUri: (_) => getIt.get<ReadController>().updateActiveUri(),
                           onProgressChanged: (progress) => getIt.get<ReadLoaderController>().setLoader = progress / 100,
                           onConsoleMessage: (_) {},
-                          fontFamily: watchIt<SettingsService>().value.fontFamily,
+                          fontFamily: fontFamily,
                         );
                       },
                     ),

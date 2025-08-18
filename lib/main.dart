@@ -67,6 +67,7 @@ class NovinarkoWidget extends WatchingWidget {
     final theme = watchIt<ThemeService>().value;
 
     return MaterialApp(
+      navigatorObservers: [SentryNavigatorObserver()],
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
