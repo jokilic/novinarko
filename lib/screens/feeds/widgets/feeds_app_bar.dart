@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
@@ -8,7 +9,6 @@ import '../../../routing.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/sentry.dart';
-import '../../../util/status_bar.dart';
 
 class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
@@ -20,7 +20,13 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
-      systemOverlayStyle: novinarkoFeedsSystemUiOverlayStyle(isDark),
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: isDark ? Brightness.dark : Brightness.light,
+        statusBarBrightness: isDark ? Brightness.light : Brightness.dark,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: isDark ? Brightness.dark : Brightness.light,
+      ),
       automaticallyImplyLeading: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(

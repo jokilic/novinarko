@@ -11,12 +11,10 @@ import '../../../routing.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/settings_service.dart';
-import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/parsing.dart';
 import '../../../util/sentry.dart';
 import '../../../util/snackbars.dart';
-import '../../../util/status_bar.dart';
 import '../../../widgets/novinarko_network_image.dart';
 import '../../search/search_screen.dart';
 import 'news_feed_info_dialog.dart';
@@ -56,14 +54,12 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
     final activeFeed = watchIt<ActiveFeedService>().value;
     final feedsLength = watchIt<HiveService>().value.length;
     final fontFamily = watchIt<SettingsService>().value.fontFamily;
-    final theme = watchIt<ThemeService>().value;
-    final isDark = theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green;
 
     return AppBar(
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
-      systemOverlayStyle: novinarkoSystemUiOverlayStyle(isDark),
+
       automaticallyImplyLeading: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(

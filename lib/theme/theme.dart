@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'colors/colors.dart';
 import 'colors/extension.dart';
@@ -19,6 +20,17 @@ class NovinarkoTheme {
         selectionColor: lightAppColors.primary,
         cursorColor: lightAppColors.primary,
         selectionHandleColor: lightAppColors.primary,
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
       ),
       extensions: [
         lightAppColors,
@@ -42,14 +54,25 @@ class NovinarkoTheme {
   ///
 
   static ThemeData get dark {
-    final defaultTheme = ThemeData.dark();
+    final base = ThemeData.dark();
 
-    return defaultTheme.copyWith(
+    return base.copyWith(
       scaffoldBackgroundColor: darkAppColors.background,
       textSelectionTheme: TextSelectionThemeData(
         selectionColor: darkAppColors.primary,
         cursorColor: darkAppColors.primary,
         selectionHandleColor: darkAppColors.primary,
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
       ),
       extensions: [
         darkAppColors,
@@ -82,6 +105,17 @@ class NovinarkoTheme {
         cursorColor: sepiaAppColors.primary,
         selectionHandleColor: sepiaAppColors.primary,
       ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
+      ),
       extensions: [
         sepiaAppColors,
         sepiaTextTheme,
@@ -112,6 +146,17 @@ class NovinarkoTheme {
         selectionColor: greenAppColors.primary,
         cursorColor: greenAppColors.primary,
         selectionHandleColor: greenAppColors.primary,
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
       ),
       extensions: [
         greenAppColors,

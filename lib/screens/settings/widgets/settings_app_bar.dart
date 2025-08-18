@@ -2,72 +2,63 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
-import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/sentry.dart';
-import '../../../util/status_bar.dart';
 
-class SettingsAppBar extends WatchingWidget implements PreferredSizeWidget {
+class SettingsAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
-  Widget build(BuildContext context) {
-    final theme = watchIt<ThemeService>().value;
-    final isDark = theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green;
+  Widget build(BuildContext context) => AppBar(
+    elevation: 0,
+    scrolledUnderElevation: 0,
+    backgroundColor: Colors.transparent,
+    automaticallyImplyLeading: false,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        bottom: Radius.circular(16),
+      ),
+    ),
+    bottom: PreferredSize(
+      preferredSize: Size.infinite,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SettingsAppBarBack(
+              onPressed: () {
+                triggerSentryBreadcrumb(
+                  message: 'SettingsAppBar -> Back button pressed',
+                );
 
-    return AppBar(
-      elevation: 0,
-      scrolledUnderElevation: 0,
-      backgroundColor: Colors.transparent,
-      systemOverlayStyle: novinarkoSystemUiOverlayStyle(isDark),
-      automaticallyImplyLeading: false,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(16),
+                Navigator.of(context).pop();
+              },
+            ),
+            SettingsTitle(
+              title: 'settingsTitle'.tr(),
+            ),
+            const SizedBox(width: 48),
+          ],
         ),
       ),
-      bottom: PreferredSize(
-        preferredSize: Size.infinite,
+    ),
+    flexibleSpace: ClipRRect(
+      borderRadius: const BorderRadius.vertical(
+        bottom: Radius.circular(16),
+      ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 16,
+          sigmaY: 16,
+        ),
         child: Container(
-          margin: const EdgeInsets.only(bottom: 20),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SettingsAppBarBack(
-                onPressed: () {
-                  triggerSentryBreadcrumb(
-                    message: 'SettingsAppBar -> Back button pressed',
-                  );
-
-                  Navigator.of(context).pop();
-                },
-              ),
-              SettingsTitle(
-                title: 'settingsTitle'.tr(),
-              ),
-              const SizedBox(width: 48),
-            ],
-          ),
+          color: Colors.transparent,
         ),
       ),
-      flexibleSpace: ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-          bottom: Radius.circular(16),
-        ),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 16,
-            sigmaY: 16,
-          ),
-          child: Container(
-            color: Colors.transparent,
-          ),
-        ),
-      ),
-    );
-  }
+    ),
+  );
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 32);

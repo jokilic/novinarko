@@ -9,12 +9,10 @@ import '../../../main.dart';
 import '../../../routing.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/settings_service.dart';
-import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../util/sentry.dart';
 import '../../../util/snackbars.dart';
-import '../../../util/status_bar.dart';
 import '../search_controller.dart';
 import 'search_custom_dialog.dart';
 
@@ -78,14 +76,12 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final feedsLength = watchIt<HiveService>().value.length;
     final fontFamily = watchIt<SettingsService>().value.fontFamily;
-    final theme = watchIt<ThemeService>().value;
-    final isDark = theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green;
 
     return AppBar(
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
-      systemOverlayStyle: novinarkoSystemUiOverlayStyle(isDark),
+
       automaticallyImplyLeading: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
