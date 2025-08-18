@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
@@ -17,6 +16,7 @@ import '../../../theme/theme.dart';
 import '../../../util/parsing.dart';
 import '../../../util/sentry.dart';
 import '../../../util/snackbars.dart';
+import '../../../util/status_bar.dart';
 import '../../../widgets/novinarko_network_image.dart';
 import '../../search/search_screen.dart';
 import 'news_feed_info_dialog.dart';
@@ -63,7 +63,7 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
-      systemOverlayStyle: isDark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light,
+      systemOverlayStyle: novinarkoSystemUiOverlayStyle(isDark),
       automaticallyImplyLeading: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(

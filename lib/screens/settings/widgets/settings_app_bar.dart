@@ -2,13 +2,13 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/sentry.dart';
+import '../../../util/status_bar.dart';
 
 class SettingsAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
@@ -20,7 +20,7 @@ class SettingsAppBar extends WatchingWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
-      systemOverlayStyle: isDark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light,
+      systemOverlayStyle: novinarkoSystemUiOverlayStyle(isDark),
       automaticallyImplyLeading: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(

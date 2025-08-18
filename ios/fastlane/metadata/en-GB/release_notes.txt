@@ -6,3 +6,4 @@
 * Update localizations
 * Update dependencies
 * Fix error in ReadScreen
+* Fix status bar colors
