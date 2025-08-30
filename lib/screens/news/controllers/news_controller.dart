@@ -11,7 +11,6 @@ import '../../../services/api_service.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/logger_service.dart';
 import '../../../util/parsing.dart';
-import '../../../util/sentry.dart';
 import '../news_state.dart';
 
 class NewsController extends ValueNotifier<NewsState> {
@@ -57,10 +56,6 @@ class NewsController extends ValueNotifier<NewsState> {
   }
 
   Future<void> pullToRefresh(FeedSearchModel? activeFeed) async {
-    triggerSentryBreadcrumb(
-      message: 'Pull-to-Refresh',
-    );
-
     /// `activeFeed` exists, fetch and parse it
     if (activeFeed != null) {
       await loadSingleFeed(
@@ -79,10 +74,6 @@ class NewsController extends ValueNotifier<NewsState> {
     required FeedSearchModel feed,
     bool useLoadingState = true,
   }) async {
-    triggerSentryBreadcrumb(
-      message: 'Load single feed -> ${getFeedTitle(feed)}',
-    );
-
     /// Loading state
     if (useLoadingState) {
       value = NewsStateLoading(
@@ -105,10 +96,6 @@ class NewsController extends ValueNotifier<NewsState> {
 
   /// This will fetche and parse all `feeds`
   Future<void> loadAllFeeds({bool useLoadingState = true}) async {
-    triggerSentryBreadcrumb(
-      message: 'Load all feeds',
-    );
-
     /// No values in [Hive], set state to [NewsStateEmpty]
     if (hive.value.isEmpty) {
       value = NewsStateEmpty();

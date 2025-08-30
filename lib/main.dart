@@ -10,7 +10,6 @@ import 'services/theme_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
 import 'util/env.dart';
-import 'util/sentry.dart';
 import 'widgets/novinarko_loader.dart';
 
 /// Feed limit to be used in the app
@@ -42,13 +41,7 @@ Future<void> main() async {
     (options) => options
       ..dsn = kDebugMode || kIsWeb ? '' : Env.sentryDsn
       ..debug = kDebugMode,
-    appRunner: () {
-      runApp(NovinarkoApp());
-
-      triggerSentryBreadcrumb(
-        message: 'Novinarko started',
-      );
-    },
+    appRunner: () => runApp(NovinarkoApp()),
   );
 }
 
@@ -72,7 +65,6 @@ class NovinarkoWidget extends WatchingWidget {
     final theme = watchIt<ThemeService>().value;
 
     return MaterialApp(
-      navigatorObservers: [SentryNavigatorObserver()],
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

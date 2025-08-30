@@ -7,7 +7,6 @@ import '../../constants.dart';
 import '../../routing.dart';
 import '../../services/settings_service.dart';
 import '../../util/dependencies.dart';
-import '../../util/sentry.dart';
 import 'controllers/news_controller.dart';
 import 'controllers/news_read_controller.dart';
 import 'controllers/news_read_loader_controller.dart';
@@ -66,20 +65,11 @@ class NewsWidget extends WatchingWidget {
                     duration: NovinarkoConstants.animationDuration,
                     curve: Curves.easeIn,
                     child: PressableDough(
-                      onReleased: (_) => triggerSentryBreadcrumb(
-                        message: 'Read FAB dough triggered',
-                      ),
                       child: NewsReadButton(
-                        onPressed: () {
-                          triggerSentryBreadcrumb(
-                            message: 'Read FAB pressed',
-                          );
-
-                          openRead(
-                            context,
-                            items: readItems,
-                          );
-                        },
+                        onPressed: () => openRead(
+                          context,
+                          items: readItems,
+                        ),
                         readNumber: readItems.length,
                         loaderValue: loaderValue,
                       ),

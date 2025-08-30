@@ -13,7 +13,6 @@ import '../../../services/hive_service.dart';
 import '../../../services/settings_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/parsing.dart';
-import '../../../util/sentry.dart';
 import '../../../util/snackbars.dart';
 import '../../../widgets/novinarko_network_image.dart';
 import '../../search/search_screen.dart';
@@ -80,50 +79,28 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
                 feedTitle: getFeedTitle(activeFeed)?.substring(0, 2) ?? 'newsAllFeedsTitle'.tr().substring(0, 2),
                 hasActiveFeed: activeFeed != null,
                 onPressed: activeFeed != null
-                    ? () {
-                        triggerSentryBreadcrumb(
-                          message: 'NewsAppBar -> Feed info pressed -> ${getFeedTitle(activeFeed)}',
-                        );
-
-                        openFeedInfoDialog(
-                          context,
-                          feed: activeFeed,
-                        );
-                      }
-                    : () {
-                        triggerSentryBreadcrumb(
-                          message: 'NewsAppBar -> Feed info pressed -> all',
-                        );
-                      },
+                    ? () => openFeedInfoDialog(
+                        context,
+                        feed: activeFeed,
+                      )
+                    : () {},
                 fontFamily: fontFamily,
               ),
               const SizedBox(width: 40),
               Expanded(
                 child: NewsAppBarActiveFeed(
                   feedTitle: getFeedTitle(activeFeed) ?? 'newsAllFeedsTitle'.tr(),
-                  onPressed: () {
-                    triggerSentryBreadcrumb(
-                      message: 'NewsAppBar -> Middle pressed',
-                    );
-
-                    openFeeds(context);
-                  },
+                  onPressed: () => openFeeds(context),
                   fontFamily: fontFamily,
                 ),
               ),
               const SizedBox(width: 40),
               NewsAppBarSearch(
                 noSearch: feedsLength >= feedLimit,
-                onPressed: () {
-                  triggerSentryBreadcrumb(
-                    message: 'NewsAppBar -> Search button pressed',
-                  );
-
-                  return openSearchOrShowSnackBar(
-                    context,
-                    feedsLength: feedsLength,
-                  );
-                },
+                onPressed: () => openSearchOrShowSnackBar(
+                  context,
+                  feedsLength: feedsLength,
+                ),
               ),
             ],
           ),

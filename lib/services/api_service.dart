@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../constants.dart';
 import '../models/error_model.dart';
@@ -43,7 +42,6 @@ class APIService {
           final parsedResults = await computeFeedsearch(response.data);
           return (results: parsedResults, error: null, genericError: null);
         } catch (e) {
-          unawaited(Sentry.captureException(Exception('$e')));
           return (results: <FeedSearchModel>[], error: null, genericError: null);
         }
       }
@@ -52,14 +50,12 @@ class APIService {
       if ((response.statusCode ?? 0) ~/ 100 == 4) {
         final parsedError = await computeError(response.data);
         logger.e(parsedError);
-        unawaited(Sentry.captureException(Exception(parsedError)));
         return (results: null, error: parsedError, genericError: null);
       }
       /// Response is not successful
       else {
         final error = 'API -> getFeedsearch -> StatusCode ${response.statusCode} -> Generic error';
         logger.e(error);
-        unawaited(Sentry.captureException(Exception(error)));
         return (results: null, error: null, genericError: error);
       }
     } catch (e) {
@@ -67,7 +63,7 @@ class APIService {
         methodName: 'getFeedsearch',
         mainError: '$e',
       );
-      unawaited(Sentry.captureException(Exception('$e')));
+
       return (
         results: null,
         error: null,
@@ -99,7 +95,6 @@ class APIService {
       else {
         final error = 'API -> getGoogleSearch -> StatusCode ${response.statusCode} -> Generic error';
         logger.e(error);
-        unawaited(Sentry.captureException(Exception(error)));
         return (result: null, error: error);
       }
     } catch (e) {
@@ -107,7 +102,7 @@ class APIService {
         methodName: 'getGoogleSearch',
         mainError: '$e',
       );
-      unawaited(Sentry.captureException(Exception('$e')));
+
       return (result: null, error: error);
     }
   }
@@ -127,7 +122,6 @@ class APIService {
       else {
         final error = 'API -> getRSSFeed -> StatusCode ${response.statusCode} -> Generic error';
         logger.e(error);
-        unawaited(Sentry.captureException(Exception(error)));
         return (data: null, error: error);
       }
     } catch (e) {
@@ -135,7 +129,7 @@ class APIService {
         methodName: 'getRSSFeed',
         mainError: '$e',
       );
-      unawaited(Sentry.captureException(Exception('$e')));
+
       return (data: null, error: error);
     }
   }

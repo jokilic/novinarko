@@ -10,7 +10,6 @@ import '../../constants.dart';
 import '../../models/novinarko_rss_item.dart';
 import '../../services/settings_service.dart';
 import '../../util/dependencies.dart';
-import '../../util/sentry.dart';
 import '../news/controllers/news_read_controller.dart';
 import 'controllers/read_controller.dart';
 import 'controllers/read_loader_controller.dart';
@@ -154,17 +153,8 @@ class ReadWidget extends WatchingWidget {
                 right: 12,
                 top: 16,
                 child: PressableDough(
-                  onReleased: (_) => triggerSentryBreadcrumb(
-                    message: 'ReadScreen -> Close dough triggered',
-                  ),
                   child: ReadCloseButton(
-                    onPressed: () {
-                      triggerSentryBreadcrumb(
-                        message: 'ReadScreen -> Close pressed',
-                      );
-
-                      popScreen(context);
-                    },
+                    onPressed: () => popScreen(context),
                   ),
                 ),
               ),
@@ -190,9 +180,6 @@ class ReadWidget extends WatchingWidget {
                           duration: NovinarkoConstants.animationDuration,
                           curve: Curves.easeIn,
                           child: PressableDough(
-                            onReleased: (_) => triggerSentryBreadcrumb(
-                              message: 'ReadScreen -> Previous dough triggered',
-                            ),
                             child: ReadPreviousButton(
                               onPressed: getIt.get<ReadController>().openPreviousArticle,
                             ),
@@ -213,9 +200,6 @@ class ReadWidget extends WatchingWidget {
                         duration: NovinarkoConstants.animationDuration,
                         curve: Curves.easeIn,
                         child: PressableDough(
-                          onReleased: (_) => triggerSentryBreadcrumb(
-                            message: 'ReadScreen -> Next dough triggered',
-                          ),
                           child: ReadNextButton(
                             onPressed: getIt.get<ReadController>().openNextArticle,
                           ),

@@ -5,7 +5,6 @@ import '../../../models/feed_search_model.dart';
 import '../../../theme/theme.dart';
 import '../../../util/navigation.dart';
 import '../../../util/parsing.dart';
-import '../../../util/sentry.dart';
 import '../../../widgets/novinarko_divider.dart';
 import '../../../widgets/novinarko_network_image.dart';
 
@@ -149,16 +148,10 @@ class NewsFeedInfoDialog extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 InkWell(
-                  onTap: () {
-                    triggerSentryBreadcrumb(
-                      message: 'NewsFeedInfoDialog -> Website pressed -> ${feed.siteUrl}',
-                    );
-
-                    openUrlExternalBrowser(
-                      context,
-                      url: feed.siteUrl,
-                    );
-                  },
+                  onTap: () => openUrlExternalBrowser(
+                    context,
+                    url: feed.siteUrl,
+                  ),
                   borderRadius: BorderRadius.circular(16),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -187,16 +180,10 @@ class NewsFeedInfoDialog extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 InkWell(
-                  onTap: () {
-                    triggerSentryBreadcrumb(
-                      message: 'NewsFeedInfoDialog -> Feed URL pressed -> ${feed.url}',
-                    );
-
-                    openUrlExternalBrowser(
-                      context,
-                      url: feed.url,
-                    );
-                  },
+                  onTap: () => openUrlExternalBrowser(
+                    context,
+                    url: feed.url,
+                  ),
                   borderRadius: BorderRadius.circular(16),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

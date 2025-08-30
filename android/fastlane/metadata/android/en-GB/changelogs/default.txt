@@ -7,3 +7,4 @@
 * Update dependencies
 * Fix error in ReadScreen
 * Fix status bar colors
+* Remove unnecessary error logging

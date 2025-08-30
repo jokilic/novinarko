@@ -8,7 +8,6 @@ import '../../../models/novinarko_rss_item.dart';
 import '../../../services/logger_service.dart';
 import '../../../services/settings_service.dart';
 import '../../../util/peter_lowe_ad_hosts.dart';
-import '../../../util/sentry.dart';
 import '../../../util/snackbars.dart';
 import 'news_read_loader_controller.dart';
 
@@ -55,18 +54,10 @@ class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implement
 
     /// Article exists in the list, remove it
     if (articleExists) {
-      triggerSentryBreadcrumb(
-        message: 'Article removed -> ${item.title}',
-      );
-
       value.remove(item);
     }
     /// Article doesn't exist in the list, add it
     else {
-      triggerSentryBreadcrumb(
-        message: 'Article added -> ${item.title}',
-      );
-
       value.add(item);
     }
 
@@ -127,10 +118,6 @@ class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implement
     showRestoreReadingSnackbar(
       context,
       onPressed: () {
-        triggerSentryBreadcrumb(
-          message: 'Restore snackbar pressed',
-        );
-
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
         Future.delayed(

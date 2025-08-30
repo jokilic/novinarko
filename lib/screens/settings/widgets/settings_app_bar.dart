@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../theme/theme.dart';
-import '../../../util/sentry.dart';
 
 class SettingsAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -28,13 +27,7 @@ class SettingsAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SettingsAppBarBack(
-              onPressed: () {
-                triggerSentryBreadcrumb(
-                  message: 'SettingsAppBar -> Back button pressed',
-                );
-
-                Navigator.of(context).pop();
-              },
+              onPressed: Navigator.of(context).pop,
             ),
             SettingsTitle(
               title: 'settingsTitle'.tr(),

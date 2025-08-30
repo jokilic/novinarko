@@ -11,7 +11,6 @@ import '../../../services/hive_service.dart';
 import '../../../services/settings_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
-import '../../../util/sentry.dart';
 import '../../../util/snackbars.dart';
 import '../search_controller.dart';
 import 'search_custom_dialog.dart';
@@ -98,13 +97,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SearchAppBarBack(
-                onPressed: () {
-                  triggerSentryBreadcrumb(
-                    message: 'SearchAppBar -> Back button pressed',
-                  );
-
-                  Navigator.of(context).pop();
-                },
+                onPressed: Navigator.of(context).pop,
               ),
               const SizedBox(width: 40),
               Expanded(
@@ -121,17 +114,11 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
               const SizedBox(width: 40),
               SearchAppBarCustom(
                 noSearch: feedsLength >= feedLimit,
-                onPressed: () {
-                  triggerSentryBreadcrumb(
-                    message: 'SearchAppBar -> Custom dialog pressed',
-                  );
-
-                  customSearchOrShowSnackbar(
-                    context,
-                    feedsLength: feedsLength,
-                    fontFamily: fontFamily,
-                  );
-                },
+                onPressed: () => customSearchOrShowSnackbar(
+                  context,
+                  feedsLength: feedsLength,
+                  fontFamily: fontFamily,
+                ),
               ),
             ],
           ),

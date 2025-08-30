@@ -5,7 +5,6 @@ import '../../../models/feed_search_model.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
-import '../../../util/sentry.dart';
 import '../../news/controllers/news_controller.dart';
 import 'feeds_list_tile.dart';
 
@@ -48,13 +47,7 @@ class FeedsContent extends StatelessWidget {
           isDraggable: false,
           key: const ValueKey('all_feeds'),
           onPressedDelete: () {},
-          onPressed: () {
-            triggerSentryBreadcrumb(
-              message: 'Feeds -> All feeds pressed',
-            );
-
-            loadFeedAndPop(context, null);
-          },
+          onPressed: () => loadFeedAndPop(context, null),
           title: 'feedsAllFeedsTitle'.tr(),
           subtitle: 'feedsAllFeedsSubtitle'.tr(),
           showActiveIndicator: activeFeed == null,
@@ -83,20 +76,8 @@ class FeedsContent extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8),
             child: FeedsListTile(
               key: ValueKey(feed),
-              onPressedDelete: () {
-                triggerSentryBreadcrumb(
-                  message: 'Feeds -> Feed deleted -> ${feed.siteName ?? feed.title}',
-                );
-
-                return getIt.get<ActiveFeedService>().storeOrDeleteFeed(feed);
-              },
-              onPressed: () {
-                triggerSentryBreadcrumb(
-                  message: 'Feeds -> Feed pressed -> ${feed.siteName ?? feed.title}',
-                );
-
-                loadFeedAndPop(context, feed);
-              },
+              onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(feed),
+              onPressed: () => loadFeedAndPop(context, feed),
               title: feed.siteName ?? feed.title ?? '',
               subtitle: feed.title,
               url: feed.url,
