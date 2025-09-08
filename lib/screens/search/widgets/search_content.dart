@@ -6,6 +6,7 @@ import '../../../models/feed_search_model.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../../../widgets/novinarko_loader.dart';
 import '../search_state.dart';
+import 'search_initial.dart';
 import 'search_loading.dart';
 import 'search_result.dart';
 
@@ -24,11 +25,9 @@ class SearchContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => switch (searchState) {
-    SearchStateInitial() => NovinarkoIconTextWidget(
-      arrowAlignment: Alignment.center,
-      icon: NovinarkoIcons.search,
-      title: 'searchStateInitialTitle'.tr(),
-      subtitle: 'searchStateInitialSubtitle'.tr(),
+    SearchStateInitial() => SearchInitial(
+      omplFeeds: (searchState as SearchStateInitial).omplFeeds,
+      hiveFeeds: hiveFeeds,
       fontFamily: fontFamily,
     ),
     SearchStateLoading() =>

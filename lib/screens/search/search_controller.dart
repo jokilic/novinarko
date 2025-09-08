@@ -20,13 +20,19 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
   final APIService api;
   final HiveService hive;
   final ActiveFeedService activeFeedService;
+  final List<FeedSearchModel> omplFeeds;
 
   SearchController({
     required this.logger,
     required this.api,
     required this.hive,
     required this.activeFeedService,
-  }) : super(SearchStateInitial());
+    required this.omplFeeds,
+  }) : super(SearchStateLoading()) {
+    value = SearchStateInitial(
+      omplFeeds: omplFeeds,
+    );
+  }
 
   ///
   /// VARIABLES

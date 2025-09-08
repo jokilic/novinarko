@@ -5,7 +5,6 @@ import 'package:watch_it/watch_it.dart';
 import '../../constants.dart';
 import '../../services/hive_service.dart';
 import '../../services/settings_service.dart';
-import '../../util/dependencies.dart';
 import 'search_controller.dart';
 import 'widgets/search_app_bar.dart';
 import 'widgets/search_content.dart';
@@ -16,11 +15,11 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  @override
-  void dispose() {
-    getIt.resetLazySingleton<SearchController>();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   getIt.resetLazySingleton<SearchController>();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) => SearchWidget();

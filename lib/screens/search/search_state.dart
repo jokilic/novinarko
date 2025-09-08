@@ -3,7 +3,13 @@ import '../../models/feed_search_model.dart';
 
 sealed class SearchState {}
 
-class SearchStateInitial extends SearchState {}
+class SearchStateInitial extends SearchState {
+  final List<FeedSearchModel> omplFeeds;
+
+  SearchStateInitial({
+    required this.omplFeeds,
+  });
+}
 
 class SearchStateLoading extends SearchState {
   final String? loadingStatus;

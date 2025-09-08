@@ -15,6 +15,7 @@ import '../services/hive_service.dart';
 import '../services/logger_service.dart';
 import '../services/settings_service.dart';
 import '../services/theme_service.dart';
+import 'parsing.dart';
 
 final getIt = GetIt.instance;
 
@@ -69,48 +70,52 @@ void initializeServices() => getIt
     dependsOn: [LoggerService, HiveService],
   );
 
-void initializeControllers() => getIt
-  ..registerLazySingleton(
-    () => SearchController(
-      logger: getIt.get<LoggerService>(),
-      api: getIt.get<APIService>(),
-      hive: getIt.get<HiveService>(),
-      activeFeedService: getIt.get<ActiveFeedService>(),
-    ),
-  )
-  ..registerLazySingleton(
-    () => NewsReadLoaderController(
-      logger: getIt.get<LoggerService>(),
-    ),
-  )
-  ..registerLazySingleton(
-    () => NewsController(
-      logger: getIt.get<LoggerService>(),
-      api: getIt.get<APIService>(),
-      hive: getIt.get<HiveService>(),
-      activeFeedService: getIt.get<ActiveFeedService>(),
-    )..init(),
-  )
-  ..registerLazySingleton(
-    () => NewsReadController(
-      logger: getIt.get<LoggerService>(),
-      settings: getIt.get<SettingsService>(),
-      loader: getIt.get<NewsReadLoaderController>(),
-    ),
-  )
-  ..registerLazySingleton(
-    () => WebButtonsController(
-      logger: getIt.get<LoggerService>(),
-    ),
-  )
-  ..registerLazySingleton(
-    () => ReadLoaderController(
-      logger: getIt.get<LoggerService>(),
-    ),
-  )
-  ..registerLazySingleton(
-    () => ReadController(
-      logger: getIt.get<LoggerService>(),
-      webButtons: getIt.get<WebButtonsController>(),
-    ),
-  );
+void initializeControllers() {
+  getIt
+    ..registerSingletonAsync(
+      () async => SearchController(
+        logger: getIt.get<LoggerService>(),
+        api: getIt.get<APIService>(),
+        hive: getIt.get<HiveService>(),
+        activeFeedService: getIt.get<ActiveFeedService>(),
+        omplFeeds: await loadAllOpmlFeeds(),
+      ),
+      dependsOn: [LoggerService, APIService, HiveService, ActiveFeedService],
+    )
+    ..registerLazySingleton(
+      () => NewsReadLoaderController(
+        logger: getIt.get<LoggerService>(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => NewsController(
+        logger: getIt.get<LoggerService>(),
+        api: getIt.get<APIService>(),
+        hive: getIt.get<HiveService>(),
+        activeFeedService: getIt.get<ActiveFeedService>(),
+      )..init(),
+    )
+    ..registerLazySingleton(
+      () => NewsReadController(
+        logger: getIt.get<LoggerService>(),
+        settings: getIt.get<SettingsService>(),
+        loader: getIt.get<NewsReadLoaderController>(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => WebButtonsController(
+        logger: getIt.get<LoggerService>(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => ReadLoaderController(
+        logger: getIt.get<LoggerService>(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => ReadController(
+        logger: getIt.get<LoggerService>(),
+        webButtons: getIt.get<WebButtonsController>(),
+      ),
+    );
+}

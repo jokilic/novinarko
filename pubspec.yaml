@@ -22,7 +22,7 @@ version: 1.6.6+166
 #
 
 environment:
-  sdk: 3.9.0
+  sdk: 3.9.2
 
 dependencies:
   flutter:
@@ -75,6 +75,7 @@ flutter:
     - assets/audio/
     - assets/fonts/
     - assets/icons/
+    - assets/ompl/
     - assets/translations/
   fonts:
     - family: Nunito

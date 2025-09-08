@@ -27,13 +27,13 @@ class FeedSearchModel {
   });
 
   factory FeedSearchModel.fromMap(Map<String, dynamic> map) => FeedSearchModel(
-        description: map['description'] != null ? map['description'] as String : null,
-        favicon: map['favicon'] != null ? map['favicon'] as String : null,
-        siteName: map['site_name'] != null ? map['site_name'] as String : null,
-        siteUrl: map['site_url'] != null ? map['site_url'] as String : null,
-        title: map['title'] != null ? map['title'] as String : null,
-        url: map['url'] != null ? map['url'] as String : null,
-      );
+    description: map['description'] != null ? map['description'] as String : null,
+    favicon: map['favicon'] != null ? map['favicon'] as String : null,
+    siteName: map['site_name'] != null ? map['site_name'] as String : null,
+    siteUrl: map['site_url'] != null ? map['site_url'] as String : null,
+    title: map['title'] != null ? map['title'] as String : null,
+    url: map['url'] != null ? map['url'] as String : null,
+  );
 
   @override
   String toString() => 'FeedSearch(description: $description, favicon: $favicon, siteName: $siteName, siteUrl: $siteUrl, title: $title, url: $url)';
