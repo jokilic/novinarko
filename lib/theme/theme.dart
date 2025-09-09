@@ -223,6 +223,9 @@ NovinarkoTextThemesExtension getTextThemesExtension({
   searchUrl: NovinarkoTextStyles.searchUrl.copyWith(
     color: colorsExtension.text,
   ),
+  searchSampleTitle: NovinarkoTextStyles.searchSampleTitle.copyWith(
+    color: colorsExtension.text,
+  ),
   iconTextTitle: NovinarkoTextStyles.iconTextTitle.copyWith(
     color: colorsExtension.text,
   ),

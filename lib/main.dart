@@ -6,6 +6,8 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
 import 'screens/news/news_screen.dart';
+import 'screens/search/search_screen.dart';
+import 'services/hive_service.dart';
 import 'services/theme_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
@@ -63,13 +65,14 @@ class NovinarkoWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final theme = watchIt<ThemeService>().value;
+    final feeds = watchIt<HiveService>().value.toList();
 
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-      home: NewsScreen(),
+      home: feeds.isNotEmpty ? NewsScreen() : SearchScreen(),
       onGenerateTitle: (_) => 'appName'.tr(),
       theme: theme ?? NovinarkoTheme.green,
       darkTheme: theme ?? NovinarkoTheme.green,

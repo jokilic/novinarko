@@ -1,3 +1,5 @@
+import 'models/feed_search_model.dart';
+import 'models/sample_feed_model.dart';
 import 'util/env.dart';
 
 class NovinarkoConstants {
@@ -45,6 +47,22 @@ class NovinarkoIcons {
   static const browserBack = 'assets/icons/browser_back.png';
   static const share = 'assets/icons/share.png';
   static const refresh = 'assets/icons/refresh.png';
+  static const rss = 'assets/icons/rss.png';
   static const icon = 'assets/icon.png';
   static const splashIcon = 'assets/splash_icon.png';
+}
+
+class NovinarkoSampleFeeds {
+  static final android = SampleFeedModel(
+    name: 'Android',
+    icon: NovinarkoIcons.news,
+    feeds: [
+      FeedSearchModel(
+        description: 'Android news',
+        siteName: 'Something',
+        title: 'Hello',
+        url: 'aaa',
+      ),
+    ],
+  );
 }

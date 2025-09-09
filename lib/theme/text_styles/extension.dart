@@ -12,6 +12,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
   final TextStyle searchTitle;
   final TextStyle searchDescription;
   final TextStyle searchUrl;
+  final TextStyle searchSampleTitle;
   final TextStyle iconTextTitle;
   final TextStyle iconTextSubtitle;
   final TextStyle twoLettersAppBar;
@@ -42,6 +43,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     required this.searchTitle,
     required this.searchDescription,
     required this.searchUrl,
+    required this.searchSampleTitle,
     required this.iconTextTitle,
     required this.iconTextSubtitle,
     required this.twoLettersAppBar,
@@ -75,6 +77,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     TextStyle? searchTitle,
     TextStyle? searchDescription,
     TextStyle? searchUrl,
+    TextStyle? searchSampleTitle,
     TextStyle? iconTextTitle,
     TextStyle? iconTextSubtitle,
     TextStyle? twoLettersAppBar,
@@ -104,6 +107,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
     searchTitle: searchTitle ?? this.searchTitle,
     searchDescription: searchDescription ?? this.searchDescription,
     searchUrl: searchUrl ?? this.searchUrl,
+    searchSampleTitle: searchSampleTitle ?? this.searchSampleTitle,
     iconTextTitle: iconTextTitle ?? this.iconTextTitle,
     iconTextSubtitle: iconTextSubtitle ?? this.iconTextSubtitle,
     twoLettersAppBar: twoLettersAppBar ?? this.twoLettersAppBar,
@@ -144,6 +148,7 @@ class NovinarkoTextThemesExtension extends ThemeExtension<NovinarkoTextThemesExt
       searchTitle: TextStyle.lerp(searchTitle, other.searchTitle, t)!,
       searchDescription: TextStyle.lerp(searchDescription, other.searchDescription, t)!,
       searchUrl: TextStyle.lerp(searchUrl, other.searchUrl, t)!,
+      searchSampleTitle: TextStyle.lerp(searchSampleTitle, other.searchSampleTitle, t)!,
       iconTextTitle: TextStyle.lerp(iconTextTitle, other.iconTextTitle, t)!,
       iconTextSubtitle: TextStyle.lerp(iconTextSubtitle, other.iconTextSubtitle, t)!,
       twoLettersAppBar: TextStyle.lerp(twoLettersAppBar, other.twoLettersAppBar, t)!,

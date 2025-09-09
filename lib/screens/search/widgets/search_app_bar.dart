@@ -16,6 +16,12 @@ import '../search_controller.dart';
 import 'search_custom_dialog.dart';
 
 class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
+  final bool hasFeeds;
+
+  const SearchAppBar({
+    required this.hasFeeds,
+  });
+
   /// Triggers search or shows [SnackBar], depending on `feedsLength`
   void searchOrShowSnackbar(
     BuildContext context, {
@@ -80,7 +86,6 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
-
       automaticallyImplyLeading: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -96,8 +101,14 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SearchAppBarBack(
-                onPressed: Navigator.of(context).pop,
+              IgnorePointer(
+                ignoring: !hasFeeds,
+                child: Opacity(
+                  opacity: hasFeeds ? 1 : 0.3,
+                  child: SearchAppBarBack(
+                    onPressed: Navigator.of(context).pop,
+                  ),
+                ),
               ),
               const SizedBox(width: 40),
               Expanded(

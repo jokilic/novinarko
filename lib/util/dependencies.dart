@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
+import '../constants.dart';
 import '../screens/news/controllers/news_controller.dart';
 import '../screens/news/controllers/news_read_controller.dart';
 import '../screens/news/controllers/news_read_loader_controller.dart';
@@ -15,7 +16,6 @@ import '../services/hive_service.dart';
 import '../services/logger_service.dart';
 import '../services/settings_service.dart';
 import '../services/theme_service.dart';
-import 'parsing.dart';
 
 final getIt = GetIt.instance;
 
@@ -78,7 +78,9 @@ void initializeControllers() {
         api: getIt.get<APIService>(),
         hive: getIt.get<HiveService>(),
         activeFeedService: getIt.get<ActiveFeedService>(),
-        omplFeeds: await loadAllOpmlFeeds(),
+        sampleModels: [
+          NovinarkoSampleFeeds.android,
+        ],
       ),
       dependsOn: [LoggerService, APIService, HiveService, ActiveFeedService],
     )

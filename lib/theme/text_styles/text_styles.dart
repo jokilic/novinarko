@@ -76,6 +76,13 @@ abstract class NovinarkoTextStyles {
     height: 1.4,
   );
 
+  static const searchSampleTitle = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Merriweather',
+    height: 1.4,
+  );
+
   static const iconTextTitle = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w700,

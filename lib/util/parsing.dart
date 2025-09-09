@@ -1,47 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:xml/xml.dart';
 
 import '../models/feed_search_model.dart';
-
-// TODO: Doesn't find any `opmlAssets`
-Future<List<FeedSearchModel>> loadAllOpmlFeeds() async {
-  final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
-  final opmlAssets = manifest.listAssets().where(
-    (p) => p.startsWith('assets/opml/') && (p.endsWith('.opml') || p.endsWith('.xml')),
-  );
-
-  final models = <FeedSearchModel>[];
-
-  for (final path in opmlAssets) {
-    final xmlString = await rootBundle.loadString(path);
-    models.addAll(parseOpml(xmlString));
-  }
-
-  return models;
-}
-
-List<FeedSearchModel> parseOpml(String xmlString) {
-  final doc = XmlDocument.parse(xmlString);
-
-  return doc.findAllElements('outline').map((node) {
-    final xmlUrl = node.getAttribute('xmlUrl');
-    final title = node.getAttribute('title') ?? node.getAttribute('text');
-    final host = xmlUrl != null ? Uri.tryParse(xmlUrl)?.host : null;
-
-    return FeedSearchModel(
-      title: title,
-      description: node.getAttribute('description'),
-      url: xmlUrl,
-      siteName: title,
-      siteUrl: host,
-      favicon: host != null ? 'https://www.google.com/s2/favicons?domain=$host' : null,
-    );
-  }).toList();
-}
 
 String? parseImageSourceHtml(String? htmlContent) {
   try {

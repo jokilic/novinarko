@@ -75,7 +75,6 @@ flutter:
     - assets/audio/
     - assets/fonts/
     - assets/icons/
-    - assets/ompl/
     - assets/translations/
   fonts:
     - family: Nunito
