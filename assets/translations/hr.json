@@ -52,5 +52,18 @@
     "settingsAdBlockerTitle": "Ukloni reklame",
     "settingsAdBlockerDescription": "Ukloni reklame tijekom čitanja članaka koristeći preglednik unutar aplikacije",
     "settingsShimmerLoaderTitle": "Svjetleće učitavanje",
-    "settingsShimmerLoaderDescription": "Koristi svjetleće učitavanje članaka i izvora"
+    "settingsShimmerLoaderDescription": "Koristi svjetleće učitavanje članaka i izvora",
+    "searchSampleAndroid": "Android",
+    "searchSampleApple": "Apple",
+    "searchSampleBusiness": "Posao & ekonomija",
+    "searchSampleCars": "Automobili",
+    "searchSampleFashion": "Moda",
+    "searchSampleFood": "Hrana",
+    "searchSampleGaming": "Gaming",
+    "searchSampleHistory": "Povijest",
+    "searchSampleMovies": "Filmovi",
+    "searchSampleMusic": "Glazba",
+    "searchSampleNews": "Vijesti",
+    "searchSampleProgramming": "Programiranje",
+    "searchSampleSports": "Šport"
 }

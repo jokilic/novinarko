@@ -52,5 +52,18 @@
     "settingsAdBlockerTitle": "Block ads",
     "settingsAdBlockerDescription": "Block ads when reading articles using in-app broswer",
     "settingsShimmerLoaderTitle": "Shimmer loader",
-    "settingsShimmerLoaderDescription": "Use shimmer when loading articles & feeds"
+    "settingsShimmerLoaderDescription": "Use shimmer when loading articles & feeds",
+    "searchSampleAndroid": "Android",
+    "searchSampleApple": "Apple",
+    "searchSampleBusiness": "Business & Economy",
+    "searchSampleCars": "Cars",
+    "searchSampleFashion": "Fashion",
+    "searchSampleFood": "Food",
+    "searchSampleGaming": "Gaming",
+    "searchSampleHistory": "History",
+    "searchSampleMovies": "Movies",
+    "searchSampleMusic": "Music",
+    "searchSampleNews": "News",
+    "searchSampleProgramming": "Programming",
+    "searchSampleSports": "Sports"
 }

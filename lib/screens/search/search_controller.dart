@@ -8,7 +8,6 @@ import '../../constants.dart';
 import '../../models/error_model.dart';
 import '../../models/feed_search_model.dart';
 import '../../models/google_search_model.dart';
-import '../../models/sample_feed_model.dart';
 import '../../services/active_feed_service.dart';
 import '../../services/api_service.dart';
 import '../../services/hive_service.dart';
@@ -21,19 +20,13 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
   final APIService api;
   final HiveService hive;
   final ActiveFeedService activeFeedService;
-  final List<SampleFeedModel> sampleModels;
 
   SearchController({
     required this.logger,
     required this.api,
     required this.hive,
     required this.activeFeedService,
-    required this.sampleModels,
-  }) : super(SearchStateLoading()) {
-    value = SearchStateInitial(
-      sampleModels: sampleModels,
-    );
-  }
+  }) : super(SearchStateInitial());
 
   ///
   /// VARIABLES

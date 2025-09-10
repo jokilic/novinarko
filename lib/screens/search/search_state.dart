@@ -1,16 +1,9 @@
 import '../../models/error_model.dart';
 import '../../models/feed_search_model.dart';
-import '../../models/sample_feed_model.dart';
 
 sealed class SearchState {}
 
-class SearchStateInitial extends SearchState {
-  final List<SampleFeedModel> sampleModels;
-
-  SearchStateInitial({
-    required this.sampleModels,
-  });
-}
+class SearchStateInitial extends SearchState {}
 
 class SearchStateLoading extends SearchState {
   final String? loadingStatus;

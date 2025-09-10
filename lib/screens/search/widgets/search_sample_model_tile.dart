@@ -85,8 +85,8 @@ class _SearchSampleModelTileState extends State<SearchSampleModelTile> {
         widget.model.icon,
         fit: BoxFit.cover,
         color: context.colors.text,
-        height: 20,
-        width: 20,
+        height: 24,
+        width: 24,
       ),
     ),
     title: Text(

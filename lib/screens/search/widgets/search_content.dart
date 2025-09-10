@@ -26,7 +26,6 @@ class SearchContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) => switch (searchState) {
     SearchStateInitial() => SearchInitial(
-      sampleModels: (searchState as SearchStateInitial).sampleModels,
       hiveFeeds: hiveFeeds,
       fontFamily: fontFamily,
     ),

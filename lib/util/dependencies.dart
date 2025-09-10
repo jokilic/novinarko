@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
-import '../constants.dart';
 import '../screens/news/controllers/news_controller.dart';
 import '../screens/news/controllers/news_read_controller.dart';
 import '../screens/news/controllers/news_read_loader_controller.dart';
@@ -78,9 +77,6 @@ void initializeControllers() {
         api: getIt.get<APIService>(),
         hive: getIt.get<HiveService>(),
         activeFeedService: getIt.get<ActiveFeedService>(),
-        sampleModels: [
-          NovinarkoSampleFeeds.android,
-        ],
       ),
       dependsOn: [LoggerService, APIService, HiveService, ActiveFeedService],
     )
