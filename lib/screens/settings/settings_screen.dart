@@ -1,3 +1,4 @@
+import 'package:dough/dough.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -173,21 +174,23 @@ class SettingsScreen extends WatchingWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onLongPress: playWelcomeToNovinarko,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: context.colors.text,
-                        width: 2,
+                PressableDough(
+                  child: GestureDetector(
+                    onLongPress: playWelcomeToNovinarko,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: context.colors.text,
+                          width: 2,
+                        ),
                       ),
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        NovinarkoIcons.splashIcon,
-                        height: 48,
-                        width: 48,
+                      child: ClipOval(
+                        child: Image.asset(
+                          NovinarkoIcons.splashIcon,
+                          height: 48,
+                          width: 48,
+                        ),
                       ),
                     ),
                   ),
