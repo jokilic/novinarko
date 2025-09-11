@@ -1,0 +1,2 @@
+-keep class com.ryanheise.just_audio.** { *; }
+-keep class androidx.media3.** { *; }
