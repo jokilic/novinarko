@@ -9,3 +9,4 @@
 * Fix status bar colors
 * Remove unnecessary error logging
 * Add sample feeds in SearchScreen
+* Add Contact me section in SettingsScreen
