@@ -16,11 +16,9 @@ class DioService {
   final LoggerService logger;
 
   DioService(this.logger)
-
   ///
   /// INIT
   ///
-
   {
     dio = Dio(
       BaseOptions(

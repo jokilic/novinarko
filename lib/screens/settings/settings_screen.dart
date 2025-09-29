@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dough/dough.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -166,6 +168,30 @@ class SettingsScreen extends WatchingWidget {
               description: 'settingsShimmerLoaderDescription'.tr(),
               rightWidget: NovinarkoCheckbox(
                 value: settings.useShimmerLoader,
+              ),
+            ),
+
+            /// Divider
+            NovinarkoDivider(),
+
+            /// Contact me
+            SettingsListTile(
+              fontFamily: settings.fontFamily,
+              onPressed: getIt.get<SettingsService>().contactMePressed,
+              title: 'settingsContactMeTitle'.tr(),
+              description: 'settingsContactMeDescription'.tr(),
+              rightWidget: Padding(
+                padding: const EdgeInsets.only(right: 12),
+                child: Transform.rotate(
+                  angle: pi,
+                  child: Image.asset(
+                    NovinarkoIcons.back,
+                    fit: BoxFit.cover,
+                    color: context.colors.text,
+                    height: 24,
+                    width: 24,
+                  ),
+                ),
               ),
             ),
 

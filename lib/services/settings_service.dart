@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/novinarko_settings.dart';
 import 'hive_service.dart';
@@ -67,4 +68,12 @@ class SettingsService extends ValueNotifier<NovinarkoSettings> {
 
     return newValue;
   }
+
+  void contactMePressed() => launchUrl(
+    Uri(
+      scheme: 'mailto',
+      path: 'neksuses@gmail.com',
+      query: 'subject=${'Regarding Novinarko...'}',
+    ),
+  );
 }
