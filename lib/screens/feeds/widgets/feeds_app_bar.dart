@@ -1,73 +1,59 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
 import '../../../routing.dart';
-import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 
 class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
-  Widget build(BuildContext context) {
-    final theme = watchIt<ThemeService>().value;
-    final isDark = theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green;
-
-    return AppBar(
-      elevation: 0,
-      scrolledUnderElevation: 0,
-      backgroundColor: Colors.transparent,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: isDark ? Brightness.dark : Brightness.light,
-        statusBarBrightness: isDark ? Brightness.light : Brightness.dark,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: isDark ? Brightness.dark : Brightness.light,
+  Widget build(BuildContext context) => AppBar(
+    elevation: 0,
+    scrolledUnderElevation: 0,
+    backgroundColor: Colors.transparent,
+    automaticallyImplyLeading: false,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        bottom: Radius.circular(16),
       ),
-      automaticallyImplyLeading: false,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(16),
+    ),
+    bottom: PreferredSize(
+      preferredSize: Size.infinite,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            FeedsAppBarBack(
+              onPressed: Navigator.of(context).pop,
+            ),
+            const Spacer(),
+            FeedsAppBarSettings(
+              onPressed: () => openSettings(context),
+            ),
+          ],
         ),
       ),
-      bottom: PreferredSize(
-        preferredSize: Size.infinite,
+    ),
+    flexibleSpace: ClipRRect(
+      borderRadius: const BorderRadius.vertical(
+        bottom: Radius.circular(16),
+      ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 16,
+          sigmaY: 16,
+        ),
         child: Container(
-          margin: const EdgeInsets.only(bottom: 20),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              FeedsAppBarBack(
-                onPressed: Navigator.of(context).pop,
-              ),
-              const Spacer(),
-              FeedsAppBarSettings(
-                onPressed: () => openSettings(context),
-              ),
-            ],
-          ),
+          color: Colors.transparent,
         ),
       ),
-      flexibleSpace: ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-          bottom: Radius.circular(16),
-        ),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 16,
-            sigmaY: 16,
-          ),
-          child: Container(
-            color: Colors.transparent,
-          ),
-        ),
-      ),
-    );
-  }
+    ),
+  );
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 32);
