@@ -15,7 +15,4 @@ abstract class Env {
 
   @EnviedField(varName: 'PROGRAMMABLE_SEARCH_ENGINE_ID', obfuscate: true)
   static final String programmableSearchEngineId = _Env.programmableSearchEngineId;
-
-  @EnviedField(varName: 'SENTRY_DSN', obfuscate: true)
-  static final String sentryDsn = _Env.sentryDsn;
 }

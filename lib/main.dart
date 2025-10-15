@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:watch_it/watch_it.dart';
 
 import 'screens/news/news_screen.dart';
@@ -11,7 +10,6 @@ import 'services/hive_service.dart';
 import 'services/theme_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
-import 'util/env.dart';
 import 'widgets/novinarko_loader.dart';
 
 /// Feed limit to be used in the app
@@ -39,12 +37,7 @@ Future<void> main() async {
   await getIt.allReady();
 
   /// Init [Sentry] & run [Novinarko]
-  await SentryFlutter.init(
-    (options) => options
-      ..dsn = kDebugMode || kIsWeb ? '' : Env.sentryDsn
-      ..debug = kDebugMode,
-    appRunner: () => runApp(NovinarkoApp()),
-  );
+  runApp(NovinarkoApp());
 }
 
 class NovinarkoApp extends StatelessWidget {
