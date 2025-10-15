@@ -10,6 +10,7 @@ import 'services/hive_service.dart';
 import 'services/theme_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
+import 'util/display_mode.dart';
 import 'widgets/novinarko_loader.dart';
 
 /// Feed limit to be used in the app
@@ -35,6 +36,12 @@ Future<void> main() async {
 
   /// Wait for initialization to finish
   await getIt.allReady();
+
+  /// Use `edge-to-edge` display
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
+  /// Set refresh rate to high
+  await setDisplayMode();
 
   /// Init [Sentry] & run [Novinarko]
   runApp(NovinarkoApp());
