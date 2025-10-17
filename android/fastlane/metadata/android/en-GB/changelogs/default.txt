@@ -10,3 +10,7 @@
 * Remove unnecessary error logging
 * Add sample feeds in SearchScreen
 * Add Contact me section in SettingsScreen
+* Remove error logging
+* High refresh rate
+* Refresh icons and splash screen
+* Update status bar and navigation bar colors
