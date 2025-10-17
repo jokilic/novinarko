@@ -5,37 +5,37 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000249">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000765">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: puro flutter clean" time="7.967349">
+      <testcase classname="fastlane.lanes" name="1: puro flutter clean" time="7.926896">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: puro flutter pub get" time="3.500082">
+      <testcase classname="fastlane.lanes" name="2: puro flutter pub get" time="3.353151">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: puro flutter build ipa" time="120.739142">
+      <testcase classname="fastlane.lanes" name="3: puro flutter build ipa" time="109.246574">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: app_store_connect_api_key" time="0.004432">
+      <testcase classname="fastlane.lanes" name="4: app_store_connect_api_key" time="0.003757">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: deliver" time="246.80158">
+      <testcase classname="fastlane.lanes" name="5: deliver" time="301.378918">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: notification" time="0.332514">
+      <testcase classname="fastlane.lanes" name="6: notification" time="0.329714">
         
       </testcase>
     
