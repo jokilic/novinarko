@@ -16,7 +16,7 @@ class NovinarkoSettings {
   final bool useAdBlocker;
   @HiveField(4)
   final bool useShimmerLoader;
-  @HiveField(5)
+  @HiveField(5, defaultValue: 'Merriweather')
   final String fontFamily;
 
   NovinarkoSettings({

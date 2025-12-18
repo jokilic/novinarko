@@ -22,7 +22,7 @@ class NovinarkoSettingsAdapter extends TypeAdapter<NovinarkoSettings> {
       useImagesInArticles: fields[2] as bool,
       useAdBlocker: fields[3] as bool,
       useShimmerLoader: fields[4] as bool,
-      fontFamily: fields[5] as String,
+      fontFamily: fields[5] == null ? 'Merriweather' : fields[5] as String,
     );
   }
 
