@@ -18,18 +18,19 @@ class NovinarkoSettingsAdapter extends TypeAdapter<NovinarkoSettings> {
     };
     return NovinarkoSettings(
       novinarkoThemeEnum: fields[0] as NovinarkoThemeEnum?,
-      useInAppBrowser: fields[1] as bool,
-      useImagesInArticles: fields[2] as bool,
-      useAdBlocker: fields[3] as bool,
-      useShimmerLoader: fields[4] as bool,
+      useInAppBrowser: fields[1] == null ? true : fields[1] as bool,
+      useImagesInArticles: fields[2] == null ? true : fields[2] as bool,
+      useAdBlocker: fields[3] == null ? false : fields[3] as bool,
+      useShimmerLoader: fields[4] == null ? true : fields[4] as bool,
       fontFamily: fields[5] == null ? 'Merriweather' : fields[5] as String,
+      showSnowflakes: fields[6] == null ? false : fields[6] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, NovinarkoSettings obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.novinarkoThemeEnum)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class NovinarkoSettingsAdapter extends TypeAdapter<NovinarkoSettings> {
       ..writeByte(4)
       ..write(obj.useShimmerLoader)
       ..writeByte(5)
-      ..write(obj.fontFamily);
+      ..write(obj.fontFamily)
+      ..writeByte(6)
+      ..write(obj.showSnowflakes);
   }
 
   @override

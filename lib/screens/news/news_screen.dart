@@ -7,7 +7,9 @@ import 'package:watch_it/watch_it.dart';
 import '../../constants.dart';
 import '../../routing.dart';
 import '../../services/settings_service.dart';
+import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
+import '../../util/snowflake/snowflake_widget.dart';
 import 'controllers/news_controller.dart';
 import 'controllers/news_read_controller.dart';
 import 'controllers/news_read_loader_controller.dart';
@@ -54,61 +56,77 @@ class NewsWidget extends WatchingWidget {
     final readItems = watchIt<NewsReadController>().value;
     final loaderValue = watchIt<NewsReadLoaderController>().value;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: NewsAppBar(),
-      floatingActionButton: settings.useInAppBrowser
-          ? Visibility(
-              visible: readItems.isNotEmpty,
-              maintainAnimation: true,
-              maintainState: true,
-              child: Animate(
-                autoPlay: false,
-                onInit: (controller) => getIt.get<NewsReadController>().shakeFabController = controller,
-                effects: const [
-                  ShakeEffect(
-                    curve: Curves.easeIn,
-                    duration: NovinarkoConstants.animationDuration,
-                  ),
-                ],
-                child: IgnorePointer(
-                  ignoring: readItems.isEmpty,
-                  child: AnimatedOpacity(
-                    opacity: readItems.isNotEmpty ? 1 : 0,
-                    duration: NovinarkoConstants.animationDuration,
-                    curve: Curves.easeIn,
-                    child: PressableDough(
-                      child: NewsReadButton(
-                        onPressed: () => openRead(
-                          context,
-                          items: readItems,
+    return Stack(
+      children: [
+        ///
+        /// CONTENT
+        ///
+        Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: NewsAppBar(),
+          floatingActionButton: settings.useInAppBrowser
+              ? Visibility(
+                  visible: readItems.isNotEmpty,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: Animate(
+                    autoPlay: false,
+                    onInit: (controller) => getIt.get<NewsReadController>().shakeFabController = controller,
+                    effects: const [
+                      ShakeEffect(
+                        curve: Curves.easeIn,
+                        duration: NovinarkoConstants.animationDuration,
+                      ),
+                    ],
+                    child: IgnorePointer(
+                      ignoring: readItems.isEmpty,
+                      child: AnimatedOpacity(
+                        opacity: readItems.isNotEmpty ? 1 : 0,
+                        duration: NovinarkoConstants.animationDuration,
+                        curve: Curves.easeIn,
+                        child: PressableDough(
+                          child: NewsReadButton(
+                            onPressed: () => openRead(
+                              context,
+                              items: readItems,
+                            ),
+                            readNumber: readItems.length,
+                            loaderValue: loaderValue,
+                          ),
                         ),
-                        readNumber: readItems.length,
-                        loaderValue: loaderValue,
                       ),
                     ),
                   ),
-                ),
+                )
+              : null,
+          body: Animate(
+            key: ValueKey(newsState),
+            effects: const [
+              FadeEffect(
+                curve: Curves.easeIn,
+                duration: NovinarkoConstants.animationDuration,
               ),
-            )
-          : null,
-      body: Animate(
-        key: ValueKey(newsState),
-        effects: const [
-          FadeEffect(
-            curve: Curves.easeIn,
-            duration: NovinarkoConstants.animationDuration,
+            ],
+            child: NewsContent(
+              newsState: newsState,
+              readItems: readItems,
+              showImages: settings.useImagesInArticles,
+              inAppBrowser: settings.useInAppBrowser,
+              shimmerLoader: settings.useShimmerLoader,
+              fontFamily: settings.fontFamily,
+            ),
           ),
-        ],
-        child: NewsContent(
-          newsState: newsState,
-          readItems: readItems,
-          showImages: settings.useImagesInArticles,
-          inAppBrowser: settings.useInAppBrowser,
-          shimmerLoader: settings.useShimmerLoader,
-          fontFamily: settings.fontFamily,
         ),
-      ),
+
+        ///
+        /// SNOWFLAKES
+        ///
+        if (settings.showSnowflakes)
+          SnowflakeWidget(
+            color: context.colors.text.withValues(alpha: 0.6),
+            numberOfSnowflakes: 50,
+          ),
+      ],
     );
   }
 }

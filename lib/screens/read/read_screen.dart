@@ -9,7 +9,9 @@ import 'package:watch_it/watch_it.dart';
 import '../../constants.dart';
 import '../../models/novinarko_rss_item.dart';
 import '../../services/settings_service.dart';
+import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
+import '../../util/snowflake/snowflake_widget.dart';
 import '../news/controllers/news_read_controller.dart';
 import 'controllers/read_controller.dart';
 import 'controllers/read_loader_controller.dart';
@@ -87,131 +89,147 @@ class ReadWidget extends WatchingWidget {
   Widget build(BuildContext context) {
     final webButtons = watchIt<WebButtonsController>().value;
     final loaderValue = watchIt<ReadLoaderController>().value;
-    final fontFamily = watchIt<SettingsService>().value.fontFamily;
+    final settings = watchIt<SettingsService>().value;
 
     return WillPopScope(
       onWillPop: () => popScreen(context),
-      child: Scaffold(
-        body: SafeArea(
-          bottom: false,
-          child: Stack(
-            children: [
-              Column(
+      child: Stack(
+        children: [
+          ///
+          /// CONTENT
+          ///
+          Scaffold(
+            body: SafeArea(
+              bottom: false,
+              child: Stack(
                 children: [
-                  ///
-                  /// CONTENT
-                  ///
-                  Expanded(
-                    child: PreloadPageView.builder(
-                      controller: getIt.get<ReadController>().pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: items.length,
-                      itemBuilder: (_, index) {
-                        final item = items[index];
+                  Column(
+                    children: [
+                      ///
+                      /// CONTENT
+                      ///
+                      Expanded(
+                        child: PreloadPageView.builder(
+                          controller: getIt.get<ReadController>().pageController,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: items.length,
+                          itemBuilder: (_, index) {
+                            final item = items[index];
 
-                        return ReadItem(
-                          initialUrl: item.link ?? item.guid,
-                          headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
-                          onWebViewCreated: (controller) {
-                            getIt.get<ReadController>().initializeWebViewController(
-                              index: index,
-                              controller: controller,
-                              item: item,
+                            return ReadItem(
+                              initialUrl: item.link ?? item.guid,
+                              headlessWebView: index == 0 ? getIt.get<NewsReadController>().headlessWebView : null,
+                              onWebViewCreated: (controller) {
+                                getIt.get<ReadController>().initializeWebViewController(
+                                  index: index,
+                                  controller: controller,
+                                  item: item,
+                                );
+                                getIt.get<ReadLoaderController>().setLoader = 0;
+                              },
+                              updateUri: (_) => getIt.get<ReadController>().updateActiveUri(),
+                              onProgressChanged: (progress) => getIt.get<ReadLoaderController>().setLoader = progress / 100,
+                              onConsoleMessage: (_) {},
+                              fontFamily: settings.fontFamily,
                             );
-                            getIt.get<ReadLoaderController>().setLoader = 0;
                           },
-                          updateUri: (_) => getIt.get<ReadController>().updateActiveUri(),
-                          onProgressChanged: (progress) => getIt.get<ReadLoaderController>().setLoader = progress / 100,
-                          onConsoleMessage: (_) {},
-                          fontFamily: fontFamily,
-                        );
-                      },
+                        ),
+                      ),
+
+                      ///
+                      /// BOTTOM MENU BAR
+                      ///
+                      ReadBottomBar(
+                        progress: loaderValue,
+                        controller: getIt.get<ReadController>().addressBarController,
+                        focusNode: getIt.get<ReadController>().addressBarFocusNode,
+                        onAddressBarPressed: getIt.get<ReadController>().onAddressBarPressed,
+                        onAddressBarSubmitted: getIt.get<ReadController>().loadUrl,
+                        onBackPressed: getIt.get<ReadController>().goBack,
+                        onForwardPressed: getIt.get<ReadController>().goForward,
+                        onSharePressed: getIt.get<ReadController>().share,
+                        onRefreshPressed: getIt.get<ReadController>().refresh,
+                      ),
+                    ],
+                  ),
+
+                  ///
+                  /// CLOSE
+                  ///
+                  Positioned(
+                    right: 12,
+                    top: 16,
+                    child: PressableDough(
+                      child: ReadCloseButton(
+                        onPressed: () => popScreen(context),
+                      ),
                     ),
                   ),
 
                   ///
-                  /// BOTTOM MENU BAR
+                  /// ARTICLE BUTTONS
                   ///
-                  ReadBottomBar(
-                    progress: loaderValue,
-                    controller: getIt.get<ReadController>().addressBarController,
-                    focusNode: getIt.get<ReadController>().addressBarFocusNode,
-                    onAddressBarPressed: getIt.get<ReadController>().onAddressBarPressed,
-                    onAddressBarSubmitted: getIt.get<ReadController>().loadUrl,
-                    onBackPressed: getIt.get<ReadController>().goBack,
-                    onForwardPressed: getIt.get<ReadController>().goForward,
-                    onSharePressed: getIt.get<ReadController>().share,
-                    onRefreshPressed: getIt.get<ReadController>().refresh,
-                  ),
-                ],
-              ),
-
-              ///
-              /// CLOSE
-              ///
-              Positioned(
-                right: 12,
-                top: 16,
-                child: PressableDough(
-                  child: ReadCloseButton(
-                    onPressed: () => popScreen(context),
-                  ),
-                ),
-              ),
-
-              ///
-              /// ARTICLE BUTTONS
-              ///
-              Positioned(
-                bottom: defaultTargetPlatform == TargetPlatform.iOS ? 88 : 72,
-                right: 12,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ///
-                    /// PREVIOUS
-                    ///
-                    Padding(
-                      padding: const EdgeInsets.only(left: 32),
-                      child: IgnorePointer(
-                        ignoring: !webButtons.showPrevious,
-                        child: AnimatedOpacity(
-                          opacity: webButtons.showPrevious ? 1 : 0,
-                          duration: NovinarkoConstants.animationDuration,
-                          curve: Curves.easeIn,
-                          child: PressableDough(
-                            child: ReadPreviousButton(
-                              onPressed: getIt.get<ReadController>().openPreviousArticle,
+                  Positioned(
+                    bottom: defaultTargetPlatform == TargetPlatform.iOS ? 88 : 72,
+                    right: 12,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ///
+                        /// PREVIOUS
+                        ///
+                        Padding(
+                          padding: const EdgeInsets.only(left: 32),
+                          child: IgnorePointer(
+                            ignoring: !webButtons.showPrevious,
+                            child: AnimatedOpacity(
+                              opacity: webButtons.showPrevious ? 1 : 0,
+                              duration: NovinarkoConstants.animationDuration,
+                              curve: Curves.easeIn,
+                              child: PressableDough(
+                                child: ReadPreviousButton(
+                                  onPressed: getIt.get<ReadController>().openPreviousArticle,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
 
-                    const SizedBox(width: 16),
+                        const SizedBox(width: 16),
 
-                    ///
-                    /// NEXT
-                    ///
-                    IgnorePointer(
-                      ignoring: !webButtons.showNext,
-                      child: AnimatedOpacity(
-                        opacity: webButtons.showNext ? 1 : 0,
-                        duration: NovinarkoConstants.animationDuration,
-                        curve: Curves.easeIn,
-                        child: PressableDough(
-                          child: ReadNextButton(
-                            onPressed: getIt.get<ReadController>().openNextArticle,
+                        ///
+                        /// NEXT
+                        ///
+                        IgnorePointer(
+                          ignoring: !webButtons.showNext,
+                          child: AnimatedOpacity(
+                            opacity: webButtons.showNext ? 1 : 0,
+                            duration: NovinarkoConstants.animationDuration,
+                            curve: Curves.easeIn,
+                            child: PressableDough(
+                              child: ReadNextButton(
+                                onPressed: getIt.get<ReadController>().openNextArticle,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+
+          ///
+          /// SNOWFLAKES
+          ///
+          if (settings.showSnowflakes)
+            SnowflakeWidget(
+              color: context.colors.text.withValues(alpha: 0.6),
+              numberOfSnowflakes: 50,
+            ),
+        ],
       ),
     );
   }

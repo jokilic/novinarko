@@ -2,23 +2,15 @@
 // Do not modify
 // Check in to version control
 
-import 'package:hive_ce/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:novinarko/models/feed_search_model.dart';
 import 'package:novinarko/models/novinarko_settings.dart';
 import 'package:novinarko/models/novinarko_theme_enum.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
-    registerAdapter(FeedSearchModelAdapter());
-    registerAdapter(NovinarkoSettingsAdapter());
     registerAdapter(NovinarkoThemeEnumAdapter());
-  }
-}
-
-extension IsolatedHiveRegistrar on IsolatedHiveInterface {
-  void registerAdapters() {
-    registerAdapter(FeedSearchModelAdapter());
     registerAdapter(NovinarkoSettingsAdapter());
-    registerAdapter(NovinarkoThemeEnumAdapter());
+    registerAdapter(FeedSearchModelAdapter());
   }
 }

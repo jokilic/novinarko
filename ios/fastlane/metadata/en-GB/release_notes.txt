@@ -1,1 +1,3 @@
+* Snowflakes added
+* New theme
 * Update dependencies

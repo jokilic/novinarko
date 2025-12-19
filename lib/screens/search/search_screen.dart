@@ -6,6 +6,8 @@ import 'package:watch_it/watch_it.dart';
 import '../../constants.dart';
 import '../../services/hive_service.dart';
 import '../../services/settings_service.dart';
+import '../../theme/theme.dart';
+import '../../util/snowflake/snowflake_widget.dart';
 import 'search_controller.dart';
 import 'widgets/search_app_bar.dart';
 import 'widgets/search_content.dart';
@@ -45,26 +47,42 @@ class SearchWidget extends WatchingWidget {
     final settings = watchIt<SettingsService>().value;
     final hiveFeeds = watchIt<HiveService>().value;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: SearchAppBar(
-        hasFeeds: hiveFeeds.isNotEmpty,
-      ),
-      body: Animate(
-        key: ValueKey(searchState),
-        effects: const [
-          FadeEffect(
-            curve: Curves.easeIn,
-            duration: NovinarkoConstants.animationDuration,
+    return Stack(
+      children: [
+        ///
+        /// CONTENT
+        ///
+        Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: SearchAppBar(
+            hasFeeds: hiveFeeds.isNotEmpty,
           ),
-        ],
-        child: SearchContent(
-          searchState: searchState,
-          hiveFeeds: hiveFeeds,
-          shimmerLoader: settings.useShimmerLoader,
-          fontFamily: settings.fontFamily,
+          body: Animate(
+            key: ValueKey(searchState),
+            effects: const [
+              FadeEffect(
+                curve: Curves.easeIn,
+                duration: NovinarkoConstants.animationDuration,
+              ),
+            ],
+            child: SearchContent(
+              searchState: searchState,
+              hiveFeeds: hiveFeeds,
+              shimmerLoader: settings.useShimmerLoader,
+              fontFamily: settings.fontFamily,
+            ),
+          ),
         ),
-      ),
+
+        ///
+        /// SNOWFLAKES
+        ///
+        if (settings.showSnowflakes)
+          SnowflakeWidget(
+            color: context.colors.text.withValues(alpha: 0.6),
+            numberOfSnowflakes: 50,
+          ),
+      ],
     );
   }
 }

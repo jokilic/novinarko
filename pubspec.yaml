@@ -1,7 +1,7 @@
 name: novinarko
 description: News app made in Flutter
 publish_to: 'none'
-version: 1.7.7+177
+version: 1.8.0+180
 
 #
 # DEPLOYING APP
@@ -63,7 +63,7 @@ dev_dependencies:
   flutter_native_splash: 2.4.7
   hive_ce_generator: 1.11.0
 
-# Run code generation - `dart run build_runner build -d`
+# Run code generation - `flutter pub run build_runner build -d`
 
 flutter:
   uses-material-design: true

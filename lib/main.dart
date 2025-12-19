@@ -7,12 +7,10 @@ import 'package:watch_it/watch_it.dart';
 import 'screens/news/news_screen.dart';
 import 'screens/search/search_screen.dart';
 import 'services/hive_service.dart';
-import 'services/settings_service.dart';
 import 'services/theme_service.dart';
 import 'theme/theme.dart';
 import 'util/dependencies.dart';
 import 'util/display_mode.dart';
-import 'util/snowflake/snowflake_widget.dart';
 import 'widgets/novinarko_loader.dart';
 
 /// Feed limit to be used in the app
@@ -68,7 +66,6 @@ class NovinarkoWidget extends WatchingWidget {
   Widget build(BuildContext context) {
     final theme = watchIt<ThemeService>().value;
     final feeds = watchIt<HiveService>().value.toList();
-    final settings = watchIt<SettingsService>().value;
 
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
@@ -76,23 +73,7 @@ class NovinarkoWidget extends WatchingWidget {
       locale: context.locale,
       debugShowCheckedModeBanner: false,
       home: Builder(
-        builder: (context) => Stack(
-          children: [
-            ///
-            /// CONTENT
-            ///
-            if (feeds.isNotEmpty) NewsScreen() else SearchScreen(),
-
-            ///
-            /// SNOWFLAKES
-            ///
-            if (settings.showSnowflakes)
-              SnowflakeWidget(
-                color: context.colors.text.withValues(alpha: 0.6),
-                numberOfSnowflakes: 50,
-              ),
-          ],
-        ),
+        builder: (context) => feeds.isNotEmpty ? NewsScreen() : SearchScreen(),
       ),
       onGenerateTitle: (_) => 'appName'.tr(),
       theme: theme ?? NovinarkoTheme.green,

@@ -53,6 +53,8 @@
     "settingsAdBlockerDescription": "Block ads when reading articles using in-app broswer",
     "settingsShimmerLoaderTitle": "Shimmer loader",
     "settingsShimmerLoaderDescription": "Use shimmer when loading articles & feeds",
+    "settingsSnowflakesTitle": "Snowflakes",
+    "settingsSnowflakesDescription": "Snowflakes fall over your articles",
     "settingsContactMeTitle": "Contact me",
     "settingsContactMeDescription": "Send me an email regarding Novinarko",
     "searchSampleAndroid": "Android",
