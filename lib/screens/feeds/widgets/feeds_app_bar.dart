@@ -13,7 +13,7 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = watchIt<ThemeService>().value;
-    final isDark = theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green;
+    final isDark = theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green || theme == NovinarkoTheme.burgundy;
 
     return AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(

@@ -76,8 +76,8 @@ class NovinarkoWidget extends WatchingWidget {
         builder: (context) => feeds.isNotEmpty ? NewsScreen() : SearchScreen(),
       ),
       onGenerateTitle: (_) => 'appName'.tr(),
-      theme: theme ?? NovinarkoTheme.green,
-      darkTheme: theme ?? NovinarkoTheme.green,
+      theme: theme ?? NovinarkoTheme.burgundy,
+      darkTheme: theme ?? NovinarkoTheme.burgundy,
       builder: (context, child) => kDebugMode
           ? Banner(
               message: 'Debug'.toUpperCase(),

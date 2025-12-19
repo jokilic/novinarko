@@ -15,4 +15,7 @@ enum NovinarkoThemeEnum {
 
   @HiveField(3)
   green,
+
+  @HiveField(4)
+  burgundy,
 }
