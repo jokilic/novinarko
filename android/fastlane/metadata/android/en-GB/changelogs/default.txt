@@ -1,3 +1,4 @@
 * Snowflakes added
 * New theme
+* New icon & splash
 * Update dependencies

@@ -63,8 +63,6 @@ dev_dependencies:
   flutter_native_splash: 2.4.7
   hive_ce_generator: 1.11.0
 
-# Run code generation - `flutter pub run build_runner build -d`
-
 flutter:
   uses-material-design: true
   assets:
@@ -86,10 +84,10 @@ flutter:
         - asset: assets/fonts/Merriweather/Merriweather-Bold.ttf
           weight: 700
 
-# Run code generation - `dart run build_runner build -d`
+# Run code generation - `flutter pub run build_runner build -d`
 
 # Configuration for 'flutter_launcher_icons'
-# Run icon generation with 'dart run flutter_launcher_icons:main'
+# Run icon generation with 'flutter pub run flutter_launcher_icons:main'
 flutter_launcher_icons:
   image_path_android: 'assets/icon.png'
   image_path_ios: 'assets/icon.png'
@@ -101,14 +99,14 @@ flutter_launcher_icons:
   adaptive_icon_monochrome: "assets/monochrome.png"
   min_sdk_android: 21
   remove_alpha_ios: true
-  background_color_ios: '#748479'
+  background_color_ios: '#51355A'
   image_path_ios_dark_transparent: "assets/icon.png"
   image_path_ios_tinted_grayscale: "assets/icon_tinted.png"
   web:
     generate: true
     image_path: 'assets/icon.png'
-    background_color: '#748479'
-    theme_color: '#748479'
+    background_color: '#51355A'
+    theme_color: '#51355A'
   windows:
     generate: true
     image_path: 'assets/icon.png'
@@ -118,12 +116,12 @@ flutter_launcher_icons:
     image_path: 'assets/icon.png'
 
 # Configuration for 'flutter_native_splash'
-# Run splash screen generation with 'dart run flutter_native_splash:create'
+# Run splash screen generation with 'flutter pub run flutter_native_splash:create'
 flutter_native_splash:
   background_image: 'assets/splash.png'
   background_image_dark: 'assets/splash.png'
   android_12:
     image: 'assets/splash_icon.png'
-    color: '#748479'
+    color: '#51355A'
     image_dark: 'assets/splash_icon.png'
-    color_dark: '#748479'
+    color_dark: '#51355A'
