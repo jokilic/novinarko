@@ -69,6 +69,17 @@ class SettingsService extends ValueNotifier<NovinarkoSettings> {
     return newValue;
   }
 
+  Future<bool> showSnowflakesPressed() async {
+    final newValue = !value.showSnowflakes;
+
+    value = value.copyWith(
+      showSnowflakes: newValue,
+    );
+    await hive.storeSettings(value);
+
+    return newValue;
+  }
+
   void contactMePressed() => launchUrl(
     Uri(
       scheme: 'mailto',

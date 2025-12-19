@@ -174,6 +174,20 @@ class SettingsScreen extends WatchingWidget {
             /// Divider
             NovinarkoDivider(),
 
+            /// Shimmer loader
+            SettingsListTile(
+              fontFamily: settings.fontFamily,
+              onPressed: getIt.get<SettingsService>().showSnowflakesPressed,
+              title: 'Snowflakes',
+              description: 'Hello there',
+              rightWidget: NovinarkoCheckbox(
+                value: settings.showSnowflakes,
+              ),
+            ),
+
+            /// Divider
+            NovinarkoDivider(),
+
             /// Contact me
             SettingsListTile(
               fontFamily: settings.fontFamily,

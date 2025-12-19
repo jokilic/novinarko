@@ -140,6 +140,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
         useAdBlocker: false,
         useShimmerLoader: true,
         fontFamily: 'Merriweather',
+        showSnowflakes: false,
       );
 
   /// Stores a new `settings` value in [Hive]
