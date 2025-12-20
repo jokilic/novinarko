@@ -51,24 +51,26 @@ class _SnowflakeWidgetState extends State<SnowflakeWidget> with SingleTickerProv
   }
 
   @override
-  Widget build(BuildContext context) => IgnorePointer(
-    child: AnimatedBuilder(
-      animation: controller,
-      builder: (_, __) {
-        final size = MediaQuery.of(context).size;
+  Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
 
-        for (final snowflake in snowflakes) {
-          snowflake.fall(size.height);
-        }
+    return IgnorePointer(
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (_, __) {
+          for (final snowflake in snowflakes) {
+            snowflake.fall(size.height);
+          }
 
-        return CustomPaint(
-          size: size,
-          painter: SnowflakePainter(
-            snowflakes: snowflakes,
-            color: widget.color,
-          ),
-        );
-      },
-    ),
-  );
+          return CustomPaint(
+            size: size,
+            painter: SnowflakePainter(
+              snowflakes: snowflakes,
+              color: widget.color,
+            ),
+          );
+        },
+      ),
+    );
+  }
 }

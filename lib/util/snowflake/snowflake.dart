@@ -13,6 +13,7 @@ class Snowflake {
 
   void fall(double height) {
     y += speed;
+
     if (y > height) {
       y = 0;
     }
