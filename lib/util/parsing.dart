@@ -18,6 +18,58 @@ String? getImageUrl({
     parseImageSourceHtml(item.description) ??
     parseImageSourceHtml(rawContent);
 
+String? getAtomImageUrl({
+  required AtomItem item,
+}) {
+  String? imgUrl;
+
+  try {
+    imgUrl = item.media?.contents.firstOrNull?.url;
+
+    if (imgUrl != null) {
+      return imgUrl;
+    }
+
+    for (final link in item.links) {
+      if (link.type?.contains('image') ?? false) {
+        imgUrl = link.href;
+        break;
+      }
+    }
+
+    if (imgUrl != null) {
+      return imgUrl;
+    }
+
+    imgUrl = parseImageSourceHtml(item.content);
+
+    if (imgUrl != null) {
+      return imgUrl;
+    }
+
+    imgUrl = parseImageSourceHtml(item.summary);
+
+    if (imgUrl != null) {
+      return imgUrl;
+    }
+  } catch (e) {
+    return null;
+  }
+
+  return null;
+}
+
+String? getAtomLink(AtomItem item) {
+  for (final link in item.links) {
+    if (link.rel == 'alternate' || link.rel == null) {
+      if (link.href != null) {
+        return link.href;
+      }
+    }
+  }
+  return null;
+}
+
 String? parseImageSourceHtml(String? htmlContent) {
   try {
     final htmlDocument = html_parser.parse(htmlContent);

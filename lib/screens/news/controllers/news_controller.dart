@@ -159,82 +159,20 @@ class NewsController extends ValueNotifier<NewsState> {
   /// Fetches and parses single `feed`, retunrs `List<NovinarkoRssItem>`
   /// Used when fetching all `items` and then using them in `NewsStateAllSuccess`
   Future<({List<NovinarkoRssItem>? items, String? error})> fetchAndParseFeedItems(FeedSearchModel feed) async {
-    /// Feed `url` is `null`
-    if (feed.url == null) {
-      final error = 'News -> fetchAndParseFeedItems -> ${feed.url} -> feed url is null';
-      logger.e(error);
-      return (items: null, error: error);
-    }
+    final result = await fetchAndParseFeed(feed);
 
-    try {
-      /// Fetch `feedURL`
-      final response = await api.getRSSFeed(url: feed.url!);
-
-      /// Fetching successful
-      if (response.data != null && response.error == null) {
-        /// Parse `feedURL`
-        final parsedFeed = RssFeed.parse(response.data!);
-
-        /// Generate `rawContents`, needed to parse `imageUrl` in some feeds
-        final rawContents = parseContentsFromXml(response.data!);
-
-        final items =
-            parsedFeed.items.indexed.map(
-              (pair) {
-                final index = pair.$1;
-                final item = pair.$2;
-
-                /// Use `rawContent` if available and `index` matches
-                final rawContent = index < rawContents.length ? rawContents[index] : item.content?.value;
-
-                return NovinarkoRssItem(
-                  favicon: feed.favicon,
-                  title: item.title,
-                  imageUrl: getImageUrl(
-                    item: item,
-                    rawContent: rawContent,
-                  ),
-                  feedTitle: feed.siteName ?? feed.title,
-                  description: item.description,
-                  link: item.link,
-                  guid: item.guid,
-                  pubDate: parsePubDate(item.pubDate),
-                );
-              },
-            ).toList()..sort((a, b) {
-              final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
-              final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
-
-              return firstDate.compareTo(secondDate);
-            });
-
-        return (items: items, error: null);
-      }
-      /// Fetching is not successful
-      else if (response.data == null && response.error != null) {
-        final error = 'News -> fetchAndParseFeedItems -> ${feed.url} -> error from response -> ${response.error}';
-        logger.e(error);
-        return (items: null, error: error);
-      }
-      /// Some weird error
-      else {
-        final error = 'News -> fetchAndParseFeedItems -> ${feed.url} -> some weird error';
-        logger.e(error);
-        return (items: null, error: error);
-      }
-    } catch (e) {
-      final error = 'News -> fetchAndParseFeedItems -> ${feed.url} -> catch -> $e';
-      logger.e(error);
-      return (items: null, error: error);
+    if (result.rssFeed != null) {
+      return (items: result.rssFeed!.items, error: null);
+    } else {
+      return (items: null, error: result.error);
     }
   }
 
   /// Fetches and parses single `feed`, retunrs `NovinarkoRssFeed`
-  /// Used when fetching one `item` and then using it in `NewsStateSingleSuccess`
   Future<({NovinarkoRssFeed? rssFeed, String? error})> fetchAndParseFeed(FeedSearchModel feed) async {
     /// Feed `url` is `null`
     if (feed.url == null) {
-      final error = 'News -> fetchAndParseFeed -> ${feed.url} -> feed url is null';
+      final error = 'News -> fetchAndParseLogic -> ${feed.url} -> feed url is null';
       logger.e(error);
       return (rssFeed: null, error: error);
     }
@@ -245,63 +183,106 @@ class NewsController extends ValueNotifier<NewsState> {
 
       /// Fetching successful
       if (response.data != null && response.error == null) {
-        /// Parse `feedURL`
-        final parsedFeed = RssFeed.parse(response.data!);
+        try {
+          /// Parse `feedURL`
+          final parsedFeed = RssFeed.parse(response.data!);
 
-        /// Generate `rawContents`, needed to parse `imageUrl` in some feeds
-        final rawContents = parseContentsFromXml(response.data!);
+          /// Generate `rawContents`, needed to parse `imageUrl` in some feeds
+          final rawContents = parseContentsFromXml(response.data!);
 
-        final rssFeed = NovinarkoRssFeed(
-          siteName: feed.siteName,
-          title: parsedFeed.title,
-          description: parsedFeed.description,
-          items:
-              parsedFeed.items.indexed.map(
-                (pair) {
-                  final index = pair.$1;
-                  final item = pair.$2;
+          final rssFeed = NovinarkoRssFeed(
+            siteName: feed.siteName,
+            title: parsedFeed.title,
+            description: parsedFeed.description,
+            items:
+                parsedFeed.items.indexed.map(
+                  (pair) {
+                    final index = pair.$1;
+                    final item = pair.$2;
 
-                  /// Use `rawContent` if available and `index` matches
-                  final rawContent = index < rawContents.length ? rawContents[index] : item.content?.value;
+                    /// Use `rawContent` if available and `index` matches
+                    final rawContent = index < rawContents.length ? rawContents[index] : item.content?.value;
 
-                  return NovinarkoRssItem(
-                    favicon: feed.favicon,
-                    title: item.title,
-                    imageUrl: getImageUrl(
-                      item: item,
-                      rawContent: rawContent,
+                    return NovinarkoRssItem(
+                      favicon: feed.favicon,
+                      title: item.title,
+                      imageUrl: getImageUrl(
+                        item: item,
+                        rawContent: rawContent,
+                      ),
+                      feedTitle: feed.siteName ?? feed.title,
+                      description: item.description,
+                      link: item.link,
+                      guid: item.guid,
+                      pubDate: parsePubDate(item.pubDate),
+                    );
+                  },
+                ).toList()..sort(
+                  (a, b) {
+                    final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+                    final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+
+                    return firstDate.compareTo(secondDate);
+                  },
+                ),
+          );
+
+          return (rssFeed: rssFeed, error: null);
+        }
+        /// RSS parsing failed, try Atom parsing
+        catch (_) {
+          try {
+            final parsedFeed = AtomFeed.parse(response.data!);
+
+            final rssFeed = NovinarkoRssFeed(
+              siteName: feed.siteName,
+              title: parsedFeed.title,
+              description: parsedFeed.subtitle,
+              items:
+                  parsedFeed.items
+                      .map(
+                        (item) => NovinarkoRssItem(
+                          favicon: feed.favicon,
+                          title: item.title,
+                          imageUrl: getAtomImageUrl(item: item),
+                          feedTitle: feed.siteName ?? feed.title,
+                          description: item.summary,
+                          link: getAtomLink(item),
+                          guid: item.id,
+                          pubDate: parsePubDate(item.updated),
+                        ),
+                      )
+                      .toList()
+                    ..sort(
+                      (a, b) {
+                        final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+                        final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+
+                        return firstDate.compareTo(secondDate);
+                      },
                     ),
-                    feedTitle: feed.siteName ?? feed.title,
-                    description: item.description,
-                    link: item.link,
-                    guid: item.guid,
-                    pubDate: parsePubDate(item.pubDate),
-                  );
-                },
-              ).toList()..sort((a, b) {
-                final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
-                final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+            );
 
-                return firstDate.compareTo(secondDate);
-              }),
-        );
-
-        return (rssFeed: rssFeed, error: null);
+            return (rssFeed: rssFeed, error: null);
+          } catch (atomError) {
+            rethrow;
+          }
+        }
       }
       /// Fetching is not successful
       else if (response.data == null && response.error != null) {
-        final error = 'News -> fetchAndParseFeed -> ${feed.url} -> error from response -> ${response.error}';
+        final error = 'News -> fetchAndParseLogic -> ${feed.url} -> error from response -> ${response.error}';
         logger.e(error);
         return (rssFeed: null, error: error);
       }
       /// Some weird error
       else {
-        final error = 'News -> fetchAndParseFeed -> ${feed.url} -> some weird error';
+        final error = 'News -> fetchAndParseLogic -> ${feed.url} -> some weird error';
         logger.e(error);
         return (rssFeed: null, error: error);
       }
     } catch (e) {
-      final error = 'News -> fetchAndParseFeed -> ${feed.url} -> catch -> $e';
+      final error = 'News -> fetchAndParseLogic -> ${feed.url} -> catch -> $e';
       logger.e(error);
       return (rssFeed: null, error: error);
     }
