@@ -75,12 +75,16 @@ class NewsListTile extends StatelessWidget {
                         width: 2,
                       ),
                     ),
-                    child: Image.asset(
-                      NovinarkoIcons.errorNews,
-                      fit: BoxFit.cover,
-                      color: context.colors.text,
-                      height: 40,
-                      width: 40,
+                    child: Center(
+                      child: SizedBox(
+                        height: 40,
+                        width: 40,
+                        child: Image.asset(
+                          NovinarkoIcons.errorNews,
+                          fit: BoxFit.cover,
+                          color: context.colors.text,
+                        ),
+                      ),
                     ),
                   ),
                 ),

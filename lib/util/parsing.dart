@@ -103,7 +103,7 @@ DateTime? parsePubDate(String? pubDate) {
 
   try {
     /// Parse `String` into a `DateTime`
-    final dateTime = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en').tryParse(pubDate);
+    final dateTime = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en').tryParse(pubDate) ?? DateTime.tryParse(pubDate);
 
     if (dateTime != null) {
       /// Extract the timezone offset in minutes from the parsed date string

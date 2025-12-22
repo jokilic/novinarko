@@ -183,6 +183,7 @@ class NewsController extends ValueNotifier<NewsState> {
 
       /// Fetching successful
       if (response.data != null && response.error == null) {
+        /// RSS parsing
         try {
           /// Parse `feedURL`
           final parsedFeed = RssFeed.parse(response.data!);
@@ -246,10 +247,12 @@ class NewsController extends ValueNotifier<NewsState> {
                           title: item.title,
                           imageUrl: getAtomImageUrl(item: item),
                           feedTitle: feed.siteName ?? feed.title,
-                          description: item.summary,
+                          description: item.content ?? item.summary,
                           link: getAtomLink(item),
                           guid: item.id,
-                          pubDate: parsePubDate(item.updated),
+                          pubDate: parsePubDate(
+                            item.updated ?? item.published,
+                          ),
                         ),
                       )
                       .toList()
