@@ -175,27 +175,38 @@ class NewsController extends ValueNotifier<NewsState> {
         /// Parse `feedURL`
         final parsedFeed = RssFeed.parse(response.data!);
 
-        final items =
-            parsedFeed.items
-                .map(
-                  (item) => NovinarkoRssItem(
-                    favicon: feed.favicon,
-                    title: item.title,
-                    imageUrl: item.media?.contents.firstOrNull?.url ?? item.content?.images.firstOrNull ?? item.enclosure?.url,
-                    feedTitle: feed.siteName ?? feed.title,
-                    description: item.description,
-                    link: item.link,
-                    guid: item.guid,
-                    pubDate: parsePubDate(item.pubDate),
-                  ),
-                )
-                .toList()
-              ..sort((a, b) {
-                final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
-                final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+        /// Generate `rawContents`, needed to parse `imageUrl` in some feeds
+        final rawContents = parseContentsFromXml(response.data!);
 
-                return firstDate.compareTo(secondDate);
-              });
+        final items =
+            parsedFeed.items.indexed.map(
+              (pair) {
+                final index = pair.$1;
+                final item = pair.$2;
+
+                /// Use `rawContent` if available and `index` matches
+                final rawContent = index < rawContents.length ? rawContents[index] : item.content?.value;
+
+                return NovinarkoRssItem(
+                  favicon: feed.favicon,
+                  title: item.title,
+                  imageUrl: getImageUrl(
+                    item: item,
+                    rawContent: rawContent,
+                  ),
+                  feedTitle: feed.siteName ?? feed.title,
+                  description: item.description,
+                  link: item.link,
+                  guid: item.guid,
+                  pubDate: parsePubDate(item.pubDate),
+                );
+              },
+            ).toList()..sort((a, b) {
+              final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+              final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+
+              return firstDate.compareTo(secondDate);
+            });
 
         return (items: items, error: null);
       }
@@ -237,31 +248,42 @@ class NewsController extends ValueNotifier<NewsState> {
         /// Parse `feedURL`
         final parsedFeed = RssFeed.parse(response.data!);
 
+        /// Generate `rawContents`, needed to parse `imageUrl` in some feeds
+        final rawContents = parseContentsFromXml(response.data!);
+
         final rssFeed = NovinarkoRssFeed(
           siteName: feed.siteName,
           title: parsedFeed.title,
           description: parsedFeed.description,
           items:
-              parsedFeed.items
-                  .map(
-                    (item) => NovinarkoRssItem(
-                      favicon: feed.favicon,
-                      title: item.title,
-                      imageUrl: item.media?.contents.firstOrNull?.url ?? item.content?.images.firstOrNull ?? item.enclosure?.url,
-                      feedTitle: feed.siteName ?? feed.title,
-                      description: item.description,
-                      link: item.link,
-                      guid: item.guid,
-                      pubDate: parsePubDate(item.pubDate),
-                    ),
-                  )
-                  .toList()
-                ..sort((a, b) {
-                  final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
-                  final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+              parsedFeed.items.indexed.map(
+                (pair) {
+                  final index = pair.$1;
+                  final item = pair.$2;
 
-                  return firstDate.compareTo(secondDate);
-                }),
+                  /// Use `rawContent` if available and `index` matches
+                  final rawContent = index < rawContents.length ? rawContents[index] : item.content?.value;
+
+                  return NovinarkoRssItem(
+                    favicon: feed.favicon,
+                    title: item.title,
+                    imageUrl: getImageUrl(
+                      item: item,
+                      rawContent: rawContent,
+                    ),
+                    feedTitle: feed.siteName ?? feed.title,
+                    description: item.description,
+                    link: item.link,
+                    guid: item.guid,
+                    pubDate: parsePubDate(item.pubDate),
+                  );
+                },
+              ).toList()..sort((a, b) {
+                final firstDate = b.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+                final secondDate = a.pubDate ?? DateTime.fromMillisecondsSinceEpoch(0);
+
+                return firstDate.compareTo(secondDate);
+              }),
         );
 
         return (rssFeed: rssFeed, error: null);

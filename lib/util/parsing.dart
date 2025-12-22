@@ -1,9 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart' as html_parser;
+import 'package:rss_dart/dart_rss.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:xml/xml.dart';
 
 import '../models/feed_search_model.dart';
+
+String? getImageUrl({
+  required RssItem item,
+  required String? rawContent,
+}) =>
+    item.media?.contents.firstOrNull?.url ??
+    item.content?.images.firstOrNull ??
+    item.enclosure?.url ??
+    parseImageSourceHtml(item.content?.value) ??
+    parseImageSourceHtml(item.description) ??
+    parseImageSourceHtml(rawContent);
 
 String? parseImageSourceHtml(String? htmlContent) {
   try {
@@ -121,5 +134,37 @@ String? getFeedIcon(FeedSearchModel? feed) {
     return null;
   } catch (e) {
     return null;
+  }
+}
+
+List<String> parseContentsFromXml(String xmlContent) {
+  try {
+    final document = XmlDocument.parse(xmlContent);
+
+    /// Find all item elements
+    final items = document.findAllElements('item');
+
+    return items.map((node) {
+      final contentNode = node.findElements('content').firstOrNull;
+
+      if (contentNode != null) {
+        return contentNode.children.map(
+          (child) {
+            if (child is XmlText) {
+              return child.value;
+            } else if (child is XmlCDATA) {
+              return child.value;
+            } else if (child is XmlElement) {
+              return child.toXmlString();
+            }
+
+            return child.value;
+          },
+        ).join();
+      }
+      return '';
+    }).toList();
+  } catch (e) {
+    return [];
   }
 }
