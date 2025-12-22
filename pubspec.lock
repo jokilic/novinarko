@@ -880,6 +880,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
+  rss_dart:
+    dependency: "direct main"
+    description:
+      name: rss_dart
+      sha256: "09c0123427e9557d74562e07f9d22effe3fd493893602e8a8d24b961490f2c30"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.14"
   rxdart:
     dependency: transitive
     description:

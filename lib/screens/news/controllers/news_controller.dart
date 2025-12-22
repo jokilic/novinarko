@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:rss_dart/dart_rss.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../models/feed_search_model.dart';
 import '../../../models/novinarko_rss_feed.dart';
 import '../../../models/novinarko_rss_item.dart';
-import '../../../rss_parser/models/rss_feed.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../services/api_service.dart';
 import '../../../services/hive_service.dart';
@@ -173,7 +173,7 @@ class NewsController extends ValueNotifier<NewsState> {
       /// Fetching successful
       if (response.data != null && response.error == null) {
         /// Parse `feedURL`
-        final parsedFeed = RssFeed.parse(response.data);
+        final parsedFeed = RssFeed.parse(response.data!);
 
         final items =
             parsedFeed.items
@@ -181,7 +181,7 @@ class NewsController extends ValueNotifier<NewsState> {
                   (item) => NovinarkoRssItem(
                     favicon: feed.favicon,
                     title: item.title,
-                    imageUrl: item.media?.url ?? item.content?.images.first ?? item.enclosure?.url ?? item.descriptionImage,
+                    imageUrl: item.media?.contents.firstOrNull?.url ?? item.content?.images.firstOrNull ?? item.enclosure?.url,
                     feedTitle: feed.siteName ?? feed.title,
                     description: item.description,
                     link: item.link,
@@ -235,7 +235,7 @@ class NewsController extends ValueNotifier<NewsState> {
       /// Fetching successful
       if (response.data != null && response.error == null) {
         /// Parse `feedURL`
-        final parsedFeed = RssFeed.parse(response.data);
+        final parsedFeed = RssFeed.parse(response.data!);
 
         final rssFeed = NovinarkoRssFeed(
           siteName: feed.siteName,
@@ -247,7 +247,7 @@ class NewsController extends ValueNotifier<NewsState> {
                     (item) => NovinarkoRssItem(
                       favicon: feed.favicon,
                       title: item.title,
-                      imageUrl: item.media?.url ?? item.content?.images.first ?? item.enclosure?.url ?? item.descriptionImage,
+                      imageUrl: item.media?.contents.firstOrNull?.url ?? item.content?.images.firstOrNull ?? item.enclosure?.url,
                       feedTitle: feed.siteName ?? feed.title,
                       description: item.description,
                       link: item.link,
