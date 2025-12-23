@@ -51,8 +51,8 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final activeFeed = watchIt<ActiveFeedService>().value;
-    final feedsLength = watchIt<HiveService>().value.length;
     final fontFamily = watchIt<SettingsService>().value.fontFamily;
+    final feedsLength = watchIt<HiveService>().value.feeds.length;
 
     return AppBar(
       elevation: 0,

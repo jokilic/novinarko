@@ -11,10 +11,10 @@ import '../models/novinarko_theme_enum.dart';
 import '../util/path.dart';
 import 'logger_service.dart';
 
-class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Disposable {
+class HiveService extends ValueNotifier<({List<FeedSearchModel> feeds, List<FeedsFolderModel> folders})> implements Disposable {
   final LoggerService logger;
 
-  HiveService(this.logger) : super([]);
+  HiveService(this.logger) : super((feeds: [], folders: []));
 
   ///
   /// VARIABLES
@@ -62,6 +62,18 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   }
 
   ///
+  /// METHODS
+  ///
+
+  /// Updates state with values from [Hive]
+  void updateState({List<FeedSearchModel>? feeds, List<FeedsFolderModel>? folders}) {
+    value = (
+      feeds: feeds ?? getFeeds(),
+      folders: folders ?? getFolders(),
+    );
+  }
+
+  ///
   /// FEEDS
   ///
 
@@ -80,26 +92,33 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
 
   /// Deletes `feed` value from [Hive]
   Future<void> deleteFeed(int index) async => writeAllFeedsToHive(
-    feeds: List.from(value..removeAt(index)),
+    feeds: List.from(
+      value.feeds..removeAt(index),
+    ),
   );
 
   /// Reorders `feed` in [Hive]
   Future<void> reorderFeeds(int oldIndex, int newIndex) async {
     /// Rearange feeds
-    final item = value.removeAt(oldIndex);
-    value.insert(
+    final list = List<FeedSearchModel>.from(value.feeds);
+
+    final item = list.removeAt(oldIndex);
+
+    list.insert(
       oldIndex < newIndex ? newIndex - 1 : newIndex,
       item,
     );
 
     /// Update all feeds in [Hive]
-    await writeAllFeedsToHive(feeds: value);
+    await writeAllFeedsToHive(feeds: list);
   }
 
   /// Replace [Hive] box with passed `List<FeedSearchModel>`
   Future<void> writeAllFeedsToHive({required List<FeedSearchModel> feeds}) async {
     /// Update `state`
-    value = feeds;
+    updateState(
+      feeds: feeds,
+    );
 
     /// Clear current [Hive] box
     await feedBox.clear();
@@ -115,9 +134,6 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
     }
   }
 
-  /// Updates state with values from [Hive]
-  void updateState() => value = getFeeds();
-
   ///
   /// FOLDERS
   ///
@@ -126,15 +142,54 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   List<FeedsFolderModel> getFolders() => folderBox.values.toList();
 
   /// Stores a new `folder` value in [Hive]
-  Future<void> storeFolder(FeedsFolderModel folder) async {
-    await folderBox.add(folder);
+  Future<void> storeFolder({
+    required FeedsFolderModel folder,
+    required int index,
+  }) async {
+    await folderBox.put(index, folder);
   }
 
   /// Deletes `folder` value from [Hive]
-  // TODO: Implement this
-  // Future<void> deleteFolder(int index) async => writeAllFeedsToHive(
-  //   feeds: List.from(value..removeAt(index)),
-  // );
+  Future<void> deleteFolder(int index) async => writeAllFeedsToHive(
+    feeds: List.from(value.folders..removeAt(index)),
+  );
+
+  /// Reorders `folders` in [Hive]
+  Future<void> reorderFolders(int oldIndex, int newIndex) async {
+    /// Rearange folders
+    final list = List<FeedsFolderModel>.from(value.folders);
+
+    final item = list.removeAt(oldIndex);
+
+    list.insert(
+      oldIndex < newIndex ? newIndex - 1 : newIndex,
+      item,
+    );
+
+    /// Update all feeds in [Hive]
+    await writeAllFoldersToHive(folders: list);
+  }
+
+  /// Replace [Hive] box with passed `List<FeedsFolderModel>`
+  Future<void> writeAllFoldersToHive({required List<FeedsFolderModel> folders}) async {
+    /// Update `state`
+    updateState(
+      folders: folders,
+    );
+
+    /// Clear current [Hive] box
+    await folderBox.clear();
+
+    if (folders.isNotEmpty) {
+      /// Add passed `List<FeedsFolderModel>` to [Hive]
+      for (var i = 0; i < folders.length; i++) {
+        await storeFolder(folder: folders[i], index: i);
+      }
+
+      /// Update `state` again (needed because issues with `GlobalKey`)
+      updateState();
+    }
+  }
 
   ///
   /// ACTIVE FEED

@@ -66,7 +66,11 @@ class NovinarkoWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final theme = watchIt<ThemeService>().value;
-    final feeds = watchIt<HiveService>().value.toList();
+    final hive = watchIt<HiveService>().value;
+
+    final feeds = hive.feeds.toList();
+    // TODO: Handle this
+    final folders = hive.folders.toList();
 
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
@@ -77,7 +81,7 @@ class NovinarkoWidget extends WatchingWidget {
         builder: (context) => feeds.isNotEmpty ? NewsScreen() : SearchScreen(),
       ),
       onGenerateTitle: (_) => 'appName'.tr(),
-      theme: theme ?? NovinarkoTheme.black,
+      theme: theme ?? NovinarkoTheme.light,
       darkTheme: theme ?? NovinarkoTheme.black,
       builder: (context, child) => kDebugMode
           ? Banner(

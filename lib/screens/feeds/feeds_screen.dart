@@ -16,8 +16,12 @@ class FeedsScreen extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final activeFeed = watchIt<ActiveFeedService>().value;
-    final feeds = watchIt<HiveService>().value;
     final settings = watchIt<SettingsService>().value;
+    final hive = watchIt<HiveService>().value;
+
+    final feeds = hive.feeds;
+    // TODO: Handle this
+    final folders = hive.folders;
 
     return Stack(
       children: [
