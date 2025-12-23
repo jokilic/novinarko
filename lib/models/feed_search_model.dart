@@ -1,11 +1,9 @@
 import 'package:hive_ce/hive.dart';
 
-import 'feed_item.dart';
-
 part 'feed_search_model.g.dart';
 
 @HiveType(typeId: 0)
-class FeedSearchModel extends FeedItem {
+class FeedSearchModel {
   @HiveField(0)
   final String? description;
   @HiveField(1)

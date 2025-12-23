@@ -110,8 +110,7 @@ class NewsController extends ValueNotifier<NewsState> {
     }
 
     /// Fetches and parses all feeds, returns `List<NovinarkoRssItem>` or `error`
-    final allFeeds = hive.getFeedsFlat();
-    final futures = allFeeds.map(fetchAndParseFeedItems).toList();
+    final futures = hive.value.map(fetchAndParseFeedItems).toList();
 
     /// Run tasks concurrently
     final results = await Future.wait(futures);
