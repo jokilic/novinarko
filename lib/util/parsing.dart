@@ -7,11 +7,14 @@ import 'package:xml/xml.dart';
 
 import '../models/feed_search_model.dart';
 
-String? getImageUrl({
+String? getRSSImageUrl({
   required RssItem item,
   required String? rawContent,
 }) =>
+    item.media?.thumbnails.firstOrNull?.url ??
     item.media?.contents.firstOrNull?.url ??
+    item.media?.group?.thumbnails.firstOrNull?.url ??
+    item.media?.group?.contents.firstOrNull?.url ??
     item.content?.images.firstOrNull ??
     item.enclosure?.url ??
     parseImageSourceHtml(item.content?.value) ??
@@ -24,7 +27,11 @@ String? getAtomImageUrl({
   String? imgUrl;
 
   try {
-    imgUrl = item.media?.contents.firstOrNull?.url;
+    imgUrl =
+        item.media?.thumbnails.firstOrNull?.url ??
+        item.media?.contents.firstOrNull?.url ??
+        item.media?.group?.thumbnails.firstOrNull?.url ??
+        item.media?.group?.contents.firstOrNull?.url;
 
     if (imgUrl != null) {
       return imgUrl;

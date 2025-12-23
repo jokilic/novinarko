@@ -206,13 +206,13 @@ class NewsController extends ValueNotifier<NewsState> {
 
                     return NovinarkoRssItem(
                       favicon: feed.favicon,
-                      title: item.title,
-                      imageUrl: getImageUrl(
+                      title: item.title ?? item.media?.title?.value,
+                      imageUrl: getRSSImageUrl(
                         item: item,
                         rawContent: rawContent,
                       ),
                       feedTitle: feed.siteName ?? feed.title,
-                      description: item.description,
+                      description: item.description ?? item.content?.value ?? item.media?.description?.value,
                       link: item.link,
                       guid: item.guid,
                       pubDate: parsePubDate(item.pubDate),
@@ -244,10 +244,10 @@ class NewsController extends ValueNotifier<NewsState> {
                       .map(
                         (item) => NovinarkoRssItem(
                           favicon: feed.favicon,
-                          title: item.title,
+                          title: item.title ?? item.media?.title?.value,
                           imageUrl: getAtomImageUrl(item: item),
                           feedTitle: feed.siteName ?? feed.title,
-                          description: item.content ?? item.summary,
+                          description: item.content ?? item.summary ?? item.media?.description?.value,
                           link: getAtomLink(item),
                           guid: item.id,
                           pubDate: parsePubDate(
