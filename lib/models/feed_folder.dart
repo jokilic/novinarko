@@ -30,12 +30,12 @@ class FeedFolder extends FeedItem {
   String toString() => 'FeedFolder(id: $id, name: $name, children: $children)';
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant FeedFolder other) {
     if (identical(this, other)) {
       return true;
     }
 
-    return other is FeedFolder && other.id == id && other.name == name && other.children == children;
+    return other.id == id && other.name == name && other.children == children;
   }
 
   @override
