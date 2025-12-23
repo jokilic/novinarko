@@ -4,6 +4,7 @@
 
 import 'package:hive_ce/hive_ce.dart';
 import 'package:novinarko/models/feed_search_model.dart';
+import 'package:novinarko/models/feeds_folder_model.dart';
 import 'package:novinarko/models/novinarko_settings.dart';
 import 'package:novinarko/models/novinarko_theme_enum.dart';
 
@@ -12,5 +13,6 @@ extension HiveRegistrar on HiveInterface {
     registerAdapter(NovinarkoThemeEnumAdapter());
     registerAdapter(NovinarkoSettingsAdapter());
     registerAdapter(FeedSearchModelAdapter());
+    registerAdapter(FeedsFolderModelAdapter());
   }
 }
