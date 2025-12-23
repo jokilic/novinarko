@@ -7,6 +7,7 @@ import '../../../theme/theme.dart';
 class FeedsListTile extends StatelessWidget {
   final Function() onPressed;
   final Function() onPressedDelete;
+  final Function()? onLongPress;
   final String title;
   final String? subtitle;
   final String? url;
@@ -23,6 +24,7 @@ class FeedsListTile extends StatelessWidget {
     required this.showActiveIndicator,
     required this.fontFamily,
     required this.key,
+    this.onLongPress,
     this.isDraggable = true,
     this.subtitle,
     this.url,
@@ -60,6 +62,7 @@ class FeedsListTile extends StatelessWidget {
     ],
     child: InkWell(
       onTap: onPressed,
+      onLongPress: onLongPress,
       highlightColor: context.colors.primary.withValues(alpha: 0.6),
       splashColor: context.colors.primary.withValues(alpha: 0.6),
       borderRadius: BorderRadius.circular(16),
