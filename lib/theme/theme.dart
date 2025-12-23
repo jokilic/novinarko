@@ -216,6 +216,48 @@ class NovinarkoTheme {
   static final burgundyTextTheme = getTextThemesExtension(
     colorsExtension: burgundyAppColors,
   );
+
+  ///
+  /// BLACK
+  ///
+
+  static ThemeData get black {
+    final defaultTheme = ThemeData.dark();
+
+    return defaultTheme.copyWith(
+      scaffoldBackgroundColor: blackAppColors.background,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: blackAppColors.primary,
+        cursorColor: blackAppColors.primary,
+        selectionHandleColor: blackAppColors.primary,
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
+      ),
+      extensions: [
+        blackAppColors,
+        blackTextTheme,
+      ],
+    );
+  }
+
+  static final blackAppColors = NovinarkoColorsExtension(
+    background: NovinarkoColors.black,
+    text: NovinarkoColors.white,
+    primary: NovinarkoColors.sepia,
+  );
+
+  static final blackTextTheme = getTextThemesExtension(
+    colorsExtension: blackAppColors,
+  );
 }
 
 extension NovinarkoThemeExtension on ThemeData {

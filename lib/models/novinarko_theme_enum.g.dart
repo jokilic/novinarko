@@ -23,6 +23,8 @@ class NovinarkoThemeEnumAdapter extends TypeAdapter<NovinarkoThemeEnum> {
         return NovinarkoThemeEnum.green;
       case 4:
         return NovinarkoThemeEnum.burgundy;
+      case 5:
+        return NovinarkoThemeEnum.black;
       default:
         return NovinarkoThemeEnum.light;
     }
@@ -41,6 +43,8 @@ class NovinarkoThemeEnumAdapter extends TypeAdapter<NovinarkoThemeEnum> {
         writer.writeByte(3);
       case NovinarkoThemeEnum.burgundy:
         writer.writeByte(4);
+      case NovinarkoThemeEnum.black:
+        writer.writeByte(5);
     }
   }
 

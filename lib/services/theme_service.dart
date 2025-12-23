@@ -15,7 +15,7 @@ class ThemeService extends ValueNotifier<ThemeData?> {
     required this.logger,
     required this.hive,
     required this.settings,
-  }) : super(NovinarkoTheme.burgundy) {
+  }) : super(NovinarkoTheme.black) {
     value = getThemeData();
   }
 
@@ -29,6 +29,7 @@ class ThemeService extends ValueNotifier<ThemeData?> {
     NovinarkoThemeEnum.sepia => NovinarkoTheme.sepia,
     NovinarkoThemeEnum.green => NovinarkoTheme.green,
     NovinarkoThemeEnum.burgundy => NovinarkoTheme.burgundy,
+    NovinarkoThemeEnum.black => NovinarkoTheme.black,
     _ => null,
   };
 
@@ -63,6 +64,12 @@ class ThemeService extends ValueNotifier<ThemeData?> {
       await hive.storeSettings(
         settings.value.copyWith(
           novinarkoThemeEnum: NovinarkoThemeEnum.burgundy,
+        ),
+      );
+    } else if (newTheme == NovinarkoTheme.black) {
+      await hive.storeSettings(
+        settings.value.copyWith(
+          novinarkoThemeEnum: NovinarkoThemeEnum.black,
         ),
       );
     }

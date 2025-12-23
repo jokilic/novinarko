@@ -96,6 +96,13 @@ class SettingsScreen extends WatchingWidget {
                           ),
                           color: NovinarkoColors.burgundy,
                         ),
+                        const SizedBox(width: 8),
+                        SettingsThemeWidget(
+                          onPressed: () => getIt.get<ThemeService>().updateTheme(
+                            NovinarkoTheme.black,
+                          ),
+                          color: NovinarkoColors.black,
+                        ),
                       ],
                     ),
                   ),

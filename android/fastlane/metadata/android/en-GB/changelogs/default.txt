@@ -1,4 +1,4 @@
-* Snowflakes added
-* New theme
-* New icon & splash
-* Update dependencies
+* Small code syntax updates
+* Migrate to rss_dart instead of custom parsing
+* Better parsing of imageUrls
+* Parse Atom if RSS fails

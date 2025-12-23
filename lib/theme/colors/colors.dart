@@ -6,4 +6,5 @@ abstract class NovinarkoColors {
   static const sepia = Color(0xFFF2E2BA);
   static const green = Color(0xFF748479);
   static const burgundy = Color(0xFF51355A);
+  static const black = Color(0xFF001A23);
 }
