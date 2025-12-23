@@ -41,12 +41,18 @@ class FeedSearchModel extends FeedItem {
   String toString() => 'FeedSearch(description: $description, favicon: $favicon, siteName: $siteName, siteUrl: $siteUrl, title: $title, url: $url)';
 
   @override
-  bool operator ==(covariant FeedSearchModel other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
 
-    return other.description == description && other.favicon == favicon && other.siteName == siteName && other.siteUrl == siteUrl && other.title == title && other.url == url;
+    return other is FeedSearchModel &&
+        other.description == description &&
+        other.favicon == favicon &&
+        other.siteName == siteName &&
+        other.siteUrl == siteUrl &&
+        other.title == title &&
+        other.url == url;
   }
 
   @override
