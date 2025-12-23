@@ -45,11 +45,7 @@ class SearchWidget extends WatchingWidget {
   Widget build(BuildContext context) {
     final searchState = watchIt<SearchController>().value;
     final settings = watchIt<SettingsService>().value;
-    final hive = watchIt<HiveService>().value;
-
-    final hiveFeeds = hive.feeds;
-    // TODO: Handle this
-    final hiveFolders = hive.folders;
+    final hiveFeeds = watchIt<HiveService>().value;
 
     return Stack(
       children: [

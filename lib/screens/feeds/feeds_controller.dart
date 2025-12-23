@@ -78,21 +78,13 @@ class FeedsController implements Disposable {
       return false;
     }
 
-    /// Check if folder already exists
-    if (hive.value.folders.any((folder) => folder.name == folderTitle)) {
-      return false;
-    }
-
     /// Store folder
     final folder = FeedsFolderModel(
       name: folderTitle,
       feeds: [],
     );
 
-    await hive.storeFolder(
-      folder: folder,
-      index: hive.value.folders.length,
-    );
+    await hive.storeFolder(folder);
 
     return true;
   }

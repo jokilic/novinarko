@@ -17,23 +17,18 @@ class FeedsFolderModelAdapter extends TypeAdapter<FeedsFolderModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FeedsFolderModel(
-      uid: fields[0] as String,
-      name: fields[1] as String,
-      feeds: fields[2] == null
-          ? const []
-          : (fields[2] as List).cast<FeedSearchModel>(),
+      name: fields[0] as String,
+      feeds: (fields[1] as List).cast<FeedSearchModel>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, FeedsFolderModel obj) {
     writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.uid)
-      ..writeByte(1)
-      ..write(obj.name)
       ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.name)
+      ..writeByte(1)
       ..write(obj.feeds);
   }
 

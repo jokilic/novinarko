@@ -7,18 +7,18 @@ part 'feeds_folder_model.g.dart';
 
 @HiveType(typeId: 3)
 class FeedsFolderModel {
-  @HiveField(1)
+  @HiveField(0)
   final String name;
-  @HiveField(2)
+  @HiveField(1)
   final List<FeedSearchModel> feeds;
 
   FeedsFolderModel({
     required this.name,
-    this.feeds = const [],
+    required this.feeds,
   });
 
   @override
-  String toString() => 'FeedSearch( name: $name, feeds: $feeds)';
+  String toString() => 'FeedSearch(name: $name, feeds: $feeds)';
 
   @override
   bool operator ==(covariant FeedsFolderModel other) {

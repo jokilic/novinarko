@@ -97,7 +97,7 @@ class NewsController extends ValueNotifier<NewsState> {
   /// This will fetche and parse all `feeds`
   Future<void> loadAllFeeds({bool useLoadingState = true}) async {
     /// No values in [Hive], set state to [NewsStateEmpty]
-    if (hive.value.feeds.isEmpty) {
+    if (hive.value.isEmpty) {
       value = NewsStateEmpty();
       return;
     }
@@ -110,7 +110,7 @@ class NewsController extends ValueNotifier<NewsState> {
     }
 
     /// Fetches and parses all feeds, returns `List<NovinarkoRssItem>` or `error`
-    final futures = hive.value.feeds.map(fetchAndParseFeedItems).toList();
+    final futures = hive.value.map(fetchAndParseFeedItems).toList();
 
     /// Run tasks concurrently
     final results = await Future.wait(futures);
