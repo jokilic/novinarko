@@ -124,7 +124,6 @@ void showSnackbar(
   BuildContext context, {
   required String text,
   required String icon,
-  bool isFeeds = false,
 }) {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
@@ -137,7 +136,7 @@ void showSnackbar(
           Image.asset(
             icon,
             fit: BoxFit.cover,
-            color: isFeeds ? context.colors.background : context.colors.text,
+            color: context.colors.text,
             height: 20,
             width: 20,
           ),
@@ -146,7 +145,7 @@ void showSnackbar(
             child: Text(
               text,
               style: context.textStyles.snackbar.copyWith(
-                color: isFeeds ? context.colors.background : context.colors.text,
+                color: context.colors.text,
               ),
             ),
           ),
@@ -154,11 +153,11 @@ void showSnackbar(
         ],
       ),
       behavior: SnackBarBehavior.floating,
-      backgroundColor: isFeeds ? context.colors.text : context.colors.background,
+      backgroundColor: context.colors.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
-          color: isFeeds ? context.colors.background : context.colors.text,
+          color: context.colors.text,
           width: 2,
         ),
       ),

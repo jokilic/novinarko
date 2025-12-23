@@ -13,7 +13,6 @@ import 'util/dependencies.dart';
 import 'util/display_mode.dart';
 import 'widgets/novinarko_loader.dart';
 
-// TODO: Think about this
 /// Feed limit to be used in the app
 const feedLimit = 10;
 

@@ -41,8 +41,8 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
     }
   }
 
-  /// Triggers custom search dialog or shows [SnackBar], depending on `feedsLength`
-  Future<void> customSearchDialogOrShowSnackbar(
+  /// Triggers custom search or shows [SnackBar], depending on `feedsLength`
+  Future<void> customSearchOrShowSnackbar(
     BuildContext context, {
     required int feedsLength,
     required String fontFamily,
@@ -125,7 +125,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
               const SizedBox(width: 40),
               SearchAppBarCustom(
                 noSearch: feedsLength >= feedLimit,
-                onPressed: () => customSearchDialogOrShowSnackbar(
+                onPressed: () => customSearchOrShowSnackbar(
                   context,
                   feedsLength: feedsLength,
                   fontFamily: fontFamily,

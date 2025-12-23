@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 
 import '../models/feed_search_model.dart';
-import '../models/feeds_folder_model.dart';
 import '../models/novinarko_settings.dart';
 import '../models/novinarko_theme_enum.dart';
 import '../util/path.dart';
@@ -21,7 +20,6 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   ///
 
   late final Box<FeedSearchModel> feedBox;
-  late final Box<FeedsFolderModel> folderBox;
   late final Box<FeedSearchModel> activeFeedBox;
   late final Box<NovinarkoSettings> settingsBox;
 
@@ -35,12 +33,10 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
     Hive
       ..init(directory?.path)
       ..registerAdapter(FeedSearchModelAdapter())
-      ..registerAdapter(FeedsFolderModelAdapter())
       ..registerAdapter(NovinarkoThemeEnumAdapter())
       ..registerAdapter(NovinarkoSettingsAdapter());
 
     feedBox = await Hive.openBox<FeedSearchModel>('feedBox');
-    folderBox = await Hive.openBox<FeedsFolderModel>('folderBox');
     activeFeedBox = await Hive.openBox<FeedSearchModel>('activeFeedBox');
     settingsBox = await Hive.openBox<NovinarkoSettings>('settingsBox');
 
@@ -54,7 +50,6 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   @override
   Future<void> onDispose() async {
     await feedBox.close();
-    await folderBox.close();
     await activeFeedBox.close();
     await settingsBox.close();
 
@@ -117,24 +112,6 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
 
   /// Updates state with values from [Hive]
   void updateState() => value = getFeeds();
-
-  ///
-  /// FOLDERS
-  ///
-
-  /// Gets all `folder` values from [Hive]
-  List<FeedsFolderModel> getFolders() => folderBox.values.toList();
-
-  /// Stores a new `folder` value in [Hive]
-  Future<void> storeFolder(FeedsFolderModel folder) async {
-    await folderBox.add(folder);
-  }
-
-  /// Deletes `folder` value from [Hive]
-  // TODO: Implement this
-  // Future<void> deleteFolder(int index) async => writeAllFeedsToHive(
-  //   feeds: List.from(value..removeAt(index)),
-  // );
 
   ///
   /// ACTIVE FEED

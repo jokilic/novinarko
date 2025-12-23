@@ -6,42 +6,14 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
 import '../../../routing.dart';
-import '../../../services/settings_service.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
-import '../../../util/dependencies.dart';
-import '../feeds_controller.dart';
-import 'feeds_add_folder_dialog.dart';
 
 class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
-  /// Triggers add folder dialog
-  Future<void> addFolderDialog(
-    BuildContext context, {
-    required String fontFamily,
-  }) async {
-    /// Clear [TextEditingControllers]
-    getIt.get<FeedsController>().clearTextControllers();
-
-    /// Show [AddFolderDialog]
-    await showDialog(
-      context: context,
-      builder: (context) => FeedsAddFolderDialog(
-        addFolderPressed: (dialogContext) => getIt.get<FeedsController>().addFolderPressed(
-          context: context,
-          dialogContext: dialogContext,
-        ),
-        outsideDialogPressed: Navigator.of(context).pop,
-        folderNameTextController: getIt.get<FeedsController>().folderNameTextController,
-        fontFamily: fontFamily,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = watchIt<ThemeService>().value;
     final isDark = theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green || theme == NovinarkoTheme.burgundy || theme == NovinarkoTheme.black;
-    final fontFamily = watchIt<SettingsService>().value.fontFamily;
 
     return AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -73,13 +45,6 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
                 onPressed: Navigator.of(context).pop,
               ),
               const Spacer(),
-              FeedsAppBarAddFolder(
-                onPressed: () => addFolderDialog(
-                  context,
-                  fontFamily: fontFamily,
-                ),
-              ),
-              const SizedBox(width: 12),
               FeedsAppBarSettings(
                 onPressed: () => openSettings(context),
               ),
@@ -130,38 +95,6 @@ class FeedsAppBarBack extends StatelessWidget {
     icon: Center(
       child: Image.asset(
         NovinarkoIcons.back,
-        fit: BoxFit.cover,
-        color: context.colors.background,
-        height: 20,
-        width: 20,
-      ),
-    ),
-  );
-}
-
-class FeedsAppBarAddFolder extends StatelessWidget {
-  final Function() onPressed;
-
-  const FeedsAppBarAddFolder({
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) => IconButton(
-    onPressed: onPressed,
-    style: IconButton.styleFrom(
-      highlightColor: context.colors.primary.withValues(alpha: 0.6),
-      fixedSize: const Size(50, 50),
-      shape: const CircleBorder(),
-      side: BorderSide(
-        color: context.colors.background,
-        width: 2,
-      ),
-    ),
-    icon: Center(
-      child: Image.asset(
-        // TODO: Add icon
-        NovinarkoIcons.android,
         fit: BoxFit.cover,
         color: context.colors.background,
         height: 20,

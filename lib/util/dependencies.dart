@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
-import '../screens/feeds/feeds_controller.dart';
 import '../screens/news/controllers/news_controller.dart';
 import '../screens/news/controllers/news_read_controller.dart';
 import '../screens/news/controllers/news_read_loader_controller.dart';
@@ -72,13 +71,6 @@ void initializeServices() => getIt
 
 void initializeControllers() {
   getIt
-    ..registerSingletonAsync(
-      () async => FeedsController(
-        logger: getIt.get<LoggerService>(),
-        hive: getIt.get<HiveService>(),
-      ),
-      dependsOn: [LoggerService, HiveService],
-    )
     ..registerSingletonAsync(
       () async => SearchController(
         logger: getIt.get<LoggerService>(),
