@@ -14,23 +14,23 @@ class NewsLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 5,
-        itemBuilder: (_, index) => NewsListTileLoading(
-          showImages: showImages,
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: 5,
+    itemBuilder: (_, index) => NewsListTileLoading(
+      showImages: showImages,
+    ),
+    separatorBuilder: (_, __) => Animate(
+      onPlay: (controller) => controller.loop(
+        reverse: true,
+        min: 0.6,
+      ),
+      effects: const [
+        FadeEffect(
+          curve: Curves.easeIn,
+          duration: NovinarkoConstants.shimmerDuration,
         ),
-        separatorBuilder: (_, __) => Animate(
-          onPlay: (controller) => controller.loop(
-            reverse: true,
-            min: 0.6,
-          ),
-          effects: const [
-            FadeEffect(
-              curve: Curves.easeIn,
-              duration: NovinarkoConstants.shimmerDuration,
-            ),
-          ],
-          child: NovinarkoDivider(),
-        ),
-      );
+      ],
+      child: const NovinarkoDivider(),
+    ),
+  );
 }

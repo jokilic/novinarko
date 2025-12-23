@@ -118,7 +118,7 @@ class SettingsScreen extends WatchingWidget {
                 ),
 
                 /// Divider
-                NovinarkoDivider(),
+                const NovinarkoDivider(),
 
                 /// Font
                 SettingsListTile(
@@ -146,7 +146,7 @@ class SettingsScreen extends WatchingWidget {
                 ),
 
                 /// Divider
-                NovinarkoDivider(),
+                const NovinarkoDivider(),
 
                 /// Images in articles
                 SettingsListTile(
@@ -160,7 +160,7 @@ class SettingsScreen extends WatchingWidget {
                 ),
 
                 /// Divider
-                NovinarkoDivider(),
+                const NovinarkoDivider(),
 
                 if (!kIsWeb) ...[
                   /// In-app browser
@@ -175,7 +175,7 @@ class SettingsScreen extends WatchingWidget {
                   ),
 
                   /// Divider
-                  NovinarkoDivider(),
+                  const NovinarkoDivider(),
 
                   /// Ad-blocker
                   SettingsListTile(
@@ -192,7 +192,7 @@ class SettingsScreen extends WatchingWidget {
                   ),
 
                   /// Divider
-                  NovinarkoDivider(),
+                  const NovinarkoDivider(),
                 ],
 
                 /// Shimmer loader
@@ -207,7 +207,7 @@ class SettingsScreen extends WatchingWidget {
                 ),
 
                 /// Divider
-                NovinarkoDivider(),
+                const NovinarkoDivider(),
 
                 /// Shimmer loader
                 SettingsListTile(
@@ -221,7 +221,7 @@ class SettingsScreen extends WatchingWidget {
                 ),
 
                 /// Divider
-                NovinarkoDivider(),
+                const NovinarkoDivider(),
 
                 /// Contact me
                 SettingsListTile(

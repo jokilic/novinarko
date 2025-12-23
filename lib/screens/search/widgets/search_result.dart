@@ -35,6 +35,6 @@ class SearchResult extends StatelessWidget {
         fontFamily: fontFamily,
       );
     },
-    separatorBuilder: (_, __) => NovinarkoDivider(),
+    separatorBuilder: (_, __) => const NovinarkoDivider(),
   );
 }

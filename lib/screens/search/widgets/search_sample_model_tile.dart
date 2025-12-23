@@ -47,7 +47,9 @@ class _SearchSampleModelTileState extends State<SearchSampleModelTile> {
       );
 
       if (i < widget.model.feeds.length - 1) {
-        tiles.add(NovinarkoDivider());
+        tiles.add(
+          const NovinarkoDivider(),
+        );
       }
     }
 

@@ -135,7 +135,7 @@ class NewsFeedInfoDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               const SizedBox(height: 16),
-              NovinarkoDivider(),
+              const NovinarkoDivider(),
               const SizedBox(height: 12),
 
               ///
@@ -166,7 +166,7 @@ class NewsFeedInfoDialog extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                NovinarkoDivider(),
+                const NovinarkoDivider(),
                 const SizedBox(height: 12),
               ],
 

@@ -8,21 +8,21 @@ import 'search_list_tile_loading.dart';
 class SearchLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 5,
-        itemBuilder: (_, index) => SearchListTileLoading(),
-        separatorBuilder: (_, __) => Animate(
-          onPlay: (controller) => controller.loop(
-            reverse: true,
-            min: 0.6,
-          ),
-          effects: const [
-            FadeEffect(
-              curve: Curves.easeIn,
-              duration: NovinarkoConstants.shimmerDuration,
-            ),
-          ],
-          child: NovinarkoDivider(),
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: 5,
+    itemBuilder: (_, index) => SearchListTileLoading(),
+    separatorBuilder: (_, __) => Animate(
+      onPlay: (controller) => controller.loop(
+        reverse: true,
+        min: 0.6,
+      ),
+      effects: const [
+        FadeEffect(
+          curve: Curves.easeIn,
+          duration: NovinarkoConstants.shimmerDuration,
         ),
-      );
+      ],
+      child: const NovinarkoDivider(),
+    ),
+  );
 }

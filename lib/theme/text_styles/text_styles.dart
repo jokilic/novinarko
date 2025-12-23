@@ -29,14 +29,14 @@ abstract class NovinarkoTextStyles {
   );
 
   static const feedsTitle = TextStyle(
-    fontSize: 28,
+    fontSize: 20,
     fontWeight: FontWeight.w700,
     fontFamily: 'Merriweather',
     height: 1.4,
   );
 
   static const feedsSubtitle = TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w500,
     fontFamily: 'Nunito',
     height: 1.4,

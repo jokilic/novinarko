@@ -5,6 +5,7 @@ import '../../../models/feed_search_model.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
+import '../../../widgets/novinarko_divider.dart';
 import '../../news/controllers/news_controller.dart';
 import 'feeds_list_tile.dart';
 
@@ -40,19 +41,22 @@ class FeedsContent extends StatelessWidget {
       ///
       /// ALL FEEDS
       ///
-      Padding(
+      FeedsListTile(
+        isDraggable: false,
         key: const ValueKey('all_feeds'),
-        padding: const EdgeInsets.only(bottom: 8),
-        child: FeedsListTile(
-          isDraggable: false,
-          key: const ValueKey('all_feeds'),
-          onPressedDelete: () {},
-          onPressed: () => loadFeedAndPop(context, null),
-          title: 'feedsAllFeedsTitle'.tr(),
-          subtitle: 'feedsAllFeedsSubtitle'.tr(),
-          showActiveIndicator: activeFeed == null,
-          fontFamily: fontFamily,
-        ),
+        onPressedDelete: () {},
+        onPressed: () => loadFeedAndPop(context, null),
+        title: 'feedsAllFeedsTitle'.tr(),
+        subtitle: 'feedsAllFeedsSubtitle'.tr(),
+        showActiveIndicator: activeFeed == null,
+        fontFamily: fontFamily,
+      ),
+
+      ///
+      /// DIVIDER
+      ///
+      NovinarkoDivider(
+        color: context.colors.background,
       ),
 
       ///
@@ -71,19 +75,15 @@ class FeedsContent extends StatelessWidget {
         itemBuilder: (_, index) {
           final feed = feeds[index];
 
-          return Padding(
+          return FeedsListTile(
             key: ValueKey(feed),
-            padding: const EdgeInsets.only(bottom: 8),
-            child: FeedsListTile(
-              key: ValueKey(feed),
-              onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(feed),
-              onPressed: () => loadFeedAndPop(context, feed),
-              title: feed.siteName ?? feed.title ?? '',
-              subtitle: feed.title,
-              url: feed.url,
-              showActiveIndicator: activeFeed == feed,
-              fontFamily: fontFamily,
-            ),
+            onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(feed),
+            onPressed: () => loadFeedAndPop(context, feed),
+            title: feed.siteName ?? feed.title ?? '',
+            subtitle: feed.title,
+            url: feed.url,
+            showActiveIndicator: activeFeed == feed,
+            fontFamily: fontFamily,
           );
         },
       ),

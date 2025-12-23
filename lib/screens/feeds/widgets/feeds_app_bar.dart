@@ -18,10 +18,10 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
     return AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
+        statusBarBrightness: isDark ? Brightness.light : Brightness.dark,
         systemNavigationBarColor: Colors.transparent,
-        statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
-        systemNavigationBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+        statusBarIconBrightness: isDark ? Brightness.dark : Brightness.light,
+        systemNavigationBarIconBrightness: isDark ? Brightness.dark : Brightness.light,
       ),
       elevation: 0,
       scrolledUnderElevation: 0,
