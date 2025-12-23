@@ -2,3 +2,4 @@
 * Migrate to rss_dart instead of custom parsing
 * Better parsing of imageUrls
 * Parse Atom if RSS fails
+* One more theme

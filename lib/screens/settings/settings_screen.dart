@@ -55,53 +55,62 @@ class SettingsScreen extends WatchingWidget {
                   onPressed: () {},
                   title: 'settingsThemeTitle'.tr(),
                   description: 'settingsThemeDescription'.tr(),
-                  rightWidget: Container(
-                    alignment: Alignment.center,
-                    width: 200,
-                    child: Wrap(
-                      alignment: WrapAlignment.center,
-                      runSpacing: 8,
+                  rightWidget: Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        SettingsThemeWidget(
-                          onPressed: () => getIt.get<ThemeService>().updateTheme(
-                            NovinarkoTheme.light,
-                          ),
-                          color: NovinarkoColors.white,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SettingsThemeWidget(
+                              onPressed: () => getIt.get<ThemeService>().updateTheme(
+                                NovinarkoTheme.light,
+                              ),
+                              color: NovinarkoColors.white,
+                            ),
+                            const SizedBox(width: 8),
+                            SettingsThemeWidget(
+                              onPressed: () => getIt.get<ThemeService>().updateTheme(
+                                NovinarkoTheme.dark,
+                              ),
+                              color: NovinarkoColors.dark,
+                            ),
+                            const SizedBox(width: 8),
+                            SettingsThemeWidget(
+                              onPressed: () => getIt.get<ThemeService>().updateTheme(
+                                NovinarkoTheme.sepia,
+                              ),
+                              color: NovinarkoColors.sepia,
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 8),
-                        SettingsThemeWidget(
-                          onPressed: () => getIt.get<ThemeService>().updateTheme(
-                            NovinarkoTheme.dark,
-                          ),
-                          color: NovinarkoColors.dark,
-                        ),
-                        const SizedBox(width: 8),
-                        SettingsThemeWidget(
-                          onPressed: () => getIt.get<ThemeService>().updateTheme(
-                            NovinarkoTheme.sepia,
-                          ),
-                          color: NovinarkoColors.sepia,
-                        ),
-                        const SizedBox(width: 8),
-                        SettingsThemeWidget(
-                          onPressed: () => getIt.get<ThemeService>().updateTheme(
-                            NovinarkoTheme.green,
-                          ),
-                          color: NovinarkoColors.green,
-                        ),
-                        const SizedBox(width: 8),
-                        SettingsThemeWidget(
-                          onPressed: () => getIt.get<ThemeService>().updateTheme(
-                            NovinarkoTheme.burgundy,
-                          ),
-                          color: NovinarkoColors.burgundy,
-                        ),
-                        const SizedBox(width: 8),
-                        SettingsThemeWidget(
-                          onPressed: () => getIt.get<ThemeService>().updateTheme(
-                            NovinarkoTheme.black,
-                          ),
-                          color: NovinarkoColors.black,
+
+                        const SizedBox(height: 8),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SettingsThemeWidget(
+                              onPressed: () => getIt.get<ThemeService>().updateTheme(
+                                NovinarkoTheme.green,
+                              ),
+                              color: NovinarkoColors.green,
+                            ),
+                            const SizedBox(width: 8),
+                            SettingsThemeWidget(
+                              onPressed: () => getIt.get<ThemeService>().updateTheme(
+                                NovinarkoTheme.burgundy,
+                              ),
+                              color: NovinarkoColors.burgundy,
+                            ),
+                            const SizedBox(width: 8),
+                            SettingsThemeWidget(
+                              onPressed: () => getIt.get<ThemeService>().updateTheme(
+                                NovinarkoTheme.black,
+                              ),
+                              color: NovinarkoColors.black,
+                            ),
+                          ],
                         ),
                       ],
                     ),
