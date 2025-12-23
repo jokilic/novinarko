@@ -5,10 +5,13 @@ import 'package:flutter/material.dart' hide SearchController;
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
+import '../../../main.dart';
+import '../../../routing.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/settings_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
+import '../../../util/snackbars.dart';
 import '../search_controller.dart';
 import 'search_custom_dialog.dart';
 
@@ -19,30 +22,59 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
     required this.hasFeeds,
   });
 
+  /// Triggers search or shows [SnackBar], depending on `feedsLength`
+  void searchOrShowSnackbar(
+    BuildContext context, {
+    required String text,
+    required int feedsLength,
+  }) {
+    /// User has less than feed limit, trigger search
+    if (feedsLength < feedLimit) {
+      getIt.get<SearchController>().searchTriggered(text);
+    }
+    /// User has more than feed limit, show [SnackBar]
+    else {
+      showRemoveSomeFeedsSnackbar(
+        context,
+        onPressed: () => openFeeds(context),
+      );
+    }
+  }
+
   /// Triggers custom search dialog or shows [SnackBar], depending on `feedsLength`
-  Future<void> showCustomSearchDialog(
+  Future<void> customSearchDialogOrShowSnackbar(
     BuildContext context, {
     required int feedsLength,
     required String fontFamily,
   }) async {
-    /// Clear [TextEditingControllers]
-    getIt.get<SearchController>().clearCustomTextControllers();
+    /// User has less than feed limit, trigger custom search
+    if (feedsLength < feedLimit) {
+      /// Clear [TextEditingControllers]
+      getIt.get<SearchController>().clearCustomTextControllers();
 
-    /// Show [SearchCustomDialog]
-    await showDialog(
-      context: context,
-      builder: (context) => SearchCustomDialog(
-        addFeedPressed: (dialogContext) => getIt.get<SearchController>().addCustomFeedPressed(
-          context: context,
-          dialogContext: dialogContext,
+      /// Show [SearchCustomDialog]
+      await showDialog(
+        context: context,
+        builder: (context) => SearchCustomDialog(
+          addFeedPressed: (dialogContext) => getIt.get<SearchController>().addCustomFeedPressed(
+            context: context,
+            dialogContext: dialogContext,
+          ),
+          outsideDialogPressed: Navigator.of(context).pop,
+          feedTitleTextController: getIt.get<SearchController>().customFeedTitleTextController,
+          feedUrlTextController: getIt.get<SearchController>().customFeedUrlTextController,
+          siteNameTextController: getIt.get<SearchController>().customFeedSiteNameTextController,
+          fontFamily: fontFamily,
         ),
-        outsideDialogPressed: Navigator.of(context).pop,
-        feedTitleTextController: getIt.get<SearchController>().customFeedTitleTextController,
-        feedUrlTextController: getIt.get<SearchController>().customFeedUrlTextController,
-        siteNameTextController: getIt.get<SearchController>().customFeedSiteNameTextController,
-        fontFamily: fontFamily,
-      ),
-    );
+      );
+    }
+    /// User has more than feed limit, show [SnackBar]
+    else {
+      showRemoveSomeFeedsSnackbar(
+        context,
+        onPressed: () => openFeeds(context),
+      );
+    }
   }
 
   @override
@@ -82,13 +114,18 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
               Expanded(
                 child: SearchBarTextField(
                   textController: getIt.get<SearchController>().searchTextController,
-                  onSubmitted: getIt.get<SearchController>().searchTriggered,
+                  onSubmitted: (value) => searchOrShowSnackbar(
+                    context,
+                    text: value,
+                    feedsLength: feedsLength,
+                  ),
                   fontFamily: fontFamily,
                 ),
               ),
               const SizedBox(width: 40),
               SearchAppBarCustom(
-                onPressed: () => showCustomSearchDialog(
+                noSearch: feedsLength >= feedLimit,
+                onPressed: () => customSearchDialogOrShowSnackbar(
                   context,
                   feedsLength: feedsLength,
                   fontFamily: fontFamily,
@@ -220,9 +257,11 @@ class SearchBarTextField extends StatelessWidget {
 
 class SearchAppBarCustom extends StatelessWidget {
   final Function() onPressed;
+  final bool noSearch;
 
   const SearchAppBarCustom({
     required this.onPressed,
+    required this.noSearch,
   });
 
   @override
@@ -239,7 +278,7 @@ class SearchAppBarCustom extends StatelessWidget {
     ),
     icon: Center(
       child: Image.asset(
-        NovinarkoIcons.customSearch,
+        noSearch ? NovinarkoIcons.noSearch : NovinarkoIcons.customSearch,
         fit: BoxFit.cover,
         color: context.colors.text,
         height: 20,

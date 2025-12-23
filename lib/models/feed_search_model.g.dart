@@ -17,30 +17,33 @@ class FeedSearchModelAdapter extends TypeAdapter<FeedSearchModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FeedSearchModel(
-      description: fields[0] as String?,
-      favicon: fields[1] as String?,
-      siteName: fields[2] as String?,
-      siteUrl: fields[3] as String?,
-      title: fields[4] as String?,
-      url: fields[5] as String?,
+      uid: fields[0] as String,
+      description: fields[1] as String?,
+      favicon: fields[2] as String?,
+      siteName: fields[3] as String?,
+      siteUrl: fields[4] as String?,
+      title: fields[5] as String?,
+      url: fields[6] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, FeedSearchModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.description)
+      ..write(obj.uid)
       ..writeByte(1)
-      ..write(obj.favicon)
+      ..write(obj.description)
       ..writeByte(2)
-      ..write(obj.siteName)
+      ..write(obj.favicon)
       ..writeByte(3)
-      ..write(obj.siteUrl)
+      ..write(obj.siteName)
       ..writeByte(4)
-      ..write(obj.title)
+      ..write(obj.siteUrl)
       ..writeByte(5)
+      ..write(obj.title)
+      ..writeByte(6)
       ..write(obj.url);
   }
 

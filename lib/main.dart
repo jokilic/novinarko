@@ -13,6 +13,10 @@ import 'util/dependencies.dart';
 import 'util/display_mode.dart';
 import 'widgets/novinarko_loader.dart';
 
+// TODO: Think about this
+/// Feed limit to be used in the app
+const feedLimit = 10;
+
 Future<void> main() async {
   /// Initialize Flutter related tasks
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,7 +66,11 @@ class NovinarkoWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final theme = watchIt<ThemeService>().value;
-    final feeds = watchIt<HiveService>().value.feeds.toList();
+    final hive = watchIt<HiveService>().value;
+
+    final feeds = hive.feeds.toList();
+    // TODO: Handle this
+    final folders = hive.folders.toList();
 
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
