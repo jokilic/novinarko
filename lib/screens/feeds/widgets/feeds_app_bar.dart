@@ -15,7 +15,7 @@ import 'feeds_add_folder_dialog.dart';
 
 class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
   /// Triggers add folder dialog
-  Future<void> addFolderDialog(
+  Future<void> showAddFolderDialog(
     BuildContext context, {
     required String fontFamily,
   }) async {
@@ -74,7 +74,7 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
               ),
               const Spacer(),
               FeedsAppBarAddFolder(
-                onPressed: () => addFolderDialog(
+                onPressed: () => showAddFolderDialog(
                   context,
                   fontFamily: fontFamily,
                 ),
@@ -160,8 +160,7 @@ class FeedsAppBarAddFolder extends StatelessWidget {
     ),
     icon: Center(
       child: Image.asset(
-        // TODO: Add icon
-        NovinarkoIcons.android,
+        NovinarkoIcons.addFolder,
         fit: BoxFit.cover,
         color: context.colors.background,
         height: 20,

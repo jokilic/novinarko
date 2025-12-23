@@ -4,19 +4,19 @@ import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import '../../../constants.dart';
 import '../../../theme/theme.dart';
 
-class FeedsListTile extends StatelessWidget {
+class FoldersListTile extends StatelessWidget {
   final Function() onPressed;
   final Function() onPressedDelete;
   final String title;
   final String? subtitle;
-  final String? url;
+
   final bool showActiveIndicator;
   final bool isDraggable;
   final String fontFamily;
   @override
   final Key key;
 
-  const FeedsListTile({
+  const FoldersListTile({
     required this.onPressed,
     required this.onPressedDelete,
     required this.title,
@@ -25,7 +25,6 @@ class FeedsListTile extends StatelessWidget {
     required this.key,
     this.isDraggable = true,
     this.subtitle,
-    this.url,
   });
 
   @override
@@ -106,12 +105,11 @@ class FeedsListTile extends StatelessWidget {
                 ],
               ),
 
-              if (subtitle != null || url != null) const SizedBox(height: 4),
-
               ///
               /// Subtitle
               ///
-              if (subtitle != null)
+              if (subtitle != null) ...[
+                const SizedBox(height: 4),
                 Text(
                   subtitle!,
                   maxLines: 1,
@@ -119,18 +117,7 @@ class FeedsListTile extends StatelessWidget {
                   textAlign: TextAlign.left,
                   style: context.textStyles.feedsSubtitle,
                 ),
-
-              ///
-              /// URL
-              ///
-              if (url != null)
-                Text(
-                  url!,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.left,
-                  style: context.textStyles.feedsUrl,
-                ),
+              ],
             ],
           ),
         ),

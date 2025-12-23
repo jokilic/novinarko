@@ -16,6 +16,9 @@ class FeedsScreen extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final activeFeed = watchIt<ActiveFeedService>().value;
+    // TODO: Think about how to implement this
+    // final activeFolder = watchIt<ActiveFolderService>().value;
+
     final settings = watchIt<SettingsService>().value;
     final hive = watchIt<HiveService>().value;
 
@@ -41,8 +44,13 @@ class FeedsScreen extends WatchingWidget {
             ],
             child: FeedsContent(
               activeFeed: activeFeed,
+              // TODO: Use proper value
+              // activeFolder: activeFolder,
+              activeFolder: null,
               feeds: feeds.toList(),
-              onReorder: getIt.get<HiveService>().reorderFeeds,
+              folders: folders.toList(),
+              onReorderFeeds: getIt.get<HiveService>().reorderFeeds,
+              onReorderFolders: getIt.get<HiveService>().reorderFolders,
               fontFamily: settings.fontFamily,
             ),
           ),
