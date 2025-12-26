@@ -5,7 +5,7 @@ import 'package:rss_dart/dart_rss.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:xml/xml.dart';
 
-import '../models/feed_search_model.dart';
+import '../models/feed_model.dart';
 
 String? getRSSImageUrl({
   required RssItem item,
@@ -155,7 +155,7 @@ String? parseDateTimeago(DateTime? dateTime, {required BuildContext context}) {
   }
 }
 
-String? getFeedTitle(FeedSearchModel? feed) {
+String? getFeedTitle(FeedModel? feed) {
   try {
     if (feed != null) {
       if (feed.siteName != null) {
@@ -182,7 +182,7 @@ String? getFeedTitle(FeedSearchModel? feed) {
   }
 }
 
-String? getFeedIcon(FeedSearchModel? feed) {
+String? getFeedIcon(FeedModel? feed) {
   try {
     if (feed != null) {
       if (feed.favicon != null) {

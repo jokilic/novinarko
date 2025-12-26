@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/feed_search_model.dart';
+import '../../../models/feed_model.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
@@ -10,8 +10,8 @@ import '../../news/controllers/news_controller.dart';
 import 'feeds_list_tile.dart';
 
 class FeedsContent extends StatelessWidget {
-  final FeedSearchModel? activeFeed;
-  final List<FeedSearchModel> feeds;
+  final FeedModel? activeFeed;
+  final List<FeedModel> feeds;
   final Function(int oldIndex, int newIndex) onReorder;
   final String fontFamily;
 
@@ -23,7 +23,7 @@ class FeedsContent extends StatelessWidget {
   });
 
   /// Loads passed `feed` and dismisses screen
-  void loadFeedAndPop(BuildContext context, FeedSearchModel? feed) {
+  void loadFeedAndPop(BuildContext context, FeedModel? feed) {
     getIt.get<ActiveFeedService>().updateActiveFeed(feed);
 
     if (getIt.isRegistered<NewsController>()) {

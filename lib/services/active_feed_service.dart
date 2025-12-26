@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../models/feed_search_model.dart';
+import '../models/feed_model.dart';
 import '../screens/news/controllers/news_controller.dart';
 import '../util/dependencies.dart';
 import 'hive_service.dart';
 import 'logger_service.dart';
 
-class ActiveFeedService extends ValueNotifier<FeedSearchModel?> {
+class ActiveFeedService extends ValueNotifier<FeedModel?> {
   final LoggerService logger;
   final HiveService hive;
 
@@ -19,7 +19,7 @@ class ActiveFeedService extends ValueNotifier<FeedSearchModel?> {
   /// METHODS
   ///
 
-  Future<void> updateActiveFeed(FeedSearchModel? feed) async {
+  Future<void> updateActiveFeed(FeedModel? feed) async {
     /// `feed` passed, store value in [Hive]
     if (feed != null) {
       await hive.storeActiveFeed(feed);
@@ -34,7 +34,7 @@ class ActiveFeedService extends ValueNotifier<FeedSearchModel?> {
     value = hive.getActiveFeed();
   }
 
-  Future<void> storeOrDeleteFeed(FeedSearchModel feed) async {
+  Future<void> storeOrDeleteFeed(FeedModel feed) async {
     /// Store `feed` in [Hive] and refresh if `activeFeed == null`
     if (!hive.value.contains(feed)) {
       await hive.storeFeed(

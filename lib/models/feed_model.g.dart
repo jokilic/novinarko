@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'feed_search_model.dart';
+part of 'feed_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class FeedSearchModelAdapter extends TypeAdapter<FeedSearchModel> {
+class FeedModelAdapter extends TypeAdapter<FeedModel> {
   @override
   final typeId = 0;
 
   @override
-  FeedSearchModel read(BinaryReader reader) {
+  FeedModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return FeedSearchModel(
+    return FeedModel(
       description: fields[0] as String?,
       favicon: fields[1] as String?,
       siteName: fields[2] as String?,
@@ -27,7 +27,7 @@ class FeedSearchModelAdapter extends TypeAdapter<FeedSearchModel> {
   }
 
   @override
-  void write(BinaryWriter writer, FeedSearchModel obj) {
+  void write(BinaryWriter writer, FeedModel obj) {
     writer
       ..writeByte(6)
       ..writeByte(0)
@@ -50,7 +50,7 @@ class FeedSearchModelAdapter extends TypeAdapter<FeedSearchModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FeedSearchModelAdapter &&
+      other is FeedModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

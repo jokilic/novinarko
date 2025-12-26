@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import '../../../models/feed_search_model.dart';
+import '../../../models/feed_model.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../../../widgets/novinarko_loader.dart';
 import '../search_state.dart';
@@ -12,7 +12,7 @@ import 'search_result.dart';
 
 class SearchContent extends StatelessWidget {
   final SearchState searchState;
-  final List<FeedSearchModel> hiveFeeds;
+  final List<FeedModel> hiveFeeds;
   final bool shimmerLoader;
   final String fontFamily;
 

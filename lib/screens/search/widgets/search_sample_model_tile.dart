@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import '../../../models/feed_search_model.dart';
+import '../../../models/feed_model.dart';
 import '../../../models/sample_feed_model.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../theme/theme.dart';
@@ -11,7 +11,7 @@ import 'search_list_tile.dart';
 
 class SearchSampleModelTile extends StatefulWidget {
   final SampleFeedModel model;
-  final List<FeedSearchModel> hiveFeeds;
+  final List<FeedModel> hiveFeeds;
   final String fontFamily;
 
   const SearchSampleModelTile({

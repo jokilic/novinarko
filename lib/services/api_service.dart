@@ -6,7 +6,7 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 
 import '../constants.dart';
 import '../models/error_model.dart';
-import '../models/feed_search_model.dart';
+import '../models/feed_model.dart';
 import '../models/google_search_model.dart';
 import '../util/env.dart';
 import '../util/isolates.dart';
@@ -26,7 +26,7 @@ class APIService {
   ///
   /// `feedsearch.dev`
   ///
-  Future<({List<FeedSearchModel>? results, ErrorModel? error, String? genericError})> getFeedsearch({required String searchUrl}) async {
+  Future<({List<FeedModel>? results, ErrorModel? error, String? genericError})> getFeedsearch({required String searchUrl}) async {
     try {
       final response = await dio.get(
         Env.feedSearchUrl,
@@ -39,10 +39,10 @@ class APIService {
       /// Status code is `200`, response is successful
       if (response.statusCode == 200) {
         try {
-          final parsedResults = await computeFeedsearch(response.data);
+          final parsedResults = await computeFeedModel(response.data);
           return (results: parsedResults, error: null, genericError: null);
         } catch (e) {
-          return (results: <FeedSearchModel>[], error: null, genericError: null);
+          return (results: <FeedModel>[], error: null, genericError: null);
         }
       }
 

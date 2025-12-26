@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 
-import 'feed_search_model.dart';
+import 'feed_model.dart';
 
 class SampleFeedModel {
   final String name;
   final String icon;
-  final List<FeedSearchModel> feeds;
+  final List<FeedModel> feeds;
 
   SampleFeedModel({
     required this.name,

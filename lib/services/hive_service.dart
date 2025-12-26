@@ -4,13 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 
-import '../models/feed_search_model.dart';
+import '../models/feed_model.dart';
 import '../models/novinarko_settings.dart';
 import '../models/novinarko_theme_enum.dart';
 import '../util/path.dart';
 import 'logger_service.dart';
 
-class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Disposable {
+class HiveService extends ValueNotifier<List<FeedModel>> implements Disposable {
   final LoggerService logger;
 
   HiveService(this.logger) : super([]);
@@ -19,8 +19,8 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   /// VARIABLES
   ///
 
-  late final Box<FeedSearchModel> feedBox;
-  late final Box<FeedSearchModel> activeFeedBox;
+  late final Box<FeedModel> feedBox;
+  late final Box<FeedModel> activeFeedBox;
   late final Box<NovinarkoSettings> settingsBox;
 
   ///
@@ -32,12 +32,12 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
 
     Hive
       ..init(directory?.path)
-      ..registerAdapter(FeedSearchModelAdapter())
+      ..registerAdapter(FeedModelAdapter())
       ..registerAdapter(NovinarkoThemeEnumAdapter())
       ..registerAdapter(NovinarkoSettingsAdapter());
 
-    feedBox = await Hive.openBox<FeedSearchModel>('feedBox');
-    activeFeedBox = await Hive.openBox<FeedSearchModel>('activeFeedBox');
+    feedBox = await Hive.openBox<FeedModel>('feedBox');
+    activeFeedBox = await Hive.openBox<FeedModel>('activeFeedBox');
     settingsBox = await Hive.openBox<NovinarkoSettings>('settingsBox');
 
     updateState();
@@ -61,11 +61,11 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   ///
 
   /// Gets all `feed` values from [Hive]
-  List<FeedSearchModel> getFeeds() => feedBox.values.toList();
+  List<FeedModel> getFeeds() => feedBox.values.toList();
 
   /// Stores a new `feed` value in [Hive]
   Future<void> storeFeed({
-    required FeedSearchModel feed,
+    required FeedModel feed,
     required int index,
   }) async {
     if (feed.url != null) {
@@ -92,7 +92,7 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   }
 
   /// Replace [Hive] box with passed `List<FeedSearchModel>`
-  Future<void> writeAllFeedsToHive({required List<FeedSearchModel> feeds}) async {
+  Future<void> writeAllFeedsToHive({required List<FeedModel> feeds}) async {
     /// Update `state`
     value = feeds;
 
@@ -118,10 +118,10 @@ class HiveService extends ValueNotifier<List<FeedSearchModel>> implements Dispos
   ///
 
   /// Gets `activeFeed` value from [Hive]
-  FeedSearchModel? getActiveFeed() => activeFeedBox.get(0);
+  FeedModel? getActiveFeed() => activeFeedBox.get(0);
 
   /// Stores a new `activeFeed` value in [Hive]
-  Future<void> storeActiveFeed(FeedSearchModel feed) async => activeFeedBox.put(0, feed);
+  Future<void> storeActiveFeed(FeedModel feed) async => activeFeedBox.put(0, feed);
 
   /// Deletes `activeFeed` value from [Hive]
   Future<void> deleteActiveFeed() async => activeFeedBox.clear();

@@ -6,7 +6,7 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
 import '../../../main.dart';
-import '../../../models/feed_search_model.dart';
+import '../../../models/feed_model.dart';
 import '../../../routing.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../services/hive_service.dart';
@@ -40,7 +40,7 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
   /// Opens [NewsFeedInfoDialog] showing data about the active feed
   void openFeedInfoDialog(
     BuildContext context, {
-    required FeedSearchModel feed,
+    required FeedModel feed,
   }) => showDialog(
     context: context,
     builder: (context) => NewsFeedInfoDialog(

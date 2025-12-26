@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
-import 'models/feed_search_model.dart';
+import 'models/feed_model.dart';
 import 'models/sample_feed_model.dart';
 import 'util/env.dart';
 
@@ -92,19 +92,19 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleAndroid'.tr(),
     icon: NovinarkoIcons.android,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'Android Authority',
         siteName: 'Android Authority',
         description: 'Android News, Reviews, How To',
         url: 'https://www.androidauthority.com/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Android news, reviews, apps, games, phones, tablets',
         siteName: 'Android Police',
         description: 'Looking after everything Android',
         url: 'http://feeds.feedburner.com/AndroidPolice',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Droid Life',
         siteName: 'Droid Life',
         description: 'Opinionated Android news.',
@@ -121,19 +121,19 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleApple'.tr(),
     icon: NovinarkoIcons.apple,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: '9to5Mac',
         siteName: '9to5Mac',
         description: 'Apple News & Mac Rumors Breaking All Day',
         url: 'https://9to5mac.com/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Cult of Mac',
         siteName: 'Cult of Mac',
         description: 'Tech and culture through an Apple lens',
         url: 'https://www.cultofmac.com/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Macworld.com',
         siteName: 'Macworld.com',
         description: "Macworld is your best source for all things Apple. We give you the scoop on what's new, what's best and how to make the most out of the products you love.",
@@ -150,18 +150,18 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleBusiness'.tr(),
     icon: NovinarkoIcons.business,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'Forbes - Business',
         siteName: 'Forbes - Business',
         url: 'https://www.forbes.com/business/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Fortune',
         siteName: 'Fortune',
         description: 'Fortune 500 Daily & Breaking Business News',
         url: 'https://fortune.com/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Yahoo Finance',
         siteName: 'Yahoo Finance',
         description:
@@ -179,19 +179,19 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleCars'.tr(),
     icon: NovinarkoIcons.cars,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'Autoblog',
         siteName: 'Autoblog',
         url: 'https://www.autoblog.com/rss.xml',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Autocar RSS Feed',
         siteName: 'Autocar RSS Feed',
         description:
             "Welcome to nirvana for car enthusiasts. You have just entered the online home of the world's oldest car magazine, and the only place on the internet where you can find Autocar's unique mix of up-to-the-minute news, red hot car reviews, conclusive road test verdicts, and a lot more besides.",
         url: 'https://www.autocar.co.uk/rss',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Carscoops',
         siteName: 'Carscoops',
         description: 'Breaking Car News, Scoops & Reviews',
@@ -208,17 +208,17 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleFashion'.tr(),
     icon: NovinarkoIcons.fashion,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'Fashion - ELLE',
         siteName: 'Fashion - ELLE',
         url: 'https://www.elle.com/rss/fashion.xml',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Fashionista',
         siteName: 'Fashionista',
         url: 'https://fashionista.com/.rss/excerpt',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Refinery29',
         siteName: 'Refinery29',
         description: 'Breaking Car News, Scoops & Reviews',
@@ -235,19 +235,19 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleFood'.tr(),
     icon: NovinarkoIcons.food,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: '101 Cookbooks',
         siteName: '101 Cookbooks',
         description: 'When you own over 100 cookbooks, it is time to stop buying, and start cooking. This site chronicles a cookbook collection, one recipe at a time',
         url: 'https://www.101cookbooks.com/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Food52',
         siteName: 'Food52',
         description: 'Eat thoughtfully, live joyfully.',
         url: 'http://feeds.feedburner.com/food52-TheAandMBlog',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Love and Olive Oil',
         siteName: 'Love and Olive Oil',
         description: 'Eat to Live. Cook to Love.',
@@ -264,19 +264,19 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleGaming'.tr(),
     icon: NovinarkoIcons.gaming,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'GameSpot - All Content',
         siteName: 'GameSpot - All Content',
         description: "GameSpot's Everything Feed! All the latest from GameSpot",
         url: 'https://www.gamespot.com/feeds/mashup',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'IGN All',
         siteName: 'IGN All',
         description: 'The latest IGN news, reviews and videos about video games, movies, TV, tech and comics',
         url: 'http://feeds.ign.com/ign/all',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'PlayStation.Blog',
         siteName: 'PlayStation.Blog',
         description: 'Official PlayStation Blog for news and video updates on PlayStation, PS5, PS4, PS VR, PlayStation Plus and more.',
@@ -293,20 +293,20 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleHistory'.tr(),
     icon: NovinarkoIcons.history,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'The History Reader',
         siteName: 'The History Reader',
         description: "A History Blog from St. Martin's Press",
         url: 'https://www.thehistoryreader.com/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Throughline',
         siteName: 'Throughline',
         description:
             'The past is never past. Every headline has a history. Join us every week as we go back in time to understand the present. These are stories you can feel and sounds you can see from the moments that shaped our world.',
         url: 'https://feeds.npr.org/510333/podcast.xml',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'You Must Remember This',
         siteName: 'You Must Remember This',
         description:
@@ -324,19 +324,19 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleMovies'.tr(),
     icon: NovinarkoIcons.movies,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'ComingSoon.net',
         siteName: 'ComingSoon.net',
         description: 'New Movies, Movie Trailers, TV, Streaming, Anime & Video Game News',
         url: 'https://www.comingsoon.net/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'FirstShowing.net',
         siteName: 'FirstShowing.net',
         description: 'Connecting Hollywood with its Audience',
         url: 'https://www.firstshowing.net/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Movie News and Discussion',
         siteName: 'Movie News and Discussion',
         description: 'News & Discussion about Major Motion Pictures',
@@ -353,19 +353,19 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleMusic'.tr(),
     icon: NovinarkoIcons.music,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'Consequence',
         siteName: 'Consequence',
         description: 'Music, Film, TV and Pop Culture News for the Mainstream and Underground',
         url: 'http://consequenceofsound.net/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Music Business Worldwide',
         siteName: 'Music Business Worldwide',
         description: 'News, jobs and analysis for the global music industry',
         url: 'https://www.musicbusinessworldwide.com/feed',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Song Exploder',
         siteName: 'Song Exploder',
         description: 'A podcast where musicians take apart their songs, and piece by piece, tell the story of how they were made.',
@@ -382,17 +382,17 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleNews'.tr(),
     icon: NovinarkoIcons.news,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'BBC News - World',
         siteName: 'BBC News - World',
         url: 'http://feeds.bbci.co.uk/news/world/rss.xml',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'NYT > World News',
         siteName: 'NYT > World News',
         url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'World news | The Guardian',
         siteName: 'World news | The Guardian',
         description: "Latest World news news, comment and analysis from the Guardian, the world's leading liberal voice",
@@ -409,19 +409,19 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleProgramming'.tr(),
     icon: NovinarkoIcons.programming,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'CodeNewbie',
         siteName: 'CodeNewbie',
         description: 'Stories and interviews from people on their coding journey.',
         url: 'http://feeds.codenewbie.org/cnpodcast.xml',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Google Developers Blog',
         siteName: 'Google Developers Blog',
         description: 'Blog of our latest news, updates, and stories for developers',
         url: 'http://feeds.feedburner.com/GDBcode',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Programming – The Crazy Programmer',
         siteName: 'Programming – The Crazy Programmer',
         description: 'Programming, Design and Development',
@@ -438,18 +438,18 @@ class NovinarkoSampleFeeds {
     name: 'searchSampleSports'.tr(),
     icon: NovinarkoIcons.sports,
     feeds: [
-      FeedSearchModel(
+      FeedModel(
         title: 'BBC Sport - Sport',
         siteName: 'BBC Sport - Sport',
         url: 'http://feeds.bbci.co.uk/sport/rss.xml',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'Sports News - Latest Sports and Football News | Sky News',
         siteName: 'Sports News - Latest Sports and Football News | Sky News',
         description: 'The best sports coverage from around the world, covering: Football, Cricket, Golf, Rugby, WWE, Boxing, Tennis and much more.',
         url: 'http://feeds.skynews.com/feeds/rss/sports.xml',
       ),
-      FeedSearchModel(
+      FeedModel(
         title: 'www.espn.com - TOP',
         siteName: 'www.espn.com - TOP',
         description: 'Latest TOP news from www.espn.com',

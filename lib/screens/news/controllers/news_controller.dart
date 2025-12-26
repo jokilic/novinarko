@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rss_dart/dart_rss.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../../../models/feed_search_model.dart';
+import '../../../models/feed_model.dart';
 import '../../../models/novinarko_rss_feed.dart';
 import '../../../models/novinarko_rss_item.dart';
 import '../../../services/active_feed_service.dart';
@@ -43,7 +43,7 @@ class NewsController extends ValueNotifier<NewsState> {
   ///
 
   /// Loads a new `feed` or all feeds if `null` is passed
-  Future<void> loadFeed(FeedSearchModel? newFeed) async {
+  Future<void> loadFeed(FeedModel? newFeed) async {
     /// `feed` is passed
     if (newFeed != null) {
       await loadSingleFeed(feed: newFeed);
@@ -55,7 +55,7 @@ class NewsController extends ValueNotifier<NewsState> {
     }
   }
 
-  Future<void> pullToRefresh(FeedSearchModel? activeFeed) async {
+  Future<void> pullToRefresh(FeedModel? activeFeed) async {
     /// `activeFeed` exists, fetch and parse it
     if (activeFeed != null) {
       await loadSingleFeed(
@@ -71,7 +71,7 @@ class NewsController extends ValueNotifier<NewsState> {
 
   /// This will fetch and parse single `feed`
   Future<void> loadSingleFeed({
-    required FeedSearchModel feed,
+    required FeedModel feed,
     bool useLoadingState = true,
   }) async {
     /// Loading state
@@ -158,7 +158,7 @@ class NewsController extends ValueNotifier<NewsState> {
 
   /// Fetches and parses single `feed`, retunrs `List<NovinarkoRssItem>`
   /// Used when fetching all `items` and then using them in `NewsStateAllSuccess`
-  Future<({List<NovinarkoRssItem>? items, String? error})> fetchAndParseFeedItems(FeedSearchModel feed) async {
+  Future<({List<NovinarkoRssItem>? items, String? error})> fetchAndParseFeedItems(FeedModel feed) async {
     final result = await fetchAndParseFeed(feed);
 
     if (result.rssFeed != null) {
@@ -169,7 +169,7 @@ class NewsController extends ValueNotifier<NewsState> {
   }
 
   /// Fetches and parses single `feed`, retunrs `NovinarkoRssFeed`
-  Future<({NovinarkoRssFeed? rssFeed, String? error})> fetchAndParseFeed(FeedSearchModel feed) async {
+  Future<({NovinarkoRssFeed? rssFeed, String? error})> fetchAndParseFeed(FeedModel feed) async {
     /// Feed `url` is `null`
     if (feed.url == null) {
       final error = 'News -> fetchAndParseLogic -> ${feed.url} -> feed url is null';

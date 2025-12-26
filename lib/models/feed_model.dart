@@ -1,9 +1,9 @@
 import 'package:hive_ce/hive.dart';
 
-part 'feed_search_model.g.dart';
+part 'feed_model.g.dart';
 
 @HiveType(typeId: 0)
-class FeedSearchModel {
+class FeedModel {
   @HiveField(0)
   final String? description;
   @HiveField(1)
@@ -17,7 +17,7 @@ class FeedSearchModel {
   @HiveField(5)
   final String? url;
 
-  FeedSearchModel({
+  FeedModel({
     this.description,
     this.favicon,
     this.siteName,
@@ -26,7 +26,7 @@ class FeedSearchModel {
     this.url,
   });
 
-  factory FeedSearchModel.fromMap(Map<String, dynamic> map) => FeedSearchModel(
+  factory FeedModel.fromMap(Map<String, dynamic> map) => FeedModel(
     description: map['description'] != null ? map['description'] as String : null,
     favicon: map['favicon'] != null ? map['favicon'] as String : null,
     siteName: map['site_name'] != null ? map['site_name'] as String : null,
@@ -36,10 +36,10 @@ class FeedSearchModel {
   );
 
   @override
-  String toString() => 'FeedSearch(description: $description, favicon: $favicon, siteName: $siteName, siteUrl: $siteUrl, title: $title, url: $url)';
+  String toString() => 'FeedModel(description: $description, favicon: $favicon, siteName: $siteName, siteUrl: $siteUrl, title: $title, url: $url)';
 
   @override
-  bool operator ==(covariant FeedSearchModel other) {
+  bool operator ==(covariant FeedModel other) {
     if (identical(this, other)) {
       return true;
     }

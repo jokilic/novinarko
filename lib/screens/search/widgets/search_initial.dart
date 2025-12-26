@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart' hide SearchController;
 
 import '../../../constants.dart';
-import '../../../models/feed_search_model.dart';
+import '../../../models/feed_model.dart';
 import 'search_sample_model_tile.dart';
 
 class SearchInitial extends StatefulWidget {
-  final List<FeedSearchModel> hiveFeeds;
+  final List<FeedModel> hiveFeeds;
   final String fontFamily;
 
   const SearchInitial({

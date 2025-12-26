@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart' hide SearchController;
 
-import '../../../models/feed_search_model.dart';
+import '../../../models/feed_model.dart';
 import '../../../services/active_feed_service.dart';
 import '../../../util/dependencies.dart';
 import '../../../widgets/novinarko_divider.dart';
 import 'search_list_tile.dart';
 
 class SearchResult extends StatelessWidget {
-  final List<FeedSearchModel> results;
-  final List<FeedSearchModel> hiveFeeds;
+  final List<FeedModel> results;
+  final List<FeedModel> hiveFeeds;
   final String fontFamily;
 
   const SearchResult({

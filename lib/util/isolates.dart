@@ -3,11 +3,11 @@
 import 'package:flutter/foundation.dart';
 
 import '../models/error_model.dart';
-import '../models/feed_search_model.dart';
+import '../models/feed_model.dart';
 import '../models/google_search_model.dart';
 
-Future<List<FeedSearchModel>> computeFeedsearch(List<dynamic> data) async => compute(parseFeedsearch, data);
-List<FeedSearchModel> parseFeedsearch(List<dynamic> data) => data.map((map) => FeedSearchModel.fromMap(map)).toList();
+Future<List<FeedModel>> computeFeedModel(List<dynamic> data) async => compute(parseFeedModel, data);
+List<FeedModel> parseFeedModel(List<dynamic> data) => data.map((map) => FeedModel.fromMap(map)).toList();
 
 Future<GoogleSearchItems> computeGoogleSearch(data) async => compute(parseGoogleSearch, data);
 GoogleSearchItems parseGoogleSearch(data) => GoogleSearchItems.fromMap(data);

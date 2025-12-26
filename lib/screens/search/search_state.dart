@@ -1,5 +1,5 @@
 import '../../models/error_model.dart';
-import '../../models/feed_search_model.dart';
+import '../../models/feed_model.dart';
 
 sealed class SearchState {}
 
@@ -26,7 +26,7 @@ class SearchStateError extends SearchState {
 }
 
 class SearchStateSuccess extends SearchState {
-  final List<FeedSearchModel> results;
+  final List<FeedModel> results;
 
   SearchStateSuccess({
     required this.results,

@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 
 import '../../constants.dart';
 import '../../models/error_model.dart';
-import '../../models/feed_search_model.dart';
+import '../../models/feed_model.dart';
 import '../../models/google_search_model.dart';
 import '../../services/active_feed_service.dart';
 import '../../services/api_service.dart';
@@ -137,7 +137,7 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
     return response;
   }
 
-  Future<({List<FeedSearchModel>? results, ErrorModel? error, String? genericError})> getFeedsearch(String searchUrl) async {
+  Future<({List<FeedModel>? results, ErrorModel? error, String? genericError})> getFeedsearch(String searchUrl) async {
     final response = await api.getFeedsearch(searchUrl: searchUrl);
     return response;
   }
@@ -188,7 +188,7 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
 
     /// Store custom feed
     if (isURL) {
-      final customFeed = FeedSearchModel(
+      final customFeed = FeedModel(
         title: feedTitle,
         url: feedUrl,
         siteName: siteName,

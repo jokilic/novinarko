@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/feed_search_model.dart';
+import '../../../models/feed_model.dart';
 import '../../../theme/theme.dart';
 import '../../../util/navigation.dart';
 import '../../../util/parsing.dart';
@@ -9,7 +9,7 @@ import '../../../widgets/novinarko_divider.dart';
 import '../../../widgets/novinarko_network_image.dart';
 
 class NewsFeedInfoDialog extends StatelessWidget {
-  final FeedSearchModel feed;
+  final FeedModel feed;
 
   const NewsFeedInfoDialog({
     required this.feed,
