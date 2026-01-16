@@ -8,7 +8,7 @@ import '../screens/read/controllers/read_controller.dart';
 import '../screens/read/controllers/read_loader_controller.dart';
 import '../screens/read/controllers/web_buttons_controller.dart';
 import '../screens/search/search_controller.dart';
-import '../services/active_feed_service.dart';
+import '../services/active_feed_folder_service.dart';
 import '../services/api_service.dart';
 import '../services/dio_service.dart';
 import '../services/hive_service.dart';
@@ -62,7 +62,7 @@ void initializeServices() => getIt
     dependsOn: [LoggerService, HiveService, SettingsService],
   )
   ..registerSingletonAsync(
-    () async => ActiveFeedService(
+    () async => ActiveFeedFolderService(
       logger: getIt.get<LoggerService>(),
       hive: getIt.get<HiveService>(),
     ),
@@ -76,9 +76,9 @@ void initializeControllers() {
         logger: getIt.get<LoggerService>(),
         api: getIt.get<APIService>(),
         hive: getIt.get<HiveService>(),
-        activeFeedService: getIt.get<ActiveFeedService>(),
+        activeFeedService: getIt.get<ActiveFeedFolderService>(),
       ),
-      dependsOn: [LoggerService, APIService, HiveService, ActiveFeedService],
+      dependsOn: [LoggerService, APIService, HiveService, ActiveFeedFolderService],
     )
     ..registerLazySingleton(
       () => NewsReadLoaderController(
@@ -90,7 +90,7 @@ void initializeControllers() {
         logger: getIt.get<LoggerService>(),
         api: getIt.get<APIService>(),
         hive: getIt.get<HiveService>(),
-        activeFeedService: getIt.get<ActiveFeedService>(),
+        activeFeedService: getIt.get<ActiveFeedFolderService>(),
       )..init(),
     )
     ..registerLazySingleton(

@@ -8,7 +8,7 @@ import '../../constants.dart';
 import '../../models/error_model.dart';
 import '../../models/feed_model.dart';
 import '../../models/google_search_model.dart';
-import '../../services/active_feed_service.dart';
+import '../../services/active_feed_folder_service.dart';
 import '../../services/api_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
@@ -19,7 +19,7 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
   final LoggerService logger;
   final APIService api;
   final HiveService hive;
-  final ActiveFeedService activeFeedService;
+  final ActiveFeedFolderService activeFeedService;
 
   SearchController({
     required this.logger,

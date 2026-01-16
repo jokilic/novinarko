@@ -6,7 +6,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import '../../../models/feed_model.dart';
 import '../../../models/novinarko_rss_feed.dart';
 import '../../../models/novinarko_rss_item.dart';
-import '../../../services/active_feed_service.dart';
+import '../../../services/active_feed_folder_service.dart';
 import '../../../services/api_service.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/logger_service.dart';
@@ -17,7 +17,7 @@ class NewsController extends ValueNotifier<NewsState> {
   final LoggerService logger;
   final APIService api;
   final HiveService hive;
-  final ActiveFeedService activeFeedService;
+  final ActiveFeedFolderService activeFeedService;
 
   NewsController({
     required this.logger,
@@ -25,7 +25,9 @@ class NewsController extends ValueNotifier<NewsState> {
     required this.hive,
     required this.activeFeedService,
   }) : super(NewsStateInitial()) {
-    loadFeed(activeFeedService.value);
+    loadFeed(
+      activeFeedService.value?.feed,
+    );
   }
 
   ///
@@ -94,10 +96,10 @@ class NewsController extends ValueNotifier<NewsState> {
     );
   }
 
-  /// This will fetche and parse all `feeds`
+  /// This will fetch and parse all `feeds`
   Future<void> loadAllFeeds({bool useLoadingState = true}) async {
     /// No values in [Hive], set state to [NewsStateEmpty]
-    if (hive.value.isEmpty) {
+    if (hive.value.feeds.isEmpty) {
       value = NewsStateEmpty();
       return;
     }
@@ -110,7 +112,7 @@ class NewsController extends ValueNotifier<NewsState> {
     }
 
     /// Fetches and parses all feeds, returns `List<NovinarkoRssItem>` or `error`
-    final futures = hive.value.map(fetchAndParseFeedItems).toList();
+    final futures = hive.value.feeds.map(fetchAndParseFeedItems).toList();
 
     /// Run tasks concurrently
     final results = await Future.wait(futures);

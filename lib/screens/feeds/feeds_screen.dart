@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants.dart';
-import '../../services/active_feed_service.dart';
+import '../../services/active_feed_folder_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/settings_service.dart';
 import '../../theme/theme.dart';
@@ -15,8 +15,14 @@ import 'widgets/feeds_content.dart';
 class FeedsScreen extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
-    final activeFeed = watchIt<ActiveFeedService>().value;
-    final feeds = watchIt<HiveService>().value;
+    final hiveState = watchIt<HiveService>().value;
+    final feeds = hiveState.feeds;
+    final folders = hiveState.folders;
+
+    final activeFeedFolderState = watchIt<ActiveFeedFolderService>().value;
+    final activeFeed = activeFeedFolderState?.feed;
+    final activeFolder = activeFeedFolderState?.folder;
+
     final settings = watchIt<SettingsService>().value;
 
     return Stack(
@@ -36,8 +42,10 @@ class FeedsScreen extends WatchingWidget {
               ),
             ],
             child: FeedsContent(
-              activeFeed: activeFeed,
               feeds: feeds.toList(),
+              folders: folders.toList(),
+              activeFeed: activeFeed,
+              activeFolder: activeFolder,
               onReorder: getIt.get<HiveService>().reorderFeeds,
               fontFamily: settings.fontFamily,
             ),

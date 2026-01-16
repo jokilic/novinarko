@@ -79,7 +79,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final feedsLength = watchIt<HiveService>().value.length;
+    final feedsLength = watchIt<HiveService>().value.feeds.length;
     final fontFamily = watchIt<SettingsService>().value.fontFamily;
 
     return AppBar(

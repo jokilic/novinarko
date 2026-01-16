@@ -45,7 +45,7 @@ class SearchWidget extends WatchingWidget {
   Widget build(BuildContext context) {
     final searchState = watchIt<SearchController>().value;
     final settings = watchIt<SettingsService>().value;
-    final hiveFeeds = watchIt<HiveService>().value;
+    final hiveState = watchIt<HiveService>().value;
 
     return Stack(
       children: [
@@ -55,7 +55,7 @@ class SearchWidget extends WatchingWidget {
         Scaffold(
           extendBodyBehindAppBar: true,
           appBar: SearchAppBar(
-            hasFeeds: hiveFeeds.isNotEmpty,
+            hasFeeds: hiveState.feeds.isNotEmpty,
           ),
           body: Animate(
             key: ValueKey(searchState),
@@ -67,7 +67,7 @@ class SearchWidget extends WatchingWidget {
             ],
             child: SearchContent(
               searchState: searchState,
-              hiveFeeds: hiveFeeds,
+              hiveFeeds: hiveState.feeds,
               shimmerLoader: settings.useShimmerLoader,
               fontFamily: settings.fontFamily,
             ),

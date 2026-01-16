@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../models/feed_model.dart';
 import '../../../models/sample_feed_model.dart';
-import '../../../services/active_feed_service.dart';
+import '../../../services/active_feed_folder_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../widgets/novinarko_divider.dart';
@@ -35,7 +35,7 @@ class _SearchSampleModelTileState extends State<SearchSampleModelTile> {
 
       tiles.add(
         SearchListTile(
-          onPressed: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(result),
+          onPressed: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFeed(result),
           title: result.title,
           siteName: result.siteName,
           description: result.description,

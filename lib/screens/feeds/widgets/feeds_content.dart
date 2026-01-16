@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/feed_model.dart';
-import '../../../services/active_feed_service.dart';
+import '../../../models/folder_model.dart';
+import '../../../services/active_feed_folder_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../widgets/novinarko_divider.dart';
@@ -10,21 +11,25 @@ import '../../news/controllers/news_controller.dart';
 import 'feeds_list_tile.dart';
 
 class FeedsContent extends StatelessWidget {
-  final FeedModel? activeFeed;
   final List<FeedModel> feeds;
+  final List<FolderModel> folders;
+  final FeedModel? activeFeed;
+  final FolderModel? activeFolder;
   final Function(int oldIndex, int newIndex) onReorder;
   final String fontFamily;
 
   const FeedsContent({
-    required this.activeFeed,
     required this.feeds,
+    required this.folders,
+    required this.activeFeed,
+    required this.activeFolder,
     required this.onReorder,
     required this.fontFamily,
   });
 
   /// Loads passed `feed` and dismisses screen
   void loadFeedAndPop(BuildContext context, FeedModel? feed) {
-    getIt.get<ActiveFeedService>().updateActiveFeed(feed);
+    getIt.get<ActiveFeedFolderService>().updateActiveFeed(feed);
 
     if (getIt.isRegistered<NewsController>()) {
       getIt.get<NewsController>().loadFeed(feed);
@@ -77,7 +82,7 @@ class FeedsContent extends StatelessWidget {
 
           return FeedsListTile(
             key: ValueKey(feed),
-            onPressedDelete: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(feed),
+            onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFeed(feed),
             onPressed: () => loadFeedAndPop(context, feed),
             title: feed.siteName ?? feed.title ?? '',
             subtitle: feed.title,

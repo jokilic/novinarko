@@ -8,7 +8,7 @@ import '../../../constants.dart';
 import '../../../main.dart';
 import '../../../models/feed_model.dart';
 import '../../../routing.dart';
-import '../../../services/active_feed_service.dart';
+import '../../../services/active_feed_folder_service.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/settings_service.dart';
 import '../../../theme/theme.dart';
@@ -50,8 +50,8 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final activeFeed = watchIt<ActiveFeedService>().value;
-    final feedsLength = watchIt<HiveService>().value.length;
+    final activeFeed = watchIt<ActiveFeedFolderService>().value?.feed;
+    final feedsLength = watchIt<HiveService>().value.feeds.length;
     final fontFamily = watchIt<SettingsService>().value.fontFamily;
 
     return AppBar(

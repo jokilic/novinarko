@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../models/novinarko_rss_feed.dart';
 import '../../../models/novinarko_rss_item.dart';
-import '../../../services/active_feed_service.dart';
+import '../../../services/active_feed_folder_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../util/navigation.dart';
@@ -40,7 +40,7 @@ class NewsResult extends StatelessWidget {
 
       return RefreshIndicator(
         onRefresh: () => getIt.get<NewsController>().pullToRefresh(
-          getIt.get<ActiveFeedService>().value,
+          getIt.get<ActiveFeedFolderService>().value?.feed,
         ),
         color: context.colors.background,
         backgroundColor: context.colors.text,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' hide SearchController;
 
 import '../../../models/feed_model.dart';
-import '../../../services/active_feed_service.dart';
+import '../../../services/active_feed_folder_service.dart';
 import '../../../util/dependencies.dart';
 import '../../../widgets/novinarko_divider.dart';
 import 'search_list_tile.dart';
@@ -25,7 +25,7 @@ class SearchResult extends StatelessWidget {
       final result = results[index];
 
       return SearchListTile(
-        onPressed: () => getIt.get<ActiveFeedService>().storeOrDeleteFeed(result),
+        onPressed: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFeed(result),
         title: result.title,
         siteName: result.siteName,
         description: result.description,

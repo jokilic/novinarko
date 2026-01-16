@@ -62,7 +62,7 @@ class NewsReadController extends ValueNotifier<List<NovinarkoRssItem>> implement
     }
 
     /// Assign new state value
-    value = List.from(value);
+    value = List<NovinarkoRssItem>.from(value);
 
     /// Animate FAB
     triggerFabAnimation();

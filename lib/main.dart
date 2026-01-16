@@ -65,7 +65,7 @@ class NovinarkoWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final theme = watchIt<ThemeService>().value;
-    final feeds = watchIt<HiveService>().value.toList();
+    final feeds = watchIt<HiveService>().value.feeds.toList();
 
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
