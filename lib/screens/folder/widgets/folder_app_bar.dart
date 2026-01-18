@@ -9,7 +9,7 @@ import '../../../routing.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 
-class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
+class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = watchIt<ThemeService>().value;
@@ -41,15 +41,11 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              FeedsAppBarBack(
+              FolderAppBarBack(
                 onPressed: Navigator.of(context).pop,
               ),
               const Spacer(),
-              FeedsAppBarAddFolder(
-                onPressed: () => openSettings(context),
-              ),
-              const SizedBox(width: 20),
-              FeedsAppBarSettings(
+              FolderAppBarDelete(
                 onPressed: () => openSettings(context),
               ),
             ],
@@ -77,10 +73,10 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 32);
 }
 
-class FeedsAppBarBack extends StatelessWidget {
+class FolderAppBarBack extends StatelessWidget {
   final Function() onPressed;
 
-  const FeedsAppBarBack({
+  const FolderAppBarBack({
     required this.onPressed,
   });
 
@@ -108,10 +104,10 @@ class FeedsAppBarBack extends StatelessWidget {
   );
 }
 
-class FeedsAppBarAddFolder extends StatelessWidget {
+class FolderAppBarDelete extends StatelessWidget {
   final Function() onPressed;
 
-  const FeedsAppBarAddFolder({
+  const FolderAppBarDelete({
     required this.onPressed,
   });
 
@@ -129,38 +125,7 @@ class FeedsAppBarAddFolder extends StatelessWidget {
     ),
     icon: Center(
       child: Image.asset(
-        NovinarkoIcons.android,
-        fit: BoxFit.cover,
-        color: context.colors.background,
-        height: 20,
-        width: 20,
-      ),
-    ),
-  );
-}
-
-class FeedsAppBarSettings extends StatelessWidget {
-  final Function() onPressed;
-
-  const FeedsAppBarSettings({
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) => IconButton(
-    onPressed: onPressed,
-    style: IconButton.styleFrom(
-      highlightColor: context.colors.primary.withValues(alpha: 0.6),
-      fixedSize: const Size(50, 50),
-      shape: const CircleBorder(),
-      side: BorderSide(
-        color: context.colors.background,
-        width: 2,
-      ),
-    ),
-    icon: Center(
-      child: Image.asset(
-        NovinarkoIcons.settings,
+        NovinarkoIcons.delete,
         fit: BoxFit.cover,
         color: context.colors.background,
         height: 20,
