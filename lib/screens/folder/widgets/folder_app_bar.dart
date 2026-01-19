@@ -13,7 +13,7 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = watchIt<ThemeService>().value;
-    final isDark = theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green || theme == NovinarkoTheme.burgundy || theme == NovinarkoTheme.black;
+    final isDark = theme == null || theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green || theme == NovinarkoTheme.burgundy || theme == NovinarkoTheme.black;
 
     return AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(

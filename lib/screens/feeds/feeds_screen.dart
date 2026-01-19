@@ -9,10 +9,27 @@ import '../../services/settings_service.dart';
 import '../../theme/theme.dart';
 import '../../util/dependencies.dart';
 import '../../util/snowflake/snowflake_widget.dart';
+import 'feeds_controller.dart';
 import 'widgets/feeds_app_bar.dart';
 import 'widgets/feeds_content.dart';
 
-class FeedsScreen extends WatchingWidget {
+class FeedsScreen extends WatchingStatefulWidget {
+  @override
+  State<FeedsScreen> createState() => _FeedsScreenState();
+}
+
+class _FeedsScreenState extends State<FeedsScreen> {
+  @override
+  void dispose() {
+    getIt.get<FeedsController>().clearCustomTextControllers();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => FeedsWidget();
+}
+
+class FeedsWidget extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final hiveState = watchIt<HiveService>().value;

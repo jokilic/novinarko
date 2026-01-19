@@ -1,12 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/feed_model.dart';
 import '../../../models/folder_model.dart';
 import '../../../services/active_feed_folder_service.dart';
-import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
-import '../../../widgets/novinarko_divider.dart';
 import '../../news/controllers/news_controller.dart';
 
 class FolderContent extends StatelessWidget {
@@ -43,52 +40,52 @@ class FolderContent extends StatelessWidget {
       ///
       /// ALL FEEDS
       ///
-      FeedsListTile(
-        isDraggable: false,
-        key: const ValueKey('all_feeds'),
-        onPressedDelete: () {},
-        onPressed: () => loadFeedAndPop(context, null),
-        title: 'feedsAllFeedsTitle'.tr(),
-        subtitle: 'feedsAllFeedsSubtitle'.tr(),
-        showActiveIndicator: activeFeed == null,
-        fontFamily: fontFamily,
-      ),
+      // FeedsListTile(
+      //   isDraggable: false,
+      //   key: const ValueKey('all_feeds'),
+      //   onPressedDelete: () {},
+      //   onPressed: () => loadFeedAndPop(context, null),
+      //   title: 'feedsAllFeedsTitle'.tr(),
+      //   subtitle: 'feedsAllFeedsSubtitle'.tr(),
+      //   showActiveIndicator: activeFeed == null,
+      //   fontFamily: fontFamily,
+      // ),
 
-      ///
-      /// DIVIDER
-      ///
-      NovinarkoDivider(
-        color: context.colors.background,
-      ),
+      // ///
+      // /// DIVIDER
+      // ///
+      // NovinarkoDivider(
+      //   color: context.colors.background,
+      // ),
 
-      ///
-      /// FEEDS
-      ///
-      ReorderableListView.builder(
-        shrinkWrap: true,
-        proxyDecorator: (child, _, __) => Material(
-          borderRadius: BorderRadius.circular(16),
-          color: context.colors.primary.withValues(alpha: 0.6),
-          child: child,
-        ),
-        onReorder: onReorder,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: feeds.length,
-        itemBuilder: (_, index) {
-          final feed = feeds[index];
+      // ///
+      // /// FEEDS
+      // ///
+      // ReorderableListView.builder(
+      //   shrinkWrap: true,
+      //   proxyDecorator: (child, _, __) => Material(
+      //     borderRadius: BorderRadius.circular(16),
+      //     color: context.colors.primary.withValues(alpha: 0.6),
+      //     child: child,
+      //   ),
+      //   onReorder: onReorder,
+      //   physics: const NeverScrollableScrollPhysics(),
+      //   itemCount: feeds.length,
+      //   itemBuilder: (_, index) {
+      //     final feed = feeds[index];
 
-          return FeedsListTile(
-            key: ValueKey(feed),
-            onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFeed(feed),
-            onPressed: () => loadFeedAndPop(context, feed),
-            title: feed.siteName ?? feed.title ?? '',
-            subtitle: feed.title,
-            url: feed.url,
-            showActiveIndicator: activeFeed == feed,
-            fontFamily: fontFamily,
-          );
-        },
-      ),
+      //     return FeedsListTile(
+      //       key: ValueKey(feed),
+      //       onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFeed(feed),
+      //       onPressed: () => loadFeedAndPop(context, feed),
+      //       title: feed.siteName ?? feed.title ?? '',
+      //       subtitle: feed.title,
+      //       url: feed.url,
+      //       showActiveIndicator: activeFeed == feed,
+      //       fontFamily: fontFamily,
+      //     );
+      //   },
+      // ),
 
       ///
       /// SPACING

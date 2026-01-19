@@ -6,14 +6,45 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
 import '../../../routing.dart';
+import '../../../services/settings_service.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
+import '../../../util/dependencies.dart';
+import '../../folder/widgets/folder_dialog.dart';
+import '../feeds_controller.dart';
 
 class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
+  /// Opens [FolderDialog]
+  Future<void> openFolderDialog(
+    BuildContext context, {
+    required String fontFamily,
+  }) async {
+    final controller = getIt.get<FeedsController>();
+
+    await showDialog(
+      context: context,
+      builder: (context) => FolderDialog(
+        addFolderPressed: (dialogContext) => controller.addFolderPressed(
+          context: context,
+          dialogContext: dialogContext,
+        ),
+        outsideDialogPressed: () {
+          controller.clearCustomTextControllers();
+          Navigator.of(context).pop();
+        },
+        folderTitleTextController: controller.folderTitleTextController,
+        folderDescriptionTextController: controller.folderDescriptionTextController,
+        fontFamily: fontFamily,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = watchIt<ThemeService>().value;
-    final isDark = theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green || theme == NovinarkoTheme.burgundy || theme == NovinarkoTheme.black;
+    final isDark = theme == null || theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green || theme == NovinarkoTheme.burgundy || theme == NovinarkoTheme.black;
+
+    final fontFamily = watchIt<SettingsService>().value.fontFamily;
 
     return AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -46,7 +77,10 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
               ),
               const Spacer(),
               FeedsAppBarAddFolder(
-                onPressed: () => openSettings(context),
+                onPressed: () => openFolderDialog(
+                  context,
+                  fontFamily: fontFamily,
+                ),
               ),
               const SizedBox(width: 20),
               FeedsAppBarSettings(

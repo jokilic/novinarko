@@ -163,6 +163,7 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
       /// Clear [TextEditingControllers]
       clearCustomTextControllers();
 
+      /// Remove dialog
       Navigator.of(context).pop();
     } else {
       showSnackbar(

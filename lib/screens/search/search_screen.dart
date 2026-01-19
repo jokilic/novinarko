@@ -7,6 +7,7 @@ import '../../constants.dart';
 import '../../services/hive_service.dart';
 import '../../services/settings_service.dart';
 import '../../theme/theme.dart';
+import '../../util/dependencies.dart';
 import '../../util/snowflake/snowflake_widget.dart';
 import 'search_controller.dart';
 import 'widgets/search_app_bar.dart';
@@ -30,11 +31,11 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  // @override
-  // void dispose() {
-  //   getIt.resetLazySingleton<SearchController>();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    getIt.get<SearchController>().clearCustomTextControllers();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => SearchWidget();
