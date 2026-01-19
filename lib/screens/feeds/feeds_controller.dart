@@ -52,6 +52,8 @@ class FeedsController implements Disposable {
     /// Add folder
     final folderAdded = await storeCustomFolder();
 
+    // TODO: Snackbar colors should be like in Feeds
+
     /// Show proper snackbar
     if (folderAdded) {
       showSnackbar(

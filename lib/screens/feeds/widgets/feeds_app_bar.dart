@@ -163,7 +163,7 @@ class FeedsAppBarAddFolder extends StatelessWidget {
     ),
     icon: Center(
       child: Image.asset(
-        NovinarkoIcons.android,
+        NovinarkoIcons.addFolder,
         fit: BoxFit.cover,
         color: context.colors.background,
         height: 20,

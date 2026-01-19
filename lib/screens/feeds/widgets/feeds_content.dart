@@ -64,6 +64,8 @@ class FeedsContent extends StatelessWidget {
         color: context.colors.background,
       ),
 
+      // TODO: I would like to have a conjoined list of folders and feeds here, both reorderable together
+
       ///
       /// FEEDS
       ///

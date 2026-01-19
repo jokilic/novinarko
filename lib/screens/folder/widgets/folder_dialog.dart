@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../theme/theme.dart';
 
+// TODO: Colors should be like in Feeds
+
 class FolderDialog extends StatelessWidget {
   final Function(BuildContext context) addFolderPressed;
   final Function() outsideDialogPressed;
@@ -58,8 +60,7 @@ class FolderDialog extends StatelessWidget {
                           ),
                         ),
                         child: Image.asset(
-                          // TODO
-                          NovinarkoIcons.android,
+                          NovinarkoIcons.addFolder,
                           fit: BoxFit.cover,
                           color: context.colors.text,
                           height: 36,
