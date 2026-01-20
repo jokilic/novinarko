@@ -22,10 +22,6 @@ class FolderScreen extends WatchingWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hiveState = watchIt<HiveService>().value;
-    final feeds = hiveState.feeds;
-    final folders = hiveState.folders;
-
     final activeFeedFolderState = watchIt<ActiveFeedFolderService>().value;
     final activeFeed = activeFeedFolderState?.feed;
     final activeFolder = activeFeedFolderState?.folder;
@@ -52,7 +48,7 @@ class FolderScreen extends WatchingWidget {
               folder: folder,
               activeFeed: activeFeed,
               activeFolder: activeFolder,
-              onReorder: getIt.get<HiveService>().reorderFolders,
+              onReorder: getIt.get<HiveService>().reorderFeedsAndFolders,
               fontFamily: settings.fontFamily,
             ),
           ),

@@ -13,6 +13,7 @@ class FeedsListTile extends StatelessWidget {
   final bool showActiveIndicator;
   final bool isDraggable;
   final String fontFamily;
+  final bool isFolder;
   @override
   final Key key;
 
@@ -22,6 +23,7 @@ class FeedsListTile extends StatelessWidget {
     required this.title,
     required this.showActiveIndicator,
     required this.fontFamily,
+    required this.isFolder,
     required this.key,
     this.isDraggable = true,
     this.subtitle,
@@ -69,10 +71,22 @@ class FeedsListTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ///
-            /// Title & active indicator
+            /// Title & icons
             ///
             Row(
               children: [
+                /// Folder icon
+                if (isFolder) ...[
+                  Image.asset(
+                    NovinarkoIcons.addFolder,
+                    fit: BoxFit.cover,
+                    color: context.colors.background,
+                    height: 20,
+                    width: 20,
+                  ),
+                  const SizedBox(width: 8),
+                ],
+
                 /// Title
                 Flexible(
                   child: Text(
@@ -87,7 +101,7 @@ class FeedsListTile extends StatelessWidget {
                 ),
 
                 /// Active indicator
-                const SizedBox(width: 20),
+                const SizedBox(width: 12),
                 AnimatedSwitcher(
                   duration: NovinarkoConstants.animationDuration,
                   child: showActiveIndicator

@@ -25,6 +25,8 @@ class HiveService extends ValueNotifier<({List<FeedModel> feeds, List<FolderMode
   late final Box<FolderModel> folderBox;
   late final Box<FeedModel> feedBox;
 
+  late final Box<List<String>> feedFolderOrderBox;
+
   late final Box<FolderModel> activeFolderBox;
   late final Box<FeedModel> activeFeedBox;
 
@@ -47,6 +49,8 @@ class HiveService extends ValueNotifier<({List<FeedModel> feeds, List<FolderMode
     folderBox = await Hive.openBox<FolderModel>('folderBox');
     feedBox = await Hive.openBox<FeedModel>('feedBox');
 
+    feedFolderOrderBox = await Hive.openBox<List<String>>('feedFolderOrderBox');
+
     activeFolderBox = await Hive.openBox<FolderModel>('activeFolderBox');
     activeFeedBox = await Hive.openBox<FeedModel>('activeFeedBox');
 
@@ -64,6 +68,8 @@ class HiveService extends ValueNotifier<({List<FeedModel> feeds, List<FolderMode
     await folderBox.close();
     await feedBox.close();
 
+    await feedFolderOrderBox.close();
+
     await activeFolderBox.close();
     await activeFeedBox.close();
 
@@ -73,6 +79,127 @@ class HiveService extends ValueNotifier<({List<FeedModel> feeds, List<FolderMode
   ///
   /// METHODS
   ///
+
+  /// Reorders `feed` & `folders` in [Hive]
+  Future<void> reorderFeedsAndFolders(int oldIndex, int newIndex) async {
+    final currentFeeds = List<FeedModel>.from(value.feeds);
+    final currentFolders = List<FolderModel>.from(value.folders);
+
+    final order = buildFeedFolderOrder(
+      feeds: currentFeeds,
+      folders: currentFolders,
+    );
+
+    if (order.isEmpty) {
+      return;
+    }
+
+    final itemKey = order.removeAt(oldIndex);
+    order.insert(
+      oldIndex < newIndex ? newIndex - 1 : newIndex,
+      itemKey,
+    );
+
+    await feedFolderOrderBox.put(0, order);
+
+    final feedByKey = {
+      for (final feed in currentFeeds) feedOrderKey(feed): feed,
+    };
+    final folderByKey = {
+      for (final folder in currentFolders) folderOrderKey(folder): folder,
+    };
+
+    final reorderedFeeds = <FeedModel>[];
+    final reorderedFolders = <FolderModel>[];
+
+    for (final key in order) {
+      final folder = folderByKey[key];
+      final feed = feedByKey[key];
+
+      if (folder != null) {
+        reorderedFolders.add(folder);
+        continue;
+      }
+
+      if (feed != null) {
+        reorderedFeeds.add(feed);
+      }
+    }
+
+    await writeAllFoldersToHive(
+      folders: reorderedFolders,
+    );
+
+    await writeAllFeedsToHive(
+      feeds: reorderedFeeds,
+    );
+  }
+
+  String feedOrderKey(FeedModel feed) => 'feed:${feed.url ?? feed.siteUrl ?? feed.title ?? feed.description ?? feed.hashCode.toString()}';
+
+  String folderOrderKey(FolderModel folder) => 'folder:${folder.title}';
+
+  List<String> buildFeedFolderOrder({
+    required List<FeedModel> feeds,
+    required List<FolderModel> folders,
+  }) {
+    final storedOrder = List<String>.from(
+      feedFolderOrderBox.get(0) ?? const [],
+    );
+
+    final feedKeys = feeds.map(feedOrderKey).toSet();
+    final folderKeys = folders.map(folderOrderKey).toSet();
+
+    final validKeys = {...feedKeys, ...folderKeys};
+
+    final order = <String>[];
+    for (final key in storedOrder) {
+      if (validKeys.contains(key)) {
+        order.add(key);
+      }
+    }
+
+    for (final folder in folders) {
+      final key = folderOrderKey(folder);
+      if (!order.contains(key)) {
+        order.add(key);
+      }
+    }
+
+    for (final feed in feeds) {
+      final key = feedOrderKey(feed);
+      if (!order.contains(key)) {
+        order.add(key);
+      }
+    }
+
+    return order;
+  }
+
+  List<Object> getOrderedFeedsAndFolders({
+    List<FeedModel>? feeds,
+    List<FolderModel>? folders,
+  }) {
+    final currentFeeds = feeds ?? value.feeds;
+    final currentFolders = folders ?? value.folders;
+
+    final order = buildFeedFolderOrder(
+      feeds: currentFeeds,
+      folders: currentFolders,
+    );
+
+    final feedByKey = {
+      for (final feed in currentFeeds) feedOrderKey(feed): feed,
+    };
+    final folderByKey = {
+      for (final folder in currentFolders) folderOrderKey(folder): folder,
+    };
+
+    return [
+      for (final key in order)
+        if (folderByKey.containsKey(key)) folderByKey[key]! else if (feedByKey.containsKey(key)) feedByKey[key]!,
+    ];
+  }
 
   /// Updates state with values from [Hive]
   void updateState({List<FeedModel>? feeds, List<FolderModel>? folders}) => value = (
@@ -103,23 +230,6 @@ class HiveService extends ValueNotifier<({List<FeedModel> feeds, List<FolderMode
       value.feeds..removeAt(index),
     ),
   );
-
-  /// Reorders `feed` in [Hive]
-  Future<void> reorderFeeds(int oldIndex, int newIndex) async {
-    final currentFeeds = List<FeedModel>.from(value.feeds);
-
-    /// Rearange feeds
-    final item = currentFeeds.removeAt(oldIndex);
-    currentFeeds.insert(
-      oldIndex < newIndex ? newIndex - 1 : newIndex,
-      item,
-    );
-
-    /// Update all feeds in [Hive]
-    await writeAllFeedsToHive(
-      feeds: currentFeeds,
-    );
-  }
 
   /// Replace [Hive] box with passed `List<FeedModel>`
   Future<void> writeAllFeedsToHive({required List<FeedModel> feeds}) async {
@@ -169,21 +279,6 @@ class HiveService extends ValueNotifier<({List<FeedModel> feeds, List<FolderMode
     ),
   );
 
-  /// Reorders `folder` in [Hive]
-  Future<void> reorderFolders(int oldIndex, int newIndex) async {
-    final folders = List<FolderModel>.from(value.folders);
-
-    /// Rearange folders
-    final item = folders.removeAt(oldIndex);
-    folders.insert(
-      oldIndex < newIndex ? newIndex - 1 : newIndex,
-      item,
-    );
-
-    /// Update all folders in [Hive]
-    await writeAllFoldersToHive(folders: folders);
-  }
-
   /// Replace [Hive] box with passed `List<FolderModel>`
   Future<void> writeAllFoldersToHive({required List<FolderModel> folders}) async {
     /// Update `state`
@@ -192,7 +287,7 @@ class HiveService extends ValueNotifier<({List<FeedModel> feeds, List<FolderMode
     );
 
     /// Clear current [Hive] box
-    await feedBox.clear();
+    await folderBox.clear();
 
     if (folders.isNotEmpty) {
       /// Add passed `List<FeedModel>` to [Hive]

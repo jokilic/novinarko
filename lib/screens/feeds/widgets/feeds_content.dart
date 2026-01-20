@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../../models/feed_model.dart';
 import '../../../models/folder_model.dart';
+import '../../../routing.dart';
 import '../../../services/active_feed_folder_service.dart';
+import '../../../services/hive_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../widgets/novinarko_divider.dart';
@@ -28,7 +30,10 @@ class FeedsContent extends StatelessWidget {
   });
 
   /// Loads passed `feed` and dismisses screen
-  void loadFeedAndPop(BuildContext context, FeedModel? feed) {
+  void loadFeedAndPop({
+    required BuildContext context,
+    required FeedModel? feed,
+  }) {
     getIt.get<ActiveFeedFolderService>().updateActiveFeed(feed);
 
     if (getIt.isRegistered<NewsController>()) {
@@ -50,11 +55,15 @@ class FeedsContent extends StatelessWidget {
         isDraggable: false,
         key: const ValueKey('all_feeds'),
         onPressedDelete: () {},
-        onPressed: () => loadFeedAndPop(context, null),
+        onPressed: () => loadFeedAndPop(
+          context: context,
+          feed: null,
+        ),
         title: 'feedsAllFeedsTitle'.tr(),
         subtitle: 'feedsAllFeedsSubtitle'.tr(),
         showActiveIndicator: activeFeed == null,
         fontFamily: fontFamily,
+        isFolder: false,
       ),
 
       ///
@@ -64,33 +73,68 @@ class FeedsContent extends StatelessWidget {
         color: context.colors.background,
       ),
 
-      // TODO: I would like to have a conjoined list of folders and feeds here, both reorderable together
-
       ///
-      /// FEEDS
+      /// FOLDERS + FEEDS
       ///
-      ReorderableListView.builder(
-        shrinkWrap: true,
-        proxyDecorator: (child, _, __) => Material(
-          borderRadius: BorderRadius.circular(16),
-          color: context.colors.primary.withValues(alpha: 0.6),
-          child: child,
-        ),
-        onReorder: onReorder,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: feeds.length,
-        itemBuilder: (_, index) {
-          final feed = feeds[index];
+      Builder(
+        builder: (context) {
+          final orderedItems = getIt.get<HiveService>().getOrderedFeedsAndFolders(
+            feeds: feeds,
+            folders: folders,
+          );
 
-          return FeedsListTile(
-            key: ValueKey(feed),
-            onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFeed(feed),
-            onPressed: () => loadFeedAndPop(context, feed),
-            title: feed.siteName ?? feed.title ?? '',
-            subtitle: feed.title,
-            url: feed.url,
-            showActiveIndicator: activeFeed == feed,
-            fontFamily: fontFamily,
+          return ReorderableListView.builder(
+            shrinkWrap: true,
+            proxyDecorator: (child, _, __) => Material(
+              borderRadius: BorderRadius.circular(16),
+              color: context.colors.primary.withValues(alpha: 0.6),
+              child: child,
+            ),
+            onReorder: onReorder,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: orderedItems.length,
+            itemBuilder: (_, index) {
+              final item = orderedItems[index];
+
+              ///
+              /// FOLDER
+              ///
+              if (item is FolderModel) {
+                return FeedsListTile(
+                  key: ValueKey(item),
+                  onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFolder(item),
+                  onPressed: () => openFolder(
+                    context,
+                    folder: item,
+                  ),
+                  title: item.title,
+                  subtitle: item.description,
+                  showActiveIndicator: activeFolder == item,
+                  fontFamily: fontFamily,
+                  isFolder: true,
+                );
+              }
+
+              ///
+              /// FEED
+              ///
+              final feed = item as FeedModel;
+
+              return FeedsListTile(
+                key: ValueKey(feed),
+                onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFeed(feed),
+                onPressed: () => loadFeedAndPop(
+                  context: context,
+                  feed: feed,
+                ),
+                title: feed.siteName ?? feed.title ?? '',
+                subtitle: feed.title,
+                url: feed.url,
+                showActiveIndicator: activeFeed == feed,
+                fontFamily: fontFamily,
+                isFolder: false,
+              );
+            },
           );
         },
       ),

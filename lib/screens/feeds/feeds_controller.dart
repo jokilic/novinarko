@@ -52,8 +52,6 @@ class FeedsController implements Disposable {
     /// Add folder
     final folderAdded = await storeCustomFolder();
 
-    // TODO: Snackbar colors should be like in Feeds
-
     /// Show proper snackbar
     if (folderAdded) {
       showSnackbar(
@@ -61,6 +59,7 @@ class FeedsController implements Disposable {
         // TODO
         text: 'Hello there',
         icon: NovinarkoIcons.check,
+        isDark: true,
       );
 
       /// Clear [TextEditingControllers]
@@ -74,6 +73,7 @@ class FeedsController implements Disposable {
         // TODO
         text: 'Nooo',
         icon: NovinarkoIcons.close,
+        isDark: true,
       );
     }
   }

@@ -124,6 +124,7 @@ void showSnackbar(
   BuildContext context, {
   required String text,
   required String icon,
+  bool isDark = false,
 }) {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
@@ -136,7 +137,7 @@ void showSnackbar(
           Image.asset(
             icon,
             fit: BoxFit.cover,
-            color: context.colors.text,
+            color: isDark ? context.colors.background : context.colors.text,
             height: 20,
             width: 20,
           ),
@@ -145,7 +146,7 @@ void showSnackbar(
             child: Text(
               text,
               style: context.textStyles.snackbar.copyWith(
-                color: context.colors.text,
+                color: isDark ? context.colors.background : context.colors.text,
               ),
             ),
           ),
@@ -153,11 +154,11 @@ void showSnackbar(
         ],
       ),
       behavior: SnackBarBehavior.floating,
-      backgroundColor: context.colors.background,
+      backgroundColor: isDark ? context.colors.text : context.colors.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
-          color: context.colors.text,
+          color: isDark ? context.colors.background : context.colors.text,
           width: 2,
         ),
       ),

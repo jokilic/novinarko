@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../theme/theme.dart';
 
-// TODO: Colors should be like in Feeds
-
 class FolderDialog extends StatelessWidget {
   final Function(BuildContext context) addFolderPressed;
   final Function() outsideDialogPressed;
@@ -30,11 +28,11 @@ class FolderDialog extends StatelessWidget {
           body: GestureDetector(
             onTap: () {},
             child: Dialog(
-              backgroundColor: context.colors.background,
+              backgroundColor: context.colors.text,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
                 side: BorderSide(
-                  color: context.colors.text,
+                  color: context.colors.background,
                   width: 2,
                 ),
               ),
@@ -55,14 +53,14 @@ class FolderDialog extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: context.colors.text,
+                            color: context.colors.background,
                             width: 2,
                           ),
                         ),
                         child: Image.asset(
                           NovinarkoIcons.addFolder,
                           fit: BoxFit.cover,
-                          color: context.colors.text,
+                          color: context.colors.background,
                           height: 36,
                           width: 36,
                         ),
@@ -71,7 +69,9 @@ class FolderDialog extends StatelessWidget {
                       Text(
                         // TODO
                         'Add folder',
-                        style: context.textStyles.newsFeedInfoTitle,
+                        style: context.textStyles.newsFeedInfoTitle.copyWith(
+                          color: context.colors.background,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                       FolderDialogTextField(
@@ -102,14 +102,16 @@ class FolderDialog extends StatelessWidget {
                           ),
                           elevation: 0,
                           side: BorderSide(
-                            color: context.colors.text,
+                            color: context.colors.background,
                             width: 2,
                           ),
                         ),
                         child: Text(
                           // TODO
                           'Add folder'.toUpperCase(),
-                          style: context.textStyles.searchCustomDialogButton,
+                          style: context.textStyles.searchCustomDialogButton.copyWith(
+                            color: context.colors.background,
+                          ),
                         ),
                       ),
                     ],
@@ -153,23 +155,23 @@ class FolderDialogTextField extends StatelessWidget {
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       controller: textController,
-      cursorColor: context.colors.text,
+      cursorColor: context.colors.background,
       decoration: InputDecoration(
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: context.colors.text,
+            color: context.colors.background,
             width: 2,
           ),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: context.colors.text,
+            color: context.colors.background,
             width: 2,
           ),
         ),
         border: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: context.colors.text,
+            color: context.colors.background,
             width: 2,
           ),
         ),
@@ -182,6 +184,7 @@ class FolderDialogTextField extends StatelessWidget {
             labelText,
             style: context.textStyles.searchTextField.copyWith(
               fontFamily: fontFamily,
+              color: context.colors.background,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -193,6 +196,7 @@ class FolderDialogTextField extends StatelessWidget {
       ),
       style: context.textStyles.searchTextField.copyWith(
         fontFamily: fontFamily,
+        color: context.colors.background,
       ),
       textAlign: TextAlign.center,
     ),

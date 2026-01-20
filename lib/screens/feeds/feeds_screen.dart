@@ -63,7 +63,7 @@ class FeedsWidget extends WatchingWidget {
               folders: folders.toList(),
               activeFeed: activeFeed,
               activeFolder: activeFolder,
-              onReorder: getIt.get<HiveService>().reorderFeeds,
+              onReorder: getIt.get<HiveService>().reorderFeedsAndFolders,
               fontFamily: settings.fontFamily,
             ),
           ),
