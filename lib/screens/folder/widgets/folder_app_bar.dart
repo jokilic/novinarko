@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
-import '../../../routing.dart';
 import '../../../services/theme_service.dart';
 import '../../../theme/theme.dart';
 
@@ -46,7 +45,9 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
               ),
               const Spacer(),
               FolderAppBarDelete(
-                onPressed: () => openSettings(context),
+                onPressed: () {
+                  // TODO: Delete folder (don't delete feeds from Hive)
+                },
               ),
             ],
           ),

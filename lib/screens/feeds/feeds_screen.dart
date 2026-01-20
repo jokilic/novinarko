@@ -13,7 +13,7 @@ import 'feeds_controller.dart';
 import 'widgets/feeds_app_bar.dart';
 import 'widgets/feeds_content.dart';
 
-class FeedsScreen extends WatchingStatefulWidget {
+class FeedsScreen extends StatefulWidget {
   @override
   State<FeedsScreen> createState() => _FeedsScreenState();
 }

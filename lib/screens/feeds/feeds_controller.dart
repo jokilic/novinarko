@@ -13,12 +13,12 @@ import '../../util/snackbars.dart';
 class FeedsController implements Disposable {
   final LoggerService logger;
   final HiveService hive;
-  final ActiveFeedFolderService activeFeedService;
+  final ActiveFeedFolderService activeFeedFolder;
 
   FeedsController({
     required this.logger,
     required this.hive,
-    required this.activeFeedService,
+    required this.activeFeedFolder,
   });
 
   ///
@@ -98,7 +98,7 @@ class FeedsController implements Disposable {
         feeds: [],
       );
 
-      await activeFeedService.storeOrDeleteFolder(folder);
+      await activeFeedFolder.storeOrDeleteFolder(folder);
 
       return true;
     }

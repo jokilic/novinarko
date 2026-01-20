@@ -77,7 +77,7 @@ void initializeControllers() {
         logger: getIt.get<LoggerService>(),
         api: getIt.get<APIService>(),
         hive: getIt.get<HiveService>(),
-        activeFeedService: getIt.get<ActiveFeedFolderService>(),
+        activeFeedFolder: getIt.get<ActiveFeedFolderService>(),
       ),
       dependsOn: [LoggerService, APIService, HiveService, ActiveFeedFolderService],
     )
@@ -85,7 +85,7 @@ void initializeControllers() {
       () async => FeedsController(
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
-        activeFeedService: getIt.get<ActiveFeedFolderService>(),
+        activeFeedFolder: getIt.get<ActiveFeedFolderService>(),
       ),
       dependsOn: [LoggerService, HiveService, ActiveFeedFolderService],
     )
@@ -99,7 +99,7 @@ void initializeControllers() {
         logger: getIt.get<LoggerService>(),
         api: getIt.get<APIService>(),
         hive: getIt.get<HiveService>(),
-        activeFeedService: getIt.get<ActiveFeedFolderService>(),
+        activeFeedFolder: getIt.get<ActiveFeedFolderService>(),
       )..init(),
     )
     ..registerLazySingleton(

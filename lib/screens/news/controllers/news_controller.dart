@@ -17,16 +17,16 @@ class NewsController extends ValueNotifier<NewsState> {
   final LoggerService logger;
   final APIService api;
   final HiveService hive;
-  final ActiveFeedFolderService activeFeedService;
+  final ActiveFeedFolderService activeFeedFolder;
 
   NewsController({
     required this.logger,
     required this.api,
     required this.hive,
-    required this.activeFeedService,
+    required this.activeFeedFolder,
   }) : super(NewsStateInitial()) {
     loadFeed(
-      activeFeedService.value?.feed,
+      activeFeedFolder.value?.feed,
     );
   }
 

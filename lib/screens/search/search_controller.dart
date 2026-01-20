@@ -19,13 +19,13 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
   final LoggerService logger;
   final APIService api;
   final HiveService hive;
-  final ActiveFeedFolderService activeFeedService;
+  final ActiveFeedFolderService activeFeedFolder;
 
   SearchController({
     required this.logger,
     required this.api,
     required this.hive,
-    required this.activeFeedService,
+    required this.activeFeedFolder,
   }) : super(SearchStateInitial());
 
   ///
@@ -195,7 +195,7 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
         siteName: siteName,
       );
 
-      await activeFeedService.storeOrDeleteFeed(customFeed);
+      await activeFeedFolder.storeOrDeleteFeed(customFeed);
 
       return true;
     }
