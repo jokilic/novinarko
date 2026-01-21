@@ -9,6 +9,7 @@ import '../../../util/dependencies.dart';
 import '../../../widgets/novinarko_divider.dart';
 import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../../news/controllers/news_controller.dart';
+import '../folder_controller.dart';
 import 'folder_list_tile.dart';
 
 class FolderContent extends StatelessWidget {
@@ -100,9 +101,11 @@ class FolderContent extends StatelessWidget {
 
           return FolderListTile(
             key: ValueKey(feed),
-            onPressedDelete: () {
-              // TODO: Delete feed only from this folder and store it in Hive (don't delete feed from Hive, just from this folder) - Write logic in `FolderController`
-            },
+            onPressedDelete: () => getIt
+                .get<FolderController>(
+                  instanceName: folder.title,
+                )
+                .deleteFeed(feed),
             onPressed: () {
               // TODO: Pop all screens until [NewsScreen], use this feed
             },

@@ -26,6 +26,10 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
     BuildContext context, {
     required String fontFamily,
   }) async {
+    final controller = getIt.get<FolderController>(
+      instanceName: folder.title,
+    );
+
     /// Find `feeds` which aren't in this folder
     final allFeeds = getIt.get<HiveService>().getFeeds();
     final nonAddedFeeds = allFeeds.where((feed) {
@@ -40,9 +44,7 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
       builder: (context) => FolderAddFeedDialog(
         nonAddedFeeds: nonAddedFeeds,
         outsideDialogPressed: Navigator.of(context).pop,
-        onFeedAdded: (feed) {
-          // TODO: Add feed to folder
-        },
+        onFeedAdded: (feed) async => controller.addFeed(feed),
         fontFamily: fontFamily,
       ),
     );

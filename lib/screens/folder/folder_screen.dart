@@ -36,6 +36,7 @@ class _FolderScreenState extends State<FolderScreen> {
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
         activeFeedFolder: getIt.get<ActiveFeedFolderService>(),
+        folder: widget.folder,
       ),
       instanceName: widget.folder.title,
     );
@@ -92,7 +93,11 @@ class FolderWidget extends WatchingWidget {
               folder: folder,
               activeFeed: activeFeed,
               activeFolder: activeFolder,
-              onReorder: getIt.get<HiveService>().reorderFeedsAndFolders,
+              onReorder: getIt
+                  .get<FolderController>(
+                    instanceName: folder.title,
+                  )
+                  .reorderFeeds,
               fontFamily: settings.fontFamily,
             ),
           ),
