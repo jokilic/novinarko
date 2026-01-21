@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants.dart';
 import '../../../models/feed_model.dart';
 import '../../../models/folder_model.dart';
 import '../../../services/active_feed_folder_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../widgets/novinarko_divider.dart';
+import '../../../widgets/novinarko_icon_text_widget.dart';
 import '../../news/controllers/news_controller.dart';
 import 'folder_list_tile.dart';
 
@@ -44,28 +46,41 @@ class FolderContent extends StatelessWidget {
       ///
       /// ALL FEEDS FROM FOLDER
       ///
-      FolderListTile(
-        isDraggable: false,
-        key: const ValueKey('all_folder_feeds'),
-        onPressedDelete: () {},
-        onPressed: () {
-          // TODO: Pop all screens until [NewsScreen], use all feeds from folder
-        },
-        // TODO
-        title: 'All feeds',
-        // TODO
-        subtitle: 'Show all feeds from this folder',
-        showActiveIndicator: activeFolder == null,
-        fontFamily: fontFamily,
-        isFolder: true,
-      ),
+      if (folder.feeds?.isNotEmpty ?? false) ...[
+        FolderListTile(
+          isDraggable: false,
+          key: const ValueKey('all_folder_feeds'),
+          onPressedDelete: () {},
+          onPressed: () {
+            // TODO: Pop all screens until [NewsScreen], use all feeds from folder
+          },
+          // TODO
+          title: 'All feeds',
+          // TODO
+          subtitle: 'Show all feeds from this folder',
+          showActiveIndicator: activeFolder == null,
+          fontFamily: fontFamily,
+        ),
 
-      ///
-      /// DIVIDER
-      ///
-      NovinarkoDivider(
-        color: context.colors.background,
-      ),
+        ///
+        /// DIVIDER
+        ///
+        NovinarkoDivider(
+          color: context.colors.background,
+        ),
+      ] else
+        ///
+        /// ADD FEEDS
+        ///
+        NovinarkoIconTextWidget(
+          icon: NovinarkoIcons.add,
+          title: 'No feeds',
+          subtitle: 'Add some by pressing the plus icon',
+          fontFamily: fontFamily,
+          isDark: true,
+          verticalPadding: 0,
+          customTopSpacing: 40,
+        ),
 
       ///
       /// FEEDS
@@ -86,7 +101,7 @@ class FolderContent extends StatelessWidget {
           return FolderListTile(
             key: ValueKey(feed),
             onPressedDelete: () {
-              // TODO: Delete feed only from this folder (not completely from Hive, just from this folder)
+              // TODO: Delete feed only from this folder and store it in Hive (don't delete feed from Hive, just from this folder) - Write logic in `FolderController`
             },
             onPressed: () {
               // TODO: Pop all screens until [NewsScreen], use this feed
@@ -96,7 +111,6 @@ class FolderContent extends StatelessWidget {
             url: feed.url,
             showActiveIndicator: activeFeed == feed,
             fontFamily: fontFamily,
-            isFolder: false,
           );
         },
       ),

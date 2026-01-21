@@ -13,7 +13,7 @@ class FolderListTile extends StatelessWidget {
   final bool showActiveIndicator;
   final bool isDraggable;
   final String fontFamily;
-  final bool isFolder;
+  final double horizontalPadding;
   @override
   final Key key;
 
@@ -23,8 +23,8 @@ class FolderListTile extends StatelessWidget {
     required this.title,
     required this.showActiveIndicator,
     required this.fontFamily,
-    required this.isFolder,
     required this.key,
+    this.horizontalPadding = 16,
     this.isDraggable = true,
     this.subtitle,
     this.url,
@@ -66,7 +66,10 @@ class FolderListTile extends StatelessWidget {
       splashColor: context.colors.primary.withValues(alpha: 0.6),
       borderRadius: BorderRadius.circular(16),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: 16,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -75,18 +78,6 @@ class FolderListTile extends StatelessWidget {
             ///
             Row(
               children: [
-                /// Folder icon
-                if (isFolder) ...[
-                  Image.asset(
-                    NovinarkoIcons.addFolder,
-                    fit: BoxFit.cover,
-                    color: context.colors.background,
-                    height: 20,
-                    width: 20,
-                  ),
-                  const SizedBox(width: 8),
-                ],
-
                 /// Title
                 Flexible(
                   child: Text(

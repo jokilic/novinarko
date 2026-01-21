@@ -78,7 +78,9 @@ class FolderWidget extends WatchingWidget {
         Scaffold(
           backgroundColor: context.colors.text,
           extendBodyBehindAppBar: true,
-          appBar: FolderAppBar(),
+          appBar: FolderAppBar(
+            folder: folder,
+          ),
           body: Animate(
             effects: const [
               FadeEffect(

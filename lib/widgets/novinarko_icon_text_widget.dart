@@ -14,6 +14,8 @@ class NovinarkoIconTextWidget extends StatelessWidget {
   final double verticalPadding;
   final AlignmentGeometry? arrowAlignment;
   final String fontFamily;
+  final bool isDark;
+  final double? customTopSpacing;
 
   const NovinarkoIconTextWidget({
     required this.icon,
@@ -22,6 +24,8 @@ class NovinarkoIconTextWidget extends StatelessWidget {
     this.subtitle,
     this.verticalPadding = 56,
     this.arrowAlignment,
+    this.isDark = false,
+    this.customTopSpacing,
   });
 
   @override
@@ -36,8 +40,7 @@ class NovinarkoIconTextWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 104),
-
+            SizedBox(height: customTopSpacing ?? 104),
             if (arrowAlignment != null)
               Align(
                 alignment: arrowAlignment!,
@@ -56,7 +59,7 @@ class NovinarkoIconTextWidget extends StatelessWidget {
                     child: Image.asset(
                       NovinarkoIcons.back,
                       fit: BoxFit.cover,
-                      color: context.colors.text,
+                      color: isDark ? context.colors.background : context.colors.text,
                       height: 40,
                       width: 40,
                     ),
@@ -64,14 +67,14 @@ class NovinarkoIconTextWidget extends StatelessWidget {
                 ),
               )
             else
-              const SizedBox(height: 40),
+              SizedBox(height: customTopSpacing == null ? 40 : 0),
 
-            const SizedBox(height: 120),
+            if (customTopSpacing == null) const SizedBox(height: 120),
 
             Image.asset(
               icon,
               fit: BoxFit.cover,
-              color: context.colors.text,
+              color: isDark ? context.colors.background : context.colors.text,
               height: 80,
               width: 80,
             ),
@@ -89,6 +92,7 @@ class NovinarkoIconTextWidget extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: context.textStyles.iconTextTitle.copyWith(
                     fontFamily: fontFamily,
+                    color: isDark ? context.colors.background : context.colors.text,
                   ),
                 ),
               ),
@@ -102,7 +106,9 @@ class NovinarkoIconTextWidget extends StatelessWidget {
                 child: Text(
                   subtitle!,
                   textAlign: TextAlign.center,
-                  style: context.textStyles.iconTextSubtitle,
+                  style: context.textStyles.iconTextSubtitle.copyWith(
+                    color: isDark ? context.colors.background : context.colors.text,
+                  ),
                 ),
               ),
           ],
