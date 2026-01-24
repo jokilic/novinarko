@@ -37,7 +37,7 @@ class FolderAddFeedDialog extends WatchingWidget {
     /// Show snackbar
     showSnackbar(
       dialogContext,
-      // TODO
+      // TODO Localize
       text: '${feed.siteName ?? feed.title} added to folder',
       icon: NovinarkoIcons.check,
       isDark: true,
@@ -107,7 +107,7 @@ class FolderAddFeedDialog extends WatchingWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
                         child: Text(
-                          // TODO
+                          // TODO Localize
                           'Add feeds to folder',
                           style: context.textStyles.newsFeedInfoTitle.copyWith(
                             color: context.colors.background,
@@ -155,7 +155,7 @@ class FolderAddFeedDialog extends WatchingWidget {
                           ),
                         ),
                         child: Text(
-                          // TODO
+                          // TODO Localize
                           'Finish'.toUpperCase(),
                           style: context.textStyles.searchCustomDialogButton.copyWith(
                             color: context.colors.background,

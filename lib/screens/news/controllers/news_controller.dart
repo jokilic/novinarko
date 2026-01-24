@@ -97,7 +97,12 @@ class NewsController extends ValueNotifier<NewsState> {
   }
 
   /// This will fetch and parse all `feeds`
-  Future<void> loadAllFeeds({bool useLoadingState = true}) async {
+  Future<void> loadAllFeeds({
+    List<NovinarkoRssFeed>? passedFeeds,
+    bool useLoadingState = true,
+  }) async {
+    // TODO: Refactor this method to return passed `List<NovinarkoRssItem>` if it's not null
+
     /// No values in [Hive], set state to [NewsStateEmpty]
     if (hive.value.feeds.isEmpty) {
       value = NewsStateEmpty();

@@ -27,12 +27,32 @@ class FolderContent extends StatelessWidget {
     required this.fontFamily,
   });
 
-  /// Loads passed `feed` and dismisses screen
-  void loadFeedAndPop(BuildContext context, FeedModel? feed) {
+  /// Loads passed `feed` from `folder` and dismisses screen
+  void loadFeedAndPop(
+    BuildContext context, {
+    required FeedModel? feed,
+  }) {
+    // TODO: Update active folder here
     getIt.get<ActiveFeedFolderService>().updateActiveFeed(feed);
 
     if (getIt.isRegistered<NewsController>()) {
       getIt.get<NewsController>().loadFeed(feed);
+    }
+
+    // TODO: Pop all screens until [NewsScreen]
+    Navigator.of(context).pop();
+  }
+
+  /// Loads all `feeds` in `folder` and dismisses screen
+  void loadFeedsAndPop(BuildContext context) {
+    // TODO: Update active folder here
+    getIt.get<ActiveFeedFolderService>().updateActiveFeed(null);
+
+    if (getIt.isRegistered<NewsController>()) {
+      getIt.get<NewsController>().loadAllFeeds(
+        // TODO: Pass all feeds from folder here
+        passedFeeds: [],
+      );
     }
 
     // TODO: Pop all screens until [NewsScreen]
@@ -52,12 +72,10 @@ class FolderContent extends StatelessWidget {
           isDraggable: false,
           key: const ValueKey('all_folder_feeds'),
           onPressedDelete: () {},
-          onPressed: () {
-            // TODO: Pop all screens until [NewsScreen], use all feeds from folder
-          },
-          // TODO
+          onPressed: () => loadFeedsAndPop(context),
+          // TODO Localize
           title: 'All feeds',
-          // TODO
+          // TODO Localize
           subtitle: 'Show all feeds from this folder',
           showActiveIndicator: activeFolder == null,
           fontFamily: fontFamily,
@@ -110,9 +128,10 @@ class FolderContent extends StatelessWidget {
                     feed: feed,
                     folder: folder!,
                   ),
-              onPressed: () {
-                // TODO: Pop all screens until [NewsScreen], use this feed
-              },
+              onPressed: () => loadFeedAndPop(
+                context,
+                feed: feed,
+              ),
               title: feed.siteName ?? feed.title ?? '',
               subtitle: feed.title,
               url: feed.url,

@@ -56,7 +56,7 @@ class FeedsController implements Disposable {
     if (folderAdded) {
       showSnackbar(
         context,
-        // TODO
+        // TODO Localize
         text: 'Folder added',
         icon: NovinarkoIcons.check,
         isDark: true,
@@ -70,7 +70,7 @@ class FeedsController implements Disposable {
     } else {
       showSnackbar(
         dialogContext,
-        // TODO
+        // TODO Localize
         text: 'Folder already exists',
         icon: NovinarkoIcons.close,
         isDark: true,
