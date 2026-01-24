@@ -3,7 +3,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants.dart';
-import '../../models/folder_model.dart';
 import '../../services/active_feed_folder_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
@@ -16,10 +15,10 @@ import 'widgets/folder_app_bar.dart';
 import 'widgets/folder_content.dart';
 
 class FolderScreen extends StatefulWidget {
-  final FolderModel folder;
+  final String passedFolderName;
 
   const FolderScreen({
-    required this.folder,
+    required this.passedFolderName,
   });
 
   @override
@@ -36,31 +35,30 @@ class _FolderScreenState extends State<FolderScreen> {
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
         activeFeedFolder: getIt.get<ActiveFeedFolderService>(),
-        folder: widget.folder,
       ),
-      instanceName: widget.folder.title,
+      instanceName: widget.passedFolderName,
     );
   }
 
   @override
   void dispose() {
     getIt.unregister<FolderController>(
-      instanceName: widget.folder.title,
+      instanceName: widget.passedFolderName,
     );
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) => FolderWidget(
-    folder: widget.folder,
+    instanceName: widget.passedFolderName,
   );
 }
 
 class FolderWidget extends WatchingWidget {
-  final FolderModel folder;
+  final String instanceName;
 
   const FolderWidget({
-    required this.folder,
+    required this.instanceName,
   });
 
   @override
@@ -68,6 +66,12 @@ class FolderWidget extends WatchingWidget {
     final activeFeedFolderState = watchIt<ActiveFeedFolderService>().value;
     final activeFeed = activeFeedFolderState?.feed;
     final activeFolder = activeFeedFolderState?.folder;
+
+    final folderToWatch = watchIt<HiveService>().value.folders
+        .where(
+          (f) => f.title == instanceName,
+        )
+        .firstOrNull;
 
     final settings = watchIt<SettingsService>().value;
 
@@ -80,7 +84,7 @@ class FolderWidget extends WatchingWidget {
           backgroundColor: context.colors.text,
           extendBodyBehindAppBar: true,
           appBar: FolderAppBar(
-            folder: folder,
+            instanceName: instanceName,
           ),
           body: Animate(
             effects: const [
@@ -90,12 +94,12 @@ class FolderWidget extends WatchingWidget {
               ),
             ],
             child: FolderContent(
-              folder: folder,
+              folder: folderToWatch,
               activeFeed: activeFeed,
               activeFolder: activeFolder,
               onReorder: getIt
                   .get<FolderController>(
-                    instanceName: folder.title,
+                    instanceName: instanceName,
                   )
                   .reorderFeeds,
               fontFamily: settings.fontFamily,

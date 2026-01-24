@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
+import '../../../models/feed_model.dart';
 import '../../../models/folder_model.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/settings_service.dart';
@@ -15,36 +16,36 @@ import '../folder_controller.dart';
 import 'folder_add_feed_dialog.dart';
 
 class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
-  final FolderModel folder;
+  final String instanceName;
 
   const FolderAppBar({
-    required this.folder,
+    required this.instanceName,
   });
 
   /// Opens [FolderAddFeedDialog]
   Future<void> openFolderAddFeedDialog(
     BuildContext context, {
+    required FolderModel? folder,
+    required List<FeedModel> nonAddedFeeds,
     required String fontFamily,
   }) async {
-    final controller = getIt.get<FolderController>(
-      instanceName: folder.title,
-    );
+    if (folder == null) {
+      return;
+    }
 
-    /// Find `feeds` which aren't in this folder
-    final allFeeds = getIt.get<HiveService>().getFeeds();
-    final nonAddedFeeds = allFeeds.where((feed) {
-      if (folder.feeds == null) {
-        return true;
-      }
-      return !folder.feeds!.contains(feed);
-    }).toList();
+    final controller = getIt.get<FolderController>(
+      instanceName: instanceName,
+    );
 
     await showDialog(
       context: context,
       builder: (context) => FolderAddFeedDialog(
-        nonAddedFeeds: nonAddedFeeds,
+        instanceName: instanceName,
         outsideDialogPressed: Navigator.of(context).pop,
-        onFeedAdded: (feed) async => controller.addFeed(feed),
+        onFeedAdded: (feed) async => controller.addFeed(
+          feed: feed,
+          folder: folder,
+        ),
         fontFamily: fontFamily,
       ),
     );
@@ -56,6 +57,21 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
     final isDark = theme == null || theme == NovinarkoTheme.dark || theme == NovinarkoTheme.green || theme == NovinarkoTheme.burgundy || theme == NovinarkoTheme.black;
 
     final fontFamily = watchIt<SettingsService>().value.fontFamily;
+
+    final hiveState = watchIt<HiveService>().value;
+
+    final folderToWatch = hiveState.folders
+        .where(
+          (f) => f.title == instanceName,
+        )
+        .firstOrNull;
+
+    final nonAddedFeeds = hiveState.feeds.where((feed) {
+      if (folderToWatch?.feeds == null) {
+        return true;
+      }
+      return !folderToWatch!.feeds!.contains(feed);
+    }).toList();
 
     return AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -86,7 +102,9 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
               FolderAppBarBack(
                 onPressed: Navigator.of(context).pop,
               ),
-              const SizedBox(width: 40),
+              SizedBox(
+                width: nonAddedFeeds.isNotEmpty ? 24 : 40,
+              ),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +119,7 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        folder.title,
+                        folderToWatch?.title ?? '',
                         style: context.textStyles.newsAppBar.copyWith(
                           fontFamily: fontFamily,
                           color: context.colors.background,
@@ -114,24 +132,32 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 40),
+              SizedBox(
+                width: nonAddedFeeds.isNotEmpty ? 24 : 40,
+              ),
               FolderAppBarDelete(
                 onPressed: () async {
                   await getIt
                       .get<FolderController>(
-                        instanceName: folder.title,
+                        instanceName: instanceName,
                       )
-                      .deleteFolder(folder);
+                      .deleteFolder(
+                        folder: folderToWatch,
+                      );
                   Navigator.of(context).pop();
                 },
               ),
-              const SizedBox(width: 20),
-              FolderAppBarAddFeed(
-                onPressed: () => openFolderAddFeedDialog(
-                  context,
-                  fontFamily: fontFamily,
+              if (nonAddedFeeds.isNotEmpty) ...[
+                const SizedBox(width: 20),
+                FolderAppBarAddFeed(
+                  onPressed: () => openFolderAddFeedDialog(
+                    context,
+                    folder: folderToWatch,
+                    nonAddedFeeds: nonAddedFeeds,
+                    fontFamily: fontFamily,
+                  ),
                 ),
-              ),
+              ],
             ],
           ),
         ),

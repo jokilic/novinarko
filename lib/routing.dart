@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'models/folder_model.dart';
 import 'models/novinarko_rss_item.dart';
 import 'screens/feeds/feeds_screen.dart';
 import 'screens/folder/folder_screen.dart';
@@ -19,10 +18,10 @@ void openFeeds(BuildContext context) => pushScreen(
 /// Opens [FolderScreen]
 void openFolder(
   BuildContext context, {
-  required FolderModel folder,
+  required String passedFolderName,
 }) => pushScreen(
   FolderScreen(
-    folder: folder,
+    passedFolderName: passedFolderName,
   ),
   context: context,
   isCircularTransition: true,

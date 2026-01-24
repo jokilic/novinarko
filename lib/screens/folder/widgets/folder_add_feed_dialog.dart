@@ -1,80 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
 import '../../../models/feed_model.dart';
+import '../../../services/hive_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/snackbars.dart';
 import 'folder_list_tile.dart';
 
-class FolderAddFeedDialog extends StatefulWidget {
-  final List<FeedModel> nonAddedFeeds;
+class FolderAddFeedDialog extends WatchingWidget {
+  final String instanceName;
   final Function() outsideDialogPressed;
-  final Function(FeedModel feed) onFeedAdded;
+  final Future<void> Function(FeedModel feed) onFeedAdded;
   final String fontFamily;
 
   const FolderAddFeedDialog({
-    required this.nonAddedFeeds,
+    required this.instanceName,
     required this.outsideDialogPressed,
     required this.onFeedAdded,
     required this.fontFamily,
   });
 
-  @override
-  State<FolderAddFeedDialog> createState() => _FolderAddFeedDialogState();
-}
+  Future<void> addFeed(
+    FeedModel feed, {
+    required BuildContext dialogContext,
+    required bool isLastFeed,
+  }) async {
+    /// Trigger outside function
+    await onFeedAdded(feed);
 
-class _FolderAddFeedDialogState extends State<FolderAddFeedDialog> {
-  late var feeds = List.from(widget.nonAddedFeeds);
-
-  void addFeed(FeedModel feed) {
-    /// Remove feed from list
-    setState(
-      () => feeds.remove(feed),
-    );
+    /// Dismiss dialog if no more feeds to add
+    if (isLastFeed) {
+      outsideDialogPressed();
+    }
 
     /// Show snackbar
     showSnackbar(
-      context,
+      dialogContext,
       // TODO
-      text: 'Feed added',
+      text: '${feed.siteName ?? feed.title} added to folder',
       icon: NovinarkoIcons.check,
       isDark: true,
     );
-
-    /// Trigger outside function
-    widget.onFeedAdded(feed);
-
-    /// Dismiss dialog if no more feeds to add
-    if (feeds.isEmpty) {
-      widget.outsideDialogPressed();
-    }
   }
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-    onTap: widget.outsideDialogPressed,
-    child: ScaffoldMessenger(
-      child: Builder(
-        builder: (context) => Scaffold(
-          backgroundColor: Colors.transparent,
-          body: GestureDetector(
-            onTap: () {},
-            child: Dialog(
-              backgroundColor: context.colors.text,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-                side: BorderSide(
-                  color: context.colors.background,
-                  width: 2,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 28,
+  Widget build(BuildContext context) {
+    final hiveState = watchIt<HiveService>().value;
+
+    final folderToWatch = hiveState.folders
+        .where(
+          (f) => f.title == instanceName,
+        )
+        .firstOrNull;
+
+    final nonAddedFeeds = hiveState.feeds.where((feed) {
+      if (folderToWatch?.feeds == null) {
+        return true;
+      }
+      return !folderToWatch!.feeds!.contains(feed);
+    }).toList();
+
+    return GestureDetector(
+      onTap: outsideDialogPressed,
+      child: ScaffoldMessenger(
+        child: Builder(
+          builder: (context) => Scaffold(
+            backgroundColor: Colors.transparent,
+            body: GestureDetector(
+              onTap: () {},
+              child: Dialog(
+                backgroundColor: context.colors.text,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(
+                    color: context.colors.background,
+                    width: 2,
+                  ),
                 ),
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(vertical: 28),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -98,38 +104,45 @@ class _FolderAddFeedDialogState extends State<FolderAddFeedDialog> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      Text(
-                        // TODO
-                        'Add feeds to folder',
-                        style: context.textStyles.newsFeedInfoTitle.copyWith(
-                          color: context.colors.background,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Text(
+                          // TODO
+                          'Add feeds to folder',
+                          style: context.textStyles.newsFeedInfoTitle.copyWith(
+                            color: context.colors.background,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                       ListView.builder(
                         shrinkWrap: true,
                         padding: const EdgeInsets.symmetric(vertical: 8),
-                        itemCount: feeds.length,
+                        itemCount: nonAddedFeeds.length,
                         itemBuilder: (_, index) {
-                          final feed = feeds[index];
+                          final feed = nonAddedFeeds[index];
 
                           return FolderListTile(
                             isDraggable: false,
-                            horizontalPadding: 0,
+                            horizontalPadding: 24,
                             key: ValueKey(feed),
                             onPressedDelete: () {},
-                            onPressed: () => addFeed(feed),
+                            onPressed: () => addFeed(
+                              feed,
+                              dialogContext: context,
+                              isLastFeed: nonAddedFeeds.length <= 1,
+                            ),
                             title: feed.siteName ?? feed.title ?? '',
                             subtitle: feed.title,
                             url: feed.url,
                             showActiveIndicator: false,
-                            fontFamily: widget.fontFamily,
+                            fontFamily: fontFamily,
                           );
                         },
                       ),
                       const SizedBox(height: 28),
                       TextButton(
-                        onPressed: widget.outsideDialogPressed,
+                        onPressed: outsideDialogPressed,
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 24,
@@ -157,6 +170,6 @@ class _FolderAddFeedDialogState extends State<FolderAddFeedDialog> {
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }

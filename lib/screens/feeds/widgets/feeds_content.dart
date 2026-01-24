@@ -105,7 +105,7 @@ class FeedsContent extends StatelessWidget {
                   onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFolder(item),
                   onPressed: () => openFolder(
                     context,
-                    folder: item,
+                    passedFolderName: item.title,
                   ),
                   title: item.title,
                   subtitle: item.description,

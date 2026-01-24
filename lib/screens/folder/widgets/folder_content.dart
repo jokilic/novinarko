@@ -13,7 +13,7 @@ import '../folder_controller.dart';
 import 'folder_list_tile.dart';
 
 class FolderContent extends StatelessWidget {
-  final FolderModel folder;
+  final FolderModel? folder;
   final FeedModel? activeFeed;
   final FolderModel? activeFolder;
   final Function(int oldIndex, int newIndex) onReorder;
@@ -47,7 +47,7 @@ class FolderContent extends StatelessWidget {
       ///
       /// ALL FEEDS FROM FOLDER
       ///
-      if (folder.feeds?.isNotEmpty ?? false) ...[
+      if (folder?.feeds?.isNotEmpty ?? false) ...[
         FolderListTile(
           isDraggable: false,
           key: const ValueKey('all_folder_feeds'),
@@ -95,26 +95,33 @@ class FolderContent extends StatelessWidget {
         ),
         onReorder: onReorder,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: folder.feeds?.length ?? 0,
+        itemCount: folder?.feeds?.length ?? 0,
         itemBuilder: (_, index) {
-          final feed = folder.feeds![index];
+          final feed = folder?.feeds![index];
 
-          return FolderListTile(
-            key: ValueKey(feed),
-            onPressedDelete: () => getIt
-                .get<FolderController>(
-                  instanceName: folder.title,
-                )
-                .deleteFeed(feed),
-            onPressed: () {
-              // TODO: Pop all screens until [NewsScreen], use this feed
-            },
-            title: feed.siteName ?? feed.title ?? '',
-            subtitle: feed.title,
-            url: feed.url,
-            showActiveIndicator: activeFeed == feed,
-            fontFamily: fontFamily,
-          );
+          if (feed != null && folder != null) {
+            return FolderListTile(
+              key: ValueKey(feed),
+              onPressedDelete: () => getIt
+                  .get<FolderController>(
+                    instanceName: folder?.title,
+                  )
+                  .deleteFeed(
+                    feed: feed,
+                    folder: folder!,
+                  ),
+              onPressed: () {
+                // TODO: Pop all screens until [NewsScreen], use this feed
+              },
+              title: feed.siteName ?? feed.title ?? '',
+              subtitle: feed.title,
+              url: feed.url,
+              showActiveIndicator: activeFeed == feed,
+              fontFamily: fontFamily,
+            );
+          }
+
+          return const SizedBox.shrink();
         },
       ),
 

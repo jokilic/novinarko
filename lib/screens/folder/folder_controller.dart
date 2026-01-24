@@ -8,13 +8,11 @@ class FolderController {
   final LoggerService logger;
   final HiveService hive;
   final ActiveFeedFolderService activeFeedFolder;
-  final FolderModel folder;
 
   FolderController({
     required this.logger,
     required this.hive,
     required this.activeFeedFolder,
-    required this.folder,
   });
 
   ///
@@ -25,8 +23,17 @@ class FolderController {
     // TODO: Reorder feeds within this folder
   }
 
-  Future<void> addFeed(FeedModel feed) async {
+  Future<void> addFeed({
+    required FeedModel feed,
+    required FolderModel folder,
+  }) async {
+    // TODO: I add a feed from dialog, all works well, then I add another feed to the same folder, it doesn't work (folderIndex == -1)
+
+    logger.f('Adding -> ${feed.title}');
+
     final folderIndex = hive.getFolders().indexOf(folder);
+    logger.f('Index == $folderIndex');
+
     if (folderIndex == -1) {
       return;
     }
@@ -45,7 +52,10 @@ class FolderController {
     hive.updateState();
   }
 
-  Future<void> deleteFeed(FeedModel feed) async {
+  Future<void> deleteFeed({
+    required FeedModel feed,
+    required FolderModel folder,
+  }) async {
     final folderIndex = hive.getFolders().indexOf(folder);
     if (folderIndex == -1) {
       return;
@@ -68,7 +78,11 @@ class FolderController {
     hive.updateState();
   }
 
-  Future<void> deleteFolder(FolderModel folder) async {
+  Future<void> deleteFolder({required FolderModel? folder}) async {
+    if (folder == null) {
+      return;
+    }
+
     /// Find the `index` of passed `folder`
     final index = hive.getFolders().indexOf(folder);
 

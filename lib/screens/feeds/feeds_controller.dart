@@ -57,7 +57,7 @@ class FeedsController implements Disposable {
       showSnackbar(
         context,
         // TODO
-        text: 'Hello there',
+        text: 'Folder added',
         icon: NovinarkoIcons.check,
         isDark: true,
       );
@@ -71,7 +71,7 @@ class FeedsController implements Disposable {
       showSnackbar(
         dialogContext,
         // TODO
-        text: 'Nooo',
+        text: 'Folder already exists',
         icon: NovinarkoIcons.close,
         isDark: true,
       );
