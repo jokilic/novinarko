@@ -19,8 +19,51 @@ class FolderController {
   /// METHODS
   ///
 
-  Future<void> reorderFeeds(int oldIndex, int newIndex) async {
-    // TODO: Reorder feeds within this folder
+  Future<void> reorderFeeds(
+    int oldIndex,
+    int newIndex, {
+    required FolderModel? folder,
+  }) async {
+    if (folder == null) {
+      return;
+    }
+
+    final folders = hive.getFolders();
+    final folderIndex = folders.indexWhere(
+      (item) => item.title == folder.title,
+    );
+
+    if (folderIndex == -1) {
+      return;
+    }
+
+    final currentFolder = folders[folderIndex];
+    final currentFeeds = List<FeedModel>.from(
+      currentFolder.feeds ?? const [],
+    );
+
+    if (currentFeeds.isEmpty || oldIndex < 0 || oldIndex >= currentFeeds.length) {
+      return;
+    }
+
+    final feed = currentFeeds.removeAt(oldIndex);
+    currentFeeds.insert(
+      oldIndex < newIndex ? newIndex - 1 : newIndex,
+      feed,
+    );
+
+    final updatedFolder = FolderModel(
+      title: currentFolder.title,
+      description: currentFolder.description,
+      feeds: currentFeeds,
+    );
+
+    await hive.storeFolder(
+      folder: updatedFolder,
+      index: folderIndex,
+    );
+
+    hive.updateState();
   }
 
   Future<void> addFeed({

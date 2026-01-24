@@ -97,11 +97,15 @@ class FolderWidget extends WatchingWidget {
               folder: folderToWatch,
               activeFeed: activeFeed,
               activeFolder: activeFolder,
-              onReorder: getIt
+              onReorder: (oldIndex, newIndex) => getIt
                   .get<FolderController>(
                     instanceName: instanceName,
                   )
-                  .reorderFeeds,
+                  .reorderFeeds(
+                    oldIndex,
+                    newIndex,
+                    folder: folderToWatch,
+                  ),
               fontFamily: settings.fontFamily,
             ),
           ),
