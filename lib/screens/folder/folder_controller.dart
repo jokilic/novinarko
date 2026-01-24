@@ -27,21 +27,20 @@ class FolderController {
     required FeedModel feed,
     required FolderModel folder,
   }) async {
-    // TODO: I add a feed from dialog, all works well, then I add another feed to the same folder, it doesn't work (folderIndex == -1)
-
-    logger.f('Adding -> ${feed.title}');
-
-    final folderIndex = hive.getFolders().indexOf(folder);
-    logger.f('Index == $folderIndex');
+    final folders = hive.getFolders();
+    final folderIndex = folders.indexWhere(
+      (item) => item.title == folder.title,
+    );
 
     if (folderIndex == -1) {
       return;
     }
 
+    final currentFolder = folders[folderIndex];
     final updatedFolder = FolderModel(
-      title: folder.title,
-      description: folder.description,
-      feeds: [...?folder.feeds, feed],
+      title: currentFolder.title,
+      description: currentFolder.description,
+      feeds: [...?currentFolder.feeds, feed],
     );
 
     await hive.storeFolder(
