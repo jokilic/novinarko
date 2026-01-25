@@ -25,8 +25,8 @@ class NewsController extends ValueNotifier<NewsState> {
     required this.hive,
     required this.activeFeedFolder,
   }) : super(NewsStateInitial()) {
-    loadFeed(
-      activeFeedFolder.value?.feed,
+    refreshActiveFeeds(
+      useLoadingState: true,
     );
   }
 
@@ -57,7 +57,7 @@ class NewsController extends ValueNotifier<NewsState> {
     }
   }
 
-  Future<void> pullToRefresh() async {
+  Future<void> refreshActiveFeeds({bool useLoadingState = false}) async {
     final activeFeed = activeFeedFolder.value?.feed;
     final activeFolder = activeFeedFolder.value?.folder;
 
@@ -67,19 +67,21 @@ class NewsController extends ValueNotifier<NewsState> {
     if (activeFeed != null) {
       await loadSingleFeed(
         feed: activeFeed,
-        useLoadingState: false,
+        useLoadingState: useLoadingState,
       );
     }
     /// `activeFolder` exists, fetch and parse all feeds from it
     else if (activeFolder != null) {
       await loadAllFeeds(
         passedFeeds: activeFolderFeeds,
-        useLoadingState: false,
+        useLoadingState: useLoadingState,
       );
     }
     /// No `activeFeed`, fetch and parse all `feeds`
     else {
-      await loadAllFeeds(useLoadingState: false);
+      await loadAllFeeds(
+        useLoadingState: useLoadingState,
+      );
     }
   }
 

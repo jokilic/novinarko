@@ -38,7 +38,7 @@ class NewsResult extends StatelessWidget {
       final feed = result.rssFeed!;
 
       return RefreshIndicator(
-        onRefresh: getIt.get<NewsController>().pullToRefresh,
+        onRefresh: getIt.get<NewsController>().refreshActiveFeeds,
         color: context.colors.background,
         backgroundColor: context.colors.text,
         edgeOffset: kToolbarHeight + 32 + 80,
