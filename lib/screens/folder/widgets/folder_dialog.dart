@@ -68,7 +68,7 @@ class FolderDialog extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        'folderAddFolderTitle'.tr(),
+                        'folderDialogAddFolderTitle'.tr(),
                         style: context.textStyles.newsFeedInfoTitle.copyWith(
                           color: context.colors.background,
                         ),
@@ -76,7 +76,7 @@ class FolderDialog extends StatelessWidget {
                       ),
                       FolderDialogTextField(
                         textController: folderTitleTextController,
-                        labelText: 'folderTitle'.tr(),
+                        labelText: 'folderDialogTitle'.tr(),
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.next,
                         autocorrect: true,
@@ -84,7 +84,7 @@ class FolderDialog extends StatelessWidget {
                       ),
                       FolderDialogTextField(
                         textController: folderDescriptionTextController,
-                        labelText: 'folderDescription'.tr(),
+                        labelText: 'folderDialogDescription'.tr(),
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.done,
                         autocorrect: true,
@@ -105,7 +105,7 @@ class FolderDialog extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'folderAddFolderButton'.tr().toUpperCase(),
+                          'folderDialogAddFolderButton'.tr().toUpperCase(),
                           style: context.textStyles.searchCustomDialogButton.copyWith(
                             color: context.colors.background,
                           ),

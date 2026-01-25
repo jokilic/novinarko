@@ -60,8 +60,8 @@ class FeedsContent extends StatelessWidget {
       /// ALL FEEDS
       ///
       FeedsListTile(
-        isDraggable: false,
         key: const ValueKey('all_feeds'),
+        isDraggable: false,
         onPressedDelete: () {},
         onPressed: () => loadAndPop(
           context,
@@ -109,7 +109,7 @@ class FeedsContent extends StatelessWidget {
               ///
               if (item is FolderModel) {
                 return FeedsListTile(
-                  key: ValueKey(item),
+                  key: ValueKey('folder_${item.title}'),
                   onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFolder(item),
                   onPressed: () => openFolder(
                     context,
@@ -129,7 +129,9 @@ class FeedsContent extends StatelessWidget {
               final feed = item as FeedModel;
 
               return FeedsListTile(
-                key: ValueKey(feed),
+                key: ValueKey(
+                    'feed_${feed.url ?? feed.siteUrl ?? feed.title ?? feed.description}',
+                ),
                 onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFeed(feed),
                 onPressed: () => loadAndPop(
                   context,

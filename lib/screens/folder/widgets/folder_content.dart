@@ -70,8 +70,8 @@ class FolderContent extends StatelessWidget {
       ///
       if (folder?.feeds?.isNotEmpty ?? false) ...[
         FolderListTile(
-          isDraggable: false,
           key: const ValueKey('all_folder_feeds'),
+          isDraggable: false,
           onPressedDelete: () {},
           onPressed: () => loadAndPop(
             context,
@@ -121,7 +121,9 @@ class FolderContent extends StatelessWidget {
 
           if (feed != null && folder != null) {
             return FolderListTile(
-              key: ValueKey(feed),
+              key: ValueKey(
+                'feed_${feed.url ?? feed.siteUrl ?? feed.title ?? feed.description}',
+              ),
               onPressedDelete: () => getIt
                   .get<FolderController>(
                     instanceName: folder?.title,

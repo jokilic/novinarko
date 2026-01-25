@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -37,8 +38,12 @@ class FolderAddFeedDialog extends WatchingWidget {
     /// Show snackbar
     showSnackbar(
       dialogContext,
-      // TODO Localize
-      text: '${feed.siteName ?? feed.title} added to folder',
+      text: 'folderAddFeedDialogAdded'.tr(
+        args: [
+          feed.siteName ?? feed.title ?? '--',
+        ],
+      ),
+
       icon: NovinarkoIcons.check,
       isDark: true,
     );
@@ -107,8 +112,7 @@ class FolderAddFeedDialog extends WatchingWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
                         child: Text(
-                          // TODO Localize
-                          'Add feeds to folder',
+                          'folderAddFeedDialogTitle'.tr(),
                           style: context.textStyles.newsFeedInfoTitle.copyWith(
                             color: context.colors.background,
                           ),
@@ -123,9 +127,11 @@ class FolderAddFeedDialog extends WatchingWidget {
                           final feed = nonAddedFeeds[index];
 
                           return FolderListTile(
+                            key: ValueKey(
+                              'feed_${feed.url ?? feed.siteUrl ?? feed.title ?? feed.description}',
+                            ),
                             isDraggable: false,
                             horizontalPadding: 24,
-                            key: ValueKey(feed),
                             onPressedDelete: () {},
                             onPressed: () => addFeed(
                               feed,
@@ -155,8 +161,7 @@ class FolderAddFeedDialog extends WatchingWidget {
                           ),
                         ),
                         child: Text(
-                          // TODO Localize
-                          'Finish'.toUpperCase(),
+                          'folderAddFeedDialogButton'.tr().toUpperCase(),
                           style: context.textStyles.searchCustomDialogButton.copyWith(
                             color: context.colors.background,
                           ),
