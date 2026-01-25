@@ -10,6 +10,7 @@
     "folderDialogAddFolderButton": "Add folder",
     "folderDialogUpdateFolderButton": "Update folder",
     "folderDialogDeleteFolderButton": "Delete folder",
+    "folderDialogNoFeedsInFolder": "No feeds in folder",
     "folderDialogTitle": "Title",
     "folderDialogDescription": "Note (not necessary)",
     "folderDialogFolderAdded": "Folder is added",

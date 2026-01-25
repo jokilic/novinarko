@@ -8,6 +8,7 @@ import '../../../services/active_feed_folder_service.dart';
 import '../../../services/hive_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
+import '../../../util/string.dart';
 import '../../../widgets/novinarko_divider.dart';
 import '../../news/controllers/news_controller.dart';
 import 'feeds_list_tile.dart';
@@ -116,7 +117,7 @@ class FeedsContent extends StatelessWidget {
                     passedFolderName: item.title,
                   ),
                   title: item.title,
-                  subtitle: item.description,
+                  subtitle: (item.description?.isNotEmpty ?? false) ? item.description : getFolderFeedsDescription(item.feeds),
                   showActiveIndicator: activeFolder == item,
                   fontFamily: fontFamily,
                   isFolder: true,
@@ -130,7 +131,7 @@ class FeedsContent extends StatelessWidget {
 
               return FeedsListTile(
                 key: ValueKey(
-                    'feed_${feed.url ?? feed.siteUrl ?? feed.title ?? feed.description}',
+                  'feed_${feed.url ?? feed.siteUrl ?? feed.title ?? feed.description}',
                 ),
                 onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFeed(feed),
                 onPressed: () => loadAndPop(
