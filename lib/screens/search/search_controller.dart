@@ -161,7 +161,7 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
       );
 
       /// Clear [TextEditingControllers]
-      clearCustomTextControllers();
+      clearCustomTextEditingControllers();
 
       /// Remove dialog
       Navigator.of(context).pop();
@@ -203,9 +203,14 @@ class SearchController extends ValueNotifier<SearchState> implements Disposable 
     return false;
   }
 
-  void clearCustomTextControllers() {
+  void clearCustomTextEditingControllers() {
     customFeedTitleTextController.clear();
     customFeedUrlTextController.clear();
     customFeedSiteNameTextController.clear();
+  }
+
+  void clearState() {
+    value = SearchStateInitial();
+    searchTextController.clear();
   }
 }

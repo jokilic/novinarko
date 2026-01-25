@@ -33,7 +33,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
-    getIt.get<SearchController>().clearCustomTextControllers();
+    getIt.get<SearchController>()
+      ..clearCustomTextEditingControllers()
+      ..clearState();
+
     super.dispose();
   }
 

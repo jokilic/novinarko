@@ -52,7 +52,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
     /// User has less than feed limit, trigger custom search
     if (feedsLength < feedLimit) {
       /// Clear [TextEditingControllers]
-      controller.clearCustomTextControllers();
+      controller.clearCustomTextEditingControllers();
 
       /// Show [SearchCustomDialog]
       await showDialog(
@@ -63,7 +63,7 @@ class SearchAppBar extends WatchingWidget implements PreferredSizeWidget {
             dialogContext: dialogContext,
           ),
           outsideDialogPressed: () {
-            controller.clearCustomTextControllers();
+            controller.clearCustomTextEditingControllers();
             Navigator.of(context).pop();
           },
           feedTitleTextController: controller.customFeedTitleTextController,
