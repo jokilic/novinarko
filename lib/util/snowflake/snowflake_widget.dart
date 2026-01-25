@@ -7,12 +7,12 @@ import 'snowflake.dart';
 import 'snowflake_painter.dart';
 
 class SnowflakeWidget extends StatefulWidget {
-  final int numberOfSnowflakes;
   final Color color;
+  final int numberOfSnowflakes;
 
   const SnowflakeWidget({
-    required this.numberOfSnowflakes,
     required this.color,
+    this.numberOfSnowflakes = 40,
   });
 
   @override
@@ -33,8 +33,8 @@ class _SnowflakeWidgetState extends State<SnowflakeWidget> with SingleTickerProv
       (_) => Snowflake(
         x: random.nextDouble() * 400,
         y: random.nextDouble() * 800,
-        radius: random.nextDouble() * 2 + 1,
-        speed: random.nextDouble() * 1.5 + 0.5,
+        radius: random.nextDouble() * 3 + 1,
+        speed: random.nextDouble() * 1 + 0.5,
       ),
     );
 

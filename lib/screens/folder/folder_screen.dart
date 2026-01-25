@@ -117,7 +117,6 @@ class FolderWidget extends WatchingWidget {
         if (settings.showSnowflakes)
           SnowflakeWidget(
             color: context.colors.background.withValues(alpha: 0.6),
-            numberOfSnowflakes: 50,
           ),
       ],
     );

@@ -81,7 +81,6 @@ class SearchWidget extends WatchingWidget {
         if (settings.showSnowflakes)
           SnowflakeWidget(
             color: context.colors.text.withValues(alpha: 0.6),
-            numberOfSnowflakes: 50,
           ),
       ],
     );
