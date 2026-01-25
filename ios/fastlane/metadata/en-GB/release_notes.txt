@@ -1,1 +1,2 @@
 * Remove feeds limit
+* Update folder feeds description
