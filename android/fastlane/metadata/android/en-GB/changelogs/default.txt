@@ -1,3 +1,2 @@
-* Folders
-* Small update to snowflakes
-* Exiting SearchScreen clears state
+* Dialog for updating folder values
+* Show some feeds if no folder description
