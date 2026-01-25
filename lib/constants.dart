@@ -33,6 +33,7 @@ class NovinarkoConstants {
 
 class NovinarkoIcons {
   static const all = 'assets/icons/all.png';
+  static const folder = 'assets/icons/folder.png';
   static const back = 'assets/icons/back.png';
   static const check = 'assets/icons/check.png';
   static const delete = 'assets/icons/delete.png';
@@ -45,7 +46,6 @@ class NovinarkoIcons {
   static const search = 'assets/icons/search.png';
   static const customSearch = 'assets/icons/custom_search.png';
   static const add = 'assets/icons/add.png';
-  static const addFolder = 'assets/icons/add_folder.png';
   static const settings = 'assets/icons/settings.png';
   static const info = 'assets/icons/info.png';
   static const close = 'assets/icons/close.png';

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -28,35 +29,35 @@ class FolderContent extends StatelessWidget {
   });
 
   /// Loads passed `feed` from `folder` and dismisses screen
-  void loadFeedAndPop(
+  void loadAndPop(
     BuildContext context, {
     required FeedModel? feed,
   }) {
-    // TODO: Update active folder here
-    getIt.get<ActiveFeedFolderService>().updateActiveFeed(feed);
+    /// Update active values
+    getIt.get<ActiveFeedFolderService>()
+      ..updateActiveFolder(folder)
+      ..updateActiveFeed(feed);
 
+    /// Load proper feeds if [NewsController] is registered
     if (getIt.isRegistered<NewsController>()) {
-      getIt.get<NewsController>().loadFeed(feed);
+      final newsController = getIt.get<NewsController>();
+
+      /// `Feed` is passed, load it
+      if (feed != null) {
+        newsController.loadFeed(feed);
+      }
+      /// No `feed` passed, load all feeds from `folder`
+      else {
+        newsController.loadAllFeeds(
+          passedFeeds: folder?.feeds,
+        );
+      }
     }
 
-    // TODO: Pop all screens until [NewsScreen]
-    Navigator.of(context).pop();
-  }
-
-  /// Loads all `feeds` in `folder` and dismisses screen
-  void loadFeedsAndPop(BuildContext context) {
-    // TODO: Update active folder here
-    getIt.get<ActiveFeedFolderService>().updateActiveFeed(null);
-
-    if (getIt.isRegistered<NewsController>()) {
-      getIt.get<NewsController>().loadAllFeeds(
-        // TODO: Pass all feeds from folder here
-        passedFeeds: [],
-      );
-    }
-
-    // TODO: Pop all screens until [NewsScreen]
-    Navigator.of(context).pop();
+    /// Go back to [NewsScreen]
+    Navigator.of(context).popUntil(
+      (route) => route.isFirst,
+    );
   }
 
   @override
@@ -72,12 +73,13 @@ class FolderContent extends StatelessWidget {
           isDraggable: false,
           key: const ValueKey('all_folder_feeds'),
           onPressedDelete: () {},
-          onPressed: () => loadFeedsAndPop(context),
-          // TODO Localize
-          title: 'All feeds',
-          // TODO Localize
-          subtitle: 'Show all feeds from this folder',
-          showActiveIndicator: activeFolder == null,
+          onPressed: () => loadAndPop(
+            context,
+            feed: null,
+          ),
+          title: 'folderAllFeedsTitle'.tr(),
+          subtitle: 'folderAllFeedsSubtitle'.tr(),
+          showActiveIndicator: activeFolder == folder && activeFeed == null,
           fontFamily: fontFamily,
         ),
 
@@ -128,7 +130,7 @@ class FolderContent extends StatelessWidget {
                     feed: feed,
                     folder: folder!,
                   ),
-              onPressed: () => loadFeedAndPop(
+              onPressed: () => loadAndPop(
                 context,
                 feed: feed,
               ),

@@ -110,11 +110,11 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      NovinarkoIcons.addFolder,
+                      NovinarkoIcons.folder,
                       fit: BoxFit.cover,
                       color: context.colors.background,
-                      height: 20,
-                      width: 20,
+                      height: 24,
+                      width: 24,
                     ),
                     const SizedBox(width: 8),
                     Flexible(
@@ -238,8 +238,8 @@ class FolderAppBarDelete extends StatelessWidget {
         NovinarkoIcons.delete,
         fit: BoxFit.cover,
         color: context.colors.background,
-        height: 20,
-        width: 20,
+        height: 16,
+        width: 16,
       ),
     ),
   );

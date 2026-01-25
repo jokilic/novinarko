@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -58,7 +59,7 @@ class FolderDialog extends StatelessWidget {
                           ),
                         ),
                         child: Image.asset(
-                          NovinarkoIcons.addFolder,
+                          NovinarkoIcons.add,
                           fit: BoxFit.cover,
                           color: context.colors.background,
                           height: 36,
@@ -67,8 +68,7 @@ class FolderDialog extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        // TODO Localize
-                        'Add folder',
+                        'folderAddFolderTitle'.tr(),
                         style: context.textStyles.newsFeedInfoTitle.copyWith(
                           color: context.colors.background,
                         ),
@@ -76,8 +76,7 @@ class FolderDialog extends StatelessWidget {
                       ),
                       FolderDialogTextField(
                         textController: folderTitleTextController,
-                        // TODO Localize
-                        labelText: 'Folder title',
+                        labelText: 'folderTitle'.tr(),
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.next,
                         autocorrect: true,
@@ -85,8 +84,7 @@ class FolderDialog extends StatelessWidget {
                       ),
                       FolderDialogTextField(
                         textController: folderDescriptionTextController,
-                        // TODO Localize
-                        labelText: 'Folder description',
+                        labelText: 'folderDescription'.tr(),
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.done,
                         autocorrect: true,
@@ -107,8 +105,7 @@ class FolderDialog extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          // TODO Localize
-                          'Add folder'.toUpperCase(),
+                          'folderAddFolderButton'.tr().toUpperCase(),
                           style: context.textStyles.searchCustomDialogButton.copyWith(
                             color: context.colors.background,
                           ),

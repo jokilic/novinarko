@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -56,8 +57,7 @@ class FeedsController implements Disposable {
     if (folderAdded) {
       showSnackbar(
         context,
-        // TODO Localize
-        text: 'Folder added',
+        text: 'folderFolderAdded'.tr(),
         icon: NovinarkoIcons.check,
         isDark: true,
       );
@@ -70,8 +70,7 @@ class FeedsController implements Disposable {
     } else {
       showSnackbar(
         dialogContext,
-        // TODO Localize
-        text: 'Folder already exists',
+        text: 'folderFolderAlreadyExists'.tr(),
         icon: NovinarkoIcons.close,
         isDark: true,
       );

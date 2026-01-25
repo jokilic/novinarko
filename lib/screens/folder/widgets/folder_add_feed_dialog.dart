@@ -96,7 +96,7 @@ class FolderAddFeedDialog extends WatchingWidget {
                           ),
                         ),
                         child: Image.asset(
-                          NovinarkoIcons.addFolder,
+                          NovinarkoIcons.news,
                           fit: BoxFit.cover,
                           color: context.colors.background,
                           height: 36,

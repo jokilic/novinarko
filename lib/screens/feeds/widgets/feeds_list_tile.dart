@@ -53,8 +53,8 @@ class FeedsListTile extends StatelessWidget {
               NovinarkoIcons.delete,
               fit: BoxFit.cover,
               color: context.colors.background,
-              height: 32,
-              width: 32,
+              height: 24,
+              width: 24,
             ),
           ),
         ),
@@ -78,11 +78,11 @@ class FeedsListTile extends StatelessWidget {
                 /// Folder icon
                 if (isFolder) ...[
                   Image.asset(
-                    NovinarkoIcons.addFolder,
+                    NovinarkoIcons.folder,
                     fit: BoxFit.cover,
                     color: context.colors.background,
-                    height: 20,
-                    width: 20,
+                    height: 24,
+                    width: 24,
                   ),
                   const SizedBox(width: 8),
                 ],

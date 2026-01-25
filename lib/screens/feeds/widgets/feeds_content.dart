@@ -30,17 +30,25 @@ class FeedsContent extends StatelessWidget {
   });
 
   /// Loads passed `feed` and dismisses screen
-  void loadFeedAndPop({
-    required BuildContext context,
+  void loadAndPop(
+    BuildContext context, {
     required FeedModel? feed,
   }) {
-    getIt.get<ActiveFeedFolderService>().updateActiveFeed(feed);
+    /// Update active values
+    getIt.get<ActiveFeedFolderService>()
+      ..updateActiveFolder(null)
+      ..updateActiveFeed(feed);
 
+    /// Load proper feeds if [NewsController] is registered
     if (getIt.isRegistered<NewsController>()) {
+      /// If `feed == null`, it loads all feeds
       getIt.get<NewsController>().loadFeed(feed);
     }
 
-    Navigator.of(context).pop();
+    /// Go back to [NewsScreen]
+    Navigator.of(context).popUntil(
+      (route) => route.isFirst,
+    );
   }
 
   @override
@@ -55,13 +63,13 @@ class FeedsContent extends StatelessWidget {
         isDraggable: false,
         key: const ValueKey('all_feeds'),
         onPressedDelete: () {},
-        onPressed: () => loadFeedAndPop(
-          context: context,
+        onPressed: () => loadAndPop(
+          context,
           feed: null,
         ),
         title: 'feedsAllFeedsTitle'.tr(),
         subtitle: 'feedsAllFeedsSubtitle'.tr(),
-        showActiveIndicator: activeFeed == null,
+        showActiveIndicator: activeFeed == null && activeFolder == null,
         fontFamily: fontFamily,
         isFolder: false,
       ),
@@ -123,8 +131,8 @@ class FeedsContent extends StatelessWidget {
               return FeedsListTile(
                 key: ValueKey(feed),
                 onPressedDelete: () => getIt.get<ActiveFeedFolderService>().storeOrDeleteFeed(feed),
-                onPressed: () => loadFeedAndPop(
-                  context: context,
+                onPressed: () => loadAndPop(
+                  context,
                   feed: feed,
                 ),
                 title: feed.siteName ?? feed.title ?? '',

@@ -76,15 +76,15 @@ class FeedsAppBar extends WatchingWidget implements PreferredSizeWidget {
                 onPressed: Navigator.of(context).pop,
               ),
               const Spacer(),
+              FeedsAppBarSettings(
+                onPressed: () => openSettings(context),
+              ),
+              const SizedBox(width: 20),
               FeedsAppBarAddFolder(
                 onPressed: () => openFolderDialog(
                   context,
                   fontFamily: fontFamily,
                 ),
-              ),
-              const SizedBox(width: 20),
-              FeedsAppBarSettings(
-                onPressed: () => openSettings(context),
               ),
             ],
           ),
@@ -142,37 +142,6 @@ class FeedsAppBarBack extends StatelessWidget {
   );
 }
 
-class FeedsAppBarAddFolder extends StatelessWidget {
-  final Function() onPressed;
-
-  const FeedsAppBarAddFolder({
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) => IconButton(
-    onPressed: onPressed,
-    style: IconButton.styleFrom(
-      highlightColor: context.colors.primary.withValues(alpha: 0.6),
-      fixedSize: const Size(50, 50),
-      shape: const CircleBorder(),
-      side: BorderSide(
-        color: context.colors.background,
-        width: 2,
-      ),
-    ),
-    icon: Center(
-      child: Image.asset(
-        NovinarkoIcons.addFolder,
-        fit: BoxFit.cover,
-        color: context.colors.background,
-        height: 20,
-        width: 20,
-      ),
-    ),
-  );
-}
-
 class FeedsAppBarSettings extends StatelessWidget {
   final Function() onPressed;
 
@@ -195,6 +164,37 @@ class FeedsAppBarSettings extends StatelessWidget {
     icon: Center(
       child: Image.asset(
         NovinarkoIcons.settings,
+        fit: BoxFit.cover,
+        color: context.colors.background,
+        height: 20,
+        width: 20,
+      ),
+    ),
+  );
+}
+
+class FeedsAppBarAddFolder extends StatelessWidget {
+  final Function() onPressed;
+
+  const FeedsAppBarAddFolder({
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) => IconButton(
+    onPressed: onPressed,
+    style: IconButton.styleFrom(
+      highlightColor: context.colors.primary.withValues(alpha: 0.6),
+      fixedSize: const Size(50, 50),
+      shape: const CircleBorder(),
+      side: BorderSide(
+        color: context.colors.background,
+        width: 2,
+      ),
+    ),
+    icon: Center(
+      child: Image.asset(
+        NovinarkoIcons.add,
         fit: BoxFit.cover,
         color: context.colors.background,
         height: 20,

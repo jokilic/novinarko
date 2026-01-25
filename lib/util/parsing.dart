@@ -6,6 +6,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:xml/xml.dart';
 
 import '../models/feed_model.dart';
+import '../models/folder_model.dart';
 
 String? getRSSImageUrl({
   required RssItem item,
@@ -174,6 +175,18 @@ String? getFeedTitle(FeedModel? feed) {
           return host;
         }
       }
+    }
+
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+
+String? getFolderTitle(FolderModel? folder) {
+  try {
+    if (folder != null) {
+      return folder.title;
     }
 
     return null;

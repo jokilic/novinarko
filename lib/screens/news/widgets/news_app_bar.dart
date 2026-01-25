@@ -7,6 +7,7 @@ import 'package:watch_it/watch_it.dart';
 import '../../../constants.dart';
 import '../../../main.dart';
 import '../../../models/feed_model.dart';
+import '../../../models/folder_model.dart';
 import '../../../routing.dart';
 import '../../../services/active_feed_folder_service.dart';
 import '../../../services/hive_service.dart';
@@ -48,17 +49,40 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
     ),
   );
 
+  String getTitle({
+    required FeedModel? feed,
+    required FolderModel? folder,
+  }) {
+    if (feed != null) {
+      return getFeedTitle(feed) ?? '';
+    }
+
+    if (folder != null) {
+      return getFolderTitle(folder) ?? '';
+    }
+
+    return 'newsAllFeedsTitle'.tr();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final activeFeed = watchIt<ActiveFeedFolderService>().value?.feed;
+    final activeFeedFolderState = watchIt<ActiveFeedFolderService>().value;
+
+    final activeFeed = activeFeedFolderState?.feed;
+    final activeFolder = activeFeedFolderState?.folder;
+
     final feedsLength = watchIt<HiveService>().value.feeds.length;
     final fontFamily = watchIt<SettingsService>().value.fontFamily;
+
+    final title = getTitle(
+      feed: activeFeed,
+      folder: activeFolder,
+    );
 
     return AppBar(
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
-
       automaticallyImplyLeading: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -76,8 +100,9 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
             children: [
               NewsAppBarAvatar(
                 favicon: getFeedIcon(activeFeed),
-                feedTitle: getFeedTitle(activeFeed)?.substring(0, 2) ?? 'newsAllFeedsTitle'.tr().substring(0, 2),
+                feedTitle: title.substring(0, 2),
                 hasActiveFeed: activeFeed != null,
+                hasActiveFolder: activeFolder != null,
                 onPressed: activeFeed != null
                     ? () => openFeedInfoDialog(
                         context,
@@ -89,7 +114,7 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
               const SizedBox(width: 40),
               Expanded(
                 child: NewsAppBarActiveFeed(
-                  feedTitle: getFeedTitle(activeFeed) ?? 'newsAllFeedsTitle'.tr(),
+                  feedTitle: title,
                   onPressed: () => openFeeds(context),
                   fontFamily: fontFamily,
                 ),
@@ -132,12 +157,14 @@ class NewsAppBarAvatar extends StatelessWidget {
   final String feedTitle;
   final Function() onPressed;
   final bool hasActiveFeed;
+  final bool hasActiveFolder;
   final String fontFamily;
 
   const NewsAppBarAvatar({
     required this.feedTitle,
     required this.onPressed,
     required this.hasActiveFeed,
+    required this.hasActiveFolder,
     required this.fontFamily,
     this.favicon,
   });
@@ -158,7 +185,7 @@ class NewsAppBarAvatar extends StatelessWidget {
       child: !hasActiveFeed
           ? ClipOval(
               child: Image.asset(
-                NovinarkoIcons.all,
+                hasActiveFolder ? NovinarkoIcons.folder : NovinarkoIcons.all,
                 fit: BoxFit.cover,
                 color: context.colors.text,
               ),

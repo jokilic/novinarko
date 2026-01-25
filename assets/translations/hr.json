@@ -3,6 +3,8 @@
     "internetError": "Nemate internetsku vezu",
     "feedsAllFeedsTitle": "Svi izvori",
     "feedsAllFeedsSubtitle": "Prikaži sve izvore koje imaš",
+    "folderAllFeedsTitle": "Svi izvori",
+    "folderAllFeedsSubtitle": "Prikaži sve izvore iz ove mape",
     "newsStateLoadingSingle": "Dohvaćam {}",
     "newsStateLoadingAll": "Dohvaćam sve izvore",
     "newsStateEmptyTitle": "Nema izvora",
