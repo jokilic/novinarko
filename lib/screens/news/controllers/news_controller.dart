@@ -57,11 +57,23 @@ class NewsController extends ValueNotifier<NewsState> {
     }
   }
 
-  Future<void> pullToRefresh(FeedModel? activeFeed) async {
+  Future<void> pullToRefresh() async {
+    final activeFeed = activeFeedFolder.value?.feed;
+    final activeFolder = activeFeedFolder.value?.folder;
+
+    final activeFolderFeeds = activeFolder?.feeds ?? const <FeedModel>[];
+
     /// `activeFeed` exists, fetch and parse it
     if (activeFeed != null) {
       await loadSingleFeed(
         feed: activeFeed,
+        useLoadingState: false,
+      );
+    }
+    /// `activeFolder` exists, fetch and parse all feeds from it
+    else if (activeFolder != null) {
+      await loadAllFeeds(
+        passedFeeds: activeFolderFeeds,
         useLoadingState: false,
       );
     }

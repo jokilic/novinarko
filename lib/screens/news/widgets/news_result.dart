@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../models/novinarko_rss_feed.dart';
 import '../../../models/novinarko_rss_item.dart';
-import '../../../services/active_feed_folder_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../../../util/navigation.dart';
@@ -39,9 +38,7 @@ class NewsResult extends StatelessWidget {
       final feed = result.rssFeed!;
 
       return RefreshIndicator(
-        onRefresh: () => getIt.get<NewsController>().pullToRefresh(
-          getIt.get<ActiveFeedFolderService>().value?.feed,
-        ),
+        onRefresh: getIt.get<NewsController>().pullToRefresh,
         color: context.colors.background,
         backgroundColor: context.colors.text,
         edgeOffset: kToolbarHeight + 32 + 80,
