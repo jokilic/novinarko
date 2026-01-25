@@ -4,15 +4,17 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../theme/theme.dart';
 
-class FolderDialog extends StatelessWidget {
-  final Function(BuildContext context) addFolderPressed;
+class UpdateFolderDialog extends StatelessWidget {
+  final Function(BuildContext context) updateFolderPressed;
+  final Function(BuildContext context) deleteFolderPressed;
   final Function() outsideDialogPressed;
   final TextEditingController folderTitleTextController;
   final TextEditingController folderDescriptionTextController;
   final String fontFamily;
 
-  const FolderDialog({
-    required this.addFolderPressed,
+  const UpdateFolderDialog({
+    required this.updateFolderPressed,
+    required this.deleteFolderPressed,
     required this.outsideDialogPressed,
     required this.folderTitleTextController,
     required this.folderDescriptionTextController,
@@ -68,13 +70,13 @@ class FolderDialog extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        'folderDialogAddFolderTitle'.tr(),
+                        'folderDialogUpdateFolderTitle'.tr(),
                         style: context.textStyles.newsFeedInfoTitle.copyWith(
                           color: context.colors.background,
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      FolderDialogTextField(
+                      UpdateFolderDialogTextField(
                         textController: folderTitleTextController,
                         labelText: 'folderDialogTitle'.tr(),
                         keyboardType: TextInputType.name,
@@ -82,7 +84,7 @@ class FolderDialog extends StatelessWidget {
                         autocorrect: true,
                         fontFamily: fontFamily,
                       ),
-                      FolderDialogTextField(
+                      UpdateFolderDialogTextField(
                         textController: folderDescriptionTextController,
                         labelText: 'folderDialogDescription'.tr(),
                         keyboardType: TextInputType.text,
@@ -92,7 +94,7 @@ class FolderDialog extends StatelessWidget {
                       ),
                       const SizedBox(height: 28),
                       TextButton(
-                        onPressed: () => addFolderPressed(context),
+                        onPressed: () => updateFolderPressed(context),
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 24,
@@ -105,7 +107,28 @@ class FolderDialog extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'folderDialogAddFolderButton'.tr().toUpperCase(),
+                          'folderDialogUpdateFolderButton'.tr().toUpperCase(),
+                          style: context.textStyles.searchCustomDialogButton.copyWith(
+                            color: context.colors.background,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextButton(
+                        onPressed: () => deleteFolderPressed(context),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                          elevation: 0,
+                          side: BorderSide(
+                            color: context.colors.background,
+                            width: 2,
+                          ),
+                        ),
+                        child: Text(
+                          'folderDialogDeleteFolderButton'.tr().toUpperCase(),
                           style: context.textStyles.searchCustomDialogButton.copyWith(
                             color: context.colors.background,
                           ),
@@ -123,7 +146,7 @@ class FolderDialog extends StatelessWidget {
   );
 }
 
-class FolderDialogTextField extends StatelessWidget {
+class UpdateFolderDialogTextField extends StatelessWidget {
   final TextEditingController textController;
   final String labelText;
   final TextInputType keyboardType;
@@ -131,7 +154,7 @@ class FolderDialogTextField extends StatelessWidget {
   final bool autocorrect;
   final String fontFamily;
 
-  const FolderDialogTextField({
+  const UpdateFolderDialogTextField({
     required this.textController,
     required this.labelText,
     required this.keyboardType,

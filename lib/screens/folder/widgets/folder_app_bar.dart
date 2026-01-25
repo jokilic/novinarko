@@ -14,6 +14,7 @@ import '../../../theme/theme.dart';
 import '../../../util/dependencies.dart';
 import '../folder_controller.dart';
 import 'folder_add_feed_dialog.dart';
+import 'update_folder_dialog.dart';
 
 class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
   final String instanceName;
@@ -21,6 +22,50 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
   const FolderAppBar({
     required this.instanceName,
   });
+
+  /// Opens [UpdateFolderDialog]
+  Future<void> openUpdateFolderDialog(
+    BuildContext context, {
+    required FolderModel? folder,
+    required List<FeedModel> nonAddedFeeds,
+    required String fontFamily,
+  }) async {
+    if (folder == null) {
+      return;
+    }
+
+    final controller = getIt.get<FolderController>(
+      instanceName: instanceName,
+    );
+
+    final folderTitleTextController = TextEditingController(
+      text: folder.title,
+    );
+
+    final folderDescriptionTextController = TextEditingController(
+      text: folder.description,
+    );
+
+    await showDialog(
+      context: context,
+      builder: (context) => UpdateFolderDialog(
+        updateFolderPressed: (context) => controller.updateFolder(
+          folder: folder,
+          context: context,
+          title: folderTitleTextController.text.trim(),
+          description: folderDescriptionTextController.text.trim(),
+        ),
+        deleteFolderPressed: (dialogContext) => controller.deleteFolder(
+          folder: folder,
+          context: context,
+        ),
+        outsideDialogPressed: Navigator.of(context).pop,
+        folderTitleTextController: folderTitleTextController,
+        folderDescriptionTextController: folderDescriptionTextController,
+        fontFamily: fontFamily,
+      ),
+    );
+  }
 
   /// Opens [FolderAddFeedDialog]
   Future<void> openFolderAddFeedDialog(
@@ -136,16 +181,12 @@ class FolderAppBar extends WatchingWidget implements PreferredSizeWidget {
                 width: nonAddedFeeds.isNotEmpty ? 24 : 40,
               ),
               FolderAppBarDelete(
-                onPressed: () async {
-                  await getIt
-                      .get<FolderController>(
-                        instanceName: instanceName,
-                      )
-                      .deleteFolder(
-                        folder: folderToWatch,
-                      );
-                  Navigator.of(context).pop();
-                },
+                onPressed: () => openUpdateFolderDialog(
+                  context,
+                  folder: folderToWatch,
+                  nonAddedFeeds: nonAddedFeeds,
+                  fontFamily: fontFamily,
+                ),
               ),
               if (nonAddedFeeds.isNotEmpty) ...[
                 const SizedBox(width: 20),
@@ -235,11 +276,11 @@ class FolderAppBarDelete extends StatelessWidget {
     ),
     icon: Center(
       child: Image.asset(
-        NovinarkoIcons.delete,
+        NovinarkoIcons.customSearch,
         fit: BoxFit.cover,
         color: context.colors.background,
-        height: 16,
-        width: 16,
+        height: 20,
+        width: 20,
       ),
     ),
   );
