@@ -5,39 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../../constants.dart';
-import '../../../main.dart';
 import '../../../models/feed_model.dart';
 import '../../../models/folder_model.dart';
 import '../../../routing.dart';
 import '../../../services/active_feed_folder_service.dart';
-import '../../../services/hive_service.dart';
 import '../../../services/settings_service.dart';
 import '../../../theme/theme.dart';
 import '../../../util/parsing.dart';
-import '../../../util/snackbars.dart';
 import '../../../widgets/novinarko_network_image.dart';
-import '../../search/search_screen.dart';
 import 'news_feed_info_dialog.dart';
 
 class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
-  /// Opens [SearchScreen] or shows [SnackBar], depending on `feedsLength`
-  Future<void> openSearchOrShowSnackBar(
-    BuildContext context, {
-    required int feedsLength,
-  }) async {
-    /// User has less than feed limit, open [SearchScreen]
-    if (feedsLength < feedLimit) {
-      openSearch(context);
-    }
-    /// User has more than feed limit, show [SnackBar]
-    else {
-      showRemoveSomeFeedsSnackbar(
-        context,
-        onPressed: () => openFeeds(context),
-      );
-    }
-  }
-
   /// Opens [NewsFeedInfoDialog] showing data about the active feed
   void openFeedInfoDialog(
     BuildContext context, {
@@ -71,7 +49,6 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
     final activeFeed = activeFeedFolderState?.feed;
     final activeFolder = activeFeedFolderState?.folder;
 
-    final feedsLength = watchIt<HiveService>().value.feeds.length;
     final fontFamily = watchIt<SettingsService>().value.fontFamily;
 
     final title = getTitle(
@@ -121,11 +98,7 @@ class NewsAppBar extends WatchingWidget implements PreferredSizeWidget {
               ),
               const SizedBox(width: 40),
               NewsAppBarSearch(
-                noSearch: feedsLength >= feedLimit,
-                onPressed: () => openSearchOrShowSnackBar(
-                  context,
-                  feedsLength: feedsLength,
-                ),
+                onPressed: () => openSearch(context),
               ),
             ],
           ),
@@ -287,11 +260,9 @@ class NewsAppBarActiveFeed extends StatelessWidget {
 
 class NewsAppBarSearch extends StatelessWidget {
   final Function() onPressed;
-  final bool noSearch;
 
   const NewsAppBarSearch({
     required this.onPressed,
-    required this.noSearch,
   });
 
   @override
@@ -308,7 +279,7 @@ class NewsAppBarSearch extends StatelessWidget {
     ),
     icon: Center(
       child: Image.asset(
-        noSearch ? NovinarkoIcons.noSearch : NovinarkoIcons.search,
+        NovinarkoIcons.search,
         fit: BoxFit.cover,
         color: context.colors.text,
         height: 20,

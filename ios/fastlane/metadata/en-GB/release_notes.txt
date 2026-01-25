@@ -1,2 +1,1 @@
-* Dialog for updating folder values
-* Show some feeds if no folder description
+* Remove feeds limit

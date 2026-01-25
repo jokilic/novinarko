@@ -14,7 +14,6 @@ import 'util/display_mode.dart';
 import 'widgets/novinarko_loader.dart';
 
 /// Feed limit to be used in the app
-const feedLimit = 10;
 
 Future<void> main() async {
   /// Initialize Flutter related tasks
