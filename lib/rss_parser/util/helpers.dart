@@ -6,7 +6,7 @@ XmlElement? findElementOrNull(
   String? namespace,
 }) {
   try {
-    return element.findAllElements(name, namespace: namespace).firstOrNull;
+    return element.findAllElements(name, namespaceUri: namespace).firstOrNull;
   } catch (e) {
     return null;
   }

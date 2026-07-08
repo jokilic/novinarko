@@ -99,7 +99,7 @@ class FeedsContent extends StatelessWidget {
               color: context.colors.primary.withValues(alpha: 0.6),
               child: child,
             ),
-            onReorder: onReorder,
+            onReorderItem: onReorder,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: orderedItems.length,
             itemBuilder: (_, index) {

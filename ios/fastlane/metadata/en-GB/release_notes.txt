@@ -1,5 +1,1 @@
-* Remove feeds limit
-* Update folder feeds description
-* Fix scroll in FolderAddFeedDialog
-* Fix pull-to-refresh
-* Fix loading initial feeds
+* Update dependencies
