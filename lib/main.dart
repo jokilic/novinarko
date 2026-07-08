@@ -13,8 +13,6 @@ import 'util/dependencies.dart';
 import 'util/display_mode.dart';
 import 'widgets/novinarko_loader.dart';
 
-/// Feed limit to be used in the app
-
 Future<void> main() async {
   /// Initialize Flutter related tasks
   WidgetsFlutterBinding.ensureInitialized();
